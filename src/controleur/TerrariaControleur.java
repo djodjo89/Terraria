@@ -40,21 +40,20 @@ public class TerrariaControleur implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("ok");
-		map.setVisible(false);
+		
 		txt.setText("coucou");
 		t = new Terrain () ;
 		
 		t.initTerrain();
 		t.affTerrain();
 		
-		this.afficherMap();
 		this.ajouterEcouter () ;
 		
-		this.t.getListeLignes().get(0).remove(5) ;
-		this.t.getListeLignes().get(0).add(5, 'C') ;
-		
-		System.out.println("ok");
+		this.t.getListeLignes().get(5).remove(5) ;
+		this.t.getListeLignes().get(5).add(5, 'C') ;
+		System.out.println(this.t.getListeLignes().get(5).get(5));
+		this.afficherMap();
+		t.affTerrain();
 		
 	}
 	
@@ -70,7 +69,7 @@ public class TerrariaControleur implements Initializable {
 
 					while (changement.next()) {
 						
-						if (changement.wasReplaced()) {
+						if (changement.wasAdded()) {
 							
 							System.out.println("ok");
 							
