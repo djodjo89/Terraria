@@ -33,6 +33,12 @@ public class Terrain {
 		
 	}
 	
+	public int getDim () {
+		
+		return this.listeDeLignes.get(0).size() ;
+		
+	}
+	
 	public ArrayList<ObservableList<Character>> getListeLignes () {
 		
 		return this.listeDeLignes ;

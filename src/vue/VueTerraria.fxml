@@ -7,17 +7,21 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.TerrariaControleur">
    <children>
-      <Pane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <TextArea fx:id="map" prefHeight="200.0" prefWidth="200.0" />
-            <TextField fx:id="txt" />
-         </children>
-      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" />
    </children>
    <center>
       <TextArea fx:id="map" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
+   <right>
+      <Button fx:id="boutonDroite" mnemonicParsing="false" onAction="#allerADroite" text="Droite" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <Button fx:id="boutonGauche" mnemonicParsing="false" onAction="#allerAGauche" text="Gauche" BorderPane.alignment="CENTER" />
+   </left>
    <top>
-      <TextField fx:id="txt" text="iezufgh" BorderPane.alignment="CENTER" />
+      <Button fx:id="boutonHaut" mnemonicParsing="false" onAction="#allerEnHaut" text="Haut" BorderPane.alignment="CENTER" />
    </top>
+   <bottom>
+      <Button fx:id="boutonBas" mnemonicParsing="false" onAction="#allerEnBas" text="Bas" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
