@@ -8,6 +8,7 @@ public class Main {
 		// Commentaire de test
 		
 		System.out.println("J'arrive à modifier le code de chez moi !");
+		System.out.println("Normalement c'est pour ma branche ça.");
 
 	}
 
