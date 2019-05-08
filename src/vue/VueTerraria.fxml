@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.TerrariaControleur">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TextArea fx:id="map" prefHeight="200.0" prefWidth="200.0" />
+            <TextField fx:id="txt" />
+         </children>
+      </Pane>
+   </children>
+   <center>
+      <TextArea fx:id="map" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <TextField fx:id="txt" text="iezufgh" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>
