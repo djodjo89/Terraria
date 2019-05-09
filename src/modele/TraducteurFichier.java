@@ -37,25 +37,21 @@ public class TraducteurFichier {
 		
 		String ligne ;
 		
-		String[] premiereLigne ;
-		String[] autresLignes ;
-
-		ligne = bfr.readLine() ;
+		String[] lignes ;
 		
-		premiereLigne = ligne.split(",") ;
+		i = 0 ;
 		
-		for (i = 0 ; i < this.tableauDeString.size() ; i ++) {
+		while ((ligne = bfr.readLine()) != null) {
 			
-			ligne = bfr.readLine() ;
+			lignes = ligne.split(",") ;
 			
-			autresLignes = ligne.split(",") ;
-			
-			for (j = 0 ; j < this.tableauDeString.get(i).size() ; j ++) {
+			for (j = 0 ; j < lignes.length ; j ++) {
 				
-				this.tableauDeString.get(i).set(j, autresLignes[j])  ;
-				
-				
+				this.tableauDeString.get(i).set(j, lignes[j])  ;
+								
 			}
+			
+			i ++ ;
 			
 		}
 		
