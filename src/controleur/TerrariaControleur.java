@@ -39,9 +39,9 @@ public class TerrariaControleur implements Initializable {
     	
     	this.map.clear();
     	
-    	for (ObservableList<Character> ligne : t.getListeLignes()) {
+    	for (ObservableList<String> ligne : t.getListeLignes()) {
     		
-    		for (Character c : ligne) {
+    		for (String c : ligne) {
     			
     			map.appendText(c + " ");
     			
@@ -63,7 +63,7 @@ public class TerrariaControleur implements Initializable {
 		
 		this.ajouterEcouteur () ;
 		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), 'C') ;
+		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "P") ;
 		
 		this.afficherMap();
 		
@@ -100,7 +100,7 @@ public class TerrariaControleur implements Initializable {
 	
 	private void seDeplacer () { // 0 : haut, 1 : droite, 2 : bas, 3 : gauche
 		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), 'T') ;
+		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "T") ;
 		System.out.println(p.getX() + p.getY());
 		System.out.println(this.direction);
 		
@@ -108,7 +108,7 @@ public class TerrariaControleur implements Initializable {
 		
 			case 0 : 
 				
-				if (this.p.getX() - 1 >= 0) {
+				if (this.p.add(0., 1.).getX() >= 0) {
 					
 					this.p = this.p.add(-1., 0.) ; 
 					
@@ -118,7 +118,7 @@ public class TerrariaControleur implements Initializable {
 			
 			case 1 : 
 				
-				if (this.p.getY() + 1 < this.t.getDim()) {
+				if (this.p.add(0., 1.).getY() < this.t.getDim()) {
 					
 					this.p = this.p.add(0., 1.) ; 
 					
@@ -128,7 +128,7 @@ public class TerrariaControleur implements Initializable {
 			
 			case 2 : 
 				
-				if (this.p.getX() + 1 < this.t.getDim()) {
+				if (this.p.add(1., 0.).getX() < this.t.getDim()) {
 				
 					this.p = this.p.add(1., 0.) ; 
 					
@@ -138,7 +138,7 @@ public class TerrariaControleur implements Initializable {
 			
 			case 3 : 
 				
-				if (this.p.getY() - 1 >= 0) {
+				if (this.p.add(0., -1.).getY() >= 0) {
 					
 					this.p = this.p.add(0., -1.) ; 
 					
@@ -148,7 +148,7 @@ public class TerrariaControleur implements Initializable {
 			
 		}
 		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), 'C') ;
+		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "P") ;
 		System.out.println(p.getX() + p.getY());
 		this.afficherMap();
 		
@@ -156,19 +156,19 @@ public class TerrariaControleur implements Initializable {
 	
 	public void ajouterEcouteur () {
 		
-		for (ObservableList<Character> listeCases : this.t.getListeLignes()) {
+		for (ObservableList<String> listeCases : this.t.getListeLignes()) {
 			
-			listeCases.addListener (new ListChangeListener<Character> () {
+			listeCases.addListener (new ListChangeListener<String> () {
 
 				@Override
-				public void onChanged(Change<? extends Character> changement) {
+				public void onChanged(Change<? extends String> changement) {
 
 
 					while (changement.next()) {
 
 						if (changement.wasReplaced()) {
 
-							if (listeCases.get((int)p.getY()) == 'C') {
+							if (listeCases.get((int)p.getY()) == "P") {
 
 								System.out.print("Déplacement ");
 

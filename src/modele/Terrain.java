@@ -7,8 +7,14 @@ import javafx.collections.ObservableList;
 
 public class Terrain {
 	
-	private ArrayList<ObservableList<Character>> listeDeLignes ;
+	private ArrayList<ObservableList<String>> listeDeLignes ;
 
+	public Terrain (ArrayList<ObservableList<String>> mapFichier) {
+		
+		listeDeLignes = new ArrayList<> () ;
+		
+	}
+	
 	public Terrain () {
 		
 		listeDeLignes = new ArrayList<> () ;
@@ -25,7 +31,7 @@ public class Terrain {
 			
 			for (j = 0 ; j < 10 ; j ++) {
 				
-				listeDeLignes.get(i).add('T') ;
+				listeDeLignes.get(i).add("T") ;
 				
 			}
 			
@@ -39,7 +45,7 @@ public class Terrain {
 		
 	}
 	
-	public ArrayList<ObservableList<Character>> getListeLignes () {
+	public ArrayList<ObservableList<String>> getListeLignes () {
 		
 		return this.listeDeLignes ;
 		
@@ -47,9 +53,9 @@ public class Terrain {
 	
 	public void affTerrain () {
 		
-		for (ObservableList<Character> ligne : this.listeDeLignes) {
+		for (ObservableList<String> ligne : this.listeDeLignes) {
 			
-			for (Character casE : ligne) {
+			for (String casE : ligne) {
 				
 				System.out.print(casE + " ");
 				
