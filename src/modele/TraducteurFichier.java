@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
 
 public class TraducteurFichier {
 	
@@ -11,13 +14,20 @@ public class TraducteurFichier {
 	
 	private BufferedReader bfr ;
 	
-	private String[][] tableauDeString ;
+	private ArrayList<ObservableList<String>> tableauDeString ;
 
-	public TraducteurFichier (String nomF) {
+	public TraducteurFichier (String nomF) throws IOException {
 		
 		this.f = new File(nomF) ;
 		this.bfr = new BufferedReader(new FileReader(f)) ;
-		this.tableauDeString = new String[][] ;
+		this.tableauDeString = new ArrayList<ObservableList<String>> () ;
+		this.initTableau();
+		
+	}
+	
+	public ArrayList<ObservableList<String>> getTabMap () {
+		
+		return this.tableauDeString ;
 		
 	}
 	
@@ -34,17 +44,15 @@ public class TraducteurFichier {
 		
 		premiereLigne = ligne.split(",") ;
 		
-		this.tableauDeString = new String[Integer.parseInt(premiereLigne[0])][Integer.parseInt(premiereLigne[1])] ;
-		
-		for (i = 0 ; i < this.tableauDeString.length ; i ++) {
+		for (i = 0 ; i < this.tableauDeString.size() ; i ++) {
 			
 			ligne = bfr.readLine() ;
 			
 			autresLignes = ligne.split(",") ;
 			
-			for (j = 0 ; j < this.tableauDeString[i].length ; j ++) {
+			for (j = 0 ; j < this.tableauDeString.get(i).size() ; j ++) {
 				
-				this.tableauDeString[i][j] = autresLignes[j] ;
+				this.tableauDeString.get(i).set(j, autresLignes[j])  ;
 				
 				
 			}
