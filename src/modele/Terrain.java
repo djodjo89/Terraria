@@ -1,70 +1,59 @@
-package modele;
 
-import java.util.ArrayList;
+	package modele;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+	import java.util.ArrayList;
 
-public class Terrain {
-	
-	private ArrayList<ObservableList<String>> listeDeLignes ;
+	import javafx.collections.FXCollections;
+	import javafx.collections.ObservableList;
 
-	public Terrain (ArrayList<ObservableList<String>> mapFichier) {
+	public class Terrain {
 		
-		listeDeLignes = new ArrayList<> () ;
+		private ArrayList<ObservableList<String>> listeDeLignes ;
 		
-	}
-	
-	public Terrain () {
 		
-		listeDeLignes = new ArrayList<> () ;
-		
-	}
-	
-	public void initTerrain () {
-		
-		int i, j ;
-		
-		for (i = 0 ; i < 10 ; i ++) {
+
+		public Terrain (ArrayList<ObservableList<String>> newlist) {
 			
-			listeDeLignes.add(FXCollections.observableArrayList()) ;
+			listeDeLignes = newlist ;
 			
-			for (j = 0 ; j < 10 ; j ++) {
+			
+			
+			
+			
+		}
+		
+		public int getDimY() {
+			return this.listeDeLignes.size();
+		}
+		
+		public int getDimX () {
+			
+			return this.listeDeLignes.get(0).size() ;
+			
+		}
+		
+		public ArrayList<ObservableList<String>> getListeLignes () {
+			
+			return this.listeDeLignes ;
+			
+		}
+		
+		public void affTerrain () {
+			
+			for (ObservableList<String> ligne : this.listeDeLignes) {
 				
-				listeDeLignes.get(i).add("T") ;
+				for (String casE : ligne) {
+					
+					System.out.print(casE + " ");
+					
+				}
+				
+				System.out.println();
 				
 			}
 			
 		}
-		
-	}
-	
-	public int getDim () {
-		
-		return this.listeDeLignes.get(0).size() ;
-		
-	}
-	
-	public ArrayList<ObservableList<String>> getListeLignes () {
-		
-		return this.listeDeLignes ;
-		
-	}
-	
-	public void affTerrain () {
-		
-		for (ObservableList<String> ligne : this.listeDeLignes) {
-			
-			for (String casE : ligne) {
-				
-				System.out.print(casE + " ");
-				
-			}
-			
-			System.out.println();
-			
-		}
-		
+
 	}
 
-}
+
