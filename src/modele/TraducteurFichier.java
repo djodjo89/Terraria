@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TraducteurFichier {
@@ -22,6 +23,12 @@ public class TraducteurFichier {
 		this.bfr = new BufferedReader(new FileReader(f)) ;
 		this.tableauDeString = new ArrayList<ObservableList<String>> () ;
 		this.initTableau();
+		
+	}
+	
+	public BufferedReader getBuffer () {
+		
+		return this.bfr ;
 		
 	}
 	
@@ -44,10 +51,11 @@ public class TraducteurFichier {
 		while ((ligne = bfr.readLine()) != null) {
 			
 			lignes = ligne.split(",") ;
+			this.tableauDeString.add(FXCollections.observableArrayList()) ;
 			
 			for (j = 0 ; j < lignes.length ; j ++) {
 				
-				this.tableauDeString.get(i).set(j, lignes[j])  ;
+				this.tableauDeString.get(i).add(lignes[j])  ;
 								
 			}
 			

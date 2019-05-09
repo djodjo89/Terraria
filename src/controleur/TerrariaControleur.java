@@ -1,5 +1,7 @@
 package controleur;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,6 +14,7 @@ import javafx.geometry.Point2D ;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
 import modele.Terrain;
+import modele.TraducteurFichier;
 
 public class TerrariaControleur implements Initializable {
 	
@@ -19,6 +22,8 @@ public class TerrariaControleur implements Initializable {
 	private Point2D p ;
 	final static private String[] DIRECTIONS = {"haut", "droite", "bas", "gauche"} ;
 	private int direction ;
+	
+	private TraducteurFichier tf ;
 	
     @FXML
     private TextArea map;
@@ -57,9 +62,16 @@ public class TerrariaControleur implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		this.p = new Point2D(5, 5) ;
-		this.t = new Terrain () ;
 		
-		this.t.initTerrain();
+		try {
+			this.tf = new TraducteurFichier("map.csv") ;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("coucou");
+		}
+		
+		this.t = new Terrain (this.tf.getTabMap()) ;
 		
 		this.ajouterEcouteur () ;
 		
@@ -118,7 +130,7 @@ public class TerrariaControleur implements Initializable {
 			
 			case 1 : 
 				
-				if (this.p.add(0., 1.).getY() < this.t.getDim()) {
+				if (this.p.add(0., 1.).getY() < this.t.getDimY()) {
 					
 					this.p = this.p.add(0., 1.) ; 
 					
@@ -128,7 +140,7 @@ public class TerrariaControleur implements Initializable {
 			
 			case 2 : 
 				
-				if (this.p.add(1., 0.).getX() < this.t.getDim()) {
+				if (this.p.add(1., 0.).getX() < this.t.getDimX()) {
 				
 					this.p = this.p.add(1., 0.) ; 
 					
