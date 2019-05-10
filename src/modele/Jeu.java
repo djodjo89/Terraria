@@ -12,7 +12,6 @@ public class Jeu {
 	public Jeu (String nomF) throws IOException {
 		
 		this.p = new Personnage () ;
-		this.c = new Collisionneur (this.p) ;
 		this.tf = new TraducteurFichier(nomF) ;
 		this.t = new Terrain (this.tf.getTabMap()) ;
 		
@@ -40,13 +39,13 @@ public class Jeu {
 		
 		switch (direction) {
 		
-			case "haut" : if (this.c.deplacementPossible ("haut", this.t)) this.p.deplace("haut") ; break ;
+			case "haut" : if (Collisionneur.deplacementPossible ("haut", this.t,this.p)) this.p.deplace("haut") ; break ;
 			
-			case "droite" : if (this.c.deplacementPossible ("droite", this.t)) this.p.deplace("droite") ; break ;
+			case "droite" : if (Collisionneur.deplacementPossible ("droite", this.t,this.p)) this.p.deplace("droite") ; break ;
 			
-			case "bas" : if (this.c.deplacementPossible ("bas", this.t)) this.p.deplace("bas") ; break ;
+			case "bas" : if (Collisionneur.deplacementPossible ("bas", this.t,this.p)) this.p.deplace("bas") ; break ;
 			
-			case "gauche" : if (this.c.deplacementPossible ("gauche", this.t)) this.p.deplace("gauche") ; break ;
+			case "gauche" : if (Collisionneur.deplacementPossible ("gauche", this.t,this.p)) this.p.deplace("gauche") ; break ;
 		
 		}
 		

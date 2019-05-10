@@ -52,8 +52,6 @@ public class TerrariaControleur implements Initializable {
 				// on définit ce qui se passe à chaque frame 
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
-					BorderMap.getChildren().remove(BorderMap.getChildren().size() - 1);
-					afficherMap ();
 					
 				})
 				);
@@ -95,8 +93,8 @@ public class TerrariaControleur implements Initializable {
 	    	tile = this.perso ;
 	    	//BorderMap.getChildren().remove(tile);
 	    	tile.setId("joueur");
-	    	tile.setLayoutX(this.jeu.getPerso().getCoordonnees().getX() * tailleImage);
-	    	tile.setLayoutY(this.jeu.getPerso().getCoordonnees().getY() * tailleImage);
+	    	tile.setLayoutX(this.jeu.getPerso().getX() * tailleImage);
+	    	tile.setLayoutY(this.jeu.getPerso().getY() * tailleImage);
 	    	BorderMap.getChildren().add(tile);
 	    	
 	    }
@@ -116,7 +114,8 @@ public class TerrariaControleur implements Initializable {
 		this.panePerso.setFocusTraversable(true);
 		this.ct = new ControleurTouches(this.BorderMap, this.jeu) ;
 		this.gameLoop.play();
-		
+		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());	
+		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
 	}
 
 	public void ajouterEcouteur () {

@@ -2,15 +2,8 @@ package modele;
 
 public class Collisionneur {
 	
-	private Personnage p ;
 	
-	public Collisionneur (Personnage p) {
-		
-		this.p = p ;
-		
-	}
-	
-	public boolean deplacementPossible (String direction, Terrain t) {
+	public static boolean deplacementPossible (String direction, Terrain t,Personnage p) {
 		
 		boolean deplacementOK ;
 		
@@ -18,10 +11,10 @@ public class Collisionneur {
 		
 		switch (direction) {
 		
-			case "haut" : deplacementOK = !tombeSurUnObstacle(0, -1, t) ; break ;
-			case "droite" : deplacementOK = !tombeSurUnObstacle(1, 0, t) ; break ;
-			case "bas" : deplacementOK = !tombeSurUnObstacle(0, 1, t) ; break ;
-			case "gauche" : deplacementOK = !tombeSurUnObstacle(-1, 0, t) ; break ;
+			case "haut" : deplacementOK = !tombeSurUnObstacle(0, -1, t,p) ; break ;
+			case "droite" : deplacementOK = !tombeSurUnObstacle(1, 0, t,p) ; break ;
+			case "bas" : deplacementOK = !tombeSurUnObstacle(0, 1, t,p) ; break ;
+			case "gauche" : deplacementOK = !tombeSurUnObstacle(-1, 0, t,p) ; break ;
 		
 		}
 		
@@ -29,9 +22,13 @@ public class Collisionneur {
 		
 	}
 	
-	public boolean tombeSurUnObstacle (int x, int y, Terrain t) {
+	public static boolean tombeSurUnObstacle (int x, int y, Terrain t, Personnage p) {
+		double xPos=p.getX()/50;
+		double yPos=p.getY()/50;
+		System.out.println(yPos);
+		System.out.println(xPos);
 		
-		return (int)this.p.getCoordonnees().getY() + y >= t.getDimY() || (int)this.p.getCoordonnees().getY() + y < 0 || (int)this.p.getCoordonnees().getX() + x >= t.getDimX() || (int)this.p.getCoordonnees().getX() + x < 0 || t.getListeLignes().get((int)this.p.getCoordonnees().getY() + y).get((int)this.p.getCoordonnees().getX() + x).equals("T") ;
+		return (int)yPos + y >= t.getDimY() || (int)yPos + y < 0 || (int)xPos + x >= t.getDimX() || (int)xPos + x < 0 || t.getListeLignes().get((int)yPos + y).get((int)xPos + x).equals("T") ;
 		
 	}
 

@@ -13,7 +13,8 @@ public class Personnage {
 	private DoubleProperty ptsAttaque ;
 	private String nom ;
 	private Outil main ;
-	Point2D coordonnees ;
+	private DoubleProperty x;
+	private DoubleProperty y;
 	
 	public Personnage () {
 		
@@ -24,8 +25,28 @@ public class Personnage {
 	public Personnage (String nom, int x, int y) {
 		
 		this.nom = nom ;
-		this.coordonnees = new Point2D (x, y) ;
+		this.x= new SimpleDoubleProperty(0);
+		this.y= new SimpleDoubleProperty(0);
 		
+	}
+	
+	public double getX() {
+		return this.x.getValue();
+	}
+	public double getY() {
+		return this.y.getValue();
+	}
+	public DoubleProperty getXProperty() {
+		return this.x;
+	}
+	public DoubleProperty getYProperty() {
+		return this.y;
+	}
+	public void setX(double x) {
+		this.x.setValue(x);
+	}
+	public void setY(double y) {
+		this.y.setValue(y);
 	}
 	
 	public void donner (Outil o) {
@@ -64,15 +85,11 @@ public class Personnage {
 		
 	}
 	
-	public Point2D getCoordonnees () {
-		
-		return this.coordonnees ;
-		
-	}
 	
-	public void deplace (int x, int y) {
+	public void deplace (double x, double y) {
 		
-		this.coordonnees = this.coordonnees.add(x, y) ;
+		this.setY(this.y.getValue()+y);
+		this.setX(this.x.getValue()+x);
 		
 	}
 	
@@ -80,10 +97,18 @@ public class Personnage {
 		
 		switch (direction) {
 		
-			case "haut" : this.deplace(0, -1); break ;
-			case "droite" : this.deplace(1, 0); break ;
-			case "bas" : this.deplace(0, 1); break ;
-			case "gauche" : this.deplace(-1, 0); break ;
+			case "haut" : 
+				this.deplace(0, -10); 
+				break ;
+			case "droite" : 
+				this.deplace(10, 0); 
+				break ;
+			case "bas" : 
+				this.deplace(0,10); 
+				break ;
+			case "gauche" : 
+				this.deplace(-10, 0); 
+				break ;
 		
 		}
 		
