@@ -13,56 +13,36 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D ;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import javafx.scene.control.Button;
-import modele.Personnage;
-import modele.Terrain;
-import modele.TraducteurFichier;
-import modele.Personnage;
+import modele.* ;
 
 public class TerrariaControleur implements Initializable {
 	
-	private Terrain t ;
-	private Point2D p ;
-	final static private String[] DIRECTIONS = {"haut", "droite", "bas", "gauche"} ;
-	private int direction ;
-	private Personnage joueur;
-	
 	private Timeline gameLoop;
+	
+	private Jeu jeu ;
+	
+	private ControleurTouches ct ;
 	
 	@FXML
     private Pane panePerso;
 	
-	 @FXML
-	 private ImageView perso;
-	
-	private TraducteurFichier tf ;
+	@FXML
+	private ImageView perso;
 	
     @FXML
     private TextArea map;
     
     @FXML
-    private Button boutonDroite ;
-    
-    @FXML
-    private Button boutonGauche ;
-    
-    @FXML
-    private Button boutonHaut ;
-    
-    @FXML
-    private Button boutonBas ;
-    
-    @FXML
 	private BorderPane BorderMap;
     
-	public void initDeplacement() {
+	public void initBoucleJeu() {
+		
 		gameLoop = new Timeline();
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		
@@ -73,44 +53,35 @@ public class TerrariaControleur implements Initializable {
 				// on définit ce qui se passe à chaque frame 
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
-					joueur.deplace();
+					BorderMap.getChildren().remove(BorderMap.getChildren().size() - 1);
+					afficherMap ();
+					
 				})
 				);
 		gameLoop.getKeyFrames().add(kf);
 	}
-
-	    
-	   public void afficherMap () {
+    
+	public void afficherMap () {
 		   
-	    	 Terrain map;
 	    	int tailleImage=50;
-	    	try {
-				TraducteurFichier mapFichier=new TraducteurFichier("map.csv");
-		    	map=new Terrain(mapFichier.getTabMap());
-
-			} catch (IOException e) {
-				map=new Terrain();
-				e.printStackTrace();
-			}
-	    	Image perso=new Image("image/perso.png");
-	    	Image terre= new Image("image/terre.png");
-	    	Image air = new Image("image/air.png");
+	    	Image perso=new Image(new File("image/perso.png").toURI().toString());
+	    	Image terre= new Image(new File("image/terre.png").toURI().toString());
+	    	Image air = new Image(new File("image/air.png").toURI().toString());
 	    	String nom = new String("test");
 	    	ImageView tile=new ImageView();
 	    	
-	    	
-	    	
-	    	int yMap=map.getDimY();
-	    	int xMap=map.getDimX();
+	    	int yMap=this.jeu.getMap().getDimY();
+	    	int xMap=this.jeu.getMap().getDimX();
 	    	
     		String valeur;
     		this.perso=new ImageView(perso);
     		
+    		this.panePerso.getChildren().clear();
 
 	    	for(int y=0;y<yMap;y++) {
 		    	for(int x=0;x<xMap;x++) {
 		    		nom = "case"+ x+","+y;
-		    		valeur=map.getListeLignes().get(y).get(x);
+		    		valeur=this.jeu.getMap().getListeLignes().get(y).get(x);
 		    		if(valeur.equals("T"))
 		    			tile =new ImageView(terre);
 		    		else if(valeur.equals("A"))
@@ -122,127 +93,36 @@ public class TerrariaControleur implements Initializable {
 		    	}
 		    	
 	    	}
-	    	BorderMap.getChildren().add(this.perso);
+	    	tile = this.perso ;
+	    	//BorderMap.getChildren().remove(tile);
+	    	tile.setId("joueur");
+	    	tile.setLayoutX(this.jeu.getPerso().getCoordonnees().getX() * tailleImage);
+	    	tile.setLayoutY(this.jeu.getPerso().getCoordonnees().getY() * tailleImage);
+	    	BorderMap.getChildren().add(tile);
 	    	
 	    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.joueur=new Personnage(0,0);
-		
-		
-		this.p = new Point2D(5, 5) ;
 		
 		try {
-			this.tf = new TraducteurFichier("map.csv") ;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("coucou");
+			this.jeu = new Jeu("map.csv") ;
+		} catch (IOException e) {			
+			e.printStackTrace();			
 		}
-		
-		this.t = new Terrain (this.tf.getTabMap()) ;
-		
+
 		this.ajouterEcouteur () ;
-		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "P") ;
-		
-		this.afficherMap();
-		initDeplacement();
-		gameLoop.play();
-		this.perso.translateXProperty().bind(joueur.xProperty());
-		this.perso.translateYProperty().bind(joueur.yProperty());
-		
-	}
-	
-	public void allerEnHaut (ActionEvent event) {
-		
-		this.direction = 0 ;
-		this.seDeplacer();
-		
-	}
-	
-	public void allerADroite (ActionEvent event) {
-		
-		this.direction = 1 ;
-		this.seDeplacer();
-		
-	}
-	
-	public void allerEnBas (ActionEvent event) {
-		
-		this.direction = 2 ;
-		this.seDeplacer();
-		
-	}
-	
-	public void allerAGauche (ActionEvent event) {
-		
-		this.direction = 3 ;
-		this.seDeplacer();
+		this.afficherMap() ;
+		this.initBoucleJeu();
+		this.panePerso.setFocusTraversable(true);
+		this.ct = new ControleurTouches(this.BorderMap, this.jeu) ;
+		this.gameLoop.play();
 		
 	}
 
-	
-	private void seDeplacer () { // 0 : haut, 1 : droite, 2 : bas, 3 : gauche
-		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "T") ;
-		System.out.println(p.getX() + p.getY());
-		System.out.println(this.direction);
-		
-		switch (this.direction) { 
-		
-			case 0 : 
-				
-				if (this.p.add(0., 1.).getX() >= 0) {
-					
-					this.p = this.p.add(-1., 0.) ; 
-					
-				}
-				
-			break ;
-			
-			case 1 : 
-				
-				if (this.p.add(0., 1.).getY() < this.t.getDimY()) {
-					
-					this.p = this.p.add(0., 1.) ; 
-					
-				}
-				
-			break ;
-			
-			case 2 : 
-				
-				if (this.p.add(1., 0.).getX() < this.t.getDimX()) {
-				
-					this.p = this.p.add(1., 0.) ; 
-					
-				}
-				
-			break ;
-			
-			case 3 : 
-				
-				if (this.p.add(0., -1.).getY() >= 0) {
-					
-					this.p = this.p.add(0., -1.) ; 
-					
-				}
-				
-			break ;
-			
-		}
-		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "P") ;
-		System.out.println(p.getX() + p.getY());
-		this.afficherMap();
-		
-	}
-	
 	public void ajouterEcouteur () {
 		
-		for (ObservableList<String> listeCases : this.t.getListeLignes()) {
+		for (ObservableList<String> listeCases : this.jeu.getMap().getListeLignes()) {
 			
 			listeCases.addListener (new ListChangeListener<String> () {
 
@@ -251,36 +131,6 @@ public class TerrariaControleur implements Initializable {
 
 
 					while (changement.next()) {
-
-						if (changement.wasReplaced()) {
-
-							if (listeCases.get((int)p.getY()) == "P") {
-
-								System.out.print("Déplacement ");
-
-								switch (direction) {
-
-								case 1 :
-								case 3 :
-
-									System.out.print("à ");
-
-									break ;
-
-								case 0 :
-								case 2 :
-
-									System.out.print("en ");
-
-									break ;
-
-								}
-
-								System.out.println(DIRECTIONS[direction]);
-
-							}
-
-						}
 
 					}
 

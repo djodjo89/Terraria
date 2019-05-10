@@ -1,7 +1,6 @@
 package modele;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,12 +25,6 @@ public class TraducteurFichier {
 		
 	}
 	
-	public BufferedReader getBuffer () {
-		
-		return this.bfr ;
-		
-	}
-	
 	public ArrayList<ObservableList<String>> getTabMap () {
 		
 		return this.tableauDeString ;
@@ -48,13 +41,16 @@ public class TraducteurFichier {
 		
 		i = 0 ;
 		
+		// Tant qu'il reste des lignes à lire
 		while ((ligne = bfr.readLine()) != null) {
 			
+			// On découpe la ligne dans un tableau de String
 			lignes = ligne.split(",") ;
+			// On ajoute une nouvelle liste à notre map
 			this.tableauDeString.add(FXCollections.observableArrayList()) ;
 			
 			for (j = 0 ; j < lignes.length ; j ++) {
-				
+				// On ajoute une nouvelle case à notre map
 				this.tableauDeString.get(i).add(lignes[j])  ;
 								
 			}

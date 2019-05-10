@@ -2,28 +2,28 @@
 	package modele;
 
 	import java.util.ArrayList;
-
-	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
 	public class Terrain {
 		
 		private ArrayList<ObservableList<String>> listeDeLignes ;
-		
-		
 
 		public Terrain (ArrayList<ObservableList<String>> newlist) {
 			
 			listeDeLignes = newlist ;
 			
+		}
+		
+		public Terrain () {
 			
-			
-			
+			new Terrain(null) ;
 			
 		}
 		
 		public int getDimY() {
+			
 			return this.listeDeLignes.size();
+			
 		}
 		
 		public int getDimX () {
@@ -38,19 +38,9 @@
 			
 		}
 		
-		public void affTerrain () {
+		public void setListe (ArrayList<ObservableList<String>> l) {
 			
-			for (ObservableList<String> ligne : this.listeDeLignes) {
-				
-				for (String casE : ligne) {
-					
-					System.out.print(casE + " ");
-					
-				}
-				
-				System.out.println();
-				
-			}
+			this.listeDeLignes = l ;
 			
 		}
 
