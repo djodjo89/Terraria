@@ -37,5 +37,11 @@ public class Objet {
 		return this.nom ;
 		
 	}
+	
+	public void perdrePV (double pv) {
+		
+		this.pv.set(this.pv.getValue() - pv);
+		
+	}
 
 }

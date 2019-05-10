@@ -12,7 +12,7 @@ public class Personnage {
 	private DoubleProperty pv ;
 	private DoubleProperty ptsAttaque ;
 	private String nom ;
-	private Objet main ;
+	private Outil main ;
 	Point2D coordonnees ;
 	
 	public Personnage () {
@@ -28,7 +28,7 @@ public class Personnage {
 		
 	}
 	
-	public void donner (Objet o) {
+	public void donner (Outil o) {
 		
 		this.main = o ;
 		
@@ -86,6 +86,12 @@ public class Personnage {
 			case "gauche" : this.deplace(-1, 0); break ;
 		
 		}
+		
+	}
+	
+	public void attaque (Objet o) {
+		
+		o.perdrePV (this.main.getPtsAttaque()) ;
 		
 	}
 
