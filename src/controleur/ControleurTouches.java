@@ -30,28 +30,24 @@ public class ControleurTouches extends Parent {
 	            if (event.getCode() == KeyCode.Z) {
 	            	
 	                j.deplacementPersoPrinc("haut") ;
-	                p.setTranslateY(-1);
 	                
 	            }
 	            
 	            if (event.getCode() == KeyCode.D) {
 	            	
 	                j.deplacementPersoPrinc("droite") ;
-	                p.setTranslateX(-1);
 	                
 	            }
 	            
 	            if (event.getCode() == KeyCode.S) {
 	            	
 	                j.deplacementPersoPrinc("bas") ;
-	                p.setTranslateY(1);
 	                
 	            }
 	            
 	            if (event.getCode() == KeyCode.Q) {
 	            	
 	                j.deplacementPersoPrinc("gauche") ;
-	                p.setTranslateX(1);
 	                
 	            }
 	            
