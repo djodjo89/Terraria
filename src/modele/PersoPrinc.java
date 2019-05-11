@@ -10,9 +10,9 @@ public class PersoPrinc extends Personnage {
 		
 	}
 	
-	public PersoPrinc (String nom, int x, int y) {
+	public PersoPrinc (String nom, double x, double y, double ptsAtt) {
 		
-		super(nom, x, y) ;
+		super(nom, x, y, ptsAtt) ;
 		
 	}
 	
