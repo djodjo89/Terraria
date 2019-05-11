@@ -15,18 +15,12 @@ public class Personnage {
 	private Outil main ;
 	private DoubleProperty x;
 	private DoubleProperty y;
-	
-	public Personnage () {
 		
-		this ("", 0, 0) ;
-		
-	}
-	
 	public Personnage (String nom, int x, int y) {
 		
 		this.nom = nom ;
-		this.x= new SimpleDoubleProperty(0);
-		this.y= new SimpleDoubleProperty(0);
+		this.x= new SimpleDoubleProperty(x);
+		this.y= new SimpleDoubleProperty(y);
 		
 	}
 	

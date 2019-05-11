@@ -11,7 +11,7 @@ public class Jeu {
 	
 	public Jeu (String nomF) throws IOException {
 		
-		this.p = new Personnage () ;
+		this.p = new Personnage ("joueur",1,1) ;
 		this.tf = new TraducteurFichier(nomF) ;
 		this.t = new Terrain (this.tf.getTabMap()) ;
 		

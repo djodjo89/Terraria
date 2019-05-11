@@ -28,7 +28,13 @@ public class Collisionneur {
 		System.out.println(yPos);
 		System.out.println(xPos);
 		
-		return (int)yPos + y >= t.getDimY() || (int)yPos + y < 0 || (int)xPos + x >= t.getDimX() || (int)xPos + x < 0 || t.getListeLignes().get((int)yPos + y).get((int)xPos + x).equals("T") ;
+			if((int)yPos >= t.getDimY() ||(int)xPos >= t.getDimX())
+				return true;
+			else if(yPos<0 ||xPos<0)
+				return true;
+			else if((t.getListeLignes().get((int)yPos).get((int)xPos).equals("T")))
+				return true;
+			return false;
 		
 	}
 
