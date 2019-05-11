@@ -1,4 +1,7 @@
-Ameliorer colision
+Ameliorer colision(j'ai trouver pk ca ne marchais pas il faut pas faire un gros return car il vas tester des valeur dans le
+                  le terrain des valeur inexistante. Donc faut separer en plusieur if avec les conditions. ensuite autre
+                  probleme si le perso ne demarre pas en 0,0 ca nemarche pas) je n'aipas encore trouve la soluce))).
+                  
 inventaire
 commencer les classe ressources
 gerer craft
