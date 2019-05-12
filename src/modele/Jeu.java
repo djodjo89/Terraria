@@ -16,7 +16,7 @@ public class Jeu {
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase) throws IOException {
 		
 		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 10.) ;
-		this.p = new Personnage ("Wall-E", 100., 10., 0., 0, 1., new Collisionneur (0, 0, 49, 49)) ;
+		this.p = new Personnage ("Wall-E", 100., 10., 0., 0, 1., new Collisionneur (0, 0, m.getTailleTileY() - 1, m.getTailleTileX() - 1)) ;
 		this.tf = new TraducteurFichier(nomF) ;
 		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
 		this.setObstacles() ;

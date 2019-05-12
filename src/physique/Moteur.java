@@ -47,5 +47,11 @@ public class Moteur {
 		return this.obstacles ;
 		
 	}
+	
+	public boolean estUnObstacle (ArrayList<String> obstacles, String o) {
+		
+		return obstacles.contains(o) ;
+		
+	}
 
 }

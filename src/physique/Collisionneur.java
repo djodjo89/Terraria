@@ -1,16 +1,13 @@
 package physique;
 
 import modele.* ;
-import java.util.ArrayList;
-
-import javafx.beans.property.*;
 
 public class Collisionneur {
 	
-	private DoubleProperty xDeb;
-	private DoubleProperty yDeb;
-	private DoubleProperty xFin;
-	private DoubleProperty yFin;
+	private double xDeb;
+	private double yDeb;
+	private double xFin;
+	private double yFin;
 	
 	public Collisionneur () {
 		
@@ -20,10 +17,10 @@ public class Collisionneur {
 	
 	public Collisionneur (double xDeb, double yDeb, double xFin, double yFin) {
 		
-		this.xDeb = new SimpleDoubleProperty(xDeb);
-		this.yDeb = new SimpleDoubleProperty(yDeb);
-		this.xFin = new SimpleDoubleProperty(xFin);
-		this.yFin = new SimpleDoubleProperty(yFin);
+		this.xDeb = xDeb ;
+		this.yDeb = yDeb ;
+		this.xFin = xFin ;
+		this.yFin = yFin ;
 		
 	}
 
@@ -73,119 +70,72 @@ public class Collisionneur {
 	
 	public  boolean tombeSurUnObstacle (String direction, int x, int y, double distanceDeplacement, Terrain t, Moteur m) {
 		
-		int ligneMapDeb, colMapDeb, ligneMapFin, colMapFin, mesCoorsXDeb, mesCoorsYDeb, mesCoorsXFin, mesCoorsYFin ;
+		int ligneMapDeb, colMapDeb, ligneMapFin, colMapFin ;
 		
 		boolean depasseMurGauche, depassePlafond, depasseFond, depasseMurDroite, rentreDansUnObstacle ;
-		depasseMurGauche = this.getXDeb() + x * distanceDeplacement < 0 ;
-		depasseMurDroite = (this.getXFin() + x * distanceDeplacement) / m.getTailleTileX() >= t.getTailleX() ;
-		depassePlafond = this.getYDeb() + y * distanceDeplacement < 0 ;
-		depasseFond = (this.getYFin() + y * distanceDeplacement) / m.getTailleTileY() >= t.getTailleY() ;
-		rentreDansUnObstacle = false ;
-		if (!(depasseMurGauche || depasseMurDroite || depassePlafond || depasseFond)) {
+		
+		rentreDansUnObstacle = true ;
 			
-			colMapDeb = 0 ;
-			ligneMapDeb = 0 ;
-			colMapFin = 0 ;
-			ligneMapFin = 0 ;
-			mesCoorsXDeb = this.getCoorXDeb(x, distanceDeplacement, m) ;
-			mesCoorsYDeb = this.getCoorYDeb(y, distanceDeplacement, m) ;
-			mesCoorsXFin = this.getCoorXFin(x, distanceDeplacement, m) ;
-			mesCoorsYFin = this.getCoorYFin(y, distanceDeplacement, m) ;
+			colMapDeb = this.getCoorXDeb(x, distanceDeplacement, m) ;
+			ligneMapDeb = this.getCoorYDeb(y, distanceDeplacement, m) ;
+			colMapFin = this.getCoorXFin(x, distanceDeplacement, m) ;
+			ligneMapFin = this.getCoorYFin(y, distanceDeplacement, m) ;
 			
 			switch (direction) {
-			//	public boolean seSuperposeA (int x, int y, double distanceDeplacement, Collisionneur c)
+
 				case "haut" :
-					colMapDeb = mesCoorsXDeb ;
-					ligneMapDeb = mesCoorsYDeb ;
-					colMapFin = mesCoorsXFin ;
-					ligneMapFin = mesCoorsYFin ;
-					rentreDansUnObstacle = ((this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapDeb).get(colMapDeb).getCollisionneur()) 
-							&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapDeb).get(colMapDeb).getNom()))
-							||(this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapDeb).get(colMapFin).getCollisionneur()) 
-									&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapDeb).get(colMapFin).getNom()))) ;
+					depassePlafond = this.yDeb + y * distanceDeplacement < 0 ;
+					if (!depassePlafond)
+						rentreDansUnObstacle = nePeutPasRentrerDansCetteCase(x, y, distanceDeplacement, ligneMapDeb, colMapDeb, ligneMapDeb, colMapFin, t, m) ;
 				break ;
 				
 				case "droite" :
-					colMapDeb = mesCoorsXDeb ;
-					ligneMapDeb = mesCoorsYDeb ;
-					colMapFin = mesCoorsXFin ;
-					ligneMapFin = mesCoorsYFin ;
-					rentreDansUnObstacle = ((this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapDeb).get(colMapFin).getCollisionneur()) 
-							&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapDeb).get(colMapFin).getNom()))
-							||(this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapFin).get(colMapFin).getCollisionneur()) 
-									&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapFin).get(colMapFin).getNom()))) ;
+					depasseMurDroite = this.xFin + x * distanceDeplacement > t.getTailleX() ;
+					if (!depasseMurDroite)
+						rentreDansUnObstacle = nePeutPasRentrerDansCetteCase(x, y, distanceDeplacement, ligneMapDeb, colMapFin, ligneMapFin, colMapFin, t, m) ;
 				break ;
 				
 				case "bas" :
-					colMapDeb = mesCoorsXDeb ;
-					ligneMapDeb = mesCoorsYDeb ;
-					colMapFin = mesCoorsXFin ;
-					ligneMapFin = mesCoorsYFin ;
-					rentreDansUnObstacle = ((this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapFin).get(colMapDeb).getCollisionneur()) 
-							&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapDeb).get(colMapDeb).getNom()))
-							||(this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapFin).get(colMapFin).getCollisionneur()) 
-									&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapFin).get(colMapFin).getNom()))) ;
+					depasseFond = this.yFin + y * distanceDeplacement > t.getTailleY() ;
+					if (!depasseFond)
+						rentreDansUnObstacle = nePeutPasRentrerDansCetteCase(x, y, distanceDeplacement, ligneMapFin, colMapDeb, ligneMapFin, colMapFin, t, m) ;
 				break ;
 				
 				case "gauche" :
-					colMapDeb = mesCoorsXDeb ;
-					ligneMapDeb = mesCoorsYDeb ;
-					colMapFin = mesCoorsXFin ;
-					ligneMapFin = mesCoorsYFin ;
-					rentreDansUnObstacle = ((this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapDeb).get(colMapDeb).getCollisionneur()) 
-							&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapDeb).get(colMapDeb).getNom()))
-							||(this.seSuperposeA(x, y, distanceDeplacement, t.getListeLignes().get(ligneMapFin).get(colMapDeb).getCollisionneur()) 
-									&& estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligneMapFin).get(colMapFin).getNom()))) ;
+					depasseMurGauche = this.xDeb + x * distanceDeplacement < 0 ;
+					if (!depasseMurGauche)
+						rentreDansUnObstacle = nePeutPasRentrerDansCetteCase(x, y, distanceDeplacement, ligneMapDeb, colMapDeb, ligneMapFin, colMapDeb, t, m) ;
 				break ;
 			
 			}
-			
-			System.out.println();
-			System.out.println("xDeb : " + this.getXDeb() + ", yDeb : " + this.getYDeb());
-			System.out.println("xFin: " + this.getXFin() + ", yFin : " + this.getYFin());
-			System.out.println("LigneDeb : " + ligneMapDeb + ", colonneDeb : " + colMapDeb);
-			System.out.println("LigneFin : " + ligneMapFin + ", colonneFin : " + colMapFin);
-			
-		}
 		
-		return depasseMurGauche || depasseMurDroite || depassePlafond || depasseFond || rentreDansUnObstacle ;
+		return rentreDansUnObstacle ;
 		
 	}
 	
-	public boolean seSuperposeA (int x, int y, double distanceDeplacement, Collisionneur c) {
+	// Vérifie que laou les case(s) d'à côté n'est ou ne sont pas un/des obstacle(s) au collisionneur
+	public boolean nePeutPasRentrerDansCetteCase (int x, int y, double distanceDeplacement, int ligne1, int col1, int ligne2, int col2, Terrain t, Moteur m) {
 		
-		boolean xDS, yDS, xFS, yFS ;
-		
-		xDS = c.getXDeb() <= this.getXDeb() + x * distanceDeplacement && this.getXDeb() + x * distanceDeplacement <= c.getXFin() ;
-		xFS = c.getXDeb() <= this.getXFin() + x * distanceDeplacement && this.getXFin() + x * distanceDeplacement <= c.getXFin() ;
-		yDS = c.getYDeb() <= this.getYDeb() + x * distanceDeplacement && this.getYDeb() + x * distanceDeplacement <= c.getYFin() ;
-		yFS = c.getYDeb() <= this.getYFin() + x * distanceDeplacement && this.getYFin() + x * distanceDeplacement <= c.getYFin() ;
-		//System.out.println("xDS : " + xDS + " xFS : " + xFS + " yDS : " + yDS + " yFS : " + yFS);
-		//System.out.println("xDebC : " + c.getXDeb() + " xFinC : " + c.getXFin() + " yDebC : " + c.getYDeb() + " yFinC : " + c.getYFin());
-		return (xDS || yDS) || (xFS || yFS) ;
+		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligne1).get(col1).getNom())
+				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(ligne2).get(col2).getNom()) ;
 		
 	}
-	
-	public static boolean estUnObstacle (ArrayList<String> obstacles, String o) {
-		
-		return obstacles.contains(o) ;
-		
-	}
+
 	
 	public double getXDeb() {
-		return this.xDeb.getValue();
+		return this.xDeb ;
 	}
 	public double getYDeb() {
-		return this.yDeb.getValue();
+		return this.yDeb ;
 	}
 	public double getXFin() {
-		return this.xFin.getValue();
+		return this.xFin ; 
 	}
 	public double getYFin() {
-		return this.yFin.getValue();
+		return this.yFin ;
 	}
 	
-	public DoubleProperty getXDebProperty() {
+	/*public DoubleProperty getXDebProperty() {
 		return this.xFin;
 	}
 	public DoubleProperty getYDebProperty() {
@@ -196,24 +146,24 @@ public class Collisionneur {
 	}
 	public DoubleProperty getYFinProperty() {
 		return this.yFin;
-	}
+	}*/
 	
 	public void setXDeb(double x) {
-		this.xDeb.setValue(x);
+		this.xDeb = x;
 	}
 	public void setYDeb(double y) {
-		this.yDeb.setValue(y);
+		this.yDeb = y ;
 	}
 	public void setXFin(double x) {
-		this.xFin.setValue(x);
+		this.xFin = x ;
 	}
 	public void setYFin(double y) {
-		this.yFin.setValue(y);
+		this.yFin = y ;
 	}
 	
 	public String toString () {
 		
-		return "xDeb : " + this.getXDeb() + ", yDeb : " + this.getYDeb() + "\nxFin : " + this.getXFin() + ", yFin : " + this.getYFin() ;
+		return "xDeb : " + this.xDeb + ", yDeb : " + this.yDeb + "\nxFin : " + this.xFin + ", yFin : " + this.yFin ;
 		
 	}
 
