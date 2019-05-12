@@ -8,13 +8,27 @@ public class Moteur {
 	private double tailleTileX ;
 	private double tailleTileY ;
 	private double distanceDeplacement ;
+	private double gravite ;
 	
-	public Moteur (double tailleTileX, double tailleTileY, double distanceDeplacement) {
+	public Moteur (double tailleTileX, double tailleTileY, double distanceDeplacement, double gravite) {
 		
 		this.obstacles = new ArrayList<> () ;
 		this.tailleTileX = tailleTileX ;
 		this.tailleTileY = tailleTileY ;
 		this.distanceDeplacement = distanceDeplacement ;
+		this.gravite = gravite ;
+		
+	}
+	
+	public double getGravite () {
+		
+		return this.gravite ;
+		
+	}
+	
+	public void appliquerGravite (GameObject go) {
+		
+		
 		
 	}
 	

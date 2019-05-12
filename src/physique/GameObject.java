@@ -1,5 +1,6 @@
 package physique;
 
+import modele.* ;
 import javafx.beans.property.* ;
 
 public class GameObject {
@@ -8,23 +9,26 @@ public class GameObject {
 	private DoubleProperty pv ;
 	private DoubleProperty x;
 	private DoubleProperty y;
-	private DoubleProperty vitesse ;
+	private double vitesseX ;
+	private double vitesseY ;
+	private double poids ;
 	private Collisionneur collisionneur ;
 	
 	public GameObject (String tag, Collisionneur c) {
 		
-		this (tag, 0., 0., 0., 0., c) ;
+		this (tag, 0., 0., 0., 0., 0., 0., c) ;
 		
 	}
 	
-	public GameObject (String tag, double pv, double x, double y, double vitesse, Collisionneur collisionneur) {
+	public GameObject (String tag, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur collisionneur) {
 		
 		this.tag = tag ;
 		this.x = new SimpleDoubleProperty(pv) ;
 		this.x = new SimpleDoubleProperty(x) ;
 		this.y = new SimpleDoubleProperty(y) ;
-		this.vitesse = new SimpleDoubleProperty(vitesse) ;
-		this.collisionneur = collisionneur ;
+		this.vitesseX = vitesseX ;
+		this.vitesseY = vitesseY ;
+		this.poids = poids ;
 		
 	}
 	
@@ -67,56 +71,55 @@ public class GameObject {
 		this.y.setValue(y);
 	}
 	
-	public void deplace (double x, double y) {
+	public void deplace (double x, double y, Moteur m) {
 		
-		//double nvY = this.getY()+y ;
-		//double nvX = this.getX()+x ;
+		this.setX(this.collisionneur.getXDeb() + x * m.getDistanceDeplacement()) ;
+		this.setY(this.collisionneur.getYDeb() + y * m.getDistanceDeplacement()) ;
 		
-		//this.setY((double)Math.round(nvY * 10) / 10);
-		//this.setX((double)Math.round(nvX * 10) / 10);
-		
-		this.setX(this.collisionneur.getXDeb() + x) ;
-		this.setY(this.collisionneur.getYDeb() + y) ;
-		
-		this.collisionneur.setXDeb(this.collisionneur.getXDeb() + x);
-		this.collisionneur.setYDeb(this.collisionneur.getYDeb() + y);
-		this.collisionneur.setXFin(this.collisionneur.getXFin() + x);
-		this.collisionneur.setYFin(this.collisionneur.getYFin() + y);
+		this.collisionneur.setXDeb(this.collisionneur.getXDeb() + x * m.getDistanceDeplacement());
+		this.collisionneur.setYDeb(this.collisionneur.getYDeb() + y * m.getDistanceDeplacement());
+		this.collisionneur.setXFin(this.collisionneur.getXFin() + x * m.getDistanceDeplacement());
+		this.collisionneur.setYFin(this.collisionneur.getYFin() + y * m.getDistanceDeplacement());
 		
 	}
 	
-	public void deplace (String direction, double distanceDeplacement) {
+	public void deplace (String direction, Terrain t, Moteur m) {
 		
 		switch (direction) {
 		
-			case "haut" : 
-				this.deplace(0, -distanceDeplacement * this.getVitesse());
-				break ;
-			case "droite" : 
-				this.deplace(distanceDeplacement * this.getVitesse(), 0); 
-				break ;
-			case "bas" : 
-				this.deplace(0, distanceDeplacement * this.getVitesse()); 
-				break ;
-			case "gauche" : 
-				this.deplace(-distanceDeplacement * this.getVitesse(), 0); 
-				break ;
+			case "haut" : this.deplace(0, -1, m) ; break ;
+			
+			case "droite" : this.deplace(1, 0, m) ; break ;
+			
+			case "bas" : this.deplace(0, 1, m) ; break ;
+			
+			case "gauche" : this.deplace(-1, 0, m) ; break ;
 		
 		}
 		
-		System.out.println("x :" + this.getX() + ", y : " + this.getY()) ;
+	}
+	
+	public double getVitesseX () {
+		
+		return this.vitesseX ;
 		
 	}
 	
-	public double getVitesse () {
+	public void setVitesseX (double vX) {
 		
-		return this.vitesse.getValue() ;
+		this.vitesseX = vX ;
 		
 	}
 	
-	public void setVitesse (double v) {
+	public double getVitesseY () {
 		
-		this.vitesse.set(v);
+		return this.vitesseY ;
+		
+	}
+	
+	public void setVitesseY (double vY) {
+		
+		this.vitesseY = vY ;
 		
 	}
 	

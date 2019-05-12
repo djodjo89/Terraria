@@ -1,8 +1,8 @@
 
 	package modele;
 
-	import physique.* ;
-	import java.util.ArrayList;
+import physique.* ;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

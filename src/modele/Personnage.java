@@ -19,9 +19,9 @@ public class Personnage extends GameObject {
 		
 	}
 	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesse, Collisionneur c) {
+	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c) {
 		
-		super (nom, pv, x, y, vitesse, c) ;
+		super (nom, pv, x, y, vitesseX, vitesseY, poids, c) ;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		
 	}

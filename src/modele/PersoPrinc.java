@@ -12,9 +12,9 @@ public class PersoPrinc extends Personnage {
 		
 	}
 	
-	public PersoPrinc (String nom, double pv, double ptsAtt, double x, double y, double vitesse, Collisionneur c) {
+	public PersoPrinc (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c) {
 		
-		super (nom, pv, ptsAtt, x, y, vitesse, c) ;
+		super (nom, pv, ptsAtt, x, y, vitesseX, vitesseY, poids, c) ;
 		this.i = new Inventaire (10) ;
 		
 	}

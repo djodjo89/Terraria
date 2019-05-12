@@ -1,12 +1,9 @@
 
 package controleur;
 
-import physique.*;
 import ressources.Images;
 
 import java.io.File;
-import java.util.ArrayList;
-import javafx.collections.FXCollections;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -110,7 +107,7 @@ public class TerrariaControleur implements Initializable {
     	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 		
     	try {
-			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight()) ;
+			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 300., 50.) ;
 		} catch (IOException e) {			
 			e.printStackTrace();			
 		}
@@ -123,16 +120,6 @@ public class TerrariaControleur implements Initializable {
 		this.gameLoop.play();
 		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
-		
-		for (ObservableList<Objet> liste : this.jeu.getMap().getListeLignes()) {
-			
-			for (Objet o : liste) {
-				
-				System.out.println(o.getCollisionneur());
-				
-			}
-			
-		}
 		
 	}
 
