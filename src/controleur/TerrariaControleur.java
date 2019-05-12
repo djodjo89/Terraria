@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exceptions.HorsDeLaMapException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -90,7 +92,6 @@ public class TerrariaControleur implements Initializable {
 		    	
 	    	}
 	    	tile = this.perso ;
-	    	//BorderMap.getChildren().remove(tile);
 	    	tile.setId("joueur");
 	    	tile.setLayoutX(0);
 	    	tile.setLayoutY(0);
@@ -107,10 +108,7 @@ public class TerrariaControleur implements Initializable {
     	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 		
     	try {
-			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 300., 50.) ;
-		} catch (IOException e) {			
-			e.printStackTrace();			
-		}
+			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), -5., -5.) ;
 
 		this.ajouterEcouteur () ;
 		this.afficherMap() ;
@@ -120,6 +118,10 @@ public class TerrariaControleur implements Initializable {
 		this.gameLoop.play();
 		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+		
+    	} 
+    	catch (HorsDeLaMapException e) {System.out.println(e);}
+    	catch (IOException e) {e.printStackTrace();}
 		
 	}
 

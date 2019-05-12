@@ -2,6 +2,9 @@ package physique;
 
 import java.util.ArrayList;
 
+import exceptions.HorsDeLaMapException;
+import modele.*;
+
 public class Moteur {
 	
 	private ArrayList<String> obstacles  ;
@@ -68,4 +71,16 @@ public class Moteur {
 		
 	}
 
+	public void apparaitDansLaMap (Personnage p, Terrain t) throws HorsDeLaMapException {
+		
+		if (		
+		p.getCollisionneur().getXDeb() < 0
+		|| p.getCollisionneur().getYDeb() < 0
+		|| p.getCollisionneur().getXFin() >= t.getTailleX()
+		|| p.getCollisionneur().getYFin() >= t.getTailleY())
+		throw new HorsDeLaMapException (t, p) ;
+		System.out.println("ok");
+		
+	}
+	
 }

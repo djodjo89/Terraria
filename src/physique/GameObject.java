@@ -29,6 +29,7 @@ public class GameObject {
 		this.vitesseX = vitesseX ;
 		this.vitesseY = vitesseY ;
 		this.poids = poids ;
+		this.collisionneur = collisionneur ;
 		
 	}
 	

@@ -1,5 +1,6 @@
 package modele;
 import physique.*;
+import exceptions.* ;
 import ressources.TraducteurFichier;
 
 import java.io.IOException;
@@ -14,12 +15,13 @@ public class Jeu {
 	private Terrain t ;
 	private TraducteurFichier tf ;
 	
-	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException {
+	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
 		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 10., 9.81) ;
 		this.p = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1)) ;
 		this.tf = new TraducteurFichier(nomF) ;
 		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
+		this.m.apparaitDansLaMap(this.p, this.t) ;
 		this.setObstacles() ;
 		
 	}
