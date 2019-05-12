@@ -2,6 +2,8 @@ package modele;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import physique.Collisionneur;
 
 public class Outil extends Objet {
 	
@@ -11,6 +13,13 @@ public class Outil extends Objet {
 		
 		super () ;
 		
+		this.ptsAttaque = new SimpleDoubleProperty () ;
+		
+	}
+	
+	public Outil (String nom, String tag, Collisionneur c) {
+		
+		super (nom, tag, c) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}

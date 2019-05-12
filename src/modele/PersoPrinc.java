@@ -21,9 +21,17 @@ public class PersoPrinc extends Personnage {
 	
 	public void ajouterObjetMain (Outil o) {
 		
-		if (this.i.getInventaire().get(this.i.getInventaire().indexOf(o)).getClass().equals("Outil"))
+		if (!this.i.estDansLInventaire(o)) this.i.ajouterObjet(o);
 		
-		super.donner((Outil)this.i.getInventaire().get(this.i.getInventaire().indexOf(o))) ;
+		//if (this.i.getInventaire().get(this.i.getInventaire().indexOf(o)).getTag().equals("Outil"))
+		
+			super.donner((Outil)this.i.getInventaire().get(0)) ;
+		
+	}
+	
+	public Inventaire getInventaire () {
+		
+		return this.i ;
 		
 	}
 

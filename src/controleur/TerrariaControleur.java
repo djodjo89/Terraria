@@ -108,7 +108,7 @@ public class TerrariaControleur implements Initializable {
     	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 		
     	try {
-			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), -5., -5.) ;
+			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 0., 0.) ;
 
 		this.ajouterEcouteur () ;
 		this.afficherMap() ;
@@ -118,7 +118,11 @@ public class TerrariaControleur implements Initializable {
 		this.gameLoop.play();
 		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
-		
+		for (Objet o : this.jeu.getPerso().getInventaire().getInventaire()) {
+			
+			System.out.println(o.getTag());
+			
+		}
     	} 
     	catch (HorsDeLaMapException e) {System.out.println(e);}
     	catch (IOException e) {e.printStackTrace();}
