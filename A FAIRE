@@ -2,6 +2,9 @@ Ameliorer colision(j'ai trouver pk ca ne marchais pas il faut pas faire un gros 
                   le terrain des valeur inexistante. Donc faut separer en plusieur if avec les conditions. ensuite autre
                   probleme si le perso ne demarre pas en 0,0 ca nemarche pas) je n'aipas encore trouve la soluce))).
                   
+C BON G TROUVE ! EUREKA ! I FOUND IT ! YEAAAAAAAAAAAAAAAAAAAAAH !!!! Je vous mets ça en ligne tout de suite et je m'attaque à
+à la gravité. Ne vous en faites pas, je vais nettoyer ce code avant :)
+                  
 inventaire
 commencer les classe ressources
 gerer craft
