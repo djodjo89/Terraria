@@ -1,5 +1,7 @@
 package modele;
 
+import physique.Collisionneur;
+
 public class PersoPrinc extends Personnage {
 	
 	private Inventaire i ;
@@ -10,9 +12,10 @@ public class PersoPrinc extends Personnage {
 		
 	}
 	
-	public PersoPrinc (String nom, double x, double y, double ptsAtt) {
+	public PersoPrinc (String nom, double pv, double ptsAtt, double x, double y, double vitesse, Collisionneur c) {
 		
-		super(nom, x, y, ptsAtt) ;
+		super (nom, pv, ptsAtt, x, y, vitesse, c) ;
+		this.i = new Inventaire (10) ;
 		
 	}
 	

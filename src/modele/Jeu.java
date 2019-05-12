@@ -1,5 +1,6 @@
 package modele;
-import physique.Moteur;
+import physique.*;
+import ressources.TraducteurFichier;
 
 import java.io.IOException;
 
@@ -12,13 +13,19 @@ public class Jeu {
 	private Terrain t ;
 	private TraducteurFichier tf ;
 	
-	public Jeu (String nomF) throws IOException {
+	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase) throws IOException {
 		
-		this.m = new Moteur (0.2, 50, 50) ;
-		this.p = new Personnage () ;
+		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 10.) ;
+		this.p = new Personnage ("Wall-E", 100., 10., 0., 0, 1., new Collisionneur (0, 0, 49, 49)) ;
 		this.tf = new TraducteurFichier(nomF) ;
-		this.t = new Terrain (this.tf.getTabMap()) ;
+		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
 		this.setObstacles() ;
+		
+	}
+	
+	public Moteur getMoteur () {
+		
+		return this.m ;
 		
 	}
 	
@@ -50,13 +57,13 @@ public class Jeu {
 		
 		switch (direction) {
 		
-			case "haut" : if (Collisionneur.deplacementPossible ("haut", this.t,this.p, this.m)) this.p.deplace("haut") ; break ;
+			case "haut" : if (this.p.getCollisionneur().deplacementPossible ("haut", this.m.getDistanceDeplacement(), this.t,this.p, this.m)) this.p.deplace("haut", this.m.getDistanceDeplacement()) ; break ;
 			
-			case "droite" : if (Collisionneur.deplacementPossible ("droite", this.t,this.p, this.m)) this.p.deplace("droite") ; break ;
+			case "droite" : if (this.p.getCollisionneur().deplacementPossible ("droite", this.m.getDistanceDeplacement(), this.t,this.p, this.m)) this.p.deplace("droite", this.m.getDistanceDeplacement()) ; break ;
 			
-			case "bas" : if (Collisionneur.deplacementPossible ("bas", this.t,this.p, this.m)) this.p.deplace("bas") ; break ;
+			case "bas" : if (this.p.getCollisionneur().deplacementPossible ("bas", this.m.getDistanceDeplacement(), this.t,this.p, this.m)) this.p.deplace("bas", this.m.getDistanceDeplacement()) ; break ;
 			
-			case "gauche" : if (Collisionneur.deplacementPossible ("gauche", this.t,this.p, this.m)) this.p.deplace("gauche") ; break ;
+			case "gauche" : if (this.p.getCollisionneur().deplacementPossible ("gauche", this.m.getDistanceDeplacement(), this.t,this.p, this.m)) this.p.deplace("gauche", this.m.getDistanceDeplacement()) ; break ;
 		
 		}
 		

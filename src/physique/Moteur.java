@@ -5,28 +5,16 @@ import java.util.ArrayList;
 public class Moteur {
 	
 	private ArrayList<String> obstacles  ;
-	private double distanceDeplacementPersos ;
 	private double tailleTileX ;
 	private double tailleTileY ;
+	private double distanceDeplacement ;
 	
-	public Moteur (double distanceDeplacementPersos, double tailleTileX, double tailleTileY) {
+	public Moteur (double tailleTileX, double tailleTileY, double distanceDeplacement) {
 		
 		this.obstacles = new ArrayList<> () ;
 		this.tailleTileX = tailleTileX ;
 		this.tailleTileY = tailleTileY ;
-		this.distanceDeplacementPersos = distanceDeplacementPersos ;
-		
-	}
-	
-	public double getDistanceDeplacementPersos () {
-		
-		return this.distanceDeplacementPersos ;
-		
-	}
-	
-	public void setDistanceDeplacementPersos (double d) {
-		
-		this.distanceDeplacementPersos = d ;
+		this.distanceDeplacement = distanceDeplacement ;
 		
 	}
 	
@@ -45,6 +33,12 @@ public class Moteur {
 	public double getTailleTileY () {
 		
 		return this.tailleTileY ;
+		
+	}
+	
+	public double getDistanceDeplacement () {
+		
+		return this.distanceDeplacement ;
 		
 	}
 	

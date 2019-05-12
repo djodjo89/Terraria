@@ -1,28 +1,57 @@
 
 	package modele;
 
+	import physique.* ;
 	import java.util.ArrayList;
-	import javafx.collections.ObservableList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 	public class Terrain {
 		
-		private ArrayList<ObservableList<String>> listeDeLignes ;
+		private double tailleCaseX ;
+		private double tailleCaseY ;
+		private ArrayList<ObservableList<Objet>> listeDeLignes ;
 
-		public Terrain (ArrayList<ObservableList<String>> newlist) {
+		public Terrain (ArrayList<ObservableList<String>> newlist, double tailleCaseX, double tailleCaseY) {
 			
-			listeDeLignes = newlist ;
-			
-		}
-		
-		public Terrain () {
-			
-			new Terrain(null) ;
+			this.tailleCaseX = tailleCaseX ;
+			this.tailleCaseY = tailleCaseY ;
+			this.listeDeLignes = new ArrayList<ObservableList<Objet>> () ;
+			this.initTerrain(newlist) ;
 			
 		}
 		
-		public int getDimY() {
+		public void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
-			return this.listeDeLignes.size();
+			int i, j, unPixel, unAutrePixel ;
+			
+			unAutrePixel = 1 ;
+			unPixel = 1;
+			
+			for (i = 0 ; i < newlist.size() ; i ++) {
+				
+				this.listeDeLignes.add(FXCollections.observableArrayList()) ;
+				
+				for (j = 0 ; j < newlist.get(i).size() ; j ++) {
+					
+					this.listeDeLignes.get(i).add(
+					new Objet(newlist.get(i).get(j),
+					new String(j + ":" + i),
+					new Collisionneur (j * this.tailleCaseX,
+									   i * this.tailleCaseY,
+									 ((j * this.tailleCaseX) + this.tailleCaseX - unAutrePixel),
+									 ((i * this.tailleCaseY) + this.tailleCaseY - unPixel)))) ;
+					
+				}
+				
+			}
+			
+		}
+		
+		public int getDimY () {
+			
+			return this.listeDeLignes.size() ;
 			
 		}
 		
@@ -32,15 +61,27 @@
 			
 		}
 		
-		public ArrayList<ObservableList<String>> getListeLignes () {
+		public double getTailleY () {
 			
-			return this.listeDeLignes ;
+			return this.getDerniereCase().getCollisionneur().getYFin() ;
 			
 		}
 		
-		public void setListe (ArrayList<ObservableList<String>> l) {
+		public double getTailleX () {
 			
-			this.listeDeLignes = l ;
+			return this.getDerniereCase().getCollisionneur().getXFin() ;
+			
+		}
+		
+		private Objet getDerniereCase () {
+			
+			return this.listeDeLignes.get(this.getDimY() - 1).get(this.getDimX() - 1) ;
+			
+		}
+		
+		public ArrayList<ObservableList<Objet>> getListeLignes () {
+			
+			return this.listeDeLignes ;
 			
 		}
 

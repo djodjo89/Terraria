@@ -4,39 +4,39 @@ import javafx.beans.property.* ;
 
 public class GameObject {
 	
-	String nom ;
+	String tag ;
 	private DoubleProperty pv ;
 	private DoubleProperty x;
 	private DoubleProperty y;
-	private DoubleProperty distanceDeplacement ;
 	private DoubleProperty vitesse ;
+	private Collisionneur collisionneur ;
 	
-	public GameObject () {
+	public GameObject (String tag, Collisionneur c) {
 		
-		this ("", 0, 0, 0 , 1, 1) ;
+		this (tag, 0., 0., 0., 0., c) ;
 		
 	}
 	
-	public GameObject (String nom, double pv, double x, double y, double d, double v) {
+	public GameObject (String tag, double pv, double x, double y, double vitesse, Collisionneur collisionneur) {
 		
-		this.nom = nom ;
+		this.tag = tag ;
 		this.x = new SimpleDoubleProperty(pv) ;
 		this.x = new SimpleDoubleProperty(x) ;
 		this.y = new SimpleDoubleProperty(y) ;
-		this.distanceDeplacement = new SimpleDoubleProperty(d) ;
-		this.vitesse = new SimpleDoubleProperty(v) ;
+		this.vitesse = new SimpleDoubleProperty(vitesse) ;
+		this.collisionneur = collisionneur ;
 		
 	}
 	
 	public void changerNom (String nom) {
 		
-		this.nom = nom ;
+		this.tag = nom ;
 		
 	}
 	
-	public String getNom () {
+	public String getTag () {
 		
-		return this.nom ;
+		return this.tag ;
 		
 	}
 	
@@ -69,29 +69,60 @@ public class GameObject {
 	
 	public void deplace (double x, double y) {
 		
-		this.setY(this.y.getValue()+y);
-		this.setX(this.x.getValue()+x);
+		//double nvY = this.getY()+y ;
+		//double nvX = this.getX()+x ;
+		
+		//this.setY((double)Math.round(nvY * 10) / 10);
+		//this.setX((double)Math.round(nvX * 10) / 10);
+		
+		this.setX(this.collisionneur.getXDeb() + x) ;
+		this.setY(this.collisionneur.getYDeb() + y) ;
+		
+		this.collisionneur.setXDeb(this.collisionneur.getXDeb() + x);
+		this.collisionneur.setYDeb(this.collisionneur.getYDeb() + y);
+		this.collisionneur.setXFin(this.collisionneur.getXFin() + x);
+		this.collisionneur.setYFin(this.collisionneur.getYFin() + y);
 		
 	}
 	
-	public void deplace (String direction) {
+	public void deplace (String direction, double distanceDeplacement) {
 		
 		switch (direction) {
 		
 			case "haut" : 
-				this.deplace(0, -10); 
+				this.deplace(0, -distanceDeplacement * this.getVitesse());
 				break ;
 			case "droite" : 
-				this.deplace(10, 0); 
+				this.deplace(distanceDeplacement * this.getVitesse(), 0); 
 				break ;
 			case "bas" : 
-				this.deplace(0,10); 
+				this.deplace(0, distanceDeplacement * this.getVitesse()); 
 				break ;
 			case "gauche" : 
-				this.deplace(-10, 0); 
+				this.deplace(-distanceDeplacement * this.getVitesse(), 0); 
 				break ;
 		
 		}
+		
+		System.out.println("x :" + this.getX() + ", y : " + this.getY()) ;
+		
+	}
+	
+	public double getVitesse () {
+		
+		return this.vitesse.getValue() ;
+		
+	}
+	
+	public void setVitesse (double v) {
+		
+		this.vitesse.set(v);
+		
+	}
+	
+	public Collisionneur getCollisionneur () {
+		
+		return this.collisionneur ;
 		
 	}
 

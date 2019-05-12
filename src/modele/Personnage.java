@@ -1,6 +1,6 @@
 package modele;
 
-import physique.GameObject;
+import physique.*;
 import javafx.beans.property.* ;
 
 /*
@@ -14,15 +14,15 @@ public class Personnage extends GameObject {
 	
 	public Personnage () {
 		
-		super () ;
+		super ("", new Collisionneur()) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}
 	
-	public Personnage (String nom, double x, double y, double ptsAtt) {
+	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesse, Collisionneur c) {
 		
-		super () ;
-		this.ptsAttaque.set(ptsAtt) ;
+		super (nom, pv, x, y, vitesse, c) ;
+		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		
 	}
 	
