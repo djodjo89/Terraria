@@ -13,6 +13,9 @@ Au fait, je n'avais pas remarqué la fin de ton paragraphe (j'étais trop excit�
 où on veut sur la map. Je viens aussi de rajouter un peu de code avec des exceptions pour que le perso ne sorte pas de la terre s'il
 apparaît dedans et pour qu'il ne puisse pas apparaître hors de la map.
                   
+Ressources et inventaire : j'ai commencé à plancher dessus mais faudrait qu'on se mettre d'accord sur comment on les gères.
+Est ce que chaque objet items a la responsabilité de se creer lui même ? Il faudrait qu'on voit ça
+                  
 inventaire
 commencer les classe ressources
 gerer craft
