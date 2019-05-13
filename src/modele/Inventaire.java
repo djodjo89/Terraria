@@ -12,6 +12,7 @@ public class Inventaire {
 		
 		this.listeObjets = FXCollections.observableArrayList() ;
 		this.listeQtes = FXCollections.observableArrayList() ;
+		this.initInventaire(taille);
 		
 	}
 	
@@ -36,7 +37,7 @@ public class Inventaire {
 		
 		if (!this.listeObjets.contains(o)) {
 			
-			while (this.listeObjets.get(i) == null) {
+			while (this.listeObjets.get(i) != null) {
 				
 				i ++ ;
 				
@@ -55,6 +56,16 @@ public class Inventaire {
 		
 	}
 	
+	public void retirerObjet (Objet o) {
+		
+		if (this.listeObjets.contains(o)) {
+			
+			this.listeQtes.set(this.listeObjets.indexOf(o), this.listeObjets.indexOf(o) - 1) ;
+			
+		}
+		
+	}
+	
 	public void supprimerObjet (Objet o) {
 		
 		if (this.listeObjets.contains(o)) {
@@ -63,6 +74,13 @@ public class Inventaire {
 			this.listeObjets.remove(o) ;
 			
 		}
+		
+	}
+	
+	public boolean estDansLInventaire (Objet o) {
+		
+		return this.listeObjets.contains(o) ;
+		
 		
 	}
 	

@@ -1,16 +1,26 @@
 package modele;
 
 import javafx.beans.property.* ;
+import physique.* ;
 
-public class Objet {
+public class Objet extends GameObject {
 	
 	private DoubleProperty pv ;
 	private StringProperty nom ;
 	
 	public Objet () {
 		
+		super("", new Collisionneur (0, 0, 0, 0)) ;
 		this.pv = new SimpleDoubleProperty () ;
 		this.nom = new SimpleStringProperty () ;
+		
+	}
+	
+	public Objet (String nom, String tag, Collisionneur c) {
+		
+		super (tag, c) ;
+		this.pv = new SimpleDoubleProperty () ;
+		this.nom = new SimpleStringProperty (nom) ;
 		
 	}
 	

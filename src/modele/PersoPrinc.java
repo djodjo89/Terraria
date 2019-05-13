@@ -1,5 +1,7 @@
 package modele;
 
+import physique.Collisionneur;
+
 public class PersoPrinc extends Personnage {
 	
 	private Inventaire i ;
@@ -10,17 +12,26 @@ public class PersoPrinc extends Personnage {
 		
 	}
 	
-	public PersoPrinc (String nom, int x, int y) {
+	public PersoPrinc (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c) {
 		
-		super(nom, x, y) ;
+		super (nom, pv, ptsAtt, x, y, vitesseX, vitesseY, poids, c) ;
+		this.i = new Inventaire (10) ;
 		
 	}
 	
 	public void ajouterObjetMain (Outil o) {
 		
-		if (this.i.getInventaire().get(this.i.getInventaire().indexOf(o)).getClass().equals("Outil"))
+		if (!this.i.estDansLInventaire(o)) this.i.ajouterObjet(o);
 		
-		super.donner((Outil)this.i.getInventaire().get(this.i.getInventaire().indexOf(o))) ;
+		//if (this.i.getInventaire().get(this.i.getInventaire().indexOf(o)).getTag().equals("Outil"))
+		
+			super.donner((Outil)this.i.getInventaire().get(0)) ;
+		
+	}
+	
+	public Inventaire getInventaire () {
+		
+		return this.i ;
 		
 	}
 
