@@ -2,6 +2,11 @@ package exceptions;
 
 import modele.* ;
 
+/*
+ * Avertit le joueur qu'il est situé en dehors des
+ * bordures de la map.
+ */
+
 public class HorsDeLaMapException extends Exception {
 	
 	private Terrain t ;

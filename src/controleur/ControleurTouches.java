@@ -8,6 +8,16 @@ import exceptions.VousEtesCoinceException;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 
+/*
+ * Le Controleur de touches gère les cas d'entrées
+ * clavier et définit ce qui se passe en fonction
+ * de la touche :
+ * - "ESPACE" fait monter/sauter
+ * - "D" fait aller à droite
+ * - "S" fait descendre
+ * - "Q" fait aller à gauche
+ */
+
 public class ControleurTouches extends Parent {
 
 	private Jeu j ;

@@ -4,7 +4,12 @@ import physique.*;
 import javafx.beans.property.* ;
 
 /*
- * Un personnage dispose de coordonnées modifiables et accessibles
+ * Un Personnage dispose de coordonnées modifiables et observables
+ * Voici ses responsabilités :
+ * - prendre un objet dans sa main
+ * - renvoyer l'objet qu'il tient
+ * - donner ses points d'attaque
+ * - attaquer un objet
  */
 
 public class Personnage extends GameObject {
@@ -38,13 +43,13 @@ public class Personnage extends GameObject {
 		
 	}
 	
-	public Objet getMain () {
+	public GameObject getMain () {
 		
 		return this.main ;
 		
 	}
 	
-	public void attaque (Objet o) {
+	public void attaque (GameObject o) {
 		
 		o.perdrePV (this.main.getPtsAttaque()) ;
 		

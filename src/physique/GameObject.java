@@ -33,9 +33,9 @@ public class GameObject {
 		
 	}
 	
-	public void changerNom (String nom) {
+	public void changerTag (String tag) {
 		
-		this.tag = nom ;
+		this.tag = tag ;
 		
 	}
 	
@@ -48,6 +48,12 @@ public class GameObject {
 	public double getPV () {
 		
 		return this.pv.getValue() ;
+		
+	}
+	
+	public void perdrePV (double pv) {
+		
+		this.pv.set(this.pv.getValue() - pv);
 		
 	}
 	
@@ -72,7 +78,10 @@ public class GameObject {
 		this.y.setValue(y);
 	}
 	
-	public void deplace (double x, double y, Moteur m) {
+	// Déplace le gameObject de x et y multipliés par la distance
+	// de déplacement du moteur
+	
+	private void deplace (double x, double y, Moteur m) {
 		
 		this.setX(this.collisionneur.getXDeb() + x * m.getDistanceDeplacement()) ;
 		this.setY(this.collisionneur.getYDeb() + y * m.getDistanceDeplacement()) ;
@@ -83,6 +92,8 @@ public class GameObject {
 		this.collisionneur.setYFin(this.collisionneur.getYFin() + y * m.getDistanceDeplacement());
 		
 	}
+	
+	// Déplace le gameObject dans la direction indiquée
 	
 	public void deplace (String direction, Terrain t, Moteur m) {
 		

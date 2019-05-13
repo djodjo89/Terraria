@@ -3,6 +3,16 @@ package physique;
 import modele.* ;
 import exceptions.* ;
 
+/*
+ * Ma classe préférée :) J'ai passé un week-end dessus
+ * Collisionneur est une "boîte" délimitée par quatre
+ * côtés : xDeb pour le gauche, yDeb pour le haut, 
+ * xFin pour le droit et yFin pour celui du bas
+ * Il peut dire si un déplacement est possible à partir
+ * d'une direction de déplacement, d'un terrain et d'un
+ * moteur et s'afficher.
+ */
+
 public class Collisionneur {
 
 	private double xDeb;
@@ -25,7 +35,6 @@ public class Collisionneur {
 
 	}
 
-
 	public boolean deplacementPossible (String direction, Terrain t, Personnage p, Moteur m) throws VousEtesCoinceException {
 
 		boolean deplacementOK ;
@@ -45,7 +54,7 @@ public class Collisionneur {
 
 	}
 
-	public  boolean tombeSurUnObstacle (String direction, int x, int y, Terrain t, Moteur m) throws VousEtesCoinceException {
+	private boolean tombeSurUnObstacle (String direction, int x, int y, Terrain t, Moteur m) throws VousEtesCoinceException {
 
 		boolean depasseMurGauche, depassePlafond, depasseFond, depasseMurDroite, rentreDansUnObstacle, peutAvancer ;
 
@@ -105,78 +114,80 @@ public class Collisionneur {
 	}
 
 	// J'admets que c'est un peu lourd, mais c'est toujours mieux que de tout dupliquer dans tomberSurUnObstacle
-	public boolean laCaseDeCeCoteEstUnObstacle (int coor1, int coor2, int coor3, int coor4, Terrain t, Moteur m) {
+	private boolean laCaseDeCeCoteEstUnObstacle (int coor1, int coor2, int coor3, int coor4, Terrain t, Moteur m) {
 
-		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor1).get(coor2).getNom())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor3).get(coor4).getNom()) ;
-
-	}
-
-	// Vérifie que la ou les case(s) d'à côté n'est ou ne sont pas un/des obstacle(s) au collisionneur
-	public boolean nePeutPasRentrerDansCetteCase (int coor1, int coor2, int coor3, Terrain t, Moteur m) {
-
-		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor1).get(coor3).getNom())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor2).get(coor3).getNom()) ;
+		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor1).get(coor2).getTag())
+				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor3).get(coor4).getTag()) ;
 
 	}
 
-	public boolean chevaucheUnObstacle (Terrain t, Moteur m) {
+	private boolean chevaucheUnObstacle (Terrain t, Moteur m) {
 
-		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXDebActuel(m)).getNom())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXFinActuel(m)).getNom())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXDebActuel(m)).getNom())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXFinActuel(m)).getNom()) ;
+		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXDebActuel(m)).getTag())
+				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXFinActuel(m)).getTag())
+				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXDebActuel(m)).getTag())
+				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXFinActuel(m)).getTag()) ;
 
 	}
 
 	public double getXDeb() {
 		return this.xDeb ;
 	}
+	
 	public double getYDeb() {
 		return this.yDeb ;
 	}
+	
 	public double getXFin() {
 		return this.xFin ; 
 	}
+	
 	public double getYFin() {
 		return this.yFin ;
 	}
 
-	public int getCoorXDebSuiv (int x, Moteur m) {
+	private int getCoorXDebSuiv (int x, Moteur m) {
 
 		return (int) ((this.getXDeb() + x * m.getDistanceDeplacement()) / m.getTailleTileX()) ;
 
 	}
-	public int getCoorYDebSuiv (int y, Moteur m) {
+	
+	private int getCoorYDebSuiv (int y, Moteur m) {
 
 		return (int) ((this.getYDeb() + y * m.getDistanceDeplacement())  / m.getTailleTileY()) ;
 
 	}
-	public int getCoorXFinSuiv (int x, Moteur m) {
+	
+	private int getCoorXFinSuiv (int x, Moteur m) {
 
 		return (int) ((this.getXFin() + x * m.getDistanceDeplacement())  / m.getTailleTileX()) ;
 
 	}
-	public int getCoorYFinSuiv (int y, Moteur m) {
+	
+	private int getCoorYFinSuiv (int y, Moteur m) {
 
 		return (int) ((this.getYFin() + y * m.getDistanceDeplacement())  / m.getTailleTileY()) ;
 
 	}
+	
 	public int getCoorXDebActuel (Moteur m) {
 
 		return (int) ((this.getXDeb()) / m.getTailleTileX()) ;
 
 	}
+	
 	public int getCoorYDebActuel (Moteur m) {
 
 		return (int) ((this.getYDeb()) / m.getTailleTileY()) ;
 
 	}
+	
 	public int getCoorXFinActuel (Moteur m) {
 
 		return (int) ((this.getXFin()) / m.getTailleTileX()) ;
 
 	}
+	
 	public int getCoorYFinActuel (Moteur m) {
 
 		return (int) ((this.getYFin()) / m.getTailleTileY()) ;
@@ -186,12 +197,15 @@ public class Collisionneur {
 	public void setXDeb(double x) {
 		this.xDeb = x;
 	}
+
 	public void setYDeb(double y) {
 		this.yDeb = y ;
 	}
+	
 	public void setXFin(double x) {
 		this.xFin = x ;
 	}
+	
 	public void setYFin(double y) {
 		this.yFin = y ;
 	}

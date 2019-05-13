@@ -15,14 +15,26 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import modele.* ;
+import physique.GameObject;
+
+/*
+ * TerrariaControleur génère la map à l'écran, crée une partie
+ * et lance une boucle de jeu.
+ * Elle possède un jeu, un controleur de touches pour gérer
+ * les évènements clavier, un pane pour le personnage et un
+ * autre pour la map.
+ * Voici ses responsabilités :
+ * - Ajouter un écouteur sur la map
+ * - Afficher la map à l'écran
+ * - Lancer la boucle de jeu
+ * 
+ */
 
 public class TerrariaControleur implements Initializable {
 	
@@ -35,16 +47,16 @@ public class TerrariaControleur implements Initializable {
 	private Images images ;
 	
 	@FXML
-    private Pane panePerso;
+    private BorderPane panePerso;
 	
 	@FXML
 	private ImageView perso;
-	
-    @FXML
-    private TextArea map;
     
     @FXML
-	private BorderPane BorderMap;
+	private Pane borderMap;
+    
+    //!\\ MODIFIABLE
+    // Lance la boucle de jeu et définit ce qu'y s'y passe (pour l'instant pas grand-chose)
     
 	public void initBoucleJeu() {
 		
@@ -63,6 +75,8 @@ public class TerrariaControleur implements Initializable {
 		gameLoop.getKeyFrames().add(kf);
 	}
     
+	// Affiche les tuiles du terrain et le personnage à l'écran
+	
 	public void afficherMap () {
 		   
 	    	String nom = new String("test");
@@ -74,12 +88,12 @@ public class TerrariaControleur implements Initializable {
     		String valeur;
     		this.perso=new ImageView(this.images.getImage("perso"));
     		
-    		this.panePerso.getChildren().clear();
+    		this.borderMap.getChildren().clear();
 
 	    	for(int y=0;y<yMap;y++) {
 		    	for(int x=0;x<xMap;x++) {
 		    		nom = x+":"+y;
-		    		valeur=this.jeu.getMap().getListeLignes().get(y).get(x).getNom();
+		    		valeur=this.jeu.getMap().getListeLignes().get(y).get(x).getTag();
 		    		if(valeur.equals("T"))
 		    			tile =new ImageView(this.images.getImage("terre"));
 		    		else if(valeur.equals("A"))
@@ -87,7 +101,7 @@ public class TerrariaControleur implements Initializable {
 		    		tile.setId(nom);
 		    		tile.setLayoutX(x*jeu.getMoteur().getTailleTileX());
 		    		tile.setLayoutY(y*jeu.getMoteur().getTailleTileY());
-		    		panePerso.getChildren().add(tile);
+		    		this.borderMap.getChildren().add(tile);
 		    	}
 		    	
 	    	}
@@ -95,7 +109,7 @@ public class TerrariaControleur implements Initializable {
 	    	tile.setId("joueur");
 	    	tile.setLayoutX(0);
 	    	tile.setLayoutY(0);
-	    	BorderMap.getChildren().add(tile);
+	    	this.panePerso.getChildren().add(tile);
 	    	
 	    }
 
@@ -113,30 +127,34 @@ public class TerrariaControleur implements Initializable {
 		this.ajouterEcouteur () ;
 		this.afficherMap() ;
 		this.initBoucleJeu();
-		this.panePerso.setFocusTraversable(true);
-		this.ct = new ControleurTouches(this.BorderMap, this.jeu) ;
+		this.borderMap.setFocusTraversable(true);
+		this.ct = new ControleurTouches(this.panePerso, this.jeu) ;
 		this.gameLoop.play();
 		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
-		for (Objet o : this.jeu.getPerso().getInventaire().getInventaire()) {
+		/*for (Objet o : this.jeu.getPerso().getInventaire().getInventaire()) {
 			
 			System.out.println(o.getTag());
 			
-		}
+		}*/
     	} 
     	catch (HorsDeLaMapException e) {System.out.println(e);}
     	catch (IOException e) {e.printStackTrace();}
 		
 	}
 
+    //!\\ MODIFIABLE
+	// Ajoute un écouteur sur le terrain pour prendre en compte les modifications.
+	// Pour l'instant il n'y a pas grand-chose dedans
+	
 	public void ajouterEcouteur () {
 		
-		for (ObservableList<Objet> listeCases : this.jeu.getMap().getListeLignes()) {
+		for (ObservableList<GameObject> listeCases : this.jeu.getMap().getListeLignes()) {
 			
-			listeCases.addListener (new ListChangeListener<Objet> () {
+			listeCases.addListener (new ListChangeListener<GameObject> () {
 
 				@Override
-				public void onChanged(Change<? extends Objet> changement) {
+				public void onChanged(Change<? extends GameObject> changement) {
 
 
 					while (changement.next()) {
