@@ -8,10 +8,10 @@ des objets (retirer enlève 1, supprimer enlève l'objet de la liste). Ces deux 
 objet dans la première liste, celui que prendra le personnage quand il choisira un objet dans son inventaire. A part ça je laisse 
 de côté la gravité pour l'instant, c'est un véritable casse-tête.
                   
-inventaire
+Mathys : inventaire
 commencer les classe ressources
-gerer craft
-gravite
+Karen et Ludovic : gerer craft
+Mathys : gravite
 commencer classe enemi
 
 
