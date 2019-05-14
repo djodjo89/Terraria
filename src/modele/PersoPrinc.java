@@ -16,7 +16,7 @@ public class PersoPrinc extends Personnage {
 	
 	public PersoPrinc () {
 		
-		super ("joueur",1,1) ;
+		super () ;
 		
 	}
 	

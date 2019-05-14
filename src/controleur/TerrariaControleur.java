@@ -58,49 +58,6 @@ public class TerrariaControleur implements Initializable {
     //!\\ MODIFIABLE
     // Lance la boucle de jeu et définit ce qu'y s'y passe (pour l'instant pas grand-chose)
     
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		/*
-		 * Chargement des textures
-		 */
-		
-    	this.images = new Images () ;
-    	this.images.ajouterImage("perso", new Image(new File("image/perso.png").toURI().toString()));
-    	this.images.ajouterImage("terre", new Image(new File("image/terre.png").toURI().toString()));
-    	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
-		
-    	/*
-    	 * creation et affichage de la map puis demare le jeux
-    	 */
-    	
-    	
-    	try {
-			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 0., 0.) ;
-		this.ajouterEcouteur () ;
-		this.afficherMap() ;
-		this.initBoucleJeu();
-		this.panePerso.setFocusTraversable(true);
-		this.ct = new ControleurTouches(this.BorderMap, this.jeu) ;
-		this.gameLoop.play();
-		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
-		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
-		for (Objet o : this.jeu.getPerso().getInventaire().getInventaire()) {
-			
-			System.out.println(o.getTag());
-			
-		}
-    	} 
-    	catch (HorsDeLaMapException e) {System.out.println(e);}
-    	catch (IOException e) {e.printStackTrace();}
-		
-	}
-	
-	/*
-	 * Permet d'initialiser la boucle de jeux
-	 * creation de la gameloop
-	 */
-    
 	public void initBoucleJeu() {
 		
 		gameLoop = new Timeline();
@@ -129,25 +86,17 @@ public class TerrariaControleur implements Initializable {
 	
 	public void afficherMap () {
 		   
-	    	String nom = new String("test"); /*id des ImageView*/
+	    	String nom = new String("test");
 	    	ImageView tile=new ImageView();
 	    	
-	    	int yMap=this.jeu.getMap().getDimY(); /*obtentiion des dimension de la map*/
+	    	int yMap=this.jeu.getMap().getDimY();
 	    	int xMap=this.jeu.getMap().getDimX();
 	    	
     		String valeur;
-<<<<<<< HEAD
-    		this.perso=new ImageView(this.images.getImage("perso")); /*creation de l'affichage du perso*/
-    		this.panePerso.getChildren().clear();
-=======
     		this.perso=new ImageView(this.images.getImage("perso"));
     		
     		this.borderMap.getChildren().clear();
->>>>>>> mathys
 
-    		
-    		/*Bouclelisant la liste contenant la map pour cree les imageView et les afficher a la bonne positons*/
-    		
 	    	for(int y=0;y<yMap;y++) {
 		    	for(int x=0;x<xMap;x++) {
 		    		nom = x+":"+y;
@@ -171,9 +120,6 @@ public class TerrariaControleur implements Initializable {
 	    	
 	    }
 
-<<<<<<< HEAD
-	
-=======
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -203,7 +149,6 @@ public class TerrariaControleur implements Initializable {
     	catch (IOException e) {e.printStackTrace();}
 		
 	}
->>>>>>> mathys
 
     //!\\ MODIFIABLE
 	// Ajoute un écouteur sur le terrain pour prendre en compte les modifications.
