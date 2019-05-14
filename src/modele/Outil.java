@@ -4,22 +4,22 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import physique.Collisionneur;
+import physique.GameObject;
 
-public class Outil extends Objet {
+/*
+ * Un Outil est un Objet qui a des points d'attaque
+ * Voici ses responsabilités :
+ * - donner ses points d'attaque
+ * - donner la propriété de ses points d'attaque
+ */
+
+public class Outil extends GameObject {
 	
 	private DoubleProperty ptsAttaque ;
 	
-	public Outil () {
+	public Outil (String tag, Collisionneur c) {
 		
-		super () ;
-		
-		this.ptsAttaque = new SimpleDoubleProperty () ;
-		
-	}
-	
-	public Outil (String nom, String tag, Collisionneur c) {
-		
-		super (nom, tag, c) ;
+		super (tag, c) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}
