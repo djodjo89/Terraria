@@ -73,20 +73,12 @@ public class TerrariaControleur implements Initializable {
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
 					try {
-						if(this.ct.espaceActive())
-							this.nbTour=1;
-						if(nbTour>0) {
-							this.jeu.getPerso().sauter(this.jeu.getMap(), this.jeu.getMoteur());
-							this.nbTour++;
-						}
-						if(nbTour>20)
-							this.nbTour=0;
+						nbTour=this.jeu.getPerso().sauter(nbTour,this.ct.espaceActive());
 						this.ct.setEspaceFalse();
-						
 						jeu.deplacementPersoPrinc("bas");
 						
 					} catch (Exception e) {
-						// TODO: handle exception
+						e.printStackTrace();
 					}
 					
 				})

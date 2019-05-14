@@ -24,14 +24,14 @@ import javafx.util.Duration;
 public class Jeu {
 	
 	private Moteur m ;
-	private PersoPrinc p ;
+	private Personnage p ;
 	private Terrain t ;
 	private TraducteurFichier tf ;
 	
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
 		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 10., 0.80) ;
-		this.p = new PersoPrinc ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1)) ;
+		this.p = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1),this) ;
 		Outil o = new Outil("Torche", new Collisionneur(posXJoueur, posYJoueur, posXJoueur + this.m.getTailleTileX(), posYJoueur + this.m.getTailleTileY())) ;
 		this.p.getInventaire().ajouterObjet(o) ;
 		this.p.ajouterObjetMain(o);
@@ -62,7 +62,7 @@ public class Jeu {
 		
 	}
 	
-	public PersoPrinc getPerso () {
+	public Personnage getPerso () {
 		
 		return this.p ;
 		
