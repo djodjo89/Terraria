@@ -147,29 +147,13 @@ public class GameObject {
 		
 	}
 	public void sauter(Terrain t,Moteur m) {
-		Timeline test = new Timeline();
-		test.setCycleCount(20);
+		try {
+			if (this.getCollisionneur().deplacementPossible ("haut", t, this, m))
+				this.deplace(0,-(m.getGravite()+1),m);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
-
-		KeyFrame kf = new KeyFrame(
-				// on définit le FPS (nbre de frame par seconde)
-				Duration.seconds(0.017), 
-				// on définit ce qui se passe à chaque frame 
-				// c'est un eventHandler d'ou le lambda
-				(ev ->{
-					try {
-						if (this.getCollisionneur().deplacementPossible ("haut", t, this, m))
-							this.deplace(0,-(m.getGravite()+1),m);
-						
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-					
-				})
-				);
-		test.getKeyFrames().add(kf);
-		
-		test.play();
 	}
 
 }

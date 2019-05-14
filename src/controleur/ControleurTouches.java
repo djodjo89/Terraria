@@ -22,6 +22,7 @@ public class ControleurTouches extends Parent {
 
 	private Jeu j ;
 	private Pane p ;
+	private boolean espace;
 
 	public ControleurTouches (Pane p, Jeu j) {
 
@@ -39,7 +40,7 @@ public class ControleurTouches extends Parent {
 			public void handle(KeyEvent event) {
 				try {
 
-					if (event.getCode() == KeyCode.SPACE) j.deplacementPersoPrinc("haut") ;
+					if (event.getCode() == KeyCode.SPACE) espace=true ;
 
 					if (event.getCode() == KeyCode.D) j.deplacementPersoPrinc("droite") ;
 
@@ -53,6 +54,12 @@ public class ControleurTouches extends Parent {
 
 		});
 
+	}
+	public boolean espaceActive() {
+		return espace;
+	}
+	public void setEspaceFalse() {
+		espace=false;
 	}
 
 }

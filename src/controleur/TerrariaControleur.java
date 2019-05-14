@@ -55,11 +55,13 @@ public class TerrariaControleur implements Initializable {
     @FXML
 	private Pane borderMap;
     
+    private int nbTour;
+    
     //!\\ MODIFIABLE
     // Lance la boucle de jeu et définit ce qu'y s'y passe (pour l'instant pas grand-chose)
     
 	public void initBoucleJeu() {
-		
+		nbTour=0;
 		gameLoop = new Timeline();
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
 		
@@ -71,6 +73,16 @@ public class TerrariaControleur implements Initializable {
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
 					try {
+						if(this.ct.espaceActive())
+							this.nbTour=1;
+						if(nbTour>0) {
+							this.jeu.getPerso().sauter(this.jeu.getMap(), this.jeu.getMoteur());
+							this.nbTour++;
+						}
+						if(nbTour>20)
+							this.nbTour=0;
+						this.ct.setEspaceFalse();
+						
 						jeu.deplacementPersoPrinc("bas");
 						
 					} catch (Exception e) {
