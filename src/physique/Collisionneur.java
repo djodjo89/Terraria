@@ -35,7 +35,7 @@ public class Collisionneur {
 
 	}
 
-	public boolean deplacementPossible (String direction, Terrain t, Personnage p, Moteur m) throws VousEtesCoinceException {
+	public boolean deplacementPossible (String direction, Terrain t, GameObject p, Moteur m) throws VousEtesCoinceException {
 
 		boolean deplacementOK ;
 
@@ -62,7 +62,7 @@ public class Collisionneur {
 
 		depassePlafond = this.yDeb + y * m.getDistanceDeplacement() < 0 ;
 		depasseMurDroite = this.xFin + x * m.getDistanceDeplacement() > t.getTailleX() ;
-		depasseFond = this.yFin + y * m.getDistanceDeplacement() > t.getTailleY() ;
+		depasseFond = this.yFin + y * m.getGravite()*m.getDistanceDeplacement() > t.getTailleY() ;
 		depasseMurGauche = this.xDeb + x * m.getDistanceDeplacement() < 0 ;
 
 		peutAvancer = !(depassePlafond || depasseMurDroite || depasseFond || depasseMurGauche) ;
@@ -87,7 +87,9 @@ public class Collisionneur {
 
 				case "bas" :
 
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYFinSuiv(y, m), this.getCoorXDebActuel(m), this.getCoorYFinSuiv(y, m), this.getCoorXFinActuel(m), t, m) ;
+					if (peutAvancer) 
+						
+						rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYFinSuiv(y, m), this.getCoorXDebActuel(m), this.getCoorYFinSuiv(y, m), this.getCoorXFinActuel(m), t, m) ;
 
 					break ;
 
@@ -166,6 +168,7 @@ public class Collisionneur {
 	
 	private int getCoorYFinSuiv (int y, Moteur m) {
 
+		
 		return (int) ((this.getYFin() + y * m.getDistanceDeplacement())  / m.getTailleTileY()) ;
 
 	}

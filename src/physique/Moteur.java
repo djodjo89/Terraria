@@ -90,4 +90,8 @@ public class Moteur {
 		
 	}
 	
+	public void appliquerGraviter(GameObject perso) {
+		perso.deplace("bas", this);
+	}
+	
 }

@@ -70,6 +70,13 @@ public class TerrariaControleur implements Initializable {
 				// on définit ce qui se passe à chaque frame 
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
+					try {
+						jeu.deplacementPersoPrinc("bas");
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					
 				})
 				);
 		gameLoop.getKeyFrames().add(kf);

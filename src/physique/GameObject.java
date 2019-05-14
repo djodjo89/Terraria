@@ -1,7 +1,10 @@
 package physique;
 
 import modele.* ;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.* ;
+import javafx.util.Duration;
 
 public class GameObject {
 	
@@ -81,7 +84,7 @@ public class GameObject {
 	// Déplace le gameObject de x et y multipliés par la distance
 	// de déplacement du moteur
 	
-	private void deplace (double x, double y, Moteur m) {
+	public void deplace (double x, double y, Moteur m) {
 		
 		this.setX(this.collisionneur.getXDeb() + x * m.getDistanceDeplacement()) ;
 		this.setY(this.collisionneur.getYDeb() + y * m.getDistanceDeplacement()) ;
@@ -95,11 +98,11 @@ public class GameObject {
 	
 	// Déplace le gameObject dans la direction indiquée
 	
-	public void deplace (String direction, Terrain t, Moteur m) {
+	public void deplace (String direction, Moteur m) {
 		
 		switch (direction) {
 		
-			case "haut" : this.deplace(0, -1, m) ; break ;
+			case "haut" : this.deplace(0,-1, m) ; break ;
 			
 			case "droite" : this.deplace(1, 0, m) ; break ;
 			
@@ -110,6 +113,9 @@ public class GameObject {
 		}
 		
 	}
+	
+
+    
 	
 	public double getVitesseX () {
 		
@@ -139,6 +145,31 @@ public class GameObject {
 		
 		return this.collisionneur ;
 		
+	}
+	public void sauter(Terrain t,Moteur m) {
+		Timeline test = new Timeline();
+		test.setCycleCount(20);
+		
+
+		KeyFrame kf = new KeyFrame(
+				// on définit le FPS (nbre de frame par seconde)
+				Duration.seconds(0.017), 
+				// on définit ce qui se passe à chaque frame 
+				// c'est un eventHandler d'ou le lambda
+				(ev ->{
+					try {
+						if (this.getCollisionneur().deplacementPossible ("haut", t, this, m))
+							this.deplace(0,-(m.getGravite()+1),m);
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					
+				})
+				);
+		test.getKeyFrames().add(kf);
+		
+		test.play();
 	}
 
 }
