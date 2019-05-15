@@ -149,13 +149,6 @@ public class TerrariaControleur implements Initializable {
 			this.controlTouche = new ControleurTouches(this.panePerso, this.jeu) ;
 			this.gameLoop.play();
 
-			
-			for (ObservableList<GameObject> liste : this.jeu.getMap().getListeLignes()) {
-				for (GameObject go : liste) {
-					System.out.print(go.estUnObstacle());
-				}
-				System.out.println();
-			}
     	} 
     	
     	catch (HorsDeLaMapException e) {System.out.println(e);}
