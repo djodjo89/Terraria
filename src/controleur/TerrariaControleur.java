@@ -75,7 +75,7 @@ public class TerrariaControleur implements Initializable {
 					try {
 						nbTour=this.jeu.getPerso().sauter(nbTour,this.ct.espaceActive());
 						this.ct.setEspaceFalse();
-						jeu.deplacementPersoPrinc("bas");
+						jeu.getPerso().deplacementPersoPrinc("bas");
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -133,7 +133,7 @@ public class TerrariaControleur implements Initializable {
     	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 		
     	try {
-			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 0., 0.) ;
+			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 10., 10.) ;
 
 		this.ajouterEcouteur () ;
 		this.afficherMap() ;
@@ -143,6 +143,17 @@ public class TerrariaControleur implements Initializable {
 		this.gameLoop.play();
 		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+		for (ObservableList<GameObject> liste : this.jeu.getMap().getListeLignes()) {
+			
+			for (GameObject go : liste) {
+				
+				System.out.print(go.estUnObstacle());
+				
+			}
+			
+			System.out.println();
+			
+		}
 		/*for (Objet o : this.jeu.getPerso().getInventaire().getInventaire()) {
 			
 			System.out.println(o.getTag());

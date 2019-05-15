@@ -36,7 +36,7 @@ public class VousEtesCoinceException extends Exception {
 	
 	public void coinceEnHautAGauche () {
 		
-		this.coinBloque = this.m.estUnObstacle(this.m.getObstacles(), this.t.getListeLignes().get(this.c.getCoorYDebActuel(m)).get(this.c.getCoorXDebActuel(m)).getTag()) ;
+		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYDebActuel(m)).get(this.c.getCoorXDebActuel(m)).estUnObstacle() ;
 		
 		if (this.coinBloque)
 			
@@ -46,7 +46,7 @@ public class VousEtesCoinceException extends Exception {
 	
 	public void coinceEnHautADroite () {
 		
-		this.coinBloque = this.m.estUnObstacle(this.m.getObstacles(), this.t.getListeLignes().get(this.c.getCoorYDebActuel(m)).get(this.c.getCoorXFinActuel(m)).getTag()) ;
+		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYDebActuel(m)).get(this.c.getCoorXFinActuel(m)).estUnObstacle() ;
 		
 		if (this.coinBloque)
 			
@@ -56,7 +56,7 @@ public class VousEtesCoinceException extends Exception {
 	
 	public void coinceEnBasADroite () {
 		
-		this.coinBloque = this.m.estUnObstacle(this.m.getObstacles(), this.t.getListeLignes().get(this.c.getCoorYFinActuel(m)).get(this.c.getCoorXFinActuel(m)).getTag()) ;
+		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYFinActuel(m)).get(this.c.getCoorXFinActuel(m)).estUnObstacle() ;
 		
 		if (this.coinBloque)
 			
@@ -66,7 +66,7 @@ public class VousEtesCoinceException extends Exception {
 	
 	public void coinceEnBasAGauche () {
 		
-		this.coinBloque = this.m.estUnObstacle(this.m.getObstacles(), this.t.getListeLignes().get(this.c.getCoorYFinActuel(m)).get(this.c.getCoorXDebActuel(m)).getTag()) ;
+		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYFinActuel(m)).get(this.c.getCoorXDebActuel(m)).estUnObstacle() ;
 		
 		if (this.coinBloque)
 			

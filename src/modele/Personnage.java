@@ -1,6 +1,7 @@
 package modele;
 
 import physique.*;
+import exceptions.VousEtesCoinceException;
 import javafx.beans.property.* ;
 
 /*
@@ -18,22 +19,20 @@ public class Personnage extends GameObject {
 	private Outil main ;
 	private Jeu jeu;
 	private Inventaire i ;
-	private Boolean saute;
 	
 	public Personnage () {
 		
-		super ("", new Collisionneur()) ;
+		super ("", 1000, new Collisionneur()) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}
 	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c,Jeu jeu) {
+	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
 		
-		super (nom, pv, x, y, vitesseX, vitesseY, poids, c) ;
+		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement) ;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		this.jeu=jeu;
 		this.i = new Inventaire (20) ;
-		this.saute=false;
 		
 	}
 	
@@ -63,6 +62,22 @@ public class Personnage extends GameObject {
 	public void ajouterObjetMain (Outil o) {
 		
 		this.donner((Outil)this.i.getInventaire().get(0)) ;
+		
+	}
+	
+	public void deplacementPersoPrinc (String direction) throws VousEtesCoinceException {
+		
+		switch (direction) {
+		
+			case "haut" : this.sauter(this.jeu.getMap(),this.jeu.getMoteur()); break;
+			
+			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplace("droite") ; break ;
+			
+			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplace("bas"); break ;
+			
+			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplace("gauche") ; break ;
+		
+		}
 		
 	}
 	

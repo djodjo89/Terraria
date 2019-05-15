@@ -44,11 +44,11 @@ public class ControleurTouches extends Parent {
 						espace=true;
 					};
 
-					if (event.getCode() == KeyCode.D) j.deplacementPersoPrinc("droite") ;
+					if (event.getCode() == KeyCode.D) j.getPerso().deplacementPersoPrinc("droite") ;
 
-					if (event.getCode() == KeyCode.S) j.deplacementPersoPrinc("bas") ;
+					if (event.getCode() == KeyCode.S) j.getPerso().deplacementPersoPrinc("bas") ;
 
-					if (event.getCode() == KeyCode.Q) j.deplacementPersoPrinc("gauche") ;
+					if (event.getCode() == KeyCode.Q) j.getPerso().deplacementPersoPrinc("gauche") ;
 
 				} catch (VousEtesCoinceException e) {System.out.println(e);} ;
 

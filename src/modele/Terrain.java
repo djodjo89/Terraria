@@ -36,6 +36,8 @@ import javafx.collections.ObservableList;
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
 			int i, j, unPixel, unAutrePixel ;
+			String nomCase ;
+			GameObject caseMap = null ;
 			
 			unAutrePixel = 1 ;
 			unPixel = 1;
@@ -46,12 +48,22 @@ import javafx.collections.ObservableList;
 				
 				for (j = 0 ; j < newlist.get(i).size() ; j ++) {
 					
-					this.listeDeLignes.get(i).add(
-					new GameObject(newlist.get(i).get(j),
-					new Collisionneur (j * this.tailleCaseX,
+					nomCase = newlist.get(i).get(j) ;
+					
+					switch (nomCase) {
+					
+					case "T" : caseMap = new Terre(nomCase) ; break ;
+					
+					case "A" : caseMap = new Air(nomCase) ; break ;
+					
+					}
+					
+					caseMap.setCollisionneur(new Collisionneur (j * this.tailleCaseX,
 									   i * this.tailleCaseY,
 									 ((j * this.tailleCaseX) + this.tailleCaseX - unAutrePixel),
-									 ((i * this.tailleCaseY) + this.tailleCaseY - unPixel)))) ;
+									 ((i * this.tailleCaseY) + this.tailleCaseY - unPixel)));
+					
+					this.listeDeLignes.get(i).add(caseMap) ;
 					
 				}
 				

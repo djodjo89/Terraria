@@ -35,7 +35,7 @@ public class Collisionneur {
 
 	}
 
-	public boolean deplacementPossible (String direction, Terrain t, GameObject p, Moteur m) throws VousEtesCoinceException {
+	public boolean deplacementPossible (String direction, Terrain t, GameObject go, Moteur m) throws VousEtesCoinceException {
 
 		boolean deplacementOK ;
 
@@ -43,10 +43,10 @@ public class Collisionneur {
 
 		switch (direction) {
 
-		case "haut" : deplacementOK = !tombeSurUnObstacle(direction,0, -1, t, m) ; break ;
-		case "droite" : deplacementOK = !tombeSurUnObstacle(direction,1, 0, t, m) ; break ;
-		case "bas" : deplacementOK = !tombeSurUnObstacle(direction,0, 1, t, m) ; break ;
-		case "gauche" : deplacementOK = !tombeSurUnObstacle(direction,-1, 0, t, m) ; break ;
+		case "haut" : deplacementOK = !tombeSurUnObstacle(direction,0, -1, t, m, go) ; break ;
+		case "droite" : deplacementOK = !tombeSurUnObstacle(direction,1, 0, t, m, go) ; break ;
+		case "bas" : deplacementOK = !tombeSurUnObstacle(direction,0, 1, t, m, go) ; break ;
+		case "gauche" : deplacementOK = !tombeSurUnObstacle(direction,-1, 0, t, m, go) ; break ;
 
 		}
 
@@ -54,16 +54,16 @@ public class Collisionneur {
 
 	}
 
-	private boolean tombeSurUnObstacle (String direction, int x, int y, Terrain t, Moteur m) throws VousEtesCoinceException {
+	private boolean tombeSurUnObstacle (String direction, int x, int y, Terrain t, Moteur m, GameObject go) throws VousEtesCoinceException {
 
 		boolean depasseMurGauche, depassePlafond, depasseFond, depasseMurDroite, rentreDansUnObstacle, peutAvancer ;
 
 		rentreDansUnObstacle = true ;
 
-		depassePlafond = this.yDeb + y * m.getDistanceDeplacement() < 0 ;
-		depasseMurDroite = this.xFin + x * m.getDistanceDeplacement() > t.getTailleX() ;
-		depasseFond = this.yFin + y * m.getGravite()*m.getDistanceDeplacement() > t.getTailleY() ;
-		depasseMurGauche = this.xDeb + x * m.getDistanceDeplacement() < 0 ;
+		depassePlafond = this.yDeb + y * go.getDistanceDeplacement() < 0 ;
+		depasseMurDroite = this.xFin + x * go.getDistanceDeplacement() > t.getTailleX() ;
+		depasseFond = this.yFin + y * m.getGravite() * go.getDistanceDeplacement() > t.getTailleY() ;
+		depasseMurGauche = this.xDeb + x * go.getDistanceDeplacement() < 0 ;
 
 		peutAvancer = !(depassePlafond || depasseMurDroite || depasseFond || depasseMurGauche) ;
 
@@ -75,13 +75,13 @@ public class Collisionneur {
 
 				case "haut" :
 
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebSuiv(y, m), this.getCoorXDebActuel(m), this.getCoorYDebSuiv(y, m), this.getCoorXFinActuel(m), t, m) ;
+					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebSuiv(y, m, go), this.getCoorXDebActuel(m), this.getCoorYDebSuiv(y, m, go), this.getCoorXFinActuel(m), t, m, go) ;
 
 					break ;
 
 				case "droite" :
 
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebActuel(m), this.getCoorXFinSuiv(x, m), this.getCoorYFinActuel(m), this.getCoorXFinSuiv(x, m), t, m) ;
+					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebActuel(m), this.getCoorXFinSuiv(x, m, go), this.getCoorYFinActuel(m), this.getCoorXFinSuiv(x, m, go), t, m, go) ;
 
 					break ;
 
@@ -89,13 +89,12 @@ public class Collisionneur {
 
 					if (peutAvancer) 
 						
-						rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYFinSuiv(y, m), this.getCoorXDebActuel(m), this.getCoorYFinSuiv(y, m), this.getCoorXFinActuel(m), t, m) ;
-
+						rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYFinSuiv(y, m, go), this.getCoorXDebActuel(m), this.getCoorYFinSuiv(y, m, go), this.getCoorXFinActuel(m), t, m, go) ;
 					break ;
 
 				case "gauche" :
 
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebActuel(m), this.getCoorXDebSuiv(x, m), this.getCoorYFinActuel(m), this.getCoorXDebSuiv(x, m), t, m) ;
+					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebActuel(m), this.getCoorXDebSuiv(x, m, go), this.getCoorYFinActuel(m), this.getCoorXDebSuiv(x, m, go), t, m, go) ;
 
 					break ;
 
@@ -110,25 +109,24 @@ public class Collisionneur {
 			}
 
 		}
-
 		return rentreDansUnObstacle ;
 
 	}
 
 	// J'admets que c'est un peu lourd, mais c'est toujours mieux que de tout dupliquer dans tomberSurUnObstacle
-	private boolean laCaseDeCeCoteEstUnObstacle (int coor1, int coor2, int coor3, int coor4, Terrain t, Moteur m) {
-
-		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor1).get(coor2).getTag())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(coor3).get(coor4).getTag()) ;
+	private boolean laCaseDeCeCoteEstUnObstacle (int coor1, int coor2, int coor3, int coor4, Terrain t, Moteur m, GameObject go) {
+		
+		return t.getListeLignes().get(coor1).get(coor2).estUnObstacle()
+				|| t.getListeLignes().get(coor3).get(coor4).estUnObstacle() ;
 
 	}
 
 	private boolean chevaucheUnObstacle (Terrain t, Moteur m) {
 
-		return m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXDebActuel(m)).getTag())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXFinActuel(m)).getTag())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXDebActuel(m)).getTag())
-				|| m.estUnObstacle(m.getObstacles(), t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXFinActuel(m)).getTag()) ;
+		return t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXDebActuel(m)).estUnObstacle()
+				|| t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXFinActuel(m)).estUnObstacle()
+				|| t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXDebActuel(m)).estUnObstacle()
+				|| t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXFinActuel(m)).estUnObstacle() ;
 
 	}
 
@@ -148,28 +146,28 @@ public class Collisionneur {
 		return this.yFin ;
 	}
 
-	private int getCoorXDebSuiv (int x, Moteur m) {
+	private int getCoorXDebSuiv (int x, Moteur m, GameObject go) {
 
-		return (int) ((this.getXDeb() + x * m.getDistanceDeplacement()) / m.getTailleTileX()) ;
-
-	}
-	
-	private int getCoorYDebSuiv (int y, Moteur m) {
-
-		return (int) ((this.getYDeb() + y * m.getDistanceDeplacement())  / m.getTailleTileY()) ;
+		return (int) ((this.getXDeb() + x * go.getDistanceDeplacement()) / m.getTailleTileX()) ;
 
 	}
 	
-	private int getCoorXFinSuiv (int x, Moteur m) {
+	private int getCoorYDebSuiv (int y, Moteur m, GameObject go) {
 
-		return (int) ((this.getXFin() + x * m.getDistanceDeplacement())  / m.getTailleTileX()) ;
+		return (int) ((this.getYDeb() + y * go.getDistanceDeplacement())  / m.getTailleTileY()) ;
 
 	}
 	
-	private int getCoorYFinSuiv (int y, Moteur m) {
+	private int getCoorXFinSuiv (int x, Moteur m, GameObject go) {
+
+		return (int) ((this.getXFin() + x * go.getDistanceDeplacement())  / m.getTailleTileX()) ;
+
+	}
+	
+	private int getCoorYFinSuiv (int y, Moteur m, GameObject go) {
 
 		
-		return (int) ((this.getYFin() + y * m.getDistanceDeplacement())  / m.getTailleTileY()) ;
+		return (int) ((this.getYFin() + y * go.getDistanceDeplacement())  / m.getTailleTileY()) ;
 
 	}
 	

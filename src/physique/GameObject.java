@@ -1,10 +1,7 @@
 package physique;
 
 import modele.* ;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.* ;
-import javafx.util.Duration;
 
 public class GameObject {
 	
@@ -15,15 +12,24 @@ public class GameObject {
 	private double vitesseX ;
 	private double vitesseY ;
 	private double poids ;
+	private boolean estUnObstacle ;
 	private Collisionneur collisionneur ;
+	private double distanceDeplacement ;
 	
-	public GameObject (String tag, Collisionneur c) {
+	public GameObject (String tag) {
 		
-		this (tag, 0., 0., 0., 0., 0., 0., c) ;
+		this(tag, 100, 0., 0., 0., 0., 0., null, 0.) ;
 		
 	}
 	
-	public GameObject (String tag, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur collisionneur) {
+	// Pour les objets statiques
+	public GameObject (String tag, double pv, Collisionneur c) {
+		
+		this(tag, pv, c.getXDeb(), c.getYDeb(), 0., 0., 0., c, 0.) ;
+		
+	}
+	
+	public GameObject (String tag, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur collisionneur, double distanceDeplacement) {
 		
 		this.tag = tag ;
 		this.x = new SimpleDoubleProperty(pv) ;
@@ -33,6 +39,34 @@ public class GameObject {
 		this.vitesseY = vitesseY ;
 		this.poids = poids ;
 		this.collisionneur = collisionneur ;
+		this.estUnObstacle = false ;
+		this.distanceDeplacement=distanceDeplacement;
+		
+	}
+	
+	public void setCollisionneur (Collisionneur c) {
+		
+		this.collisionneur = c ;
+		this.x.set(c.getXDeb()) ;
+		this.y.set(c.getYDeb()) ;
+		
+	}
+	
+	public void setPv (double pv) {
+		
+		this.pv.set(pv) ;
+		
+	}
+	
+	public boolean estUnObstacle () {
+		
+		return this.estUnObstacle ;
+		
+	}
+	
+	public void setObstacle () {
+		
+		this.estUnObstacle = true ;
 		
 	}
 	
@@ -84,38 +118,37 @@ public class GameObject {
 	// Déplace le gameObject de x et y multipliés par la distance
 	// de déplacement du moteur
 	
-	public void deplace (double x, double y, Moteur m) {
+	public void deplace (double x, double y) {
 		
-		this.setX(this.collisionneur.getXDeb() + x * m.getDistanceDeplacement()) ;
-		this.setY(this.collisionneur.getYDeb() + y * m.getDistanceDeplacement()) ;
 		
-		this.collisionneur.setXDeb(this.collisionneur.getXDeb() + x * m.getDistanceDeplacement());
-		this.collisionneur.setYDeb(this.collisionneur.getYDeb() + y * m.getDistanceDeplacement());
-		this.collisionneur.setXFin(this.collisionneur.getXFin() + x * m.getDistanceDeplacement());
-		this.collisionneur.setYFin(this.collisionneur.getYFin() + y * m.getDistanceDeplacement());
+		this.setX(this.collisionneur.getXDeb() + x * this.distanceDeplacement) ;
+		this.setY(this.collisionneur.getYDeb() + y * this.distanceDeplacement) ;
+		
+		this.collisionneur.setXDeb(this.collisionneur.getXDeb() + x * this.distanceDeplacement);
+		this.collisionneur.setYDeb(this.collisionneur.getYDeb() + y * this.distanceDeplacement);
+		this.collisionneur.setXFin(this.collisionneur.getXFin() + x * this.distanceDeplacement);
+		this.collisionneur.setYFin(this.collisionneur.getYFin() + y * this.distanceDeplacement) ;
+		
 		
 	}
 	
 	// Déplace le gameObject dans la direction indiquée
 	
-	public void deplace (String direction, Moteur m) {
+	public void deplace (String direction) {
 		
 		switch (direction) {
 		
-			case "haut" : this.deplace(0,-1, m) ; break ;
+			case "haut" : this.deplace(0,-1) ; break ;
 			
-			case "droite" : this.deplace(1, 0, m) ; break ;
+			case "droite" : this.deplace(1, 0) ; break ;
 			
-			case "bas" : this.deplace(0, 1, m) ; break ;
+			case "bas" : this.deplace(0, 1) ; break ;
 			
-			case "gauche" : this.deplace(-1, 0, m) ; break ;
+			case "gauche" : this.deplace(-1, 0) ; break ;
 		
 		}
 		
 	}
-	
-
-    
 	
 	public double getVitesseX () {
 		
@@ -141,6 +174,12 @@ public class GameObject {
 		
 	}
 	
+	public double getDistanceDeplacement () {
+		
+		return this.distanceDeplacement ;
+		
+	}
+	
 	public Collisionneur getCollisionneur () {
 		
 		return this.collisionneur ;
@@ -149,7 +188,7 @@ public class GameObject {
 	public void sauter(Terrain t,Moteur m) {
 		try {
 			if (this.getCollisionneur().deplacementPossible ("haut", t, this, m))
-				this.deplace(0,-(m.getGravite()+1),m);
+				this.deplace(0,-(m.getGravite()+1));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
