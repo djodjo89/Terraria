@@ -65,17 +65,17 @@ public class Personnage extends GameObject {
 		
 	}
 	
-	public void deplacementPersoPrinc (String direction) throws VousEtesCoinceException {
+	public void deplacementColision (String direction) throws VousEtesCoinceException {
 		
 		switch (direction) {
 		
 			case "haut" : this.sauter(this.jeu.getMap(),this.jeu.getMoteur()); break;
 			
-			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplace("droite") ; break ;
+			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("droite") ; break ;
 			
-			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplace("bas"); break ;
+			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("bas"); break ;
 			
-			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplace("gauche") ; break ;
+			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("gauche") ; break ;
 		
 		}
 		

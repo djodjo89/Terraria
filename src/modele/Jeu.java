@@ -5,6 +5,8 @@ import ressources.TraducteurFichier;
 
 import java.io.IOException;
 
+import controleur.ControleurTouches;
+
 /*
  * Jeu est la classe principale du jeu.
  * Elle possède un moteur qui gère la physique du jeu,
@@ -52,6 +54,13 @@ public class Jeu {
 		
 		return this.p ;
 		
+	}
+	
+	public int evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException{
+		nbTour=this.getPerso().sauter(nbTour,controlTouche.espaceActive());
+		controlTouche.setEspaceFalse();
+		this.p.deplacementColision("bas");
+		return nbTour;
 	}
 
 }

@@ -118,7 +118,7 @@ public class GameObject {
 	// Déplace le gameObject de x et y multipliés par la distance
 	// de déplacement du moteur
 	
-	public void deplace (double x, double y) {
+	public void deplacementSansVerif (double x, double y) {
 		
 		
 		this.setX(this.collisionneur.getXDeb() + x * this.distanceDeplacement) ;
@@ -134,17 +134,17 @@ public class GameObject {
 	
 	// Déplace le gameObject dans la direction indiquée
 	
-	public void deplace (String direction) {
+	public void deplacementSansVerif (String direction) {
 		
 		switch (direction) {
 		
-			case "haut" : this.deplace(0,-1) ; break ;
+			case "haut" : this.deplacementSansVerif(0,-1) ; break ;
 			
-			case "droite" : this.deplace(1, 0) ; break ;
+			case "droite" : this.deplacementSansVerif(1, 0) ; break ;
 			
-			case "bas" : this.deplace(0, 1) ; break ;
+			case "bas" : this.deplacementSansVerif(0, 1) ; break ;
 			
-			case "gauche" : this.deplace(-1, 0) ; break ;
+			case "gauche" : this.deplacementSansVerif(-1, 0) ; break ;
 		
 		}
 		
@@ -188,7 +188,7 @@ public class GameObject {
 	public void sauter(Terrain t,Moteur m) {
 		try {
 			if (this.getCollisionneur().deplacementPossible ("haut", t, this, m))
-				this.deplace(0,-(m.getGravite()+1));
+				this.deplacementSansVerif(0,-(m.getGravite()+1));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

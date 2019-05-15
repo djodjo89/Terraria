@@ -40,15 +40,17 @@ public class ControleurTouches extends Parent {
 			public void handle(KeyEvent event) {
 				try {
 
-					if (event.getCode() == KeyCode.SPACE) {
+					if (event.getCode() == KeyCode.SPACE) 
 						espace=true;
-					};
 
-					if (event.getCode() == KeyCode.D) j.getPerso().deplacementPersoPrinc("droite") ;
+					if (event.getCode() == KeyCode.D) 
+						j.getPerso().deplacementColision("droite") ;
 
-					if (event.getCode() == KeyCode.S) j.getPerso().deplacementPersoPrinc("bas") ;
+					if (event.getCode() == KeyCode.S) 
+						j.getPerso().deplacementColision("bas") ;
 
-					if (event.getCode() == KeyCode.Q) j.getPerso().deplacementPersoPrinc("gauche") ;
+					if (event.getCode() == KeyCode.Q) 
+						j.getPerso().deplacementColision("gauche") ;
 
 				} catch (VousEtesCoinceException e) {System.out.println(e);} ;
 
