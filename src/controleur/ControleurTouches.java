@@ -2,7 +2,6 @@ package controleur;
 
 import modele.* ;
 import javafx.scene.input.KeyEvent ;
-import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import exceptions.VousEtesCoinceException;
 import javafx.event.EventHandler;
@@ -18,7 +17,7 @@ import javafx.scene.input.KeyCode;
  * - "Q" fait aller à gauche
  */
 
-public class ControleurTouches extends Parent {
+public class ControleurTouches {
 
 	private Jeu j ;
 	private Pane p ;

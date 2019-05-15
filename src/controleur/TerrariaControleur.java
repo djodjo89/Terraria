@@ -47,13 +47,15 @@ public class TerrariaControleur implements Initializable {
 	private Images images ;
 	
 	@FXML
-    private BorderPane panePerso;
+    private BorderPane borderPanePerso;
 	
+	@FXML
+    private Pane paneCentral;
 	@FXML
 	private Tuile perso;
     
     @FXML
-	private Pane borderMap;
+	private Pane paneMap;
     
     private int nbTour;
     
@@ -97,7 +99,7 @@ public class TerrariaControleur implements Initializable {
 	    	int xMap=this.jeu.getMap().getDimX();
 	    	
 	    	Tuile tile;
-    		this.borderMap.getChildren().clear();
+    		this.paneMap.getChildren().clear();
 
     		
     		
@@ -119,12 +121,12 @@ public class TerrariaControleur implements Initializable {
 		    		}
 		    		
 		    		tile= new Tuile(nom,x*jeu.getMoteur().getTailleTileX(),y*jeu.getMoteur().getTailleTileY(),this.images.getImage(typeBloc));
-		    		this.borderMap.getChildren().add(tile);
+		    		this.paneMap.getChildren().add(tile);
 		    	}
 		    	
 	    	}
 	    	this.perso= new Tuile(nom,0,0,this.images.getImage("perso"));
-	    	this.panePerso.getChildren().add(this.perso);
+	    	this.borderPanePerso.getChildren().add(this.perso);
 			this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 			this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
 	    	
@@ -141,12 +143,12 @@ public class TerrariaControleur implements Initializable {
 		
     	try {
 			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 10., 10.) ;
-			controlMap=new MapControleur(this.borderMap,this.jeu);
+			controlMap=new MapControleur(this.paneMap,this.jeu);
 			this.controlMap.ajouterEcouteur () ;
 			this.initMap() ;
 			this.initBoucleJeu();
-			this.borderMap.setFocusTraversable(true);
-			this.controlTouche = new ControleurTouches(this.panePerso, this.jeu) ;
+			this.paneMap.setFocusTraversable(true);
+			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
 			this.gameLoop.play();
 
     	} 
