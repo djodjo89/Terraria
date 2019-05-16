@@ -22,13 +22,13 @@ import javafx.collections.ObservableList;
 		
 		private double tailleCaseX ;
 		private double tailleCaseY ;
-		private ArrayList<ObservableList<GameObject>> listeDeLignes ;
+		private ArrayList<ObservableList<Inventeriable>> listeDeLignes ;
 
 		public Terrain (ArrayList<ObservableList<String>> newlist, double tailleCaseX, double tailleCaseY) {
 			
 			this.tailleCaseX = tailleCaseX ;
 			this.tailleCaseY = tailleCaseY ;
-			this.listeDeLignes = new ArrayList<ObservableList<GameObject>> () ;
+			this.listeDeLignes = new ArrayList<ObservableList<Inventeriable>> () ;
 			this.initTerrain(newlist) ;
 			
 		}
@@ -37,7 +37,7 @@ import javafx.collections.ObservableList;
 			
 			int unPixel=1, unAutrePixel=1 ;
 			String nomCase ;
-			GameObject caseMap = null ;
+			Inventeriable caseMap = null ;
 
 			
 			for (int i = 0 ; i < newlist.size() ; i ++) {
@@ -99,7 +99,7 @@ import javafx.collections.ObservableList;
 			
 		}
 		
-		public ArrayList<ObservableList<GameObject>> getListeLignes () {
+		public ArrayList<ObservableList<Inventeriable>> getListeLignes () {
 			
 			return this.listeDeLignes ;
 			
