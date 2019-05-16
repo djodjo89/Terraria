@@ -3,7 +3,7 @@ package modele;
 import physique.Collisionneur;
 import physique.GameObject;
 
-public class Terre extends GameObject {
+public class Terre extends Bloc {
 	
 	public Terre (String tag) {
 		

@@ -13,7 +13,7 @@ import javafx.beans.property.* ;
  * - attaquer un objet
  */
 
-public class Personnage extends GameObject {
+public class Personnage extends NonInventeriable {
 	
 	private DoubleProperty ptsAttaque ;
 	private Outil main ;
@@ -22,7 +22,7 @@ public class Personnage extends GameObject {
 	
 	public Personnage () {
 		
-		super ("", 1000, new Collisionneur()) ;
+		super () ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}

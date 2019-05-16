@@ -83,6 +83,7 @@ public class TerrariaControleur implements Initializable {
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
 					try {
+						controlTouche.setKeyListener();
 						nbTour=this.jeu.evoluer(nbTour,controlTouche);
 						
 					} catch (Exception e) {
@@ -171,6 +172,8 @@ public class TerrariaControleur implements Initializable {
 			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
 			this.gameLoop.play();
 			this.paneItemsInventaire.toFront();
+
+			controlTouche.gererControleur();
 
     	} 
     	

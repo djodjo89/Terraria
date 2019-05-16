@@ -13,7 +13,7 @@ import physique.GameObject;
  * - donner la propriété de ses points d'attaque
  */
 
-public class Outil extends GameObject {
+public class Outil extends Inventeriable {
 	
 	private DoubleProperty ptsAttaque ;
 	

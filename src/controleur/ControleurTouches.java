@@ -3,6 +3,9 @@ package controleur;
 import modele.* ;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+
 import exceptions.VousEtesCoinceException;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -22,40 +25,53 @@ public class ControleurTouches {
 	private Jeu j ;
 	private Pane p ;
 	private boolean espace;
+	private ArrayList<String> ToucheAppuyer;
 
 	public ControleurTouches (Pane p, Jeu j) {
 
 		this.j = j ;
 		this.p = p ;
-		this.setKeyListener () ;
+		this.ToucheAppuyer = new ArrayList<String>();
 
 	}
+	
+	
+	public void gererControleur() {
+		this.p.setOnKeyPressed(
+				new EventHandler<KeyEvent>() {
+				public void handle(KeyEvent e) {
+					String code=e.getCode().toString();
+					if(!ToucheAppuyer.contains(code))
+						ToucheAppuyer.add(code);
+				}
+				});
+		this.p.setOnKeyReleased(
+				new EventHandler<KeyEvent>() {
+				public void handle(KeyEvent e) {
+					String code=e.getCode().toString();
+						ToucheAppuyer.remove(code);
+				}
+				});
+				
+	}
+	public void setKeyListener () throws VousEtesCoinceException {
 
-	public void setKeyListener () {
-
-		this.p.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				try {
-
-					if (event.getCode() == KeyCode.SPACE) 
-						espace=true;
-
-					if (event.getCode() == KeyCode.D) 
-						j.getPerso().deplacementColision("droite") ;
-
-					if (event.getCode() == KeyCode.S) 
-						j.getPerso().deplacementColision("bas") ;
-
-					if (event.getCode() == KeyCode.Q) 
-						j.getPerso().deplacementColision("gauche") ;
-
-				} catch (VousEtesCoinceException e) {System.out.println(e);} ;
-
-			}
-
-		});
+					for(String touche: this.ToucheAppuyer) {
+						switch(touche) {
+						case "Q":
+							j.getPerso().deplacementColision("gauche") ;
+							break;
+						case "S":
+							j.getPerso().deplacementColision("bas") ;
+							break;
+						case "D":
+							j.getPerso().deplacementColision("droite") ;
+							break;
+						case "SPACE":
+							espace=true;
+							break;
+						}
+					}
 
 	}
 	public boolean espaceActive() { 
