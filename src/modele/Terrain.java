@@ -35,18 +35,16 @@ import javafx.collections.ObservableList;
 		
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
-			int i, j, unPixel, unAutrePixel ;
+			int unPixel=1, unAutrePixel=1 ;
 			String nomCase ;
 			GameObject caseMap = null ;
+
 			
-			unAutrePixel = 1 ;
-			unPixel = 1;
-			
-			for (i = 0 ; i < newlist.size() ; i ++) {
+			for (int i = 0 ; i < newlist.size() ; i ++) {
 				
 				this.listeDeLignes.add(FXCollections.observableArrayList()) ;
 				
-				for (j = 0 ; j < newlist.get(i).size() ; j ++) {
+				for (int j = 0 ; j < newlist.get(i).size() ; j ++) {
 					
 					nomCase = newlist.get(i).get(j) ;
 					

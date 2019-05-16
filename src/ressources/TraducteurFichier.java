@@ -33,7 +33,7 @@ public class TraducteurFichier {
 	
 	public void initTableau () throws IOException {
 		
-		int i, j ;
+		int i ;
 		
 		String ligne ;
 		
@@ -49,7 +49,7 @@ public class TraducteurFichier {
 			// On ajoute une nouvelle liste à notre map
 			this.tableauDeString.add(FXCollections.observableArrayList()) ;
 			
-			for (j = 0 ; j < lignes.length ; j ++) {
+			for (int j = 0 ; j < lignes.length ; j ++) {
 				// On ajoute une nouvelle case à notre map
 				this.tableauDeString.get(i).add(lignes[j])  ;
 								

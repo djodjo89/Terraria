@@ -56,16 +56,13 @@ public class Collisionneur {
 
 	private boolean tombeSurUnObstacle (String direction, int x, int y, Terrain t, Moteur m, GameObject go) throws VousEtesCoinceException {
 
-		boolean depasseMurGauche, depassePlafond, depasseFond, depasseMurDroite, rentreDansUnObstacle, peutAvancer ;
+		boolean depassePlafond = this.yDeb + y * go.getDistanceDeplacement() < 0 ;
+		boolean depasseMurDroite = this.xFin + x * go.getDistanceDeplacement() > t.getTailleX() ;
+		boolean depasseFond = this.yFin + y * m.getGravite() * go.getDistanceDeplacement() > t.getTailleY() ;
+		boolean depasseMurGauche = this.xDeb + x * go.getDistanceDeplacement() < 0 ;
 
-		rentreDansUnObstacle = true ;
-
-		depassePlafond = this.yDeb + y * go.getDistanceDeplacement() < 0 ;
-		depasseMurDroite = this.xFin + x * go.getDistanceDeplacement() > t.getTailleX() ;
-		depasseFond = this.yFin + y * m.getGravite() * go.getDistanceDeplacement() > t.getTailleY() ;
-		depasseMurGauche = this.xDeb + x * go.getDistanceDeplacement() < 0 ;
-
-		peutAvancer = !(depassePlafond || depasseMurDroite || depasseFond || depasseMurGauche) ;
+		boolean rentreDansUnObstacle=true;
+		boolean peutAvancer = !(depassePlafond || depasseMurDroite || depasseFond || depasseMurGauche) ;
 
 		if (peutAvancer) {
 

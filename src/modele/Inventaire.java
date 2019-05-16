@@ -31,13 +31,10 @@ public class Inventaire {
 
 	private void initInventaire (int taille) {
 
-		int i ;
 
-		for (i = 0 ; i < taille ; i ++) {
-
+		for (int i = 0 ; i < taille ; i ++) {
 			this.listeObjets.add(null) ;
 			this.listeQtes.add(0) ;
-
 		}
 
 	}
@@ -47,29 +44,18 @@ public class Inventaire {
 
 	public void ajouterObjet (GameObject o) {
 
-		int i ;
-
-		i = 0 ;
+		int i =0 ;
 
 		if (this.estVide()) {
-
 			if (!this.listeObjets.contains(o)) {
-
 				while (this.listeObjets.get(i) != null) {
-
 					i ++ ;
-
 				}
-
 				this.listeObjets.set(i, o) ;
 				this.listeQtes.set(i, 1) ;
-
 			}
-
 			else {
-
 				this.listeQtes.set(this.listeObjets.indexOf(o), this.listeQtes.get(this.listeObjets.indexOf(o)) + 1) ;
-
 			}
 
 		}
