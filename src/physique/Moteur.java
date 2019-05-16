@@ -17,14 +17,14 @@ import modele.*;
 
 public class Moteur {
 	
-	private double tailleTileX ;
-	private double tailleTileY ;
+	private double tailleBoiteX ;
+	private double tailleBoiteY ;
 	private double gravite ;
 	
-	public Moteur (double tailleTileX, double tailleTileY, double gravite) {
+	public Moteur (double tailleBoiteX, double tailleBoiteY, double gravite) {
 		
-		this.tailleTileX = tailleTileX ;
-		this.tailleTileY = tailleTileY ;
+		this.tailleBoiteX = tailleBoiteX ;
+		this.tailleBoiteY = tailleBoiteY ;
 		this.gravite = gravite ;
 		
 	}
@@ -35,15 +35,15 @@ public class Moteur {
 		
 	}
 	
-	public double getTailleTileX () {
+	public double getTailleBoiteX () {
 		
-		return this.tailleTileX ;
+		return this.tailleBoiteX ;
 		
 	}
 	
-	public double getTailleTileY () {
+	public double getTailleBoiteY () {
 		
-		return this.tailleTileY ;
+		return this.tailleBoiteY ;
 		
 	}
 

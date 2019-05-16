@@ -7,48 +7,30 @@ public class GameObject {
 	
 	String tag ;
 	private DoubleProperty pv ;
-	private DoubleProperty x;
-	private DoubleProperty y;
-	private double vitesseX ;
-	private double vitesseY ;
+	private DoubleProperty posX ;
+	private DoubleProperty posY ;
+	private VecteurVitesse vecteurVitesse ; 
 	private double poids ;
 	private boolean estUnObstacle ;
 	private Collisionneur collisionneur ;
-	private double distanceDeplacement ;
-	
-	public GameObject (String tag) {
-		
-		this(tag, 100, 0., 0., 0., 0., 0., null, 0.) ;
-		
-	}
 	
 	// Pour les objets statiques
 	public GameObject (String tag, double pv, Collisionneur c) {
 		
-		this(tag, pv, c.getXDeb(), c.getYDeb(), 0., 0., 0., c, 0.) ;
+		this(tag, pv, c.getXDeb(), c.getYDeb(), 1., c) ;
 		
 	}
 	
-	public GameObject (String tag, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur collisionneur, double distanceDeplacement) {
+	public GameObject (String tag, double pv, double posX, double posY, double poids, Collisionneur collisionneur) {
 		
 		this.tag = tag ;
-		this.x = new SimpleDoubleProperty(pv) ;
-		this.x = new SimpleDoubleProperty(x) ;
-		this.y = new SimpleDoubleProperty(y) ;
-		this.vitesseX = vitesseX ;
-		this.vitesseY = vitesseY ;
+		this.posX = new SimpleDoubleProperty(pv) ;
+		this.posX = new SimpleDoubleProperty(posX) ;
+		this.posY = new SimpleDoubleProperty(posY) ;
+		this.vecteurVitesse = new VecteurVitesse(0, 0) ;
 		this.poids = poids ;
 		this.collisionneur = collisionneur ;
 		this.estUnObstacle = false ;
-		this.distanceDeplacement=distanceDeplacement;
-		
-	}
-	
-	public void setCollisionneur (Collisionneur c) {
-		
-		this.collisionneur = c ;
-		this.x.set(c.getXDeb()) ;
-		this.y.set(c.getYDeb()) ;
 		
 	}
 	
@@ -95,24 +77,30 @@ public class GameObject {
 	}
 	
 	public double getX() {
-		return this.x.getValue();
+		return this.posX.getValue();
 	}
 	public double getY() {
-		return this.y.getValue();
+		return this.posY.getValue();
 	}
 	
 	public DoubleProperty getXProperty() {
-		return this.x;
+		return this.posX;
 	}
 	public DoubleProperty getYProperty() {
-		return this.y;
+		return this.posY;
 	}
 	
 	private void setX(double x) {
-		this.x.setValue(x);
+		this.posX.setValue(x);
 	}
 	private void setY(double y) {
-		this.y.setValue(y);
+		this.posY.setValue(y);
+	}
+	
+	private void setVecteurVitesse (double x, double y) {
+		
+		
+		
 	}
 	
 	// Déplace le gameObject de x et y multipliés par la distance
