@@ -1,221 +1,163 @@
+
 package controleur;
+
+import ressources.Images;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exceptions.HorsDeLaMapException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D ;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Button;
-import modele.Terrain;
-import modele.TraducteurFichier;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+import modele.* ;
+import physique.GameObject;
+
+/*
+ * TerrariaControleur génère la map à l'écran, crée une partie
+ * et lance une boucle de jeu.
+ * Elle possède un jeu, un controleur de touches pour gérer
+ * les évènements clavier, un pane pour le personnage et un
+ * autre pour la map.
+ * Voici ses responsabilités :
+ * - Ajouter un écouteur sur la map
+ * - Afficher la map à l'écran
+ * - Lancer la boucle de jeu
+ * 
+ */
 
 public class TerrariaControleur implements Initializable {
 	
-	private Terrain t ;
-	private Point2D p ;
-	final static private String[] DIRECTIONS = {"haut", "droite", "bas", "gauche"} ;
-	private int direction ;
+	private Timeline gameLoop;
 	
-	private TraducteurFichier tf ;
+	private Jeu jeu ;
 	
-    @FXML
-    private TextArea map;
+	private ControleurTouches controlTouche ;
+	
+	private Images images ;
+	
+	@FXML
+    private BorderPane borderPanePerso;
+	
+	@FXML
+    private Pane paneCentral;
+	@FXML
+	private Tuile perso;
     
     @FXML
-    private Button boutonDroite ;
+	private Pane paneMap;
     
-    @FXML
-    private Button boutonGauche ;
+    private int nbTour;
     
-    @FXML
-    private Button boutonHaut ;
+    private MapControleur controlMap;
     
-    @FXML
-    private Button boutonBas ;
+    //!\\ MODIFIABLE
+    // Lance la boucle de jeu et définit ce qu'y s'y passe (pour l'instant pas grand-chose)
     
-    public void afficherMap () {
-    	
-    	this.map.clear();
-    	
-    	for (ObservableList<String> ligne : t.getListeLignes()) {
+	public void initBoucleJeu() {
+		nbTour=0;
+		gameLoop = new Timeline();
+		gameLoop.setCycleCount(Timeline.INDEFINITE);
+		
+
+		KeyFrame kf = new KeyFrame(
+				// on définit le FPS (nbre de frame par seconde)
+				Duration.seconds(0.017), 
+				// on définit ce qui se passe à chaque frame 
+				// c'est un eventHandler d'ou le lambda
+				(ev ->{
+					try {
+						nbTour=this.jeu.evoluer(nbTour,controlTouche);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+				})
+				);
+		gameLoop.getKeyFrames().add(kf);
+	}
+    
+	// Affiche les tuiles du terrain et le personnage à l'écran
+	
+	public void initMap () {
+		   
+	    	String nom = new String("test");
+	    	String typeBloc;
+	    	String valeur;
+	    	int yMap=this.jeu.getMap().getDimY();
+	    	int xMap=this.jeu.getMap().getDimX();
+	    	
+	    	Tuile tile;
+    		this.paneMap.getChildren().clear();
+
     		
-    		for (String c : ligne) {
-    			
-    			map.appendText(c + " ");
-    			
-    		}
     		
-    		map.appendText("\n");
-    		
-    	}
-    	
-    }
+	    	for(int y=0;y<yMap;y++) {
+		    	for(int x=0;x<xMap;x++) {
+		    		nom = x+":"+y;
+		    		valeur=this.jeu.getMap().getListeLignes().get(y).get(x).getTag();
+		    		
+		    		switch(valeur) {
+		    		case "T":
+		    			typeBloc="terre";
+		    			break;
+		    		case "A":
+		    			typeBloc="air";
+		    			break;
+		    		default:
+		    			typeBloc="air";
+		    			break;
+		    		}
+		    		
+		    		tile= new Tuile(nom,x*jeu.getMoteur().getTailleTileX(),y*jeu.getMoteur().getTailleTileY(),this.images.getImage(typeBloc));
+		    		this.paneMap.getChildren().add(tile);
+		    	}
+		    	
+	    	}
+	    	this.perso= new Tuile(nom,0,0,this.images.getImage("perso"));
+	    	this.borderPanePerso.getChildren().add(this.perso);
+			this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
+			this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+	    	
+	    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		this.p = new Point2D(5, 5) ;
 		
-		try {
-			this.tf = new TraducteurFichier("map.csv") ;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("coucou");
-		}
+    	this.images = new Images () ;
+    	this.images.ajouterImage("perso", new Image(new File("image/perso.png").toURI().toString()));
+    	this.images.ajouterImage("terre", new Image(new File("image/terre.png").toURI().toString()));
+    	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 		
-		this.t = new Terrain (this.tf.getTabMap()) ;
-		
-		this.ajouterEcouteur () ;
-		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "P") ;
-		
-		this.afficherMap();
-		
-	}
-	
-	public void allerEnHaut (ActionEvent event) {
-		
-		this.direction = 0 ;
-		this.seDeplacer();
+    	try {
+			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 10., 10.) ;
+			controlMap=new MapControleur(this.paneMap,this.jeu);
+			this.controlMap.ajouterEcouteur () ;
+			this.initMap() ;
+			this.initBoucleJeu();
+			this.paneMap.setFocusTraversable(true);
+			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
+			this.gameLoop.play();
+
+    	} 
+    	
+    	catch (HorsDeLaMapException e) {System.out.println(e);}
+    	catch (IOException e) {e.printStackTrace();}
 		
 	}
-	
-	public void allerADroite (ActionEvent event) {
-		
-		this.direction = 1 ;
-		this.seDeplacer();
-		
-	}
-	
-	public void allerEnBas (ActionEvent event) {
-		
-		this.direction = 2 ;
-		this.seDeplacer();
-		
-	}
-	
-	public void allerAGauche (ActionEvent event) {
-		
-		this.direction = 3 ;
-		this.seDeplacer();
-		
-	}
-
-	
-	private void seDeplacer () { // 0 : haut, 1 : droite, 2 : bas, 3 : gauche
-		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "T") ;
-		System.out.println(p.getX() + p.getY());
-		System.out.println(this.direction);
-		
-		switch (this.direction) { 
-		
-			case 0 : 
-				
-				if (this.p.add(0., 1.).getX() >= 0) {
-					
-					this.p = this.p.add(-1., 0.) ; 
-					
-				}
-				
-			break ;
-			
-			case 1 : 
-				
-				if (this.p.add(0., 1.).getY() < this.t.getDimY()) {
-					
-					this.p = this.p.add(0., 1.) ; 
-					
-				}
-				
-			break ;
-			
-			case 2 : 
-				
-				if (this.p.add(1., 0.).getX() < this.t.getDimX()) {
-				
-					this.p = this.p.add(1., 0.) ; 
-					
-				}
-				
-			break ;
-			
-			case 3 : 
-				
-				if (this.p.add(0., -1.).getY() >= 0) {
-					
-					this.p = this.p.add(0., -1.) ; 
-					
-				}
-				
-			break ;
-			
-		}
-		
-		this.t.getListeLignes().get((int)p.getX()).set((int)p.getY(), "P") ;
-		System.out.println(p.getX() + p.getY());
-		this.afficherMap();
-		
-	}
-	
-	public void ajouterEcouteur () {
-		
-		for (ObservableList<String> listeCases : this.t.getListeLignes()) {
-			
-			listeCases.addListener (new ListChangeListener<String> () {
-
-				@Override
-				public void onChanged(Change<? extends String> changement) {
+}	
 
 
-					while (changement.next()) {
 
-						if (changement.wasReplaced()) {
-
-							if (listeCases.get((int)p.getY()) == "P") {
-
-								System.out.print("Déplacement ");
-
-								switch (direction) {
-
-								case 1 :
-								case 3 :
-
-									System.out.print("à ");
-
-									break ;
-
-								case 0 :
-								case 2 :
-
-									System.out.print("en ");
-
-									break ;
-
-								}
-
-								System.out.println(DIRECTIONS[direction]);
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}) ;
-			
-		}
-		
-	}
-
-}
