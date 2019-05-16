@@ -18,7 +18,7 @@ import physique.* ;
 
 public class Inventaire {
 
-	public ObservableList<GameObject> listeObjets ;
+	public ObservableList<Inventeriable> listeObjets ;
 	public ObservableList<Integer> listeQtes ;
 
 	public Inventaire (int taille) {
@@ -42,7 +42,7 @@ public class Inventaire {
 	// Si l'objet n'existe pas dans la liste d'objets,
 	// l'y ajoute, sinon augmente sa quantité de 1
 
-	public void ajouterObjet (GameObject o) {
+	public void ajouterObjet (Inventeriable o) {
 
 		int i =0 ;
 
@@ -98,7 +98,7 @@ public class Inventaire {
 		
 	}
 	
-	public ObservableList<GameObject> getInventaire () {
+	public ObservableList<Inventeriable> getInventaire () {
 		
 		return this.listeObjets ;
 		

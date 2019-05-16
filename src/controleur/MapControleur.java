@@ -2,6 +2,7 @@ package controleur;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
+import modele.Inventeriable;
 import modele.Jeu;
 import javafx.collections.ListChangeListener.Change;
 import physique.*;
@@ -15,12 +16,12 @@ public class MapControleur {
 	}
 	public void ajouterEcouteur () {
 		
-		for (ObservableList<GameObject> listeCases : this.jeu.getMap().getListeLignes()) {
+		for (ObservableList<Inventeriable> listeCases : this.jeu.getMap().getListeLignes()) {
 			
-			listeCases.addListener (new ListChangeListener<GameObject> () {
+			listeCases.addListener (new ListChangeListener<Inventeriable> () {
 
 				@Override
-				public void onChanged(Change<? extends GameObject> changement) {
+				public void onChanged(Change<? extends Inventeriable> changement) {
 
 
 					while (changement.next()) {
