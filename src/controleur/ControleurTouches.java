@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 import exceptions.VousEtesCoinceException;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
+import javafx.geometry.Point3D;
+
 
 /*
  * Le Controleur de touches gère les cas d'entrées
@@ -26,12 +27,16 @@ public class ControleurTouches {
 	private Pane p ;
 	private boolean espace;
 	private ArrayList<String> ToucheAppuyer;
+	private String dernierDirection;
+	private Tuile perso;
 
-	public ControleurTouches (Pane p, Jeu j) {
+	public ControleurTouches (Pane p, Jeu j,Tuile perso) {
 
 		this.j = j ;
 		this.p = p ;
 		this.ToucheAppuyer = new ArrayList<String>();
+		dernierDirection=new String("droite");
+		this.perso=perso;
 
 	}
 	
@@ -60,17 +65,28 @@ public class ControleurTouches {
 						switch(touche) {
 						case "Q":
 							j.getPerso().deplacementColision("gauche") ;
+							if(dernierDirection.equals("droite")) {
+								perso.setRotate(180);
+							}
+							
+							dernierDirection="gauche";
 							break;
 						case "S":
 							j.getPerso().deplacementColision("bas") ;
 							break;
 						case "D":
 							j.getPerso().deplacementColision("droite") ;
+							if(dernierDirection.equals("gauche")) {
+								perso.setRotate(0);
+							}
+							
+							dernierDirection="droite";
 							break;
 						case "SPACE":
 							espace=true;
 							break;
 						}
+						System.out.println(dernierDirection);
 					}
 
 	}

@@ -15,6 +15,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -136,6 +137,7 @@ public class TerrariaControleur implements Initializable {
 	    	this.borderPanePerso.getChildren().add(this.perso);
 			this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 			this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+			this.perso.setRotationAxis(new Point3D(0,1,0));
 			
 			
 	    	Tuile tileItem = new Tuile();
@@ -155,7 +157,7 @@ public class TerrariaControleur implements Initializable {
 		
 		
     	this.images = new Images () ;
-    	this.images.ajouterImage("perso", new Image(new File("image/perso.png").toURI().toString()));
+    	this.images.ajouterImage("perso", new Image(new File("image/wall-by.gif").toURI().toString()));
     	this.images.ajouterImage("terre", new Image(new File("image/terre.png").toURI().toString()));
     	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
        	this.images.ajouterImage("fondInventaire", new Image(new File("image/fondInventaire.png").toURI().toString()));
@@ -169,7 +171,7 @@ public class TerrariaControleur implements Initializable {
 			this.initMap() ;
 			this.initBoucleJeu();
 			this.paneMap.setFocusTraversable(true);
-			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
+			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu,this.perso) ;
 			this.gameLoop.play();
 			this.paneItemsInventaire.toFront();
 
