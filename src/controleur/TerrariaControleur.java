@@ -57,6 +57,12 @@ public class TerrariaControleur implements Initializable {
     @FXML
 	private Pane paneMap;
     
+    @FXML
+    private Pane paneInventaire;
+
+    @FXML
+    private Pane paneItemsInventaire;
+    
     private int nbTour;
     
     private MapControleur controlMap;
@@ -129,6 +135,17 @@ public class TerrariaControleur implements Initializable {
 	    	this.borderPanePerso.getChildren().add(this.perso);
 			this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
 			this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+			
+			
+	    	Tuile tileItem = new Tuile();
+	    	for(int i=0; i<10; i++) {
+	    		nom = "" +i;
+	    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleTileX()),0,this.images.getImage("fondInventaire"));
+	    		tileItem = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,15,this.images.getImage("forreuse"));
+	    		this.paneInventaire.getChildren().add(tile);
+	    		this.paneItemsInventaire.getChildren().add(tileItem);
+	    		
+	    	}
 	    	
 	    }
 
@@ -140,7 +157,10 @@ public class TerrariaControleur implements Initializable {
     	this.images.ajouterImage("perso", new Image(new File("image/perso.png").toURI().toString()));
     	this.images.ajouterImage("terre", new Image(new File("image/terre.png").toURI().toString()));
     	this.images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
-		
+       	this.images.ajouterImage("fondInventaire", new Image(new File("image/fondInventaire.png").toURI().toString()));
+    	this.images.ajouterImage("forreuse", new Image(new File("image/forreuse.png").toURI().toString()));
+    	
+    	
     	try {
 			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 10., 10.) ;
 			controlMap=new MapControleur(this.paneMap,this.jeu);
@@ -150,6 +170,7 @@ public class TerrariaControleur implements Initializable {
 			this.paneMap.setFocusTraversable(true);
 			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
 			this.gameLoop.play();
+			this.paneItemsInventaire.toFront();
 
     	} 
     	
