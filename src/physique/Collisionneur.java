@@ -151,7 +151,7 @@ public class Collisionneur {
 	
 	private int getCoorYDebSuiv (int y, Moteur m, GameObject go) {
 
-		return (int) ((this.getYDeb() + y * go.getDistanceDeplacement())  / m.getTailleTileY()) ;
+		return (int) ((this.getYDeb() + y * go.getDistanceDeplacement()-10)  / m.getTailleTileY()) ;
 
 	}
 	
