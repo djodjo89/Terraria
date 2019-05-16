@@ -81,21 +81,24 @@ public class Personnage extends GameObject {
 		
 	}
 	
-	public Inventaire getInventaire () {
+	public Inventaire getInventaire (){
 		
 		return this.i ;
-		
 	}
-	public int sauter(int nbTour,boolean bool) {
+	
+	public int sauter(int nbTour,boolean espaceActive) throws VousEtesCoinceException {
 		int nb=nbTour;
-		if(bool)
+		if(espaceActive && nbTour==0)
 			nb=1;
-		if(nb>0) {
+		
+		if(nb>0 && nb<20) {
 			this.sauter(this.jeu.getMap(), this.jeu.getMoteur());
 			nb++;
 		}
-		if(nb>20)
+		
+		if(nb>=20 && !this.getCollisionneur().deplacementPossible("bas", this.jeu.getMap(), this, this.jeu.getMoteur()))
 			nb=0;
+		
 		return nb;
 	}
 
