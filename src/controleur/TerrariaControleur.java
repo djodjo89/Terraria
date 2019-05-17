@@ -47,22 +47,24 @@ public class TerrariaControleur implements Initializable {
 	
 	private Images images ;
 	
-	@FXML
-    private BorderPane borderPanePerso;
-	
-	@FXML
-    private Pane paneCentral;
-	@FXML
-	private Tuile perso;
-    
+
     @FXML
-	private Pane paneMap;
-    
+    private Pane panePerso;
+
     @FXML
     private Pane paneInventaire;
 
     @FXML
     private Pane paneItemsInventaire;
+
+    @FXML
+    private Pane panePrincipal;
+
+    @FXML
+    private Pane paneMap;
+	
+	@FXML
+	private Tuile perso;
     
     private int nbTour;
     
@@ -75,7 +77,7 @@ public class TerrariaControleur implements Initializable {
 		nbTour=0;
 		gameLoop = new Timeline();
 		gameLoop.setCycleCount(Timeline.INDEFINITE);
-		
+
 
 		KeyFrame kf = new KeyFrame(
 				// on définit le FPS (nbre de frame par seconde)
@@ -108,7 +110,7 @@ public class TerrariaControleur implements Initializable {
 	    	
 	    	Tuile tile;
     		this.paneMap.getChildren().clear();
-
+    		
     		
     		
 	    	for(int y=0;y<yMap;y++) {
@@ -130,15 +132,14 @@ public class TerrariaControleur implements Initializable {
 		    		
 		    		tile= new Tuile(nom,x*jeu.getMoteur().getTailleTileX(),y*jeu.getMoteur().getTailleTileY(),this.images.getImage(typeBloc));
 		    		this.paneMap.getChildren().add(tile);
+		    		
 		    	}
 		    	
 	    	}
 	    	this.perso= new Tuile(nom,0,0,this.images.getImage("perso"));
-	    	this.borderPanePerso.getChildren().add(this.perso);
-			this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
-			this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
-			this.perso.setRotationAxis(new Point3D(0,1,0));
-			
+	    	this.panePerso.getChildren().add(this.perso);
+	    	this.panePerso.toFront();
+
 			
 	    	Tuile tileItem = new Tuile();
 	    	for(int i=0; i<10; i++) {
@@ -155,7 +156,7 @@ public class TerrariaControleur implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		
+
     	this.images = new Images () ;
     	this.images.ajouterImage("perso", new Image(new File("image/wall-by.gif").toURI().toString()));
     	this.images.ajouterImage("terre", new Image(new File("image/terre.png").toURI().toString()));
@@ -171,11 +172,14 @@ public class TerrariaControleur implements Initializable {
 			this.initMap() ;
 			this.initBoucleJeu();
 			this.paneMap.setFocusTraversable(true);
-			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu,this.perso) ;
+			this.controlTouche = new ControleurTouches(this.panePrincipal, this.jeu,this.perso) ;
 			this.gameLoop.play();
 			this.paneItemsInventaire.toFront();
 
 			controlTouche.gererControleur();
+			this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
+			this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+			this.perso.setRotationAxis(new Point3D(0,1,0));
 
     	} 
     	
