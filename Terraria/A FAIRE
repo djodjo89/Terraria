@@ -1,0 +1,20 @@
+Ameliorer colision.
+                  
+Ressources et inventaire : j'ai commencé à plancher dessus mais faudrait qu'on se mettre d'accord sur comment on les gères.
+Est ce que chaque objet items a la responsabilité de se creer lui même ? Il faudrait qu'on voit ça
+
+Mathys : Pour moi l'inventaire c'est deux choses : une liste d'objets et une liste d'entier. On peut ajouter, retirer et supprimer
+des objets (retirer enlève 1, supprimer enlève l'objet de la liste). Ces deux listes sont observables. Il n'y a en fait qu'un seul
+objet dans la première liste, celui que prendra le personnage quand il choisira un objet dans son inventaire. A part ça je laisse 
+de côté la gravité pour l'instant, c'est un véritable casse-tête.
+                  
+Mathys : inventaire
+commencer les classe ressources
+Karen et Ludovic : gerer craft
+Mathys : gravite
+commencer classe enemi
+
+
++ si vous avez des idees
+
+PS : il vaut mieux ajouter nos prénoms avant d'écrire ici, sinon on ne s'y retrouvera pas.

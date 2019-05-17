@@ -1,0 +1,118 @@
+
+	package modele;
+
+import physique.* ;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+/*
+ * Le Terrain est le modèle de la map.
+ * C'est lui qui définit, sous la forme d'un tableau
+ * observable de chaînes de caractères, les différents
+ * blocs qui constituent la map
+ * Voici ses responsabilités :
+ * - donner ses dimensions
+ * - fournir la dernière case
+ * - fournir son tableau observable
+ */
+
+	public class Terrain {
+		
+		private double tailleCaseX ;
+		private double tailleCaseY ;
+		private ArrayList<ObservableList<Inventeriable>> listeDeLignes ;
+
+		public Terrain (ArrayList<ObservableList<String>> newlist, double tailleCaseX, double tailleCaseY) {
+			
+			this.tailleCaseX = tailleCaseX ;
+			this.tailleCaseY = tailleCaseY ;
+			this.listeDeLignes = new ArrayList<ObservableList<Inventeriable>> () ;
+			this.initTerrain(newlist) ;
+			
+		}
+		
+		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
+			
+			int unPixel=1, unAutrePixel=1 ;
+			String nomCase ;
+			Inventeriable caseMap = null ;
+
+			
+			for (int i = 0 ; i < newlist.size() ; i ++) {
+				
+				this.listeDeLignes.add(FXCollections.observableArrayList()) ;
+				
+				for (int j = 0 ; j < newlist.get(i).size() ; j ++) {
+					
+					nomCase = newlist.get(i).get(j) ;
+					
+					switch (nomCase) {
+					
+					case "T" : caseMap = new Terre(nomCase) ; break ;
+					
+					case "A" : caseMap = new Air(nomCase) ; break ;
+					
+					}
+					
+					caseMap.setCollisionneur(new Collisionneur (j * this.tailleCaseX,
+									   i * this.tailleCaseY,
+									 ((j * this.tailleCaseX) + this.tailleCaseX - unAutrePixel),
+									 ((i * this.tailleCaseY) + this.tailleCaseY - unPixel)));
+					
+					this.listeDeLignes.get(i).add(caseMap) ;
+					
+				}
+				
+			}
+			
+		}
+		
+		public int getDimY () {
+			
+			return this.listeDeLignes.size() ;
+			
+		}
+		
+		public int getDimX () {
+			
+			return this.listeDeLignes.get(0).size() ;
+			
+		}
+		
+		public double getTailleY () {
+			
+			return this.getDerniereCase().getCollisionneur().getYFin() ;
+			
+		}
+		
+		public double getTailleX () {
+			
+			return this.getDerniereCase().getCollisionneur().getXFin() ;
+			
+		}
+		
+		private GameObject getDerniereCase () {
+			
+			return this.listeDeLignes.get(this.getDimY() - 1).get(this.getDimX() - 1) ;
+			
+		}
+		
+		public ArrayList<ObservableList<Inventeriable>> getListeLignes () {
+			
+			return this.listeDeLignes ;
+			
+		}
+		
+		public void destructionTerrain(int x, int y) {
+			Inventeriable caseMap = null ;
+			
+			System.out.println(x);
+			System.out.println(y);
+			this.listeDeLignes.get(y).set(x,caseMap = new Air("A"));
+		}
+
+	}
+
+
