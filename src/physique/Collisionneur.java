@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import exceptions.* ;
+import geometrie.Vecteur;
 import javafx.geometry.Point2D;
 
 /*
@@ -20,52 +21,38 @@ import javafx.geometry.Point2D;
 
 public class Collisionneur {
 
-	ArrayList<Point2D> listeSommets ;
+	Polygone boite ;
 
 	public Collisionneur () {
 		
-		this.listeSommets = new ArrayList<Point2D> () ;
+		this.boite = new Polygone () ;
 
 	}
 	
-	public void initCollisionneur (GameObject go, Moteur m) {
+	public boolean depasseLesLimitesDeLaMap (Terrain t) throws HorsDeLaMapException {
 		
-		this.ajouterSommet(go.getX(), go.getY());
-		this.ajouterSommet(go.getX() + m.getTailleBoiteX(), go.getY());
-		this.ajouterSommet(go.getX(), go.getY() + m.getTailleBoiteY());
-		this.ajouterSommet(go.getX() + m.getTailleBoiteX(), go.getY() + m.getTailleBoiteY());
+		int i = 0 ;
+		boolean depasse = false ;
 		
-	}
-	
-	public void ajouterSommet (double x, double y) {
+		while (i < this.boite.nbSommets()) {
+			
+			if (this.boite.get(i).getY() < 0 || this.boite.get(i).getX() < 0 || this.boite.get(i).getY() > t.getTailleY() || this.boite.get(i).getX() > t.getTailleX())
+				
+				throw new HorsDeLaMapException (t) ;
+			
+		}
 		
-		this.listeSommets.add(new Point2D(x, y)) ;
-		
-	}
-	
-	public double depasseLesLimitesDeLaMap () {
-		
-		
+		return depasse ;
 		
 	}
 	
 	// Renvoie la distance dont peut se déplacer le perso dans la direction donnée
 
-	private double deplacementPossible (VecteurVitesse v, Terrain t, Moteur m) throws VousEtesCoinceException {
-
-		/*boolean depassePlafond = this.yDeb + y * go.getDistanceDeplacement() < 0 ;
-		boolean depasseMurDroite = this.xFin + x * go.getDistanceDeplacement() > t.getTailleX() ;
-		boolean depasseFond = this.yFin + y * m.getGravite() * go.getDistanceDeplacement() > t.getTailleY() ;
-		boolean depasseMurGauche = this.xDeb + x * go.getDistanceDeplacement() < 0 ;
-
-		boolean rentreDansUnObstacle=true;
-		boolean peutAvancer = !(depassePlafond || depasseMurDroite || depasseFond || depasseMurGauche) ;*/
-
-		double deplacementPossible ;
+	public double deplacementPossible (Vecteur v, Terrain t, Moteur m) throws VousEtesCoinceException, HorsDeLaMapException {
 		
-			if (!this.chevaucheUnObstacle(t, m))
+			if (!depasseLesLimitesDeLaMap(t))
 				
-				
+				System.out.println("ok");
 
 			else {
 
@@ -85,9 +72,59 @@ public class Collisionneur {
 
 	}
 	
-	public double chevauche (Collisionneur c) {
+	public boolean chevauche (Collisionneur c) {
 		
+		int i ;
+		int j ;
+		double a1, a2, b1, b2, c1, c2, denominateur, intersectX, intersectY, ratioIntersectY, ratioIntersectX ;
+		boolean chevauche ;
 		
+		i = 0 ;
+		j = 0 ;
+		chevauche = false ;
+		
+		Point2D p0, p1, p2, p3 ;
+		
+		while (!chevauche && i < this.boite.nbSommets()) {
+			
+			p0 = this.boite.get(i) ;
+			p1 = this.boite.get((i + 1) % this.boite.nbSommets()) ;
+			
+			while (!chevauche && j < c.getBoite().nbSommets()) {
+				
+				p2 = c.getBoite().get(j) ;
+				p3 = c.getBoite().get(j) ;
+				
+				a1 = p1.getY() - p0.getY() ;
+				b1 = p0.getX() - p1.getX() ;
+				c1 = a1 * p0.getX() + b1 * p0.getY() ;
+				
+				a2 = p3.getY() - p2.getY() ;
+				b2 = p2.getX() - p3.getX() ;
+				c2 = a2 * p2.getX() + b2 * p2.getY() ;
+				
+				denominateur = a1 * b2 - a2 * b1 ;
+				
+				intersectX = (b2 * c1 - b1 * c2) / denominateur ;
+				intersectY = (a1 * c2 - a2 * c1) / denominateur ;
+				ratioIntersectX = (intersectX - p0.getX()) / (p1.getX() - p0.getX()) ;
+				ratioIntersectY = (intersectY - p0.getY()) / (p)
+				
+				j ++ ;
+				
+			}
+			
+			i ++ ;
+			
+		}
+		
+		return chevauche ;
+		
+	}
+	
+	public Polygone getBoite () {
+		
+		return this.boite ;
 		
 	}
 
