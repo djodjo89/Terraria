@@ -20,8 +20,8 @@ public class Main extends Application {
 			loader.setLocation(url);
 			BorderPane root = new BorderPane();
 			root = loader.load() ;
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Scene scene = new Scene(root,1350,1000);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setTitle("Terraria");
