@@ -19,6 +19,7 @@ import javafx.geometry.Point2D;
  * moteur et s'afficher.
  */
 
+
 public class Collisionneur {
 
 	Polygone boite ;
@@ -46,7 +47,7 @@ public class Collisionneur {
 		
 	}
 	
-	// Renvoie la distance dont peut se déplacer le perso dans la direction donnée
+	// Renvoie la distance dont peut se dï¿½placer le perso dans la direction donnï¿½e
 
 	public double deplacementPossible (Vecteur v, Terrain t, Moteur m) throws VousEtesCoinceException, HorsDeLaMapException {
 		
