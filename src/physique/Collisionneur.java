@@ -9,6 +9,11 @@ import exceptions.* ;
 import geometrie.Vecteur;
 import javafx.geometry.Point2D;
 
+/**
+ * Un Collisionneur est une "boîte" de taille quelconque capable
+ * de vérifier qu'il n'entre pas en collision avec un autre.
+ */
+
 /*
  * Ma classe prÃ©fÃ©rÃ©e :) J'ai passÃ© un week-end dessus
  * Collisionneur est une "boÃ®te" dÃ©limitÃ©e par quatre
@@ -45,6 +50,43 @@ public class Collisionneur {
 		return depasse ;
 		
 	}
+	
+	/**
+	 * Vérifie si le déplacement est possible dans la direction du vecteur vitesse
+	 * du Collisionneur en fonction de sa position par rapport aux Collisionneurs
+	 * du terrain. Le moteur sert à appliquer les forces physiques. Il y a trois 
+	 * résultats possibles :
+	 * 
+	 * - La distance au "prochain Collisionneur touché" est nulle, dans ce cas
+	 * la méthode retourne 0
+	 * 
+	 * - La distance est inférieure à la norme du vecteur, dans ce cas la distance
+	 * est retournée
+	 * 
+	 * - La distance est supérieure à la norme du vecteur, dans ce cas la norme du
+	 * vecteur est retournée
+	 * 
+	 * Le vecteur de vitesse permet d'anticiper la position du Collisionneur à la
+	 * fin du déplacement
+	 * @param vecteurVitesse
+	 * 
+	 * Le terrain donne la position des obstacles proches
+	 * @param terrain
+	 * 
+	 * Le moteur applique les forces physiques au déplacement
+	 * @param moteur
+	 * 
+	 * @return La distance au Collisionneur le plus proche de la position où on
+	 * se trouvera après le déplacement.
+	 * 
+	 * @throws VousEtesCoinceException Si le Collisionneur est coincé dans un autre.
+	 * 
+	 * @author Mathys
+	 * 
+	 * @version 2.0
+	 * 
+	 * @since 1.0
+	 */
 	
 	// Renvoie la distance dont peut se déplacer le perso dans la direction donnée
 
