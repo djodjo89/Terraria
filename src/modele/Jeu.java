@@ -44,7 +44,7 @@ public class Jeu {
 		
 	}
 	
-	public Terrain getMap () {
+	public Terrain getTerrain () {
 		
 		return this.t ;
 		

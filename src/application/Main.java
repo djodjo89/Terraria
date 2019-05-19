@@ -3,7 +3,7 @@ package application;
 import java.io.File;
 import java.net.URL;
 
-import controleur.TerrariaControleur;
+import controleur.ControleurTerraria;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
