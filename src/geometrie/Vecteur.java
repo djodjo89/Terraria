@@ -19,27 +19,21 @@ public class Vecteur {
 		
 	}
 	
-	public double getVitesseX () {
+	public double getNorme () {
+		
+		return (Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2))) ;
+		
+	}
+	
+	public double getX () {
 		
 		return this.x ;
 		
 	}
 	
-	public double getVitesseY () {
+	public double getY () {
 		
 		return this.y ;
-		
-	}
-	
-	public void setVitesseX (double x) {
-		
-		this.x = x ;
-		
-	}
-	
-	public void setVitesseY (double y) {
-		
-		this.y = y ;
 		
 	}
 

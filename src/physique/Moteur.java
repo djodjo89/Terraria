@@ -1,8 +1,5 @@
 package physique;
 
-import exceptions.HorsDeLaMapException;
-import modele.*;
-
 //!\\ MODIFIABLE
 /*
  * Moteur gère la physique du jeu, pour l'instant il
@@ -46,20 +43,11 @@ public class Moteur {
 		return this.tailleBoiteY ;
 		
 	}
-
-	public void apparaitDansLaMap (Personnage p, Terrain t) throws HorsDeLaMapException {
-		
-		if (		
-		p.getCollisionneur().getXDeb() < 0
-		|| p.getCollisionneur().getYDeb() < 0
-		|| p.getCollisionneur().getXFin() >= t.getTailleX()
-		|| p.getCollisionneur().getYFin() >= t.getTailleY())
-		throw new HorsDeLaMapException (t, p) ;
-		
-	}
 	
 	public void appliquerGraviter(GameObject perso) {
-		perso.deplacementSansVerif("bas");
+		
+		perso.changerVitesse(0, -1) ;
+		
 	}
 	
 }

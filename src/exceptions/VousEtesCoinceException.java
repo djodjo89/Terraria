@@ -27,52 +27,11 @@ public class VousEtesCoinceException extends Exception {
 		this.t = t ;
 		this.m = m ;
 		this.listeCoinsBloques = new HashSet<> () ;
-		this.coinceEnHautAGauche();this.coinceEnHautADroite();this.coinceEnBasADroite();this.coinceEnBasAGauche();
 		
 	}
 	
 	// Ces méthodes ajoutent les coordonnées des coins de la tuile du joueur bloqués
 	// à la liste de coins bloqués
-	
-	public void coinceEnHautAGauche () {
-		
-		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYDebActuel(m)).get(this.c.getCoorXDebActuel(m)).estUnObstacle() ;
-		
-		if (this.coinBloque)
-			
-			this.listeCoinsBloques.add(new String (this.c.getCoorXDebActuel(m) + ":" + this.c.getCoorYDebActuel(m))) ;
-		
-	}
-	
-	public void coinceEnHautADroite () {
-		
-		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYDebActuel(m)).get(this.c.getCoorXFinActuel(m)).estUnObstacle() ;
-		
-		if (this.coinBloque)
-			
-			this.listeCoinsBloques.add(new String (this.c.getCoorXFinActuel(m) + ":" + this.c.getCoorYDebActuel(m))) ;
-		
-	}
-	
-	public void coinceEnBasADroite () {
-		
-		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYFinActuel(m)).get(this.c.getCoorXFinActuel(m)).estUnObstacle() ;
-		
-		if (this.coinBloque)
-			
-			this.listeCoinsBloques.add(new String (this.c.getCoorXFinActuel(m) + ":" + this.c.getCoorYFinActuel(m))) ;
-		
-	}
-	
-	public void coinceEnBasAGauche () {
-		
-		this.coinBloque = this.t.getListeLignes().get(this.c.getCoorYFinActuel(m)).get(this.c.getCoorXDebActuel(m)).estUnObstacle() ;
-		
-		if (this.coinBloque)
-			
-			this.listeCoinsBloques.add(new String (this.c.getCoorXDebActuel(m) + ":" + this.c.getCoorYFinActuel(m))) ;
-		
-	}
 	
 	// Dit au joueur où il est bloqué
 	
