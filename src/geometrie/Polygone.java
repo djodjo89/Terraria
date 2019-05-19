@@ -89,12 +89,6 @@ public class Polygone {
 		
 	}
 	
-	/**
-	 * @todo Mettre un Polygone en paramètre
-	 * @param polygone
-	 * @return
-	 */
-	
 	public boolean estInclusDans (double xMax, double yMax) {
 		
 		int i ;

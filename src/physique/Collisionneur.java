@@ -49,7 +49,7 @@ public class Collisionneur {
 
 	}
 
-	// Renvoie la distance dont peut se d�placer le perso dans la direction donn�e
+	// Renvoie la distance dont peut se déplacer le perso dans la direction donnée
 
 	public Vecteur deplacementPossible (Vecteur vecteur, Terrain terrain, Moteur moteur) throws VousEtesCoinceException, HorsDeLaMapException {
 
