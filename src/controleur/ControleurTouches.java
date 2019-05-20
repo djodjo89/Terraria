@@ -122,6 +122,11 @@ public class ControleurTouches {
 	}
 	
 	
+	public ControleurTouches() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public void gererControleur() {
 		this.pane.setOnKeyPressed(
 				new EventHandler<KeyEvent>() {

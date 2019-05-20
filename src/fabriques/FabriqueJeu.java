@@ -8,9 +8,9 @@ import ressources.Images;
 
 public class FabriqueJeu {
 	
-	public static void initialiserJeu (Jeu jeu, Images images) throws IOException, HorsDeLaMapException {
+	public static Jeu initialiserJeu (Jeu jeu, Images images) throws IOException, HorsDeLaMapException {
 		
-		jeu = new Jeu ("map.csv", images.getImage("air").getWidth(), images.getImage("air").getHeight(), 10., 10.) ;
+		return new Jeu ("map.csv", images.getImage("air").getWidth(), images.getImage("air").getHeight(), 10., 10.) ;
 		
 	}
 

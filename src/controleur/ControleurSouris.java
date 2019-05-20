@@ -60,6 +60,10 @@ public class ControleurSouris extends Parent {
 
 	}
 	
+	public ControleurSouris() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Ajoute un EventHandler sur le pane
 	 * 

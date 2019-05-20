@@ -56,6 +56,10 @@ public class ControleurMap {
 		
 	}
 	
+	public ControleurMap() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Ajoute un ChangeListener sur chaque ligne du terrain
 	 * 

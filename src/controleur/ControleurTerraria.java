@@ -332,15 +332,19 @@ public class ControleurTerraria implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		FabriqueImages.initialiserImages(this.images);
+		
 
 		try {
-			FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
-			FabriqueControleurs.initialiserControleurs(this.jeu, this.panePrincipal, this.paneMap, this.perso, this.controleurMap, this.controleurSouris, this.controleurTouches) ;
+			images=FabriqueImages.initialiserImages();
+			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
 			this.initMap() ;
 			this.initPositionPerso() ;
+			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap);
+			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso);
 			this.initBoucleJeu();
+			paneMap.setFocusTraversable(true);
+			paneItemsInventaire.toFront();
 
 		} 
 
@@ -368,6 +372,8 @@ public class ControleurTerraria implements Initializable {
 		this.perso.setRotationAxis(new Point3D(0,1,0));
 		
 	}
+	
+
 }	
 
 

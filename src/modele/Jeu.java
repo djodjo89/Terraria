@@ -38,6 +38,9 @@ public class Jeu {
 		
 	}
 	
+	public Jeu() {
+	}
+
 	public Moteur getMoteur () {
 		
 		return this.m ;
