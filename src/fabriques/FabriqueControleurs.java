@@ -15,9 +15,9 @@ public class FabriqueControleurs {
 		
 	}
 	
-	public static ControleurTouches initialiserControleurTouches( Pane panePrincipal,Jeu jeu, Tuile perso) {
+	public static ControleurTouches initialiserControleurTouches( Pane panePrincipal,Jeu jeu, Tuile perso,Pane paneMap) {
 		
-		ControleurTouches controleurTouches = new ControleurTouches(panePrincipal, jeu, perso) ;
+		ControleurTouches controleurTouches = new ControleurTouches(panePrincipal, jeu, perso,paneMap) ;
 		controleurTouches.gererControleur();
 		return controleurTouches;
 	}

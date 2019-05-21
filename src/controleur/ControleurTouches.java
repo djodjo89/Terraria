@@ -111,8 +111,10 @@ public class ControleurTouches {
 	
 	private Tuile perso;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso) {
+	private Scrolling scroll;
 
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap) {
+		this.scroll=new Scrolling(pane,paneMap);
 		this.jeu = jeu ;
 		this.pane = pane ;
 		this.ToucheAppuyer = new ArrayList<String>();
@@ -152,9 +154,10 @@ public class ControleurTouches {
 
 			switch(touche) {
 
-				case "Q":							
-					jeu.getPerso().deplacementColision("gauche") ;
-
+				case "Q":		
+					if(jeu.getPerso().jePeuxMeDeplacerLa("gauche"))
+						scroll.faireScroll("Q", jeu.getPerso().getX());
+					jeu.getPerso().deplacementColision("gauche");
 					if(derniereDirection.equals("droite")) {
 
 						perso.setRotate(180);
@@ -169,7 +172,10 @@ public class ControleurTouches {
 				break;
 
 				case "D":
+					if(jeu.getPerso().jePeuxMeDeplacerLa("droite"))
+						scroll.faireScroll("D",jeu.getPerso().getX());
 					jeu.getPerso().deplacementColision("droite") ;
+					
 					if(derniereDirection.equals("gauche")) {
 						perso.setRotate(0);
 					}
