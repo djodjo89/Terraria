@@ -16,6 +16,14 @@ import physique.* ;
  * - renvoyer une liste observable d'objets
  */
 
+/**
+ * <h1>Inventaire gère l'inventaire du Personnage
+ * 
+ * 
+ * @author Mathys
+ *
+ */
+
 public class Inventaire {
 
 	public ObservableList<Inventeriable> listeObjets ;

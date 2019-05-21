@@ -2,6 +2,7 @@
 package controleur;
 
 import ressources.Images;
+import vue.Tuile;
 
 import java.io.File;
 import java.io.IOException;
@@ -105,8 +106,8 @@ public class TerrariaControleur implements Initializable {
 	    	String nom = new String("test");
 	    	String typeBloc;
 	    	String valeur;
-	    	int yMap=this.jeu.getMap().getDimY();
-	    	int xMap=this.jeu.getMap().getDimX();
+	    	int yMap=this.jeu.getTerrain().getDimY();
+	    	int xMap=this.jeu.getTerrain().getDimX();
 	    	
 	    	Tuile tile;
     		this.paneMap.getChildren().clear();
@@ -116,7 +117,7 @@ public class TerrariaControleur implements Initializable {
 	    	for(int y=0;y<yMap;y++) {
 		    	for(int x=0;x<xMap;x++) {
 		    		nom = x+":"+y;
-		    		valeur=this.jeu.getMap().getListeLignes().get(y).get(x).getTag();
+		    		valeur=this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag();
 		    		
 		    		switch(valeur) {
 		    		case "T":

@@ -3,11 +3,13 @@ package application;
 import java.io.File;
 import java.net.URL;
 
+import controleur.ControleurTerraria;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 
 public class Main extends Application {
@@ -15,11 +17,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			URL url = new File("src/vue/VueTerraria.fxml").
-			toURI().toURL();
+			URL url = new File("src/vue/VueTerraria.fxml").toURI().toURL();
 			loader.setLocation(url);
-			BorderPane root = new BorderPane();
-			root = loader.load() ;
+			Pane root = new Pane();
+			root = loader.load();
 			Scene scene = new Scene(root,1350,1000);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

@@ -6,38 +6,86 @@ import javafx.scene.input.KeyEvent ;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import exceptions.VousEtesCoinceException;
 import javafx.event.EventHandler;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyCode;
+
+/**
+ * <h1>ControleurSouris est la classe chargé de transmettre
+ * au modèle les clics de souris dans la vue</h1>
+ * 
+ * <p>Un ControleurSouris possède :
+ * 	<ul>
+ * 		<li>Un Jeu permettant d'accéder au terrain.</li>
+ * 		<li>Un Pane chargé de transmettre les clics.</li>
+ * 	</ul>
+ * 	Chaque fois que le joueur cliquera sur un Inventeriable
+ * 	visible à l'écran le modèle sera modifié. * 
+ * </p>
+ * 
+ * @see Jeu
+ * @see Terrain
+ * 
+ * @author Ludovic
+ * @version 1.0
+ *
+ */
 
 public class ControleurSouris extends Parent {
-	private Jeu j ;
-	private Pane p ;
+	
+	/**
+	 * Le Jeu du contrôleur
+	 * 
+	 * <p>Il fournit le terrain modifié par le contrôleur</p>
+	 * 
+	 * @see ControleurMap#ControleurMap(Pane, Jeu)
+	 * 
+	 */
+	
+	private Jeu jeu ;
+	
+	/**
+	 * Le Pane du contrôleur.
+	 * 
+	 * <p>C'est lui que avertira le contrôleur en cas
+	 * de clic</p>
+	 * 
+	 * @see ControleurMap#ControleurMap(Pane, Jeu)
+	 * 
+	 */
+	
+	private Pane pane ;
 	
 	public ControleurSouris (Pane p, Jeu j) {
 
-		this.j = j ;
-		this.p = p ;
+
+		this.jeu = j ;
+		this.pane = p ;
 
 		this.setMouseListener () ;
 
 	}
+	
+
+	/**
+	 * Ajoute un EventHandler sur le pane
+	 * 
+	 * @see Jeu#getTerrain()
+	 * @see Terrain#getListeLignes()
+	 * 
+	 * @since 1.0
+	 */
 
 	public void setMouseListener () {
 
-		this.p.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+		this.pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				destructionBlock(event.getSceneX(),event.getSceneY());
-				//System.out.println(event.getSceneX());
-		        //System.out.println(event.getSceneY());
-	//			try {
+				
+				System.out.println("yeah!");
+				System.out.println(event.getScreenX());
+		        System.out.println(event.getScreenY());
 
-					
-
-			//	} catch (VousEtesCoinceException e) {System.out.println(e);} ;
 
 			}
 
@@ -47,7 +95,7 @@ public class ControleurSouris extends Parent {
 	public void destructionBlock(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-		this.j.getMap().destructionTerrain(blockX, blockY);
+		this.jeu.getTerrain().destructionTerrain(blockX, blockY);
 		
 	}
 	

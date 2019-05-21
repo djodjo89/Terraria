@@ -69,13 +69,13 @@ public class Personnage extends NonInventeriable {
 		
 		switch (direction) {
 		
-			case "haut" : this.sauter(this.jeu.getMap(),this.jeu.getMoteur()); break;
+			case "haut" : this.sauter(this.jeu.getTerrain(),this.jeu.getMoteur()); break;
 			
-			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("droite") ; break ;
+			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getTerrain(), this, this.jeu.getMoteur())) this.deplacementSansVerif("droite") ; break ;
 			
-			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("bas"); break ;
+			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getTerrain(), this, this.jeu.getMoteur())) this.deplacementSansVerif("bas"); break ;
 			
-			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("gauche") ; break ;
+			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getTerrain(), this, this.jeu.getMoteur())) this.deplacementSansVerif("gauche") ; break ;
 		
 		}
 		
@@ -92,11 +92,11 @@ public class Personnage extends NonInventeriable {
 			nb=1;
 		
 		if(nb>0 && nb<20) {
-			this.sauter(this.jeu.getMap(), this.jeu.getMoteur());
+			this.sauter(this.jeu.getTerrain(), this.jeu.getMoteur());
 			nb++;
 		}
 		
-		if(nb>=20 && !this.getCollisionneur().deplacementPossible("bas", this.jeu.getMap(), this, this.jeu.getMoteur()))
+		if(nb>=20 && !this.getCollisionneur().deplacementPossible("bas", this.jeu.getTerrain(), this, this.jeu.getMoteur()))
 			nb=0;
 		
 		return nb;

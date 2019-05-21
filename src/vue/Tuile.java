@@ -1,4 +1,4 @@
-package modele;
+package vue;
 
 
 import javafx.scene.image.Image;

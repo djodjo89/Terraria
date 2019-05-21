@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import modele.Air;
 import modele.Inventeriable;
 import modele.Jeu;
-import modele.Tuile;
+import vue.Tuile;
 import javafx.collections.ListChangeListener.Change;
 import physique.*;
 import ressources.Images;
@@ -20,7 +20,7 @@ public class MapControleur {
 	}
 	public void ajouterEcouteur () {
 		
-		for (ObservableList<Inventeriable> listeCases : this.jeu.getMap().getListeLignes()) {
+		for (ObservableList<Inventeriable> listeCases : this.jeu.getTerrain().getListeLignes()) {
 			
 			listeCases.addListener (new ListChangeListener<Inventeriable> () {
 
