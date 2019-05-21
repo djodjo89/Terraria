@@ -45,6 +45,8 @@ public class TerrariaControleur implements Initializable {
 	
 	private ControleurTouches controlTouche ;
 	
+	private ControleurSouris controlSouris;
+	
 	private Images images ;
 	
 	@FXML
@@ -172,6 +174,7 @@ public class TerrariaControleur implements Initializable {
 			this.initBoucleJeu();
 			this.paneMap.setFocusTraversable(true);
 			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu,this.perso) ;
+			this.controlSouris = new ControleurSouris(this.paneMap,this.jeu);
 			this.gameLoop.play();
 			this.paneItemsInventaire.toFront();
 
