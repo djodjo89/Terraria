@@ -1,7 +1,9 @@
 package modele;
 
 import physique.*;
+import exceptions.HorsDeLaMapException;
 import exceptions.VousEtesCoinceException;
+import geometrie.Vecteur;
 import javafx.beans.property.* ;
 
 /*
@@ -20,16 +22,9 @@ public class Personnage extends GameObject {
 	private Jeu jeu;
 	private Inventaire i ;
 	
-	public Personnage () {
+	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double poids, Collisionneur c, Jeu jeu) {
 		
-		super ("", 1000, new Collisionneur()) ;
-		this.ptsAttaque = new SimpleDoubleProperty () ;
-		
-	}
-	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
-		
-		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement) ;
+		super (nom, pv, x, y, poids, c) ;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		this.jeu=jeu;
 		this.i = new Inventaire (20) ;
@@ -59,25 +54,10 @@ public class Personnage extends GameObject {
 		o.perdrePV (this.main.getPtsAttaque()) ;
 		
 	}
+	
 	public void ajouterObjetMain (Outil o) {
 		
 		this.donner((Outil)this.i.getInventaire().get(0)) ;
-		
-	}
-	
-	public void deplacementColision (String direction) throws VousEtesCoinceException {
-		
-		switch (direction) {
-		
-			case "haut" : this.sauter(this.jeu.getMap(),this.jeu.getMoteur()); break;
-			
-			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("droite") ; break ;
-			
-			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("bas"); break ;
-			
-			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getMap(), this, this.jeu.getMoteur())) this.deplacementSansVerif("gauche") ; break ;
-		
-		}
 		
 	}
 	
@@ -86,7 +66,7 @@ public class Personnage extends GameObject {
 		return this.i ;
 	}
 	
-	public int sauter(int nbTour,boolean espaceActive) throws VousEtesCoinceException {
+	public int sauter(int nbTour,boolean espaceActive) throws VousEtesCoinceException, HorsDeLaMapException {
 		int nb=nbTour;
 		if(espaceActive && nbTour==0)
 			nb=1;
@@ -96,7 +76,7 @@ public class Personnage extends GameObject {
 			nb++;
 		}
 		
-		if(nb>=20 && !this.getCollisionneur().deplacementPossible("bas", this.jeu.getMap(), this, this.jeu.getMoteur()))
+		if(nb>=20 && this.getCollisionneur().deplacementPossible(new Vecteur (0,1), this.jeu.getMap(), this.jeu.getMoteur()).getY() != 0)
 			nb=0;
 		
 		return nb;

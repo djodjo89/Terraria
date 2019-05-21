@@ -14,22 +14,54 @@ public class Polygone {
 
 	}
 	
-	
-	public Point2D get (int index) {
+	public Polygone (Point2D...points) {
 		
-		return this.listeSommets.get(index) ;
-		
-	}
-	
-	public void ajouterSommet (double x, double y) {
-		
-		if (dernierPoint() != null && !contient(new Point2D(x, y)))
+		this() ;
+		for (Point2D point : points) {
 			
-			this.listeSommets.add(new Point2D(x, y)) ;
+			this.ajouterSommet(point) ;
+			
+		}
 		
 	}
 	
-	public boolean contient (Point2D p) {
+	public void copie (Polygone polygone) {
+		
+		int i ;
+		
+		for (i = 0 ; i < polygone.nbSommets() ; i ++) {
+			
+			this.ajouterSommet(new Point2D (polygone.get(i).getX(), polygone.get(i).getY())) ;
+			
+		}
+		
+	}
+	
+	public Point2D get (int i) {
+		
+		return this.listeSommets.get(i) ;
+		
+	}
+	
+	public void ajouterAChaquePoint (Vecteur vecteur) {
+		
+		for (Point2D point : this.listeSommets) {
+			
+			point.add(vecteur.getX(), vecteur.getY()) ;
+			
+		}
+		
+	}
+	
+	public void ajouterSommet (Point2D point) {
+		
+		if (nbSommets () != 0 && !this.contient(point))
+			
+			this.listeSommets.add(point) ;
+		
+	}
+	
+	public boolean contient (Point2D point) {
 		
 		int i ;
 		boolean trouve ;
@@ -37,11 +69,13 @@ public class Polygone {
 		i = 0 ;
 		trouve = false ;
 		
-		while (!trouve && i < this.listeSommets.size()) {
+		while (!trouve && i < this.nbSommets ()) {
 			
-			if (this.listeSommets.get(i).distance(p) == 0)
+			if (this.listeSommets.get(i).getX() == point.getX() && this.listeSommets.get(i).getY() == point.getY())
 				
 				trouve = true ;
+			
+			i ++ ;
 			
 		}
 		
@@ -49,29 +83,33 @@ public class Polygone {
 		
 	}
 	
-	public int nbPoints () {
+	public int nbSommets () {
 		
 		return this.listeSommets.size() ;
 		
 	}
 	
-	public Point2D dernierPoint () {
+	public boolean estInclusDans (double xMax, double yMax) {
 		
-		Point2D dernierPoint ;
+		int i ;
+		boolean depasseLesBornes ;
 		
-		if (this.listeSommets.size() != 0) {
+		i = 0 ;
+		depasseLesBornes = false ;
+		
+		while (!depasseLesBornes && i < this.nbSommets()) {
 			
-			dernierPoint = this.listeSommets.get(this.listeSommets.size() - 1) ;
+			if (this.listeSommets.get(i).getX() < 0 || this.listeSommets.get(i).getY() < 0 || this.listeSommets.get(i).getX() >= xMax || this.listeSommets.get(i).getY() >= yMax) {
+				
+				depasseLesBornes = true ;
+				
+			}
+			
+			i ++ ;
 			
 		}
 		
-		else {
-			
-			dernierPoint = null ;
-			
-		}
-		
-		return dernierPoint ;
+		return !depasseLesBornes ;
 		
 	}
 

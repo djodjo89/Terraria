@@ -5,15 +5,9 @@ import physique.GameObject;
 
 public class Air extends GameObject {
 	
-	public Air (String tag) {
+	public Air (String tag, double pv, double x, double y, Collisionneur collisionneur) {
 		
-		super(tag) ;
-		
-	}
-	
-	public Air (String tag, double pv, Collisionneur collisionneur) {
-		
-		super(tag, pv, collisionneur) ;
+		super(tag, pv, x, y, collisionneur) ;
 		
 	}
 
