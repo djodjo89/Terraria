@@ -112,5 +112,19 @@ public class Polygone {
 		return !depasseLesBornes ;
 		
 	}
+	
+	public String toString () {
+		
+		String aff ;
+		
+		aff = "" ;
+		
+		for (Point2D point : this.listeSommets) {
+			
+			
+			
+		}
+		
+	}
 
 }

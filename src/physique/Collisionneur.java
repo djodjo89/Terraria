@@ -43,6 +43,8 @@ public class Collisionneur {
 
 	public Vecteur deplacementPossible (Vecteur vecteur, Terrain terrain, Moteur moteur) throws VousEtesCoinceException, HorsDeLaMapException {
 
+		int i ;
+		int[] coordonneesDuPoint ;
 		boolean deplacementPossible ;
 		Collisionneur collisionneurTemporaire ;
 		Vecteur nouveauVecteur ;
@@ -54,14 +56,14 @@ public class Collisionneur {
 			
 			while (nouveauVecteur.getX() > 0 && nouveauVecteur.getY() > 0 && deplacementPossible) {
 				
-				// On déplace virtuellement le collisionneur du joueur
+				// On crée une collisionneur virtuel qui se déplace sur la case visée
 				collisionneurTemporaire = new Collisionneur () ;
 				collisionneurTemporaire.getBoite().copie(this.boite) ;
 				collisionneurTemporaire.getBoite().ajouterAChaquePoint(vecteur) ;
 
 				/*
 				 * i <- 0
-				 * Tant Que le point i ne chevauche pas d'obstacle
+				 * Tant Que le déplacement est possible et que le point à l'indice i ne chevauche pas d'obstacle
 				 * 	RÃ©cupÃ©rer ses coordonnÃ©es entières
 				 * 	RÃ©cupÃ©rer le Collisionneur situÃ© Ã  ces coordonnÃ©es
 				 * 	Si c'est un obstacle
@@ -73,9 +75,6 @@ public class Collisionneur {
 				 * Fin Tant Que
 				 */
 				
-				int i ;
-				int[] coordonneesDuPoint ;
-				
 				i = 0 ;
 				coordonneesDuPoint = new int[2] ;
 				
@@ -83,7 +82,7 @@ public class Collisionneur {
 					
 					coordonneesDuPoint = this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur) ;
 					
-					if (this.getCase(coordonneesDuPoint, terrain, moteur).estUnObstacle()) {
+					if (terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle()) {
 						
 						if (collisionneurTemporaire.chevauche(this.getCase(coordonneesDuPoint, terrain, moteur).getCollisionneur()) != null) {
 							
@@ -116,12 +115,6 @@ public class Collisionneur {
 		
 		return nouveauVecteur ;
 	
-	}
-	
-	private GameObject getCase (int[] coordonneesDeLaCase, Terrain terrain, Moteur moteur) {
-
-		return terrain.getListeLignes().get(coordonneesDeLaCase[1]).get(coordonneesDeLaCase[0]) ;
-
 	}
 
 	private Point2D chevauche (Collisionneur collisionneur) {

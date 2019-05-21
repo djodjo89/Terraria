@@ -69,6 +69,12 @@ import javafx.collections.ObservableList;
 			
 		}
 		
+		public GameObject getCase (int[] coordonneesDeLaCase, Moteur moteur) {
+
+			return this.getListeLignes().get(coordonneesDeLaCase[1]).get(coordonneesDeLaCase[0]) ;
+
+		}
+		
 		public int getDimY () {
 			
 			return this.listeDeLignes.size() ;
