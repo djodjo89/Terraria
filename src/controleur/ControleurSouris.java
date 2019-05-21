@@ -54,17 +54,6 @@ public class ControleurSouris extends Parent {
 	
 	private Pane pane ;
 	
-	public ControleurSouris (Pane p, Jeu j) {
-
-
-		this.jeu = j ;
-		this.pane = p ;
-
-		this.setMouseListener () ;
-
-	}
-	
-
 	/**
 	 * Ajoute un EventHandler sur le pane
 	 * 
@@ -74,18 +63,29 @@ public class ControleurSouris extends Parent {
 	 * @since 1.0
 	 */
 
+	public ControleurSouris (Pane p, Jeu j) {
+
+		this.jeu = j ;
+		this.pane = p ;
+
+		this.setMouseListener () ;
+
+	}
+
 	public void setMouseListener () {
 
-
-		this.pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		this.pane.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-				System.out.println("yeah!");
+				destructionBlock(event.getSceneX(),event.getSceneY());
 				System.out.println(event.getScreenX());
 		        System.out.println(event.getScreenY());
+	//			try {
 
+					
+
+			//	} catch (VousEtesCoinceException e) {System.out.println(e);} ;
 
 			}
 

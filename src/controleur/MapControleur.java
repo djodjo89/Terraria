@@ -47,8 +47,8 @@ public class MapControleur {
 	}
 	
 	public void remplacerImage(int x, int y) {
-		Tuile tile= new Tuile("test",x*jeu.getMoteur().getTailleTileX(),y*jeu.getMoteur().getTailleTileY(),this.images.getImage("air"));
-		System.out.println("ok");
-		p.getChildren().set(x*2, tile);
+		//Tuile tile= new Tuile("test",x*jeu.getMoteur().getTailleTileX(),y*jeu.getMoteur().getTailleTileY(),this.images.getImage("air"));
+		//System.out.println("ok");
+		//p.getChildren().set(x*2, tile);
 	}
 }
