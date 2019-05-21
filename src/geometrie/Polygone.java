@@ -12,9 +12,29 @@ public class Polygone {
 
 	}
 	
+	// Initialise la liste de sommets avec des points à 0:0
+	
 	public Polygone (int nbSommets) {
 		
+		this () ;
+		int i ;
 		
+		for (i = 0 ; i < nbSommets ; i ++)
+			
+			this.ajouterSommet(new Point (0, 0)) ;
+		
+	}
+	
+	public Polygone (int nbSommet, double x, double y) {
+		
+		this () ;
+		int i ;
+		
+		for (i = 0 ; i < nbSommet ; i ++) {
+			
+			this.ajouterSommet(new Point (x, y)) ;
+			
+		}
 		
 	}
 	
@@ -65,6 +85,12 @@ public class Polygone {
 		if (!this.contient(point))
 			
 			this.listeSommets.add(point) ;
+		
+	}
+	
+	public void ajouterSommet (double x, double y) {
+		
+		this.ajouterSommet(new Point (x, y)) ;
 		
 	}
 	

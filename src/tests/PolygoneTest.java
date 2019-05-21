@@ -11,15 +11,14 @@ class PolygoneTest {
 	@Test
 	void testCopie () {
 
-		Polygone poly = new Polygone () ;
-		Polygone poly2 = new Polygone () ;
+		int i ;
+		Polygone poly ;
+		Polygone poly2 ;
 		
-		for (int i = 0 ; i < 10 ; i++)
-			
-			poly.ajouterSommet(new Point(i, 0));
+		poly = new Polygone (10) ;
+		poly2 = new Polygone () ;
 		
-		poly2.copie(poly) ;
-		
+		poly2.copie(poly) ;		
 		assertTrue (poly.estEgalA(poly2)) ;
 		
 	}
@@ -27,26 +26,24 @@ class PolygoneTest {
 	@Test
 	void testAjouterAChaquePoint () {
 		
+		int i ;
+		int j ;
 		Polygone poly ;
 		Polygone poly2 ;
 		Polygone poly3 ;
 		Vecteur vecteur ;
 		
-		poly = new Polygone () ;
+		poly = new Polygone (10) ;
 		poly2 = new Polygone () ;
 		poly3 = new Polygone () ;
 		vecteur = new Vecteur (1, 1) ;
 		
-		for (int i = 0 ; i < 10 ; i ++)
-			
-			poly.ajouterSommet(new Point(i, 0)) ;
-		
 		poly2.copie(poly) ;
 		poly2.ajouterAChaquePoint(vecteur) ;
 		
-		for (int j = 0 ; j < 10 ; j ++)
+		for (j = 0 ; j < 10 ; j ++)
 			
-			poly3.ajouterSommet(new Point (j + 1, 1)) ;
+			poly3.ajouterSommet(new Point (1, 1)) ;
 		
 		assertTrue (poly2.estEgalA(poly3)) ;
 		
@@ -55,20 +52,34 @@ class PolygoneTest {
 	@Test
 	void testContient () {
 		
-		Polygone poly ;
+		int i ;
 		Point point ;
-		
-		poly = new Polygone () ;
+		Polygone poly ;
 		
 		point = new Point (2, 3) ;
-		
-		for (int i = 0 ; i < 10 ; i ++) {
-			
-			poly.ajouterSommet(new Point (i, i));
-			
-		}
+		poly = new Polygone (10) ;
 		
 		assertFalse (poly.contient(point)) ;
+		
+	}
+	
+	@Test
+	void testEstInclusDans () {
+		
+		int i ;
+		int j ;
+		Polygone poly ;
+		Polygone poly2 ;
+		
+		poly = new Polygone (4, 2, 2) ;
+		poly2 = new Polygone () ;
+		
+		poly2.ajouterSommet(0, 0);
+		poly2.ajouterSommet(3, 0);
+		poly2.ajouterSommet(0, 3);
+		poly2.ajouterSommet(3, 3);
+		
+		assertTrue (poly.estInclusDans(3, 3)) ;
 		
 	}
 
