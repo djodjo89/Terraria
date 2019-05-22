@@ -1,0 +1,38 @@
+Récupérer le x le plus petit et le plus grand
+Pour chaque ligne du tableau de points Faire
+	Pour j du x le plus petit au plus grand Faire
+		k <- 0
+		Tant que point pas trouve et que k inférieur à la taille de la ligne Faire
+			Si j + xMin = x du point à la position k Alors
+				trouve = vrai
+			Fin Si
+			k ++
+		Fin Tant Que
+	Fin Pour
+Fin Pour
+
+V2 :
+
+Récupérer les x et y minimum et maximum
+Pour i du y le plus petit au plus grand Faire
+	h <- 0
+	trouve <- faux
+	Tant que ligne pas trouve et que h inférieur au nombre de lignes Faire
+		Si i + yMin = y du point à la position h Alors
+			trouve <- vrai
+		Fin Si
+		h ++
+		Si trouve Alors
+			Pour j du x le plus petit au plus grand Faire
+				k <-0
+				trouve <- faux
+				Tant que colonne pas trouvee et que k inférieur au nombre de colonnes Faire
+					Si j + xMin = x du point à la position k Alors
+						trouve <- vrai
+					Fin Si
+					k ++
+				Fin Tant Que
+			Fin Pour
+		Fin Si
+	Fin Tant Que
+Fin Pour

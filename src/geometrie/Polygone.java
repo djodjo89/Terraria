@@ -1,6 +1,7 @@
 package geometrie;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Polygone {
 	
@@ -174,38 +175,190 @@ public class Polygone {
 		
 	}
 	
-	/*public ArrayList<ArrayList<Point2D>> listeOrdonneeParY2 () {
+	public static ArrayList<ArrayList<Point>> tableauOrdonne (ArrayList<Point> listeOrdonneeParY) {
 		
-		ArrayList<ArrayList<Point2D>> nvListe ;
+		int i ;
+		double y ;
+		ArrayList<ArrayList<Point>> nvListe ;
+		
+		i = 0 ;
+		y = listeOrdonneeParY.get(0).getY() ;
 		
 		nvListe = new ArrayList<> () ;
+		nvListe.add(new ArrayList<Point> ()) ;
 		
+		for (i = 0 ; i < listeOrdonneeParY.size() ; i ++) {
+
+			if (y != listeOrdonneeParY.get(i).getY()) {
+				
+				nvListe.add(new ArrayList<Point> ()) ;
+				y = listeOrdonneeParY.get(i).getY() ;
+				
+			}
+
+			nvListe.get(nvListe.size() - 1).add(listeOrdonneeParY.get(i)) ;
+			
+		}
 		
+		return nvListe ;
 		
-	}*/
+	}
 	
-	public ArrayList<Point2D> listeOrdonneeParY () {
+	public ArrayList<Point> listeOrdonneeParY () {
 		
-		ArrayList<Point2D> nvListe ;
+		ArrayList<Point> listeAffichage ;
 		
-		nvListe = new ArrayList<> () ;
+		listeAffichage = new ArrayList<Point>() ;
+		listeAffichage.addAll(this.listeSommets) ;
+		Collections.sort(listeAffichage);
 		
-		for (Point2D)
+		return listeAffichage ;
+		
+	}
+	
+	public double[] minMaxX (ArrayList<ArrayList<Point>> tableauOrdonne) {
+		
+		int i ;
+		double min ;
+		double max ;
+		double[] minMax ;
+		
+		i = 0 ;
+		min = tableauOrdonne.get(0).get(0).getX() ;
+		max = tableauOrdonne.get(0).get(tableauOrdonne.get(i).size() - 1).getX() ;
+		minMax = new double[2] ;	
+		
+		while (i < tableauOrdonne.size()) {
+			
+			if (tableauOrdonne.get(i).get(0).getX() < min)
+				
+				min = tableauOrdonne.get(i).get(0).getX() ;
+			
+			if (tableauOrdonne.get(i).get(tableauOrdonne.get(i).size() - 1).getX() > max)
+				
+				max = tableauOrdonne.get(i).get(tableauOrdonne.get(i).size() - 1).getX() ;
+			
+			i ++ ;
+			
+		}
+		
+		minMax[0] = min ;
+		minMax[1] = max ;
+		
+		return minMax ;
+		
+	}
+	
+	public double[] minMaxY (ArrayList<ArrayList<Point>> tableauOrdonne) {
+		
+		int i ;
+		double min ;
+		double max ;
+		double[] minMax ;
+		
+		i = 0 ;
+		min = tableauOrdonne.get(0).get(0).getY() ;
+		max = tableauOrdonne.get(0).get(tableauOrdonne.get(i).size() - 1).getY() ;
+		minMax = new double[2] ;	
+		
+		while (i < tableauOrdonne.size()) {
+			
+			if (tableauOrdonne.get(i).get(0).getY() < min)
+				
+				min = tableauOrdonne.get(i).get(0).getY() ;
+			
+			if (tableauOrdonne.get(i).get(tableauOrdonne.get(i).size() - 1).getY() > max)
+				
+				max = tableauOrdonne.get(i).get(tableauOrdonne.get(i).size() - 1).getY() ;
+			
+			i ++ ;
+			
+		}
+		
+		minMax[0] = min ;
+		minMax[1] = max ;
+		
+		return minMax ;
 		
 	}
 	
 	public String toString () {
 		
 		int i ;
+		int j ;
+		int k ;
+		int h ;
+		double[] minMaxX ;
+		double[] minMaxY ;
+		boolean trouve ;
+		char c ;
 		String aff ;
-		
+		ArrayList<ArrayList<Point>> listeAffichage ;
+
+		c = '*' ;
 		aff = "" ;
+		listeAffichage = new ArrayList<> () ;
+		listeAffichage = tableauOrdonne(this.listeOrdonneeParY()) ;
+		minMaxX = this.minMaxX(listeAffichage) ;
+		minMaxY = this.minMaxY(listeAffichage) ;
 		
-		for (i = 0 ; i < this.nbSommets() ; i ++) {
+		for (ArrayList<Point> l : listeAffichage)
 			
-			aff += "Point n°" + i + " : {" + this.get(i).getX() + ":" + this.get(i).getY() + "} ;\n" ;
+			for (Point p : l)
+				
+				p.add(-minMaxX[0], -minMaxY[0]) ;
+		
+		for (i = 0 ; i <= Math.abs(minMaxY[1] - minMaxX[0]) ; i ++) {
+			
+			h = 0 ;
+			trouve = false ;
+			
+			while (!trouve && h < listeAffichage.size()) {
+				
+				if (i - minMaxY[0] == listeAffichage.get(h).get(0).getY())
+					
+					trouve = true ;
+				
+				h ++ ;
+				
+			}
+			
+			if (trouve)
+			
+				for (j = 0 ; j <= Math.abs(minMaxX[1] - minMaxX[0]) ; j ++) {
+					
+					k = 0 ;
+					trouve = false ;
+					
+					while (!trouve && k < listeAffichage.get(h).size()) {
+	
+						if (j + minMaxX[0] == listeAffichage.get(h).get(k).getX())
+							
+							trouve = true ;
+						
+						k ++ ;
+						
+					}
+					
+					if (!trouve)
+						
+						System.out.print(' ');
+					
+					else
+						
+						System.out.print(c);
+					
+				}
+			
+			System.out.println();
 			
 		}
+		
+		/*for (i = 0 ; i < this.nbSommets() ; i ++) {
+			
+			aff += "Point n°" + i + " : " + this.get(i).toString() + "\n" ;
+			
+		}*/
 		
 		return aff ;
 		

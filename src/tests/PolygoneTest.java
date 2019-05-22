@@ -4,6 +4,8 @@ import javafx.geometry.Point2D;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class PolygoneTest {
@@ -84,9 +86,51 @@ class PolygoneTest {
 	}
 	
 	@Test
-	void testListeOrdonneeParY () {
+	void testListeOrdonnee () {
 		
+		ArrayList<Point> listeTest ;
+		Polygone poly ;
 		
+		poly = new Polygone () ;
+		poly.ajouterSommet(0, 0);
+		poly.ajouterSommet(-9, 5);
+		poly.ajouterSommet(3, 5);
+		poly.ajouterSommet(0, -5);
+		poly.ajouterSommet(8, 20);
+		
+		listeTest = poly.listeOrdonneeParY() ;
+		
+	}
+	
+	@Test
+	void testTableauOrdonne () {
+		
+		ArrayList<ArrayList<Point>> liste ;
+		Polygone poly ;
+		
+		poly = new Polygone () ;
+		poly.ajouterSommet(-15, 0);
+		poly.ajouterSommet(-9, 5);
+		poly.ajouterSommet(3, 5);
+		poly.ajouterSommet(0, -5);
+		poly.ajouterSommet(-3, 10);
+		
+		liste = new ArrayList<>() ;
+		liste = Polygone.tableauOrdonne(poly.listeOrdonneeParY()) ;
+		
+		/*for (ArrayList<Point> liste2 : liste) {
+			
+			for (Point point : liste2) {
+				
+				System.out.print(point);
+				
+			}
+			
+			System.out.println();
+			
+		}*/
+		
+		System.out.println(poly);
 		
 	}
 
