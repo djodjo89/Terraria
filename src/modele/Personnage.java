@@ -87,6 +87,16 @@ public class Personnage extends NonInventeriable {
 		
 	}
 	
+	public boolean jePeuxMeDeplacerLa(String direction) throws VousEtesCoinceException {
+		
+		if (direction=="droite")
+			return (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getTerrain(), this, this.jeu.getMoteur()));
+		if (direction=="gauche")
+			return (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getTerrain(), this, this.jeu.getMoteur()));
+		return false;
+
+	}
+	
 	public Inventaire getInventaire (){
 		
 		return this.i ;

@@ -3,14 +3,17 @@ package vue;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import ressources.Images;
 
 public class Tuile extends ImageView{
+	private Images image;
 	
 	public Tuile(String id, double x, double y, Image img) {
 		this.setId(id);
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 		this.setImage(img);
+		
 	}
 	
 	
@@ -32,6 +35,10 @@ public class Tuile extends ImageView{
 		this.setId(id);
 		this.setLayoutX(x);
 		this.setLayoutY(y);
+	}
+	
+	public void setImg(String img) {
+		this.setImage(this.image.getImage(img));
 	}
 	
 	

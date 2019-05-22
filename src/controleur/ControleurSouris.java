@@ -1,6 +1,8 @@
 package controleur;
 
 import modele.* ;
+import ressources.Images;
+import javafx.scene.input.KeyEvent ;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
@@ -54,15 +56,14 @@ public class ControleurSouris extends Parent {
 	
 	public ControleurSouris (Pane p, Jeu j) {
 
+
 		this.jeu = j ;
 		this.pane = p ;
+
 		this.setMouseListener () ;
 
 	}
 	
-	public ControleurSouris() {
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * Ajoute un EventHandler sur le pane
@@ -75,6 +76,7 @@ public class ControleurSouris extends Parent {
 
 	public void setMouseListener () {
 
+
 		this.pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -84,10 +86,17 @@ public class ControleurSouris extends Parent {
 				System.out.println(event.getScreenX());
 		        System.out.println(event.getScreenY());
 
+
 			}
 
 		});
 
+	}
+	public void destructionBlock(double x, double y) {
+		int blockX = (int) (x/50);
+		int blockY = (int) (y/50);
+		this.jeu.getTerrain().destructionTerrain(blockX, blockY);
+		
 	}
 	
 	
