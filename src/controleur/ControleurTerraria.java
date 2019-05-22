@@ -238,6 +238,8 @@ public class ControleurTerraria implements Initializable {
 		this.gameLoop.getKeyFrames().add(kf);
 		this.gameLoop.play();
 		
+		
+		
 	}
 	
 	/**
