@@ -54,7 +54,6 @@ public class Inventaire {
 
 		int i =0 ;
 
-		if (this.estVide()) {
 			if (!this.listeObjets.contains(o)) {
 				while (this.listeObjets.get(i) != null) {
 					i ++ ;
@@ -66,7 +65,6 @@ public class Inventaire {
 				this.listeQtes.set(this.listeObjets.indexOf(o), this.listeQtes.get(this.listeObjets.indexOf(o)) + 1) ;
 			}
 
-		}
 
 	}
 	
@@ -110,6 +108,15 @@ public class Inventaire {
 		
 		return this.listeObjets ;
 		
+	}
+	
+	
+	public ObservableList<Inventeriable> getListObjet(){
+		return this.listeObjets;
+	}
+	
+	public ObservableList<Integer> getQuantiteObjets(){
+		return this.listeQtes;
 	}
 
 }
