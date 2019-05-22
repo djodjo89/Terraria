@@ -82,5 +82,12 @@ class PolygoneTest {
 		assertTrue (poly.estInclusDans(3, 3)) ;
 		
 	}
+	
+	@Test
+	void testListeOrdonneeParY () {
+		
+		
+		
+	}
 
 }

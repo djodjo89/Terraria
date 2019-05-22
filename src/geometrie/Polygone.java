@@ -182,7 +182,7 @@ public class Polygone {
 		
 		
 		
-	}
+	}*/
 	
 	public ArrayList<Point2D> listeOrdonneeParY () {
 		
@@ -192,7 +192,7 @@ public class Polygone {
 		
 		for (Point2D)
 		
-	}*/
+	}
 	
 	public String toString () {
 		
