@@ -3,7 +3,6 @@ package physique;
 import modele.* ;
 import exceptions.* ;
 import geometrie.* ;
-import javafx.geometry.Point2D;
 
 public class Collisionneur {
 
@@ -15,7 +14,7 @@ public class Collisionneur {
 
 	}
 	
-	public Collisionneur (Point2D... points) {
+	public Collisionneur (Point... points) {
 
 		this() ;
 		this.boite = new Polygone (points) ;		
@@ -24,16 +23,11 @@ public class Collisionneur {
 
 	public boolean depasseLesLimitesDeLaMap (Terrain t) throws HorsDeLaMapException {
 
-		int i = 0 ;
 		boolean depasse = false ;
 
-		while (i < this.boite.nbSommets()) {
+		if (this.boite.minMaxY()[0] < 0 || this.boite.minMaxX()[0] < 0 || this.boite.minMaxY()[1] > t.getTailleY() || this.boite.minMaxY()[1] > t.getTailleX())
 
-			if (this.boite.get(i).getY() < 0 || this.boite.get(i).getX() < 0 || this.boite.get(i).getY() > t.getTailleY() || this.boite.get(i).getX() > t.getTailleX())
-
-				throw new HorsDeLaMapException (t) ;
-
-		}
+			throw new HorsDeLaMapException (t) ;
 
 		return depasse ;
 
@@ -117,13 +111,13 @@ public class Collisionneur {
 	
 	}
 
-	private Point2D chevauche (Collisionneur collisionneur) {
+	private Point chevauche (Collisionneur collisionneur) {
 
 		int i ;
 		int j ;
 		boolean chevauche ;
 		
-		Point2D coordonneesIntersection ;
+		Point coordonneesIntersection ;
 		Segment segmentDeMonCollisionneur, segmentDeLAutreCollisionneur ;
 
 		i = 0 ;
@@ -160,7 +154,7 @@ public class Collisionneur {
 
 	}
 
-	private int[] getCoordonneesEntieresSurLaMap (Point2D point, Moteur moteur) {
+	private int[] getCoordonneesEntieresSurLaMap (Point point, Moteur moteur) {
 
 		int i, j ;
 		int[] coordonnees ;

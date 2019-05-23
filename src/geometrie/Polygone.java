@@ -3,9 +3,38 @@ package geometrie;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * <h1>Un Polygone est une liste ordonnée de Points appelés sommets.</h1>
+ * <p>Un Polygone peut :
+ * 	<ul>
+ * 		<li>En copier un autre</li>
+ * 		<li>Retourne un point à une position donnée</li>
+ * 		<li>Ajouter un vecteur à chaque point</li>
+ * 		<li>Ajouter un sommet</li>
+ * 		<li>Dire s'il contient un point</li>
+ * 		<li>Donner son nombre de sommets</li>
+ * 		<li>Dire s'il est inclus dans un rectangle</li>
+ * 		<li>S'ordonner de façon à être affichable en console</li>
+ * 		<li>Donner les extrêmes de ses points</li>
+ * 		<li>S'afficher</li>
+ * </ul>
+ * La classe Polygone permet de manipuler facilement des ensembles de points
+ * utiles notamment lors des opérations de collisions.
+ * </p>
+ * @see Point
+ * @see Vecteur
+ * 
+ * @author Mathys
+ * @version 2.0
+ */
 
 public class Polygone {
+	
+	/**
+	 * Constructeur permettant d'initialiser rapidement un polygone vide
+	 * 
+	 * @since 1.0
+	 */
 	
 	ArrayList<Point> listeSommets ;
 	
@@ -15,8 +44,13 @@ public class Polygone {
 
 	}
 	
-	// Initialise la liste de sommets avec des points à 0:0
-	
+	/**
+	 * Crée un Polygone de nbSommets initialisés à 0:0
+	 * 
+	 * @param nbSommets
+	 * @since 2.0
+	 */
+
 	public Polygone (int nbSommets) {
 		
 		this () ;
@@ -27,6 +61,15 @@ public class Polygone {
 			this.ajouterSommet(new Point (0, 0)) ;
 		
 	}
+	
+	/**
+	 * Crée un polygone de nbSommets initialisés à x:y
+	 * 
+	 * @param nbSommet
+	 * @param x
+	 * @param y
+	 * @since 2.0
+	 */
 	
 	public Polygone (int nbSommet, double x, double y) {
 		
@@ -41,6 +84,14 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Crée un Polygone composé des points entrés en paramètre
+	 * dans l'ordre
+	 * 
+	 * @param points
+	 * @since 2.0
+	 */
+	
 	public Polygone (Point...points) {
 		
 		this() ;
@@ -53,6 +104,13 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Copie le contenu d'un autre polygone dans celui-ci
+	 * 
+	 * @param polygone
+	 * @since 2.0
+	 */
+	
 	public void copie (Polygone polygone) {
 		
 		int i ;
@@ -64,6 +122,14 @@ public class Polygone {
 		}
 		
 	}
+	
+	/**
+	 * Retourne le point situé à l'indice i dans la liste
+	 * 
+	 * @param i
+	 * @return Point
+	 * @since 1.0
+	 */
 	
 	public Point get (int i) {
 		
@@ -82,6 +148,14 @@ public class Polygone {
 		}
 		
 	}
+	
+	/**
+	 * Ajoute les x et les y du vecteur à chaque point
+	 * du polygone
+	 * 
+	 * @param vecteur
+	 * @since 2.0
+	 */
 	
 	public void ajouterSommet (Point point) {
 		
@@ -177,11 +251,16 @@ public class Polygone {
 		
 	}
 	
-	public static ArrayList<ArrayList<Point>> tableauOrdonne (ArrayList<Point> listeOrdonneeParY) {
+	public ArrayList<ArrayList<Point>> tableauOrdonne () {
 		
 		int i ;
 		double y ;
+		ArrayList<Point> listeOrdonneeParY ;
 		ArrayList<ArrayList<Point>> nvListe ;
+		
+		listeOrdonneeParY = new ArrayList<Point>() ;
+		listeOrdonneeParY.addAll(this.listeSommets) ;
+		Collections.sort(listeOrdonneeParY);
 		
 		i = 0 ;
 		y = listeOrdonneeParY.get(0).getY() ;
@@ -206,24 +285,17 @@ public class Polygone {
 		
 	}
 	
-	public ArrayList<Point> listeOrdonneeParY () {
-		
-		ArrayList<Point> listeAffichage ;
-		
-		listeAffichage = new ArrayList<Point>() ;
-		listeAffichage.addAll(this.listeSommets) ;
-		Collections.sort(listeAffichage);
-		
-		return listeAffichage ;
-		
-	}
-	
-	public double[] minMaxX (ArrayList<ArrayList<Point>> tableauOrdonne) {
+	public double[] minMaxX () {
 		
 		int i ;
 		double min ;
 		double max ;
 		double[] minMax ;
+		ArrayList<ArrayList<Point>> tableauOrdonne ;
+		
+		tableauOrdonne = new ArrayList<> () ;
+		
+		tableauOrdonne = this.tableauOrdonne() ;
 		
 		i = 0 ;
 		min = tableauOrdonne.get(0).get(0).getX() ;
@@ -251,12 +323,18 @@ public class Polygone {
 		
 	}
 	
-	public double[] minMaxY (ArrayList<ArrayList<Point>> tableauOrdonne) {
+	public double[] minMaxY () {
 		
 		int i ;
 		double min ;
 		double max ;
 		double[] minMax ;
+		
+		ArrayList<ArrayList<Point>> tableauOrdonne ;
+		
+		tableauOrdonne = new ArrayList<> () ;
+		
+		tableauOrdonne = this.tableauOrdonne() ;
 		
 		i = 0 ;
 		min = tableauOrdonne.get(0).get(0).getY() ;
@@ -304,9 +382,9 @@ public class Polygone {
 		espacesX = "" ;
 		espacesY = "" ;
 		listeAffichage = new ArrayList<> () ;
-		listeAffichage = tableauOrdonne(this.listeOrdonneeParY()) ;
-		minMaxX = this.minMaxX(listeAffichage) ;
-		minMaxY = this.minMaxY(listeAffichage) ;		
+		listeAffichage = tableauOrdonne() ;
+		minMaxX = this.minMaxX() ;
+		minMaxY = this.minMaxY() ;		
 		
 		for (i = 0 ; i < Math.abs(minMaxY[0]) ; i ++) {
 			

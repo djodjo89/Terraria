@@ -24,7 +24,7 @@ import modele.* ;
 import physique.GameObject;
 
 /*
- * TerrariaControleur génère la map à l'écran, crée une partie
+ * TerrariaControleur génère la map àl'écran, crée une partie
  * et lance une boucle de jeu.
  * Elle possède un jeu, un controleur de touches pour gérer
  * les évènements clavier, un pane pour le personnage et un

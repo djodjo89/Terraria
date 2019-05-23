@@ -1,27 +1,25 @@
 package geometrie;
 
-import javafx.geometry.Point2D;
-
 public class Segment {
 	
-	private Point2D p0 ;
-	private Point2D p1 ;
+	private Point p0 ;
+	private Point p1 ;
 	
-	public Segment (Point2D p0, Point2D p1) {
+	public Segment (Point p0, Point p1) {
 		
 		this.p0 = p0 ;
 		this.p1 = p1 ;
 		
 	}
 	
-	public Point2D intersection (Segment ligne) {
+	public Point intersection (Segment ligne) {
 		
 		double a1, a2, b1, b2, c1, c2 ;
 		double denominateur ;
 		double intersectX, intersectY ;
 		double ratioIntersectY0, ratioIntersectX0 ;
 		double ratioIntersectY1, ratioIntersectX1 ;
-		Point2D coordonneesIntersection ;
+		Point coordonneesIntersection ;
 				
 		a1 = this.p1.getY() - this.p0.getY() ;
 		b1 = this.p0.getX() - this.p1.getX() ;
@@ -43,7 +41,7 @@ public class Segment {
 		if ((ratioIntersectX0 >= 0 && ratioIntersectX0 <= 1) || (ratioIntersectY0 >= 0 && ratioIntersectY0 <= 1)
 		&& (ratioIntersectX1 >= 0 && ratioIntersectX1 <= 1) || (ratioIntersectY1 >= 0 && ratioIntersectY1 <= 1)) {
 			
-			coordonneesIntersection = new Point2D (intersectX, intersectY) ;
+			coordonneesIntersection = new Point (intersectX, intersectY) ;
 			
 		}
 		
@@ -57,13 +55,13 @@ public class Segment {
 		
 	}
 	
-	public Point2D getPoint1 () {
+	public Point getPoint1 () {
 		
 		return this.p0 ;
 		
 	}
 
-	public Point2D getPoint2 () {
+	public Point getPoint2 () {
 		
 		return this.p1 ;
 		

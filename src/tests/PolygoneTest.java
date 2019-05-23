@@ -86,24 +86,7 @@ class PolygoneTest {
 	}
 	
 	@Test
-	void testListeOrdonnee () {
-		
-		ArrayList<Point> listeTest ;
-		Polygone poly ;
-		
-		poly = new Polygone () ;
-		poly.ajouterSommet(0, 0);
-		poly.ajouterSommet(-9, 5);
-		poly.ajouterSommet(3, 5);
-		poly.ajouterSommet(0, -5);
-		poly.ajouterSommet(8, 20);
-		
-		listeTest = poly.listeOrdonneeParY() ;
-		
-	}
-	
-	@Test
-	void testTableauOrdonne () {
+	void testToString () {
 		
 		ArrayList<ArrayList<Point>> liste ;
 		Polygone poly ;
@@ -119,7 +102,7 @@ class PolygoneTest {
 		poly.ajouterSommet(0, 4);
 		
 		liste = new ArrayList<>() ;
-		liste = Polygone.tableauOrdonne(poly.listeOrdonneeParY()) ;
+		liste = poly.tableauOrdonne() ;
 		
 		System.out.print(poly);
 		
