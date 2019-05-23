@@ -37,21 +37,17 @@ public class ControleurTouches {
 
 			@Override
 			public void handle(KeyEvent event) {
-				try {
+				if (event.getCode() == KeyCode.SPACE) 
+					espace=true;
 
-					if (event.getCode() == KeyCode.SPACE) 
-						espace=true;
+				if (event.getCode() == KeyCode.D) 
+					j.getPerso().changerVitesse (1, 0) ;
 
-					if (event.getCode() == KeyCode.D) 
-						j.getPerso().deplacementColision("droite") ;
+				if (event.getCode() == KeyCode.S) 
+					j.getPerso().changerVitesse (0, 1) ;
 
-					if (event.getCode() == KeyCode.S) 
-						j.getPerso().deplacementColision("bas") ;
-
-					if (event.getCode() == KeyCode.Q) 
-						j.getPerso().deplacementColision("gauche") ;
-
-				} catch (VousEtesCoinceException e) {System.out.println(e);} ;
+				if (event.getCode() == KeyCode.Q) 
+					j.getPerso().changerVitesse (-1, 0) ; ;
 
 			}
 

@@ -1,6 +1,7 @@
 package modele;
 import physique.*;
 import exceptions.* ;
+import geometrie.Point;
 import ressources.TraducteurFichier;
 
 import java.io.IOException;
@@ -20,46 +21,48 @@ import controleur.ControleurTouches;
 
 public class Jeu {
 	
-	private Moteur m ;
-	private Personnage p ;
-	private Terrain t ;
+	private Moteur moteur ;
+	private Personnage perso ;
+	private Terrain terrain ;
 	private TraducteurFichier tf ;
 	
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
-		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.80) ;
-		this.p = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleBoiteY() + posXJoueur - 1, m.getTailleBoiteX() + posYJoueur - 1),this, 10) ;
-		Outil o = new Outil("Torche", new Collisionneur(posXJoueur, posYJoueur, posXJoueur + this.m.getTailleTileX(), posYJoueur + this.m.getTailleTileY())) ;
-		this.p.getInventaire().ajouterObjet(o) ;
-		this.p.ajouterObjetMain(o);
+		this.moteur = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.80) ;
+		Point p1, p2, p3, p4 ;
+		
+		p1 = new Point (10, 10) ;
+		p2 = new Point (20, 10) ;
+		p3 = new Point (10, 20) ;
+		p4 = new Point (20, 20) ;
+		this.perso = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., new Collisionneur (p1, p2, p3, p4),this) ;
 		this.tf = new TraducteurFichier(nomF) ;
-		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
-		this.m.apparaitDansLaMap(this.p, this.t) ;
+		this.terrain = new Terrain (this.tf.getTabMap(), this.moteur.getTailleBoiteX(), this.moteur.getTailleBoiteY()) ;
 		
 	}
 	
 	public Moteur getMoteur () {
 		
-		return this.m ;
+		return this.moteur ;
 		
 	}
 	
 	public Terrain getMap () {
 		
-		return this.t ;
+		return this.terrain ;
 		
 	}
 	
 	public Personnage getPerso () {
 		
-		return this.p ;
+		return this.perso ;
 		
 	}
 	
-	public int evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException{
-		nbTour=this.getPerso().sauter(nbTour,controlTouche.espaceActive());
+	public int evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
 		controlTouche.setEspaceFalse();
-		this.p.deplacementColision("bas");
+		this.perso.setVitesse(this.perso.getCollisionneur().deplacementPossible(this.perso.getVecteurVitesse(), this.terrain, this.moteur)) ;
+		this.perso.deplacer () ;
 		return nbTour;
 	}
 

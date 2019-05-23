@@ -3,12 +3,15 @@ package controleur;
 
 import ressources.Images;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import exceptions.HorsDeLaMapException;
+import geometrie.Point;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -21,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import modele.* ;
+import physique.Collisionneur;
 import physique.GameObject;
 
 /*
@@ -126,7 +130,7 @@ public class TerrariaControleur implements Initializable {
 		    			break;
 		    		}
 		    		
-		    		tile= new Tuile(nom,x*jeu.getMoteur().getTailleTileX(),y*jeu.getMoteur().getTailleTileY(),this.images.getImage(typeBloc));
+		    		tile= new Tuile(nom,x*jeu.getMoteur().getTailleBoiteX(),y*jeu.getMoteur().getTailleBoiteY(),this.images.getImage(typeBloc));
 		    		this.paneMap.getChildren().add(tile);
 		    	}
 		    	
@@ -140,8 +144,8 @@ public class TerrariaControleur implements Initializable {
 	    	Tuile tileItem = new Tuile();
 	    	for(int i=0; i<10; i++) {
 	    		nom = "" +i;
-	    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleTileX()),0,this.images.getImage("fondInventaire"));
-	    		tileItem = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,15,this.images.getImage("forreuse"));
+	    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleBoiteX()),0,this.images.getImage("fondInventaire"));
+	    		tileItem = new Tuile(nom,(i*jeu.getMoteur().getTailleBoiteX())+10,15,this.images.getImage("forreuse"));
 	    		this.paneInventaire.getChildren().add(tile);
 	    		this.paneItemsInventaire.getChildren().add(tileItem);
 	    		
@@ -171,6 +175,18 @@ public class TerrariaControleur implements Initializable {
 			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
 			this.gameLoop.play();
 			this.paneItemsInventaire.toFront();
+			Collisionneur colli ;
+			
+			Point p1, p2, p3, p4 ;
+			
+			p1 = new Point (10, 10) ;
+			p2 = new Point (20, 10) ;
+			p3 = new Point (10, 20) ;
+			p4 = new Point (20, 20) ;
+			
+			colli = new Collisionneur (p1, p2, p3, p4) ;
+			
+			System.out.println(colli.depasseLesLimitesDeLaMap(jeu.getMap())) ;
 
     	} 
     	

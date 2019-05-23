@@ -22,14 +22,11 @@ class CollisionneurTest {
 		
 		Images images ;
 		Jeu jeu ;
-		
-		images = new Images () ;
-		File file = new File ("air.png") ;
-		Image image = new Image(file.toURI().toString()) ;
-    	images.ajouterImage("terre", image);
-    	images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
        	
 		try {
+			images = new Images () ;
+			images.ajouterImage("terre", new Image(new File("image/air.png").toURI().toString()));
+	    	images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 			jeu = new Jeu("map.csv", images.getImage("air").getWidth(), images.getImage("air").getHeight(), 10., 10.) ;
 			Collisionneur colli ;
 			
@@ -42,16 +39,8 @@ class CollisionneurTest {
 			
 			colli = new Collisionneur (p1, p2, p3, p4) ;
 			
-			try {
-				assertFalse (colli.depasseLesLimitesDeLaMap(jeu.getMap())) ;
-			} catch (HorsDeLaMapException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HorsDeLaMapException e) {
+			assertFalse (colli.depasseLesLimitesDeLaMap(jeu.getMap())) ;
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -11,28 +11,21 @@ public class GameObject {
 	private DoubleProperty posX ;
 	private DoubleProperty posY ;
 	private Vecteur vecteurVitesse ; 
-	private double poids ;
+	private double masse ;
 	private boolean estUnObstacle ;
 	/**
 	 * @see Collisionneur
 	 */
 	private Collisionneur collisionneur ;
 	
-	// Pour les objets statiques
-	public GameObject (String tag, double pv, double posX, double posY, Collisionneur c) {
-		
-		this(tag, pv, posX, posY, 1., c) ;
-		
-	}
-	
-	public GameObject (String tag, double pv, double posX, double posY, double poids, Collisionneur collisionneur) {
+	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur) {
 		
 		this.tag = tag ;
 		this.posX = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
 		this.posY = new SimpleDoubleProperty(posY) ;
 		this.vecteurVitesse = new Vecteur(0, 0) ;
-		this.poids = poids ;
+		this.masse = masse ;
 		this.collisionneur = collisionneur ;
 		this.estUnObstacle = false ;
 		
@@ -107,20 +100,23 @@ public class GameObject {
 		
 	}
 	
-	// Déplace le gameObject de x et y multipliés par la distance
-	// de déplacement du moteur
-	
-	public void deplacementSansVerif () {
+	public void setVitesse (Vecteur vecteur) {
 		
-		this.deplacementSansCollisionneur() ;		
-		this.collisionneur.getBoite().ajouterAChaquePoint(this.vecteurVitesse) ;
-				
+		this.vecteurVitesse = vecteur ;
+		
 	}
 	
-	private void deplacementSansCollisionneur () {
+	public void deplacer () {
 		
 		this.setX(this.getX() + this.vecteurVitesse.getX()) ;
-		this.setY(this.getX() + this.vecteurVitesse.getX()) ;
+		this.setY(this.getY() + this.vecteurVitesse.getY()) ;
+		this.collisionneur.getBoite().ajouterAChaquePoint(this.vecteurVitesse) ;
+		
+	}
+	
+	public Vecteur getVecteurVitesse () {
+		
+		return this.vecteurVitesse ;
 		
 	}
 	
@@ -133,16 +129,6 @@ public class GameObject {
 	public Collisionneur getCollisionneur () {
 		
 		return this.collisionneur ;
-		
-	}
-	
-	public void sauter(Terrain t,Moteur m) {
-		try {
-			if (this.getCollisionneur().deplacementPossible ("haut", t, this, m))
-				this.deplacementSansVerif(0,-(m.getGravite()+1));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		
 	}
 

@@ -22,9 +22,9 @@ public class Personnage extends GameObject {
 	private Jeu jeu;
 	private Inventaire i ;
 	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double poids, Collisionneur c, Jeu jeu) {
+	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double masse, Collisionneur c, Jeu jeu) {
 		
-		super (nom, pv, x, y, poids, c) ;
+		super (nom, pv, x, y, masse, c) ;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		this.jeu=jeu;
 		this.i = new Inventaire (20) ;
