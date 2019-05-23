@@ -109,26 +109,21 @@ class PolygoneTest {
 		Polygone poly ;
 		
 		poly = new Polygone () ;
-		poly.ajouterSommet(-15, 0);
-		poly.ajouterSommet(-9, 5);
-		poly.ajouterSommet(3, 5);
-		poly.ajouterSommet(0, -5);
-		poly.ajouterSommet(-3, 10);
+		
+		poly.ajouterSommet(0, -1);		
+		poly.ajouterSommet(-5, 1);
+		poly.ajouterSommet(5, 1);
+		poly.ajouterSommet(-2, 4);
+		poly.ajouterSommet(2, 4);
+		poly.ajouterSommet(0, 10);
+		poly.ajouterSommet(0, 4);
 		
 		liste = new ArrayList<>() ;
 		liste = Polygone.tableauOrdonne(poly.listeOrdonneeParY()) ;
 		
-		/*for (ArrayList<Point> liste2 : liste) {
-			
-			for (Point point : liste2) {
-				
-				System.out.print(point);
-				
-			}
-			
-			System.out.println();
-			
-		}*/
+		System.out.println(poly);
+		
+		poly.ajouterAChaquePoint(new Vecteur (2, -1));
 		
 		System.out.println(poly);
 		

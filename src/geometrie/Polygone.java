@@ -293,72 +293,88 @@ public class Polygone {
 		boolean trouve ;
 		char c ;
 		String aff ;
+		String espacesX ;
+		String espacesY ;
 		ArrayList<ArrayList<Point>> listeAffichage ;
 
 		c = '*' ;
 		aff = "" ;
+		espacesX = "" ;
+		espacesY = "" ;
 		listeAffichage = new ArrayList<> () ;
 		listeAffichage = tableauOrdonne(this.listeOrdonneeParY()) ;
 		minMaxX = this.minMaxX(listeAffichage) ;
-		minMaxY = this.minMaxY(listeAffichage) ;
+		minMaxY = this.minMaxY(listeAffichage) ;		
 		
-		for (ArrayList<Point> l : listeAffichage)
+		for (i = 0 ; i < Math.abs(minMaxY[0]) ; i ++) {
 			
-			for (Point p : l)
-				
-				p.add(-minMaxX[0], -minMaxY[0]) ;
-		
-		for (i = 0 ; i <= Math.abs(minMaxY[1] - minMaxX[0]) ; i ++) {
-			
-			h = 0 ;
-			trouve = false ;
-			
-			while (!trouve && h < listeAffichage.size()) {
-				
-				if (i - minMaxY[0] == listeAffichage.get(h).get(0).getY())
-					
-					trouve = true ;
-				
-				h ++ ;
-				
-			}
-			
-			if (trouve)
-			
-				for (j = 0 ; j <= Math.abs(minMaxX[1] - minMaxX[0]) ; j ++) {
-					
-					k = 0 ;
-					trouve = false ;
-					
-					while (!trouve && k < listeAffichage.get(h).size()) {
-	
-						if (j + minMaxX[0] == listeAffichage.get(h).get(k).getX())
-							
-							trouve = true ;
-						
-						k ++ ;
-						
-					}
-					
-					if (!trouve)
-						
-						System.out.print(' ');
-					
-					else
-						
-						System.out.print(c);
-					
-				}
-			
-			System.out.println();
+			espacesY += '\n' ;
 			
 		}
 		
-		/*for (i = 0 ; i < this.nbSommets() ; i ++) {
+		for (j = 0 ; j < Math.abs(minMaxX[0]) ; j ++) {
 			
-			aff += "Point n°" + i + " : " + this.get(i).toString() + "\n" ;
+			espacesY += ' ' ;
 			
-		}*/
+		}
+		
+		aff += espacesY ;
+
+		for (i = 0 ; i <= Math.abs(minMaxY[1] - minMaxY[0]) ; i ++) {
+
+			h = 0 ;
+			trouve = false ;
+
+			while (!trouve && h < listeAffichage.size()) {
+				
+				if (i + minMaxY[0] == listeAffichage.get(h).get(0).getY())
+
+					trouve = true ;
+				
+				h ++ ;
+
+			}
+			
+			if (!trouve)
+
+				aff += '\n' ;
+
+			if (trouve) {					
+				
+				h -- ;
+
+				for (j = 0 ; j <= Math.abs(minMaxX[1] - minMaxX[0]) ; j ++) {
+
+					k = 0 ;
+					trouve = false ;
+
+					while (!trouve && k < listeAffichage.get(h).size()) {
+
+						if (j + minMaxX[0] == listeAffichage.get(h).get(k).getX())
+
+							trouve = true ;
+
+						k ++ ;
+
+					}
+
+					if (!trouve)
+
+						aff += ' ' ;
+
+					else
+
+						aff += c ;
+					
+					if (j == Math.abs(minMaxX[1] - minMaxX[0]))
+						
+						aff += '\n' ;
+
+				}
+				
+			}
+
+		}
 		
 		return aff ;
 		
