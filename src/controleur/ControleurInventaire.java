@@ -1,9 +1,11 @@
 package controleur;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import modele.Inventeriable;
 import modele.Jeu;
 import modele.Personnage;
+import ressources.Images;
 import vue.Tuile;
 
 public class ControleurInventaire {
@@ -12,12 +14,16 @@ public class ControleurInventaire {
 	private Jeu j;
 	private Inventeriable objet;
 	private Personnage perso;
+	private Pane pane;
+	private Images img;
 	
-	public ControleurInventaire(Tuile t, Jeu j, Personnage perso , Inventeriable obj) {
+	public ControleurInventaire(Tuile t, Jeu j, Personnage perso , Inventeriable obj, Pane pane) {
 		this.t=t;
 		this.j=j;
 		this.perso = perso;
 		this.objet = obj;
+		this.pane=pane;
+		this.img= new Images();
 		this.setClickListener();
 	}
 	
@@ -29,7 +35,9 @@ public class ControleurInventaire {
 		});
 	}
 	
+	
 	public void setObjet(Inventeriable ob) {
 		this.objet=ob;
 	}
+	
 }
