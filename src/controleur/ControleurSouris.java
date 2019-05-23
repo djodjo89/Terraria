@@ -76,7 +76,7 @@ public class ControleurSouris extends Parent {
 
 	public void setMouseListener () {
 
-		this.pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		this.pane.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {

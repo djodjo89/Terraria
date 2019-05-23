@@ -14,7 +14,7 @@ public class Terre extends Bloc {
 	
 	public Terre (String tag, double pv, Collisionneur collisionneur) {
 		
-		super(tag, pv, collisionneur,true) ;
+		super(tag, 100, collisionneur,true) ;
 		this.setObstacle() ;
 		
 	}
