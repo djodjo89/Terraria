@@ -16,6 +16,14 @@ import physique.* ;
  * - renvoyer une liste observable d'objets
  */
 
+/**
+ * <h1>Inventaire gère l'inventaire du Personnage
+ * 
+ * 
+ * @author Mathys
+ *
+ */
+
 public class Inventaire {
 
 	public ObservableList<Inventeriable> listeObjets ;
@@ -46,7 +54,6 @@ public class Inventaire {
 
 		int i =0 ;
 
-		
 			if (!this.listeObjets.contains(o)) {
 				while (this.listeObjets.get(i) != null) {
 					i ++ ;
@@ -58,7 +65,6 @@ public class Inventaire {
 				this.listeQtes.set(this.listeObjets.indexOf(o), this.listeQtes.get(this.listeObjets.indexOf(o)) + 1) ;
 			}
 
-		
 
 	}
 	
@@ -103,6 +109,7 @@ public class Inventaire {
 		return this.listeObjets ;
 		
 	}
+	
 	
 	public ObservableList<Inventeriable> getListObjet(){
 		return this.listeObjets;

@@ -11,4 +11,8 @@ public abstract class Inventeriable extends GameObject {
 	public Inventeriable(String tag, double pv, Collisionneur c) {
 		super (tag,pv,c);
 	}
+	
+	public Inventeriable() {
+		super("vide");
+	}
 }

@@ -1,26 +1,20 @@
-Ameliorer colision(j'ai trouver pk ca ne marchais pas il faut pas faire un gros return car il vas tester des valeur dans le
-                  le terrain des valeur inexistante. Donc faut separer en plusieur if avec les conditions. ensuite autre
-                  probleme si le perso ne demarre pas en 0,0 ca nemarche pas) je n'aipas encore trouve la soluce))).
-                  
-C BON G TROUVE ! EUREKA ! I FOUND IT ! YEAAAAAAAAAAAAAAAAAAAAAH !!!! Je vous mets ça en ligne tout de suite et je m'attaque à
-à la gravité. Ne vous en faites pas, je vais nettoyer ce code avant :)
-
-Ca y est, tout est dans ma branche.
-
-Collisions : Check ! Je me lance sur la gravité !
-
-Au fait, je n'avais pas remarqué la fin de ton paragraphe (j'étais trop excité), là c'est bon, on peut faire démarrer le perso
-où on veut sur la map. Je viens aussi de rajouter un peu de code avec des exceptions pour que le perso ne sorte pas de la terre s'il
-apparaît dedans et pour qu'il ne puisse pas apparaître hors de la map.
+Ameliorer colision.
                   
 Ressources et inventaire : j'ai commencé à plancher dessus mais faudrait qu'on se mettre d'accord sur comment on les gères.
 Est ce que chaque objet items a la responsabilité de se creer lui même ? Il faudrait qu'on voit ça
+
+Mathys : Pour moi l'inventaire c'est deux choses : une liste d'objets et une liste d'entier. On peut ajouter, retirer et supprimer
+des objets (retirer enlève 1, supprimer enlève l'objet de la liste). Ces deux listes sont observables. Il n'y a en fait qu'un seul
+objet dans la première liste, celui que prendra le personnage quand il choisira un objet dans son inventaire. A part ça je laisse 
+de côté la gravité pour l'instant, c'est un véritable casse-tête.
                   
-inventaire
+Mathys : inventaire
 commencer les classe ressources
-gerer craft
-gravite
+Karen et Ludovic : gerer craft
+Mathys : gravite
 commencer classe enemi
 
 
 + si vous avez des idees
+
+PS : il vaut mieux ajouter nos prénoms avant d'écrire ici, sinon on ne s'y retrouvera pas.

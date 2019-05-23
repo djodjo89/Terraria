@@ -38,13 +38,16 @@ public class Jeu {
 		
 	}
 	
+	public Jeu() {
+	}
+
 	public Moteur getMoteur () {
 		
 		return this.m ;
 		
 	}
 	
-	public Terrain getMap () {
+	public Terrain getTerrain () {
 		
 		return this.t ;
 		

@@ -104,6 +104,14 @@ import javafx.collections.ObservableList;
 			return this.listeDeLignes ;
 			
 		}
+		
+		public void destructionTerrain(int x, int y) {
+			Inventeriable caseMap = new Air("A");
+			
+			System.out.println(x);
+			System.out.println(y);
+			this.listeDeLignes.get(y).set(x,caseMap);
+		}
 
 	}
 
