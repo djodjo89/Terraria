@@ -4,6 +4,7 @@
 import physique.* ;
 import java.util.ArrayList;
 
+import geometrie.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -56,10 +57,10 @@ import javafx.collections.ObservableList;
 					
 					}
 					
-					caseMap.setCollisionneur(new Collisionneur (j * this.tailleCaseX,
-									   i * this.tailleCaseY,
-									 ((j * this.tailleCaseX) + this.tailleCaseX - unAutrePixel),
-									 ((i * this.tailleCaseY) + this.tailleCaseY - unPixel)));
+					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, 0),
+							new Point (0, i * this.tailleCaseY),
+							new Point (j * this.tailleCaseX, this.tailleCaseX - unAutrePixel),
+							new Point (this.tailleCaseY - unPixel, i * this.tailleCaseY));
 					
 					this.listeDeLignes.get(i).add(caseMap) ;
 					

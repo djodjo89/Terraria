@@ -17,9 +17,9 @@ public class Outil extends GameObject {
 	
 	private DoubleProperty ptsAttaque ;
 	
-	public Outil (String tag, Collisionneur c) {
+	public Outil (String tag, double pv, double x, double y, double masse, Collisionneur c) {
 		
-		super (tag, 500, c) ;
+		super (tag, 500, 0, 0, 10, c) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}

@@ -65,21 +65,5 @@ public class Personnage extends GameObject {
 		
 		return this.i ;
 	}
-	
-	public int sauter(int nbTour,boolean espaceActive) throws VousEtesCoinceException, HorsDeLaMapException {
-		int nb=nbTour;
-		if(espaceActive && nbTour==0)
-			nb=1;
-		
-		if(nb>0 && nb<20) {
-			this.sauter(this.jeu.getMap(), this.jeu.getMoteur());
-			nb++;
-		}
-		
-		if(nb>=20 && this.getCollisionneur().deplacementPossible(new Vecteur (0,1), this.jeu.getMap(), this.jeu.getMoteur()).getY() != 0)
-			nb=0;
-		
-		return nb;
-	}
 
 }

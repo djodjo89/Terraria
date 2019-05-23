@@ -18,6 +18,12 @@ public class GameObject {
 	 */
 	private Collisionneur collisionneur ;
 	
+	public GameObject (String tag) {
+		
+		this.tag = tag ;
+		
+	}
+	
 	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur) {
 		
 		this.tag = tag ;
