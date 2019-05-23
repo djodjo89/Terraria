@@ -17,6 +17,7 @@ public class Menu {
 	private Pane panePrincipal;
 	private VBox menuBox;
 	private Button resume;
+	private Button exit;
 	private ImageView fond;
 	private Boolean estLa;
 	
@@ -29,12 +30,23 @@ public class Menu {
 		resume.setText("Jouer");
 		resume.setMinSize(500, 100);
 		resume.setFont(Font.font("regular",FontWeight.NORMAL,50));
+		exit=new Button();
+		exit.setText("Exit");
+		exit.setMinSize(500, 100);
+		exit.setFont(Font.font("regular",FontWeight.NORMAL,50));
 		menuBox = new VBox(-5);
 		menuBox.getChildren().add(resume);
+		menuBox.getChildren().add(exit);
         resume.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 disparait();
+            }
+        });
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.exit(0);
             }
         });
 		panePrincipal.getChildren().add(menuBox);
@@ -56,4 +68,5 @@ public class Menu {
 	public Boolean estAffiche() {
 		return estLa;
 	}
+	
 }

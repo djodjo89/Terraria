@@ -127,6 +127,8 @@ public class ControleurTouches {
 	private Scrolling scroll;
 	
 	private int nbE=0;
+	
+	private Menu menu;
 
 	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap, ControleurTerraria controlInvent, Pane paneIvent) {
 		this.scroll=new Scrolling(pane,paneMap, paneIvent);
@@ -151,7 +153,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && code!="E")
+					if(!ToucheAppuyer.contains(code) && code!="ESCAPE")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -160,8 +162,12 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 						ToucheAppuyer.remove(code);
+
 						if(code=="E")
 							ToucheAppuyer.add("E");
+
+						if(code=="ESCAPE")
+							ToucheAppuyer.add(code);
 				}
 				});
 				
@@ -206,6 +212,13 @@ public class ControleurTouches {
 					espace=true;
 				break;
 				
+				case "ESCAPE":
+					if(!menu.estAffiche())
+						menu.afficheMenu();
+					else
+						menu.disparait();
+					break;
+
 
 				case "E":
 					if(nbE%2==0) {
@@ -225,10 +238,11 @@ public class ControleurTouches {
 				break;
 			}
 
-
-
 		}
+
 		ToucheAppuyer.remove("E");
+		ToucheAppuyer.remove("ESCAPE");
+
 
 	}
 	public boolean espaceActive() { 
