@@ -287,6 +287,10 @@ public class ControleurTerraria implements Initializable {
 						typeBloc="air" ;
 					break;
 					
+					case "G" :
+						typeBloc="granite";
+						break;
+					
 					default:
 						typeBloc="air" ;
 					break;
