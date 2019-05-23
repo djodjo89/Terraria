@@ -62,6 +62,8 @@ public class ControleurSouris extends Parent {
 	 * 
 	 * @since 1.0
 	 */
+	
+
 
 	public ControleurSouris (Pane p, Jeu j) {
 
@@ -74,13 +76,13 @@ public class ControleurSouris extends Parent {
 
 	public void setMouseListener () {
 
-		this.pane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		this.pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				destructionBlock(event.getSceneX(),event.getSceneY());
-				System.out.println(event.getScreenX());
-		        System.out.println(event.getScreenY());
+				destructionBlock(event.getX(),event.getY());
+				//System.out.println(event.getX()/50);
+		       //System.out.println(event.getY()/50);
 	//			try {
 
 					
@@ -96,7 +98,7 @@ public class ControleurSouris extends Parent {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
 		this.jeu.getTerrain().destructionTerrain(blockX, blockY);
-		
+		this.jeu.getTerrain().setPositionBlockY(blockY);
 	}
 	
 	
