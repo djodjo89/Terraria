@@ -56,6 +56,8 @@ import javafx.collections.ObservableList;
 					
 					case "A" : caseMap = new Air(nomCase) ; break ;
 					
+					case "G": caseMap = new Granite(nomCase); break;
+					
 					}
 					
 					caseMap.setCollisionneur(new Collisionneur (j * this.tailleCaseX,
