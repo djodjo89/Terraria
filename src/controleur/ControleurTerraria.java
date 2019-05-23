@@ -360,7 +360,7 @@ public class ControleurTerraria implements Initializable {
 			this.initMap() ;
 			this.initPositionPerso() ;
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap);
-			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap);
+			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire);
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
 			paneItemsInventaire.toFront();

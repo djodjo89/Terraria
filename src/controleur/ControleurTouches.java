@@ -126,8 +126,8 @@ public class ControleurTouches {
 	
 	private Menu menu;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap) {
-		this.scroll=new Scrolling(pane,paneMap);
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire) {
+		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
 		this.ToucheAppuyer = new ArrayList<String>();
@@ -170,7 +170,7 @@ public class ControleurTouches {
 
 				case "Q":		
 					if(jeu.getPerso().jePeuxMeDeplacerLa("gauche"))
-						scroll.faireScroll("Q", jeu.getPerso().getX());
+						scroll.faireScroll("Q", jeu.getPerso());
 					jeu.getPerso().deplacementColision("gauche");
 					if(derniereDirection.equals("droite")) {
 
@@ -187,7 +187,7 @@ public class ControleurTouches {
 
 				case "D":
 					if(jeu.getPerso().jePeuxMeDeplacerLa("droite"))
-						scroll.faireScroll("D",jeu.getPerso().getX());
+						scroll.faireScroll("D",jeu.getPerso());
 					jeu.getPerso().deplacementColision("droite") ;
 					
 					if(derniereDirection.equals("gauche")) {

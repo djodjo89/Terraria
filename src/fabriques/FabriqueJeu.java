@@ -10,7 +10,7 @@ public class FabriqueJeu {
 	
 	public static Jeu initialiserJeu (Jeu jeu, Images images) throws IOException, HorsDeLaMapException {
 		
-		return new Jeu ("map.csv", images.getImage("air").getWidth(), images.getImage("air").getHeight(), 600., 10.) ;
+		return new Jeu ("map.csv", images.getImage("air").getWidth(), images.getImage("air").getHeight(), 800., 10.) ;
 		
 	}
 

@@ -8,19 +8,22 @@ public class Scrolling {
 	private int xTranslate;
 	private Pane pane;
 	private Pane paneMap;
+	private Pane paneInventaire;
 
-	public Scrolling(Pane pane,Pane paneMap) {
+	public Scrolling(Pane pane,Pane paneMap,Pane paneInventaire) {
 		this.xTranslate = 0;
 		this.paneMap=paneMap;
 		this.pane=pane;
+		this.paneInventaire=paneInventaire;
 	}
 	
-	public void faireScroll(String direction,double xPerso) {
-		if(direction=="D" && xPerso>600 && paneMap.getWidth()>xPerso-600 ) 
-			this.xTranslate-=10;
-		else if(direction=="Q"&& xTranslate<0 && paneMap.getWidth()>xPerso-600)
-			this.xTranslate+=10;
-		pane.setTranslateX(xTranslate);
+	public void faireScroll(String direction,Personnage Perso) {
+		if(direction=="D" && (Perso.getX()>this.paneMap.getWidth())) 
+			this.xTranslate-=Perso.getDistanceDeplacement();
+		else if(direction=="Q"&& xTranslate<0 && pane.getWidth()>Perso.getX()-this.pane.getWidth()/2 )
+			this.xTranslate+=Perso.getDistanceDeplacement();
+		this.pane.setTranslateX(xTranslate);
+		this.paneInventaire.setTranslateX(-xTranslate);
 	}
 	
 	// Une version du scroll avec les vecteurs
@@ -36,6 +39,9 @@ public class Scrolling {
 			this.xTranslate += perso.getVitesseX() ;
 		
 		this.pane.setTranslateX(this.xTranslate);
+		
+		
+			
 		
 	}*/
 
