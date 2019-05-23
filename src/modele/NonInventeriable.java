@@ -8,7 +8,7 @@ public abstract class NonInventeriable extends GameObject{
 	
 	public NonInventeriable () {
 		
-		super ("", 1000, new Collisionneur()) ;
+		super ("", 1000, new Collisionneur(),false) ;
 		
 	}
 	

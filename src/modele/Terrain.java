@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 		private double tailleCaseX ;
 		private double tailleCaseY ;
 		private ArrayList<ObservableList<Inventeriable>> listeDeLignes ;
+		private int positionBlockY;
 
 		public Terrain (ArrayList<ObservableList<String>> newlist, double tailleCaseX, double tailleCaseY) {
 			
@@ -30,6 +31,7 @@ import javafx.collections.ObservableList;
 			this.tailleCaseY = tailleCaseY ;
 			this.listeDeLignes = new ArrayList<ObservableList<Inventeriable>> () ;
 			this.initTerrain(newlist) ;
+			this.positionBlockY = 0;
 			
 		}
 		
@@ -53,6 +55,8 @@ import javafx.collections.ObservableList;
 					case "T" : caseMap = new Terre(nomCase) ; break ;
 					
 					case "A" : caseMap = new Air(nomCase) ; break ;
+					
+					case "G": caseMap = new Granite(nomCase); break;
 					
 					}
 					
@@ -103,6 +107,22 @@ import javafx.collections.ObservableList;
 			
 			return this.listeDeLignes ;
 			
+		}
+		
+		public void destructionTerrain(int x, int y) {
+			Inventeriable caseMap = new Air("A");
+			
+			System.out.println(x);
+			System.out.println(y);
+			this.listeDeLignes.get(y).set(x,caseMap);
+		}
+		
+		public void setPositionBlockY(int y) {
+			this.positionBlockY = y;
+		}
+		
+		public int getPositionBlockY() {
+			return this.positionBlockY;
 		}
 
 	}

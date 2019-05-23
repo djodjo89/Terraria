@@ -19,7 +19,7 @@ public class Outil extends Inventeriable {
 	
 	public Outil (String tag, Collisionneur c) {
 		
-		super (tag, 500, c) ;
+		super (tag, 500, c,false) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}

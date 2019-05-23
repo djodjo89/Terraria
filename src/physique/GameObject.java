@@ -23,9 +23,10 @@ public class GameObject {
 	}
 	
 	// Pour les objets statiques
-	public GameObject (String tag, double pv, Collisionneur c) {
+	public GameObject (String tag, double pv, Collisionneur c,boolean estUnObstacle) {
 		
 		this(tag, pv, c.getXDeb(), c.getYDeb(), 0., 0., 0., c, 0.) ;
+		this.estUnObstacle=estUnObstacle;
 		
 	}
 	

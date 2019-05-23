@@ -1,7 +1,14 @@
 package modele;
 
 import physique.Collisionneur;
-import physique.GameObject;
+
+/**
+ * <h1>Air est un bloc non Inventeriable traversable</h1>
+ * 
+ * @version 1.1
+ * @author Mathys
+ *
+ */
 
 public class Air extends Bloc {
 	
@@ -11,9 +18,9 @@ public class Air extends Bloc {
 		
 	}
 	
-	public Air (String tag, double pv, Collisionneur collisionneur) {
+	public Air (String tag,  Collisionneur collisionneur) {
 		
-		super(tag, pv, collisionneur) ;
+		super(tag, 0, collisionneur,false) ;
 		
 	}
 
