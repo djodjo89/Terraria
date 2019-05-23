@@ -148,7 +148,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && !menu.estAffiche())
+					if(!ToucheAppuyer.contains(code) && code!="ESCAPE")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -157,6 +157,8 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 						ToucheAppuyer.remove(code);
+						if(code=="ESCAPE")
+							ToucheAppuyer.add(code);
 				}
 				});
 				
@@ -202,7 +204,10 @@ public class ControleurTouches {
 				break;
 				
 				case "ESCAPE":
-					menu.afficheMenu();
+					if(!menu.estAffiche())
+						menu.afficheMenu();
+					else
+						menu.disparait();
 					break;
 
 			}
@@ -210,6 +215,7 @@ public class ControleurTouches {
 			System.out.println(derniereDirection);
 
 		}
+		ToucheAppuyer.remove("ESCAPE");
 
 	}
 	public boolean espaceActive() { 
