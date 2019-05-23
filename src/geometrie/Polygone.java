@@ -3,6 +3,8 @@ package geometrie;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+
 public class Polygone {
 	
 	ArrayList<Point> listeSommets ;
@@ -312,9 +314,9 @@ public class Polygone {
 			
 		}
 		
-		for (j = 0 ; j < Math.abs(minMaxX[0]) ; j ++) {
+		for (j = 0 ; j < Math.abs(minMaxX[1]) ; j ++) {
 			
-			espacesY += ' ' ;
+			espacesX += ' ' ;
 			
 		}
 		
@@ -324,6 +326,7 @@ public class Polygone {
 
 			h = 0 ;
 			trouve = false ;
+			aff += espacesX ;
 
 			while (!trouve && h < listeAffichage.size()) {
 				

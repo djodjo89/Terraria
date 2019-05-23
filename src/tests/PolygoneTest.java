@@ -121,11 +121,11 @@ class PolygoneTest {
 		liste = new ArrayList<>() ;
 		liste = Polygone.tableauOrdonne(poly.listeOrdonneeParY()) ;
 		
-		System.out.println(poly);
+		System.out.print(poly);
 		
 		poly.ajouterAChaquePoint(new Vecteur (2, -1));
 		
-		System.out.println(poly);
+		System.out.print(poly);
 		
 	}
 
