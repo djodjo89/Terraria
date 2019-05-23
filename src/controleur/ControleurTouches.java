@@ -59,6 +59,8 @@ import javafx.geometry.Pos;
 
 public class ControleurTouches {
 	
+	private ControleurTerraria controlIvent;
+	
 	/**
 	 * La touche espace
 	 * 
@@ -124,16 +126,17 @@ public class ControleurTouches {
 
 	private Scrolling scroll;
 	
-	private Menu menu;
+	private int nbE=0;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire) {
-		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap, ControleurTerraria controlInvent, Pane paneIvent) {
+		this.scroll=new Scrolling(pane,paneMap, paneIvent);
 		this.jeu = jeu ;
 		this.pane = pane ;
 		this.ToucheAppuyer = new ArrayList<String>();
 		derniereDirection=new String("droite");
 		this.perso=perso;
-		menu=new Menu(pane);
+		this.controlIvent=controlInvent;
+
 
 	}
 	
@@ -148,7 +151,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && !menu.estAffiche())
+					if(!ToucheAppuyer.contains(code) && code!="E")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -157,15 +160,17 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 						ToucheAppuyer.remove(code);
+						if(code=="E")
+							ToucheAppuyer.add("E");
 				}
 				});
 				
 	}
 	
 	public void setKeyListener () throws VousEtesCoinceException {
-
+		
 		for(String touche : this.ToucheAppuyer) {
-
+			
 			switch(touche) {
 
 				case "Q":		
@@ -201,15 +206,29 @@ public class ControleurTouches {
 					espace=true;
 				break;
 				
-				case "ESCAPE":
-					menu.afficheMenu();
-					break;
 
+				case "E":
+					if(nbE%2==0) {
+						this.controlIvent.derouleInventaire();
+						this.nbE++;
+					}
+					else {
+						this.controlIvent.reduitInventaire();
+						this.nbE++;
+					}
+					
+						
+				break;
+				
+				case "R":
+					
+				break;
 			}
 
-			System.out.println(derniereDirection);
+
 
 		}
+		ToucheAppuyer.remove("E");
 
 	}
 	public boolean espaceActive() { 
