@@ -105,6 +105,7 @@ public class ControleurMap {
 		
 	}
 	public void remplacerImage(int x) {
+		
 		int y = this.jeu.getTerrain().getPositionBlockY();
 		System.out.println("ok");
 		System.out.println(pane.getChildren().toString());
@@ -117,6 +118,7 @@ public class ControleurMap {
 				b.setImage(images.getImage("air"));
 			}
 		}
+		
 		//Parent parent = pane;
 		//System.out.println(parent.toString());
 		//Tuile b = (Tuile) parent.lookup("#" + x + ":" + y);

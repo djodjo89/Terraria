@@ -97,8 +97,9 @@ public class ControleurSouris extends Parent {
 	public void destructionBlock(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-		this.jeu.getTerrain().destructionTerrain(blockX, blockY);
 		this.jeu.getTerrain().setPositionBlockY(blockY);
+		this.jeu.getTerrain().destructionTerrain(blockX, blockY);
+		
 	}
 	
 	
