@@ -1,15 +1,26 @@
 package controleur;
 
 import modele.* ;
+import vue.Menu;
 import vue.Tuile;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import exceptions.VousEtesCoinceException;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
+import javafx.geometry.Pos;
 
 
 /*
@@ -111,13 +122,18 @@ public class ControleurTouches {
 	
 	private Tuile perso;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso) {
+	private Scrolling scroll;
+	
+	private Menu menu;
 
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire) {
+		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
 		this.ToucheAppuyer = new ArrayList<String>();
 		derniereDirection=new String("droite");
 		this.perso=perso;
+		menu=new Menu(pane);
 
 	}
 	
@@ -132,7 +148,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code))
+					if(!ToucheAppuyer.contains(code) && !menu.estAffiche())
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -152,9 +168,10 @@ public class ControleurTouches {
 
 			switch(touche) {
 
-				case "Q":							
-					jeu.getPerso().deplacementColision("gauche") ;
-
+				case "Q":		
+					if(jeu.getPerso().jePeuxMeDeplacerLa("gauche"))
+						scroll.faireScroll("Q", jeu.getPerso());
+					jeu.getPerso().deplacementColision("gauche");
 					if(derniereDirection.equals("droite")) {
 
 						perso.setRotate(180);
@@ -169,7 +186,10 @@ public class ControleurTouches {
 				break;
 
 				case "D":
+					if(jeu.getPerso().jePeuxMeDeplacerLa("droite"))
+						scroll.faireScroll("D",jeu.getPerso());
 					jeu.getPerso().deplacementColision("droite") ;
+					
 					if(derniereDirection.equals("gauche")) {
 						perso.setRotate(0);
 					}
@@ -180,6 +200,10 @@ public class ControleurTouches {
 				case "SPACE":
 					espace=true;
 				break;
+				
+				case "ESCAPE":
+					menu.afficheMenu();
+					break;
 
 			}
 

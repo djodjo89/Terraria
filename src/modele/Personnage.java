@@ -16,7 +16,7 @@ import javafx.beans.property.* ;
 public class Personnage extends NonInventeriable {
 	
 	private DoubleProperty ptsAttaque ;
-	private Outil main ;
+	private Inventeriable main ;
 	private Jeu jeu;
 	private Inventaire i ;
 	
@@ -24,6 +24,8 @@ public class Personnage extends NonInventeriable {
 		
 		super () ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
+		this.main = null;
+		this.i = new Inventaire(10);
 		
 	}
 	
@@ -36,7 +38,7 @@ public class Personnage extends NonInventeriable {
 		
 	}
 	
-	public void donner (Outil o) {
+	public void donner (Inventeriable o) {
 		
 		this.main = o ;
 		
@@ -56,7 +58,11 @@ public class Personnage extends NonInventeriable {
 	
 	public void attaque (GameObject o) {
 		
-		o.perdrePV (this.main.getPtsAttaque()) ;
+		if(this.main instanceof Outil ) 
+			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
+		
+		else 
+			o.perdrePV(this.getPtsAttaque());
 		
 	}
 	public void ajouterObjetMain (Outil o) {
@@ -79,6 +85,16 @@ public class Personnage extends NonInventeriable {
 		
 		}
 		
+	}
+	
+	public boolean jePeuxMeDeplacerLa(String direction) throws VousEtesCoinceException {
+		
+		if (direction=="droite")
+			return (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getTerrain(), this, this.jeu.getMoteur()));
+		if (direction=="gauche")
+			return (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getTerrain(), this, this.jeu.getMoteur()));
+		return false;
+
 	}
 	
 	public Inventaire getInventaire (){

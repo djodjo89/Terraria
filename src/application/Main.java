@@ -21,7 +21,7 @@ public class Main extends Application {
 			loader.setLocation(url);
 			Pane root = new Pane();
 			root = loader.load();
-			Scene scene = new Scene(root,1350,1000);
+			Scene scene = new Scene(root,1920,1080);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
