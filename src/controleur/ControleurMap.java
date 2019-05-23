@@ -1,9 +1,16 @@
 package controleur;
 
 import modele.*;
+import ressources.Images;
+import vue.Tuile;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+
 
 /**
  * <h1>ControleurMap est la classe chargé de transmettre à la vue les changements du terrain</h1>
@@ -49,16 +56,18 @@ public class ControleurMap {
 	
 	private Pane pane ;
 	
-	public ControleurMap(Pane pane, Jeu jeu) {
+	private Images images;
+	
+	
+	public ControleurMap(Pane pane, Jeu jeu, Images image) {
 		
 		this.pane =pane ;
 		this.jeu=jeu ;
+		this.images = image;
 		
 	}
 	
-	public ControleurMap() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	/**
 	 * Ajoute un ChangeListener sur chaque ligne du terrain
@@ -80,7 +89,12 @@ public class ControleurMap {
 				public void onChanged(Change<? extends Inventeriable> changement) {
 
 					while (changement.next()) {
-
+						if(changement.wasReplaced()) {
+							int x = changement.getFrom();
+							//get(x).getFrom;//changement.getAddedSubList();
+							System.out.println(x);
+							remplacerImage(x);
+						}
 					}
 
 				}
@@ -89,6 +103,27 @@ public class ControleurMap {
 			
 		}
 		
+	}
+	public void remplacerImage(int x) {
+		
+		int y = this.jeu.getTerrain().getPositionBlockY();
+		System.out.println("ok");
+		System.out.println(pane.getChildren().toString());
+		String nom = x + ":" + y;
+		//System.out.println(pane.getChildren().get(0).getId());
+		for (int i = 0; i < pane.getChildren().size(); i++) {
+			if(pane.getChildren().get(i).getId().equals(nom)) {
+				System.out.println("cool");
+				ImageView b = (ImageView) pane.getChildren().get(i);
+				b.setImage(images.getImage("air"));
+			}
+		}
+		
+		//Parent parent = pane;
+		//System.out.println(parent.toString());
+		//Tuile b = (Tuile) parent.lookup("#" + x + ":" + y);
+		//b.toString();
+		//b.setImg("air");
 	}
 	
 }
