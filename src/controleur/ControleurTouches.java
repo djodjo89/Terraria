@@ -153,7 +153,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && code!="ESCAPE")
+					if(!ToucheAppuyer.contains(code) && code!="ESCAPE" && code!="E")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -237,7 +237,7 @@ public class ControleurTouches {
 					
 				break;
 			}
-
+			
 		}
 
 		ToucheAppuyer.remove("E");
