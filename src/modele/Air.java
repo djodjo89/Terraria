@@ -18,9 +18,9 @@ public class Air extends Bloc {
 		
 	}
 	
-	public Air (String tag, double pv, Collisionneur collisionneur) {
+	public Air (String tag,  Collisionneur collisionneur) {
 		
-		super(tag, pv, collisionneur) ;
+		super(tag, 0, collisionneur,false) ;
 		
 	}
 

@@ -17,9 +17,9 @@ public class Bloc extends Inventeriable {
 		super(tag);
 		
 	}
-	public Bloc(String tag, double pv, Collisionneur c) {
+	public Bloc(String tag, double pv, Collisionneur c,boolean estUnObstacle) {
 		
-		super (tag,pv,c);
+		super (tag,pv,c,estUnObstacle);
 		
 	}
 	
