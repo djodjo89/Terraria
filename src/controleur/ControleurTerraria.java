@@ -338,13 +338,9 @@ public class ControleurTerraria implements Initializable {
 		    		tileItem1 = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,10,this.images.getImage(personnage.getInventaire().getListObjet().get(i).getTag()));
 		    		this.paneItemsInventaire.getChildren().add(tileItem1);
 		    		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.personnage, personnage.getInventaire().getListObjet().get(i), this.paneInventaire);
-    			
+		    		
     		}
-    	}/*
-    	tileItem1 = new Tuile(nom,(6*jeu.getMoteur().getTailleTileX())+10,10,this.images.getImage("fondIventaire"));
-		this.paneItemsInventaire.getChildren().add(tileItem1);
-		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.personnage, personnage.getInventaire().getListObjet().get(i), this);
-    	*/
+    	}
 	}
 
 	/**
@@ -378,6 +374,7 @@ public class ControleurTerraria implements Initializable {
 			this.initPositionPerso() ;
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap, this.images);
 			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this, this.paneInventaire);
+			controleurSouris= FabriqueControleurs.initialiserControleurSouris(paneMap, jeu);
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
 			paneItemsInventaire.toFront();

@@ -1,5 +1,8 @@
 package controleur;
 
+import com.sun.javafx.tk.Toolkit;
+
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import modele.Inventeriable;
@@ -16,6 +19,9 @@ public class ControleurInventaire {
 	private Personnage perso;
 	private Pane pane;
 	private Images img;
+	private Cursor curseur;
+	private Toolkit tk;
+	private Cursor cur;
 	
 	public ControleurInventaire(Tuile t, Jeu j, Personnage perso , Inventeriable obj, Pane pane) {
 		this.t=t;
@@ -25,12 +31,14 @@ public class ControleurInventaire {
 		this.pane=pane;
 		this.img= new Images();
 		this.setClickListener();
+		
 	}
 	
 	public void setClickListener() {
 		this.t.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
 			this.perso.donner(this.objet);	
-			System.out.println(this.perso.getMain().getTag());
+			
+			//System.out.println(this.perso.getMain().getTag());
 			event.consume();
 		});
 	}
