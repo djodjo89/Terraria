@@ -1,44 +1,48 @@
-Récupérer le x le plus petit et le plus grand
-Pour chaque ligne du tableau de points Faire
-	Pour j du x le plus petit au plus grand Faire
-		k <- 0
-		Tant que point pas trouve et que k inférieur à la taille de la ligne Faire
-			Si j + xMin = x du point à la position k Alors
-				trouve = vrai
+ALGORITHME : Affichage d'un Polygone
+DESCRIPTION : Cet algorithme permet d'afficher un Polygone d'étoiles dans la console.
+VARIABLES
+	i, j, k, h : entiers // Pour les parcours
+	affichage : chaîne de caractères // Permet d'afficher le polygone
+	espacesX : chaîne de caractères // Permet d'ajouter les espaces avant la figure
+	espacesY : chaîne de caractères // Permet d'ajouter les lignes avant la figure
+	listeAffichage : liste de Points // Permet d'afficher les points dans l'ordre
+	
+INITIALISATION
+	Ordonner listeAffichage
+	Récupérer les x et y minimum et maximum du polygone
+	
+DEBUT
+	Ajouter à espacesY autant de ligne que la valeur absolue du y minimum
+	Ajouter à espacesX autant d'espaces que la valeur absolue du x maximum
+	Ajouter espacesY à affichage
+
+	Pour i de 0 à la hauteur du poygone Faire
+		l <- 0
+		trouve <- faux
+		ajouter espacesX à affichage
+		Tant que ligne pas trouvee et l inférieur au nombre de lignes du tableau Faire
+			Si i + y minimum = y du point à la position h Alors
+				trouve <- vrai
 			Fin Si
-			k ++
+			l ++
 		Fin Tant Que
-	Fin Pour
-Fin Pour
-
-V2 :
-
-Récupérer les x et y minimum et maximum du polygone
-Pour i de 0 à la hauteur du poygone Faire
-	h <- 0
-	trouve <- faux
-	Tant que ligne pas trouvee et h inférieur au nombre de lignes du tableau Faire
-		Si i + yMin = y du point à la position h Alors
-			trouve <- vrai
-		Fin Si
-		h ++
-		Fin Tant Que
-	Si pas trouve Alors
-		Sauter une ligne		
-	Sinon		
-		Pour j de 0 à la largeur du polygone Faire
-			k <-0
-			trouve <- faux
-			Tant que colonne pas trouvee et k inférieur au nombre de colonnes du tableau Faire
-				Si j + xMin = x du point à la position k Alors
-					trouve <- vrai
-				Fin Si
-				k ++
-			Fin Tant Que
-			Si pas trouve Alors
-				Afficher ' '
-			Sinon
-				Afficher '*'
+		Si pas trouve Alors
+			Sauter une ligne		
+		Sinon
+			l --	
+			Pour j de 0 à la largeur du polygone Faire
+				k <-0
+				trouve <- faux
+				Tant que colonne pas trouvee et k inférieur au nombre de colonnes du tableau Faire
+					Si j + x minimum = x du point à la position k Alors
+						trouve <- vrai
+					Fin Si
+					k ++
+				Fin Tant Que
+				Si pas trouve Alors
+					Ajouter un espace à affichage
+				Sinon
+					Afficher une étoile à affichage
 			Fin Si
 		Fin Pour
 	Fin Si

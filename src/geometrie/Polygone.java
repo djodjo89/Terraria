@@ -367,22 +367,20 @@ public class Polygone {
 		int i ;
 		int j ;
 		int k ;
-		int h ;
+		int l ;
 		double[] minMaxX ;
 		double[] minMaxY ;
 		boolean trouve ;
-		char c ;
-		String aff ;
+		String affichage ;
 		String espacesX ;
 		String espacesY ;
 		ArrayList<ArrayList<Point>> listeAffichage ;
 
-		c = '*' ;
-		aff = "" ;
+		affichage = "" ;
 		espacesX = "" ;
 		espacesY = "" ;
 		listeAffichage = new ArrayList<> () ;
-		listeAffichage = tableauOrdonne() ;
+		listeAffichage = this.tableauOrdonne() ;
 		minMaxX = this.minMaxX() ;
 		minMaxY = this.minMaxY() ;		
 		
@@ -398,40 +396,40 @@ public class Polygone {
 			
 		}
 		
-		aff += espacesY ;
+		affichage += espacesY ;
 
 		for (i = 0 ; i <= Math.abs(minMaxY[1] - minMaxY[0]) ; i ++) {
 
-			h = 0 ;
+			l = 0 ;
 			trouve = false ;
-			aff += espacesX ;
+			affichage += espacesX ;
 
-			while (!trouve && h < listeAffichage.size()) {
+			while (!trouve && l < listeAffichage.size()) {
 				
-				if (i + minMaxY[0] == listeAffichage.get(h).get(0).getY())
+				if (i + minMaxY[0] == listeAffichage.get(l).get(0).getY())
 
 					trouve = true ;
 				
-				h ++ ;
+				l ++ ;
 
 			}
 			
 			if (!trouve)
 
-				aff += '\n' ;
+				affichage += '\n' ;
 
-			if (trouve) {					
+			else {					
 				
-				h -- ;
+				l -- ;
 
 				for (j = 0 ; j <= Math.abs(minMaxX[1] - minMaxX[0]) ; j ++) {
 
 					k = 0 ;
 					trouve = false ;
 
-					while (!trouve && k < listeAffichage.get(h).size()) {
+					while (!trouve && k < listeAffichage.get(l).size()) {
 
-						if (j + minMaxX[0] == listeAffichage.get(h).get(k).getX())
+						if (j + minMaxX[0] == listeAffichage.get(l).get(k).getX())
 
 							trouve = true ;
 
@@ -441,15 +439,15 @@ public class Polygone {
 
 					if (!trouve)
 
-						aff += ' ' ;
+						affichage += ' ' ;
 
 					else
 
-						aff += c ;
+						affichage += '*' ;
 					
 					if (j == Math.abs(minMaxX[1] - minMaxX[0]))
 						
-						aff += '\n' ;
+						affichage += '\n' ;
 
 				}
 				
@@ -457,7 +455,7 @@ public class Polygone {
 
 		}
 		
-		return aff ;
+		return affichage ;
 		
 	}
 
