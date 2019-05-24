@@ -59,8 +59,6 @@ import javafx.geometry.Pos;
 
 public class ControleurTouches {
 	
-	private ControleurTerraria controlIvent;
-	
 	/**
 	 * La touche espace
 	 * 
@@ -126,20 +124,21 @@ public class ControleurTouches {
 
 	private Scrolling scroll;
 	
+	private Menu menu;
+	
 	private int nbE=0;
 	
-	private Menu menu;
+	private ControleurTerraria controlIvent;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap, ControleurTerraria controlInvent, Pane paneIvent) {
-		this.scroll=new Scrolling(pane,paneMap, paneIvent);
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, ControleurTerraria controlInvent) {
+		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
 		this.ToucheAppuyer = new ArrayList<String>();
 		derniereDirection=new String("droite");
 		this.perso=perso;
+		menu=new Menu(pane);
 		this.controlIvent=controlInvent;
-
-
 	}
 	
 	
@@ -153,7 +152,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && code!="ESCAPE" && code!="E")
+					if(!ToucheAppuyer.contains(code) && !menu.estAffiche() && code!="E")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -162,21 +161,17 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 						ToucheAppuyer.remove(code);
-
 						if(code=="E")
 							ToucheAppuyer.add("E");
-
-						if(code=="ESCAPE")
-							ToucheAppuyer.add(code);
 				}
 				});
 				
 	}
 	
 	public void setKeyListener () throws VousEtesCoinceException {
-		
+
 		for(String touche : this.ToucheAppuyer) {
-			
+
 			switch(touche) {
 
 				case "Q":		
@@ -207,18 +202,7 @@ public class ControleurTouches {
 
 					derniereDirection="droite";
 				break;
-
-				case "SPACE":
-					espace=true;
-				break;
 				
-				case "ESCAPE":
-					if(!menu.estAffiche())
-						menu.afficheMenu();
-					else
-						menu.disparait();
-					break;
-
 
 				case "E":
 					if(nbE%2==0) {
@@ -228,21 +212,23 @@ public class ControleurTouches {
 					else {
 						this.controlIvent.reduitInventaire();
 						this.nbE++;
-					}
-					
-						
+					}		
+				break;
+
+				case "SPACE":
+					espace=true;
 				break;
 				
-				case "R":
-					
-				break;
+				case "ESCAPE":
+					menu.afficheMenu();
+					break;
+
 			}
+
 			
+		
 		}
-
 		ToucheAppuyer.remove("E");
-		ToucheAppuyer.remove("ESCAPE");
-
 
 	}
 	public boolean espaceActive() { 
