@@ -126,8 +126,12 @@ public class ControleurTouches {
 	private Scrolling scroll;
 	
 	private Menu menu;
+	
+	private int nbE=0;
+	
+	private ControleurTerraria controlIvent;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire) {
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, ControleurTerraria controlInvent) {
 		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
@@ -135,7 +139,7 @@ public class ControleurTouches {
 		derniereDirection=new String("droite");
 		this.perso=perso;
 		menu=new Menu(pane);
-
+		this.controlIvent=controlInvent;
 	}
 	
 	
@@ -149,7 +153,8 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && code!="ESCAPE")
+
+					if(!ToucheAppuyer.contains(code) && code!="ESCAPE"&& code!="E")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -158,7 +163,7 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 						ToucheAppuyer.remove(code);
-						if(code=="ESCAPE")
+						if(code=="ESCAPE"||code=="E")
 							ToucheAppuyer.add(code);
 				}
 				});
@@ -199,6 +204,18 @@ public class ControleurTouches {
 
 					derniereDirection="droite";
 				break;
+				
+
+				case "E":
+					if(nbE%2==0) {
+						this.controlIvent.derouleInventaire();
+						this.nbE++;
+					}
+					else {
+						this.controlIvent.reduitInventaire();
+						this.nbE++;
+					}		
+				break;
 
 				case "SPACE":
 					espace=true;
@@ -215,6 +232,8 @@ public class ControleurTouches {
 
 		}
 		this.ToucheAppuyer.remove("ESCAPE");
+		this.ToucheAppuyer.remove("E");
+
 	}
 	public boolean espaceActive() { 
 		return espace;
