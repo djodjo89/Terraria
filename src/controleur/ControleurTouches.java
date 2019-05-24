@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import exceptions.VousEtesCoinceException;
@@ -148,7 +149,7 @@ public class ControleurTouches {
 				new EventHandler<KeyEvent>() {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
-					if(!ToucheAppuyer.contains(code) && !menu.estAffiche())
+					if(!ToucheAppuyer.contains(code) && code!="ESCAPE")
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -157,12 +158,14 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 						ToucheAppuyer.remove(code);
+						if(code=="ESCAPE")
+							ToucheAppuyer.add(code);
 				}
 				});
 				
 	}
 	
-	public void setKeyListener () throws VousEtesCoinceException {
+	public void setKeyListener () throws VousEtesCoinceException, URISyntaxException {
 
 		for(String touche : this.ToucheAppuyer) {
 
@@ -202,15 +205,16 @@ public class ControleurTouches {
 				break;
 				
 				case "ESCAPE":
-					menu.afficheMenu();
+					if(!menu.estAffiche())
+						menu.afficheMenu();
+					else
+						menu.disparait();
 					break;
 
 			}
 
-			System.out.println(derniereDirection);
-
 		}
-
+		this.ToucheAppuyer.remove("ESCAPE");
 	}
 	public boolean espaceActive() { 
 		return espace;
