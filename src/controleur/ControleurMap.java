@@ -58,12 +58,18 @@ public class ControleurMap {
 	
 	private Images images;
 	
+	private int x;
+	
+	private int y;
+	
 	
 	public ControleurMap(Pane pane, Jeu jeu, Images image) {
 		
 		this.pane =pane ;
 		this.jeu=jeu ;
 		this.images = image;
+		this.x = 0;
+		this.y = 0;
 		
 	}
 	
@@ -81,6 +87,8 @@ public class ControleurMap {
 	
 	public void ajouterEcouteur () {
 		
+	
+		
 		for (ObservableList<Inventeriable> listeCases : this.jeu.getTerrain().getListeLignes()) {
 			
 			listeCases.addListener (new ListChangeListener<Inventeriable> () {
@@ -90,10 +98,10 @@ public class ControleurMap {
 
 					while (changement.next()) {
 						if(changement.wasReplaced()) {
-							int x = changement.getFrom();
+							x = changement.getFrom();
 							//get(x).getFrom;//changement.getAddedSubList();
 							System.out.println(x);
-							remplacerImage(x);
+							remplacerImage();
 						}
 					}
 
@@ -104,18 +112,20 @@ public class ControleurMap {
 		}
 		
 	}
-	public void remplacerImage(int x) {
+	public void remplacerImage() {
 		
 		int y = this.jeu.getTerrain().getPositionBlockY();
-		System.out.println("ok");
-		System.out.println(pane.getChildren().toString());
+		//System.out.println("ok");
+		//System.out.println(pane.getChildren().toString());
 		String nom = x + ":" + y;
 		//System.out.println(pane.getChildren().get(0).getId());
 		for (int i = 0; i < pane.getChildren().size(); i++) {
 			if(pane.getChildren().get(i).getId().equals(nom)) {
-				System.out.println("cool");
-				ImageView b = (ImageView) pane.getChildren().get(i);
-				b.setImage(images.getImage("air"));
+				//System.out.println("cool");
+				//ImageView b = (ImageView) pane.getChildren().get(i);
+				Tuile a = new Tuile("ok", x * this.jeu.getMoteur().getTailleTileX(), y * this.jeu.getMoteur().getTailleTileY(), this.images.getImage("air"));
+				pane.getChildren().set(i, a);
+				//b.setImage(images.getImage("air"));
 			}
 		}
 		
