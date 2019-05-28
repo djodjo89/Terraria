@@ -17,6 +17,7 @@ class PolygoneTest {
 		Polygone poly ;
 		Polygone poly2 ;
 		
+		
 		poly = new Polygone (10) ;
 		poly2 = new Polygone () ;
 		
@@ -82,6 +83,13 @@ class PolygoneTest {
 		poly2.ajouterSommet(3, 3);
 		
 		assertTrue (poly.estInclusDans(3, 3)) ;
+		
+	}
+	
+	@Test
+	void testIntersection () {
+		
+		
 		
 	}
 	

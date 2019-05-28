@@ -105,6 +105,41 @@ public class Polygone {
 	}
 	
 	/**
+	 * Retourne le point d'intersection des deux polygones
+	 * @param polygone0
+	 * @return
+	 * @since 2.1
+	 */
+	
+	public Point intersection (Polygone polygone) {
+		
+		int i, j ;
+		Point intersection ;
+		Segment s1, s2 ;
+		
+		i = 0 ;
+		j = 0 ;
+		intersection = null ;
+		
+		while (intersection != null && i < this.listeSommets.size()) {
+			
+			s1 = new Segment(this.get(i), this.get((i + 1) % this.nbSommets())) ;
+			
+			while (intersection != null && j < polygone.nbSommets()) {
+				
+				s2 = new Segment(polygone.get(j), polygone.get((j + 1) % this.nbSommets())) ;
+				
+				intersection = s1.intersection(s2) ;
+				
+			}
+			
+		}
+		
+		return intersection ;
+		
+	}
+	
+	/**
 	 * Copie le contenu d'un autre polygone dans celui-ci
 	 * 
 	 * @param polygone
