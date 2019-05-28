@@ -95,10 +95,17 @@ public class ControleurSouris extends Parent {
 
 	}
 	public void destructionBlock(double x, double y) {
+		Inventeriable blocRecup = null;
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
 		this.jeu.getTerrain().setPositionBlockY(blockY);
-		this.jeu.getTerrain().destructionTerrain(blockX, blockY);
+		
+		blocRecup = this.jeu.getTerrain().destructionTerrain(blockX, blockY);
+		if (blocRecup != null) {
+			System.out.println("miam, miam, miam, it's delicious!");
+			this.jeu.getPerso().getInventaire().ajouterObjet(blocRecup);
+			System.out.println(this.jeu.getPerso().getInventaire().getListObjet());
+		}
 		
 	}
 	

@@ -118,5 +118,6 @@ public class Inventaire {
 	public ObservableList<Integer> getQuantiteObjets(){
 		return this.listeQtes;
 	}
+	
 
 }

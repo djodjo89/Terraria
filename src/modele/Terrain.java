@@ -111,8 +111,9 @@ import javafx.collections.ObservableList;
 			
 		}
 		
-		public void destructionTerrain(int x, int y) {
+		public Inventeriable destructionTerrain(int x, int y) {
 			//System.out.println(this.getListeLignes().get(y).get(x).getPV());
+			Inventeriable blocCible = null;
 			if(this.listeDeLignes.get(y).get(x).estUnObstacle() && this.listeDeLignes.get(y).get(x).getPV()>0) {
 				
 				this.listeDeLignes.get(y).get(x).perdrePV(10);
@@ -120,12 +121,14 @@ import javafx.collections.ObservableList;
 					
 				if(this.listeDeLignes.get(y).get(x).getPV() <= 0) {
 					Inventeriable caseMap = new Air("A");
-					
+					blocCible = this.listeDeLignes.get(y).get(x);
 					System.out.println(x);
 					System.out.println(y);
 					this.listeDeLignes.get(y).set(x,caseMap);
+					
 				}
 			}
+			return blocCible;
 		}
 		
 		public void setPositionBlockY(int y) {
