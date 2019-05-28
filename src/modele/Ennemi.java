@@ -1,5 +1,6 @@
 package modele;
 
+import exceptions.VousEtesCoinceException;
 import physique.Collisionneur;
 import physique.GameObject;
 
@@ -25,6 +26,15 @@ public class Ennemi extends NonInventeriable{
 		
 		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement,jeu,ptsAtt) ;
 		
+	}
+	
+	public void deplaceVersPerso(Personnage perso) throws VousEtesCoinceException {
+		if (perso.getX()<this.getX()) {
+			this.deplacementColision("gauche");
+		}
+		else {
+			this.deplacementColision("droite");
+		}
 	}
 	
 
