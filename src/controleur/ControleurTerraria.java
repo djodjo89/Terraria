@@ -12,6 +12,7 @@ import fabriques.FabriquePanes;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -205,6 +206,7 @@ public class ControleurTerraria implements Initializable {
 	
 	private Personnage personnage;
 	private ControleurInventaire controlInvent;
+	private ArrayList<Tuile> listItemsInvent;
 	
 	public void initBoucleJeu() {
 		
@@ -322,20 +324,20 @@ public class ControleurTerraria implements Initializable {
 
 		
 
+
     	Tuile tileItem1 = new Tuile();
-    	for(int i=0; i<10; i++) {
+    	for(int i=0; i<5; i++) {
     		nom = "" +i;
     		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleTileX()),0,this.images.getImage("fondInventaire"));
     		this.paneInventaire.getChildren().add(tile);
     		
     		if(personnage.getInventaire().getListObjet().get(i) != null) {
-    			for(int z=0; z<personnage.getInventaire().getQuantiteObjets().get(i); z++) {
-		    		tileItem1 = new Tuile(nom,((i+z)*jeu.getMoteur().getTailleTileX())+10,15,this.images.getImage(personnage.getInventaire().getListObjet().get(i).getTag()));
+		    		tileItem1 = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,10,this.images.getImage(personnage.getInventaire().getListObjet().get(i).getTag()));
 		    		this.paneItemsInventaire.getChildren().add(tileItem1);
 		    		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.personnage, personnage.getInventaire().getListObjet().get(i));
-    			}
+    			
     		}
-    	}
+}
 	}
 
 	/**
@@ -361,21 +363,31 @@ public class ControleurTerraria implements Initializable {
 
 		try {
 			this.personnage = new Personnage();
+			this.listItemsInvent = new ArrayList<>();
 			images=FabriqueImages.initialiserImages();
 			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
 			this.initMap() ;
 			this.initPositionPerso() ;
 
-			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap, this.jeu);
-			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap, this.images);
-			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap, this.paneInventaire);
+
+			//controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap, this.jeu);
+			//controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap, this.images);
+			//controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap, this.paneInventaire);
 
 
 			
 			//controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			//controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
 			//controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire);
+
+
+			
+			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
+			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
+			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this);
+
+
 
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
@@ -407,6 +419,26 @@ public class ControleurTerraria implements Initializable {
 		this.perso.setRotationAxis(new Point3D(0,1,0));
 		
 	}
+	
+	public void derouleInventaire() {
+		String nom;
+		Tuile tile;
+		for(int i=0; i<5 ; i++) {
+			for(int j=0; j<3; j++) {
+				nom = "der" +i;
+	    		tile= new Tuile(nom, (i*this.jeu.getMoteur().getTailleTileX()),55+(j*this.jeu.getMoteur().getTailleTileY()),this.images.getImage("fondInventaire"));
+	    		this.paneInventaire.getChildren().add(tile);
+	    		this.listItemsInvent.add(tile);
+			}
+
+		}
+	}
+	
+	public void reduitInventaire() {
+		for(int i=0; i<this.listItemsInvent.size(); i++) {
+			this.paneInventaire.getChildren().remove(this.listItemsInvent.get(i));
+		}
+}
 	
 
 }	
