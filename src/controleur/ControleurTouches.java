@@ -154,7 +154,7 @@ public class ControleurTouches {
 				public void handle(KeyEvent e) {
 					String code=e.getCode().toString();
 
-					if(!ToucheAppuyer.contains(code) && code!="ESCAPE"&& code!="E")
+					if(!ToucheAppuyer.contains(code) && code!="ESCAPE"&& code!="E" && !menu.estAffiche())
 						ToucheAppuyer.add(code);
 				}
 				});
@@ -223,7 +223,8 @@ public class ControleurTouches {
 				
 				case "ESCAPE":
 					if(!menu.estAffiche())
-						menu.afficheMenu();
+						menu.afficheMenu(scroll.getX());
+						
 					else
 						menu.disparait();
 					break;
