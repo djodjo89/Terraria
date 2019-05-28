@@ -87,8 +87,7 @@ public class TerrariaControleur implements Initializable {
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
 					try {
-						nbTour=this.jeu.evoluer(nbTour,controlTouche);
-						
+						nbTour=this.jeu.evoluer(nbTour,controlTouche);						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

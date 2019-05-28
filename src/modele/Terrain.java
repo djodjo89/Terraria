@@ -60,7 +60,7 @@ import javafx.collections.ObservableList;
 					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, 0),
 							new Point (0, i * this.tailleCaseY),
 							new Point (j * this.tailleCaseX, this.tailleCaseX - unAutrePixel),
-							new Point (this.tailleCaseY - unPixel, i * this.tailleCaseY));
+							new Point (this.tailleCaseY - unPixel, i * this.tailleCaseY))) ;
 					
 					this.listeDeLignes.get(i).add(caseMap) ;
 					
@@ -90,13 +90,13 @@ import javafx.collections.ObservableList;
 		
 		public double getTailleY () {
 			
-			return this.getDerniereCase().getCollisionneur().getYFin() ;
+			return Math.abs(this.getDerniereCase().getCollisionneur().getBoite().minMaxY()[0] - this.getDerniereCase().getCollisionneur().getBoite().minMaxY()[1]) ;
 			
 		}
 		
 		public double getTailleX () {
 			
-			return this.getDerniereCase().getCollisionneur().getXFin() ;
+			return Math.abs(this.getDerniereCase().getCollisionneur().getBoite().minMaxX()[0] - this.getDerniereCase().getCollisionneur().getBoite().minMaxX()[1]);
 			
 		}
 		

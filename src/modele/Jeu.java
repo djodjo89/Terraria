@@ -63,6 +63,7 @@ public class Jeu {
 		controlTouche.setEspaceFalse();
 		this.perso.setVitesse(this.perso.getCollisionneur().deplacementPossible(this.perso.getVecteurVitesse(), this.terrain, this.moteur)) ;
 		this.perso.deplacer () ;
+		System.out.println(this.perso);
 		return nbTour;
 	}
 

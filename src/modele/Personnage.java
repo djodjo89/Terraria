@@ -52,7 +52,7 @@ public class Personnage extends GameObject {
 	public void attaque (GameObject o) {
 		
 		o.perdrePV (this.main.getPtsAttaque()) ;
-		
+
 	}
 	
 	public void ajouterObjetMain (Outil o) {
@@ -64,6 +64,11 @@ public class Personnage extends GameObject {
 	public Inventaire getInventaire (){
 		
 		return this.i ;
+	}
+	
+	public String toString () {
+		
+		return "" + this.getVecteurVitesse().getX() + ":" + this.getVecteurVitesse().getY() ;
 	}
 
 }

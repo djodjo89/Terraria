@@ -111,7 +111,7 @@ public class Collisionneur {
 	
 	}
 
-	private Point chevauche (Collisionneur collisionneur) {
+	public Point chevauche (Collisionneur collisionneur) {
 
 		int i ;
 		int j ;

@@ -132,6 +132,12 @@ public class GameObject {
 		
 	}
 	
+	public void setCollisionneur (Collisionneur collisionneur) {
+		
+		this.collisionneur = collisionneur ;
+		
+	}
+	
 	public Collisionneur getCollisionneur () {
 		
 		return this.collisionneur ;
