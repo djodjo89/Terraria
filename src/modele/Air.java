@@ -12,15 +12,10 @@ import physique.Collisionneur;
 
 public class Air extends Bloc {
 	
+	
 	public Air (String tag) {
 		
-		super(tag) ;
-		
-	}
-	
-	public Air (String tag,  Collisionneur collisionneur) {
-		
-		super(tag, 0, collisionneur,false) ;
+		super(tag, 0,false) ;
 		
 	}
 

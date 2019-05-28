@@ -112,19 +112,20 @@ import javafx.collections.ObservableList;
 		}
 		
 		public void destructionTerrain(int x, int y) {
-			//if(this.listeDeLignes.get(y).get(x).estUnObstacle() && this.listeDeLignes.get(y).get(x).getPV()>0) {
+			//System.out.println(this.getListeLignes().get(y).get(x).getPV());
+			if(this.listeDeLignes.get(y).get(x).estUnObstacle() && this.listeDeLignes.get(y).get(x).getPV()>0) {
 				
-				//this.listeDeLignes.get(y).get(x).perdrePV(10);
-				//System.out.println(this.listeDeLignes.get(y).get(x).getPV());
+				this.listeDeLignes.get(y).get(x).perdrePV(10);
+				System.out.println(this.listeDeLignes.get(y).get(x).getPV());
 					
-				//if(this.listeDeLignes.get(y).get(x).getPV() == 0) {
+				if(this.listeDeLignes.get(y).get(x).getPV() <= 0) {
 					Inventeriable caseMap = new Air("A");
 					
-					//System.out.println(x);
-					//System.out.println(y);
+					System.out.println(x);
+					System.out.println(y);
 					this.listeDeLignes.get(y).set(x,caseMap);
-				//}
-			//}
+				}
+			}
 		}
 		
 		public void setPositionBlockY(int y) {

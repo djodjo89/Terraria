@@ -27,6 +27,7 @@ public class Personnage extends NonInventeriable {
 		this.main = null;
 		this.i = new Inventaire(10);
 		
+		
 	}
 	
 	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {

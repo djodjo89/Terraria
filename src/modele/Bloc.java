@@ -12,14 +12,10 @@ import physique.Collisionneur;
 
 public class Bloc extends Inventeriable {
 	
-	public Bloc (String tag) {
+	
+	public Bloc(String tag, double pv,boolean estUnObstacle) {
 		
-		super(tag);
-		
-	}
-	public Bloc(String tag, double pv, Collisionneur c,boolean estUnObstacle) {
-		
-		super (tag,pv,c,estUnObstacle);
+		super (tag,pv,null,estUnObstacle);
 		
 	}
 	
