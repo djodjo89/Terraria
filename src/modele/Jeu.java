@@ -22,6 +22,7 @@ public class Jeu {
 	
 	private Moteur m ;
 	private Personnage p ;
+	private Ennemi ennemi;
 	private Terrain t ;
 	private TraducteurFichier tf ;
 	

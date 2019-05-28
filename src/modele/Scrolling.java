@@ -26,6 +26,10 @@ public class Scrolling {
 		this.paneInventaire.setTranslateX(-xTranslate);
 	}
 	
+	public int getX() {
+		return xTranslate;
+	}
+	
 	// Une version du scroll avec les vecteurs
 	
 	/*public void futurScroll (Vecteur vecteur, Personnage perso) {

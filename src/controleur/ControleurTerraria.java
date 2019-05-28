@@ -316,10 +316,10 @@ public class ControleurTerraria implements Initializable {
 		
 	
 		Foreuse foreuse = new Foreuse("forreuse");
-		this.personnage.getInventaire().ajouterObjet(foreuse);
-		this.personnage.getInventaire().ajouterObjet(foreuse);
-		this.personnage.getInventaire().ajouterObjet(foreuse);
-		this.personnage.getInventaire().ajouterObjet(foreuse);
+		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
+		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
+		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
+		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
 		
 
 		
@@ -331,10 +331,10 @@ public class ControleurTerraria implements Initializable {
     		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleTileX()),0,this.images.getImage("fondInventaire"));
     		this.paneInventaire.getChildren().add(tile);
     		
-    		if(personnage.getInventaire().getListObjet().get(i) != null) {
-		    		tileItem1 = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,10,this.images.getImage(personnage.getInventaire().getListObjet().get(i).getTag()));
+    		if(jeu.getPerso().getInventaire().getListObjet().get(i) != null) {
+		    		tileItem1 = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,10,this.images.getImage(this.jeu.getPerso().getInventaire().getListObjet().get(i).getTag()));
 		    		this.paneItemsInventaire.getChildren().add(tileItem1);
-		    		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.personnage, personnage.getInventaire().getListObjet().get(i));
+		    		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.jeu.getPerso(), this.jeu.getPerso().getInventaire().getListObjet().get(i));
     			
     		}
 }
@@ -362,7 +362,6 @@ public class ControleurTerraria implements Initializable {
 		
 
 		try {
-			this.personnage = new Personnage();
 			this.listItemsInvent = new ArrayList<>();
 			images=FabriqueImages.initialiserImages();
 			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;

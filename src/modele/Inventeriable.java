@@ -5,6 +5,8 @@ import physique.GameObject;
 
 public abstract class Inventeriable extends GameObject {
 	
+	private Jeu jeu;
+	
 	public Inventeriable(String tag) {
 		super(tag);
 	}
