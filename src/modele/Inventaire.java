@@ -51,10 +51,14 @@ public class Inventaire {
 	// l'y ajoute, sinon augmente sa quantité de 1
 
 	public void ajouterObjet (Inventeriable o) {
-
+		
 		int i =0 ;
+		int j = chercheObjetDansInventaire(o);
+		System.out.println(o.getPV());
+			
+		
 
-			if (!this.listeObjets.contains(o)) {
+			if (j == -1) {
 				while (this.listeObjets.get(i) != null) {
 					i ++ ;
 				}
@@ -62,8 +66,11 @@ public class Inventaire {
 				this.listeQtes.set(i, 1) ;
 			}
 			else {
-				this.listeQtes.set(this.listeObjets.indexOf(o), this.listeQtes.get(this.listeObjets.indexOf(o)) + 1) ;
+
+				this.listeQtes.set(j, this.listeQtes.get(j)+1);
+				System.out.println(this.listeQtes);
 			}
+			
 
 
 	}
@@ -72,8 +79,11 @@ public class Inventaire {
 	
 	public void retirerObjet (GameObject o) {
 		
-		if (this.estVide()) if (this.listeObjets.contains(o)) this.listeQtes.set(this.listeObjets.indexOf(o), this.listeObjets.indexOf(o) - 1) ;
+		int j = chercheObjetDansInventaire(o);
 		
+		if (this.estVide()) if (this.listeObjets.contains(o)) this.listeQtes.set(this.listeObjets.indexOf(o), this.listeObjets.indexOf(o) - 1) ;
+		this.listeQtes.set(j, this.listeQtes.get(j)-1);
+		System.out.println(this.listeQtes);
 	}
 
 	// Supprime complètement un type d'objet de la liste
@@ -91,17 +101,50 @@ public class Inventaire {
 		
 	}
 	
-	public boolean estDansLInventaire (GameObject o) {
+	//public boolean estDansLInventaire (GameObject o) {
 		
-		return this.listeObjets.contains(o) ;
+		//boolean estDansInventaire = false;
+		//int i ;
+		//while (i<this.listeObjets.size() && !estDansInventaire) {
+			//if(this.listeObjets.get(i).getTag().equals(o.getTag())) {
+				//estDansInventaire = true;
+			//}
+			///i++;
+		//}
+		//return estDansInventaire;
 		
 		
-	}
+	//}
 	
 	public boolean estVide () {
 		
 		return this.listeObjets.size() == 0 ;
 		
+	}
+	
+	public int chercheObjetDansInventaire(GameObject o) {
+		
+		boolean objetExistant = false;
+		int j = 0;
+			
+			while (this.listeObjets.get(j)!=null && (j < this.listeObjets.size() && objetExistant == false)) {
+				System.out.println(o.getTag());
+				
+				if (this.listeObjets.get(j).getTag().equals(o.getTag())) {
+					
+					objetExistant  = true;
+					
+				}
+				else {
+					j++;
+				}
+			}
+			if (objetExistant) {
+			return j;
+			}
+			else {
+				return -1;
+			}
 	}
 	
 	public ObservableList<Inventeriable> getInventaire () {

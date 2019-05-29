@@ -60,11 +60,50 @@ public class Personnage extends NonInventeriable {
 			o.perdrePV(this.getPtsAttaque());
 		
 	}
-	public void ajouterObjetMain (Outil o) {
+	public void ajouterObjetMain (Inventeriable o) {
 		
-		this.donner((Outil)this.i.getInventaire().get(0)) ;
+		this.donner(this.i.getInventaire().get(0)) ;
 		
 	}
+	
+	public Inventeriable destructionTerrain(int x, int y) {
+		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
+		Terrain terrain = this.getJeu().getTerrain();
+		Inventeriable blocCible = null;
+		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
+			
+			terrain.getListeLignes().get(y).get(x).perdrePV(10);
+			System.out.println(terrain.getListeLignes().get(y).get(x).getPV());
+				
+			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
+				Air caseMap = new Air("air");
+				blocCible = terrain.getListeLignes().get(y).get(x);
+				System.out.println(x);
+				System.out.println(y);
+				terrain.getListeLignes().get(y).set(x,caseMap);
+				
+			}
+		}
+		return blocCible;
+	}
+	
+	public void poserBlockTerrain(int x, int y) {
+		Terrain terrain = this.getJeu().getTerrain();
+		if (this.getInventaire().getListObjet().get(2).getTag().equals("terre")) {
+	
+			Terre caseMap = new Terre("terre");
+			caseMap.estUnObstacle();
+			terrain.getListeLignes().get(y).set(x,caseMap);
+			this.getInventaire().retirerObjet(caseMap);
+			System.out.println("etape2");
+		}
+	}
+	
+	//public void poserBlock() {
+		//if (this.getInventaire().getListObjet().get(2).getTag().equals("T")) {
+		//	this.getJeu().getTerrain().
+		//}
+	//}
 	
 
 	

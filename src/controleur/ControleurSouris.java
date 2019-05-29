@@ -80,7 +80,7 @@ public class ControleurSouris extends Parent {
 
 			@Override
 			public void handle(MouseEvent event) {
-				destructionBlock(event.getX(),event.getY());
+				WhatIDoWhithThisBlockPointDInterrogation(event.getX(),event.getY());
 				//System.out.println(event.getX()/50);
 		       //System.out.println(event.getY()/50);
 	//			try {
@@ -94,17 +94,26 @@ public class ControleurSouris extends Parent {
 		});
 
 	}
-	public void destructionBlock(double x, double y) {
-		Inventeriable blocRecup = null;
+	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-		this.jeu.getTerrain().setPositionBlockY(blockY);
-		
-		blocRecup = this.jeu.getTerrain().destructionTerrain(blockX, blockY);
-		if (blocRecup != null) {
-			System.out.println("miam, miam, miam, it's delicious!");
-			this.jeu.getPerso().getInventaire().ajouterObjet(blocRecup);
-			System.out.println(this.jeu.getPerso().getInventaire().getListObjet());
+		if (this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).getTag().equals("air")) {
+			this.jeu.getTerrain().setPositionBlockY(blockY);
+			System.out.println("etape1");
+			this.jeu.getPerso().poserBlockTerrain(blockX,blockY);
+		}
+		else {
+			Inventeriable blocRecup = null;
+			
+			this.jeu.getTerrain().setPositionBlockY(blockY);
+			
+			blocRecup = this.jeu.getPerso().destructionTerrain(blockX, blockY);
+			if (blocRecup != null) {
+				System.out.println("miam, miam, miam, it's delicious!");
+				System.out.println(blocRecup.getTag());
+				this.jeu.getPerso().getInventaire().ajouterObjet(blocRecup);
+				System.out.println(this.jeu.getPerso().getInventaire().getListObjet());
+			}
 		}
 		
 	}

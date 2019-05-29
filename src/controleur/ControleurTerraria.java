@@ -278,18 +278,18 @@ public class ControleurTerraria implements Initializable {
 				
 				nom = x + ":" + y ;
 				valeur = this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag();
-
+/*
 				switch(valeur) {
 				
-					case "T":
+					case "terre":
 						typeBloc="terre" ;
 					break;
 					
-					case "A":
+					case "air":
 						typeBloc="air" ;
 					break;
 					
-					case "G" :
+					case "granite" :
 						typeBloc="granite";
 						break;
 					
@@ -298,8 +298,8 @@ public class ControleurTerraria implements Initializable {
 					break;
 					
 				}
-
-				tile= new Tuile(nom, x * this.jeu.getMoteur().getTailleTileX(), y * this.jeu.getMoteur().getTailleTileY(), this.images.getImage(typeBloc)) ;
+*/
+				tile= new Tuile(nom, x * this.jeu.getMoteur().getTailleTileX(), y * this.jeu.getMoteur().getTailleTileY(), this.images.getImage(valeur)) ;
 				this.paneMap.getChildren().add(tile) ;
 
 			}

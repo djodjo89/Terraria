@@ -54,11 +54,11 @@ import javafx.collections.ObservableList;
 					
 					switch (nomCase) {
 					
-					case "T" : caseMap = new Terre(nomCase) ; break ;
+					case "T" : caseMap = new Terre("terre") ; break ;
 					
-					case "A" : caseMap = new Air(nomCase) ; break ;
+					case "A" : caseMap = new Air("air") ; break ;
 					
-					case "G": caseMap = new Granite(nomCase); break;
+					case "G": caseMap = new Granite("granite"); break;
 					
 					}
 					
@@ -110,7 +110,7 @@ import javafx.collections.ObservableList;
 			return this.listeDeLignes ;
 			
 		}
-		
+		/*
 		public Inventeriable destructionTerrain(int x, int y) {
 			//System.out.println(this.getListeLignes().get(y).get(x).getPV());
 			Inventeriable blocCible = null;
@@ -131,6 +131,11 @@ import javafx.collections.ObservableList;
 			return blocCible;
 		}
 		
+		public void poserBlockTerrain(int x, int y) {
+			Terre caseMap = new Terre("T");
+			this.listeDeLignes.get(y).set(x,caseMap);
+		}
+		*/
 		public void setPositionBlockY(int y) {
 			this.positionBlockY = y;
 		}
