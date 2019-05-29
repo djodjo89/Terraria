@@ -34,6 +34,7 @@ public class Personnage extends NonInventeriable {
 		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement,jeu,ptsAtt) ;
 		
 		this.i = new Inventaire (20) ;
+		this.setObstacle() ;
 		
 	}
 	
@@ -112,20 +113,6 @@ public class Personnage extends NonInventeriable {
 		return this.i ;
 	}
 	
-	public int sauter(int nbTour,boolean espaceActive) throws VousEtesCoinceException {
-		int nb=nbTour;
-		if(espaceActive && nbTour==0)
-			nb=1;
-		
-		if(nb>0 && nb<20) {
-			this.sauter(this.getJeu().getTerrain(), this.getJeu().getMoteur());
-			nb++;
-		}
-		
-		if(nb>=20 && !this.getCollisionneur().deplacementPossible("bas", this.getJeu().getTerrain(), this, this.getJeu().getMoteur()))
-			nb=0;
-		
-		return nb;
-	}
+
 
 }

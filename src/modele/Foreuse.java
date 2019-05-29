@@ -1,6 +1,6 @@
 package modele;
 
-public class Foreuse extends Inventeriable{
+public class Foreuse extends Outil{
 
 
 	public Foreuse(String tag) {

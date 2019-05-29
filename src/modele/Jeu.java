@@ -29,6 +29,7 @@ public class Jeu {
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
 		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.80) ;
+		this.ennemi= new Ennemi("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1), this, 5);
 		this.p = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1),this, 10) ;
 		Outil o = new Outil("Torche", new Collisionneur(posXJoueur, posYJoueur, posXJoueur + this.m.getTailleTileX(), posYJoueur + this.m.getTailleTileY())) ;
 		this.p.getInventaire().ajouterObjet(o) ;
@@ -60,10 +61,16 @@ public class Jeu {
 		
 	}
 	
+	public Ennemi getEnnemi() {
+		return this.ennemi;
+	}
+	
 	public int evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException{
 		nbTour=this.getPerso().sauter(nbTour,controlTouche.espaceActive());
 		controlTouche.setEspaceFalse();
 		this.p.deplacementColision("bas");
+		this.ennemi.deplacementColision("bas");
+		this.ennemi.deplaceVersPerso(this.p);
 		return nbTour;
 	}
 
