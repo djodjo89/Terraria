@@ -14,6 +14,12 @@ public class Moteur {
 		
 	}
 	
+	public void appliquerGravite (GameObject go) {
+		
+		go.getVecteurVitesse().ajouter(0, this.gravite);
+		
+	}
+	
 	public double getGravite () {
 		
 		return this.gravite ;
@@ -29,12 +35,6 @@ public class Moteur {
 	public double getTailleBoiteY () {
 		
 		return this.tailleBoiteY ;
-		
-	}
-	
-	public void appliquerGraviter(GameObject perso) {
-		
-		perso.changerVitesse(0, -1) ;
 		
 	}
 	

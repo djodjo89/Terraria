@@ -1,10 +1,7 @@
 package tests;
 import geometrie.* ;
-import javafx.geometry.Point2D;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +10,6 @@ class PolygoneTest {
 	@Test
 	void testCopie () {
 
-		int i ;
 		Polygone poly ;
 		Polygone poly2 ;
 		
@@ -30,7 +26,6 @@ class PolygoneTest {
 	void testAjouterAChaquePoint () {
 		
 		int i ;
-		int j ;
 		Polygone poly ;
 		Polygone poly2 ;
 		Polygone poly3 ;
@@ -44,7 +39,7 @@ class PolygoneTest {
 		poly2.copie(poly) ;
 		poly2.ajouterAChaquePoint(vecteur) ;
 		
-		for (j = 0 ; j < 10 ; j ++)
+		for (i = 0 ; i < 10 ; i ++)
 			
 			poly3.ajouterSommet(new Point (1, 1)) ;
 		
@@ -55,7 +50,6 @@ class PolygoneTest {
 	@Test
 	void testContient () {
 		
-		int i ;
 		Point point ;
 		Polygone poly ;
 		
@@ -69,8 +63,6 @@ class PolygoneTest {
 	@Test
 	void testEstInclusDans () {
 		
-		int i ;
-		int j ;
 		Polygone poly ;
 		Polygone poly2 ;
 		
@@ -106,12 +98,12 @@ class PolygoneTest {
 		poly2.ajouterSommet(2, 2) ;
 		poly2.ajouterSommet(4, 2) ;
 		*/
-		System.out.println(poly1);
+		System.out.print(poly1);
 		poly2.ajouterSommet(4, 1) ;
 		poly2.ajouterSommet(6, 1) ;
 		poly2.ajouterSommet(6, 2) ;
 		poly2.ajouterSommet(4, 2) ;
-		System.out.println(poly2);
+		System.out.print(poly2);
 		assertEquals(null, poly1.intersection(poly2)) ;
 		
 		poly3.ajouterSommet(2, 1) ;
@@ -119,27 +111,27 @@ class PolygoneTest {
 		poly3.ajouterSommet(2, 2) ;
 		poly3.ajouterSommet(4, 2) ;
 		
-		System.out.println(poly1);
-		System.out.println(poly3);
+		System.out.print(poly1);
+		System.out.print(poly3);
 		assertEquals(new Point(2, 1), poly1.intersection(poly3)) ;
 
 		poly1 = new Polygone () ;
 		
-		poly1.ajouterSommet(0,2) ;
+		poly1.ajouterSommet(0,0) ;
 		poly1.ajouterSommet(6,0) ;
-		poly1.ajouterSommet(8,2) ;
-		poly1.ajouterSommet(6,4) ;
+		poly1.ajouterSommet(0,6) ;
+		poly1.ajouterSommet(6,6) ;
 		System.out.println(poly1) ;
 		
 		poly2 = new Polygone () ;
 		
 		poly2.ajouterSommet(2, 3) ;
-		poly2.ajouterSommet(1, 6) ;
-		poly2.ajouterSommet(4, 1) ;
+		poly2.ajouterSommet(6, 6) ;
+		poly2.ajouterSommet(8, 0) ;
 		
-		System.out.println(poly2) ;
+		System.out.print(poly2) ;
 		
-		assertEquals(new Point(2, 2), poly1.intersection(poly2)) ;
+		assertEquals(new Point(3, 2), poly1.intersection(poly2)) ;
 		
 	}
 	

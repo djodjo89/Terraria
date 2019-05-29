@@ -10,6 +10,12 @@ public class Point extends Point2D implements Comparable<Point> {
 		
 	}
 	
+	public Point substract (double x, double y) {
+		
+		return new Point (this.getX() - x, this.getY() - y) ;
+		
+	}
+	
 	public Point add (double x, double y) {
 		
 		return new Point (this.getX() + x, this.getY() + y) ;

@@ -165,7 +165,7 @@ public class TerrariaControleur implements Initializable {
     	
     	
     	try {
-			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 10., 10.) ;
+			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 400., 200.) ;
 			controlMap=new MapControleur(this.paneMap,this.jeu);
 			this.controlMap.ajouterEcouteur () ;
 			this.initMap() ;

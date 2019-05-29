@@ -44,16 +44,16 @@ public class Collisionneur {
 		Vecteur nouveauVecteur ;
 		
 		deplacementPossible = true ;
-		nouveauVecteur = vecteur ;
+		nouveauVecteur = new Vecteur (0, 0) ;
+		
+		// On crée une collisionneur virtuel qui se déplace sur la case visée
+		collisionneurTemporaire = new Collisionneur () ;
+		collisionneurTemporaire.getBoite().copie(this.boite) ;
+		collisionneurTemporaire.getBoite().ajouterAChaquePoint(vecteur) ;
 
-		if (!depasseLesLimitesDeLaMap(terrain)) {
+		if (!collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain) && !depasseLesLimitesDeLaMap(terrain)) {
 			
-			while (nouveauVecteur.getX() > 0 && nouveauVecteur.getY() > 0 && deplacementPossible) {
-				
-				// On crée une collisionneur virtuel qui se déplace sur la case visée
-				collisionneurTemporaire = new Collisionneur () ;
-				collisionneurTemporaire.getBoite().copie(this.boite) ;
-				collisionneurTemporaire.getBoite().ajouterAChaquePoint(vecteur) ;
+			while (Math.abs(nouveauVecteur.getX()) != Math.abs(vecteur.getX()) || Math.abs(nouveauVecteur.getY()) != Math.abs(vecteur.getY()) && deplacementPossible) {
 
 				/*
 				 * i <- 0
@@ -74,15 +74,16 @@ public class Collisionneur {
 				
 				while (deplacementPossible && i < collisionneurTemporaire.getBoite().nbSommets()) {
 					
-					coordonneesDuPoint = this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur) ;
-					
-					if (terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle()) {
-						
-						if (collisionneurTemporaire.chevauche(this.getCase(coordonneesDuPoint, terrain, moteur).getCollisionneur()) != null) {
+					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
+					System.out.println(coordonneesDuPoint[0] + ":" + coordonneesDuPoint[1]);
+					System.out.println(terrain.getCase(coordonneesDuPoint, moteur).getTag());
+					if (terrain.getCase(coordonneesDuPoint, moteur).getTag().equals("T")) {
+						System.out.println(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur());
+						if (collisionneurTemporaire.chevauche(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null) {
 							
 							deplacementPossible = false ;
 							System.out.println("Déplacement impossible");
-							
+						
 						}
 						
 					}
@@ -91,9 +92,11 @@ public class Collisionneur {
 					
 				}
 				
-				if (!deplacementPossible) {
+				if (deplacementPossible) {
 					
-					nouveauVecteur = new Vecteur (vecteur.getX() - 1, vecteur.getY() - 1) ;
+					nouveauVecteur.ajouter(vecteur.getX() - nouveauVecteur.getX(), vecteur.getY() - nouveauVecteur.getY());
+					System.out.println(Math.abs(nouveauVecteur.getX()));
+					System.out.println(vecteur.getX());
 					
 				}
 				
@@ -113,76 +116,37 @@ public class Collisionneur {
 
 	public Point chevauche (Collisionneur collisionneur) {
 
-		int i ;
-		int j ;
-		boolean chevauche ;
-		
-		Point coordonneesIntersection ;
-		Segment segmentDeMonCollisionneur, segmentDeLAutreCollisionneur ;
-
-		i = 0 ;
-		j = 0 ;
-		chevauche = false ;
-		
-		coordonneesIntersection = null ;
-
-		while (!chevauche && i < this.boite.nbSommets()) {
-
-			segmentDeMonCollisionneur = new Segment (this.boite.get(i), this.boite.get((i + 1) % this.boite.nbSommets())) ;
-
-			while (!chevauche && j < collisionneur.getBoite().nbSommets()) {
-
-				segmentDeLAutreCollisionneur = new Segment (collisionneur.getBoite().get(j), collisionneur.getBoite().get((j + 1) % collisionneur.getBoite().nbSommets())) ;
-
-				coordonneesIntersection = segmentDeMonCollisionneur.intersection(segmentDeLAutreCollisionneur) ;
-
-				if (coordonneesIntersection != null) {
-
-					chevauche = true ;
-
-				}
-
-				j ++ ;
-
-			}
-
-			i ++ ;
-
-		}
-
-		return coordonneesIntersection ;
+		return this.getBoite().intersection(collisionneur.getBoite()) ;
 
 	}
 
-	private int[] getCoordonneesEntieresSurLaMap (Point point, Moteur moteur) {
+	private void getCoordonneesEntieresSurLaMap (Point point, Moteur moteur, int[] coordonneesAModifier) {
 
 		int i, j ;
-		int[] coordonnees ;
-
+		
 		i = 0;
 		j = 0 ;
-		coordonnees = new int[2] ;
 
 		while (point.getX() > moteur.getTailleBoiteX()) {
 
-			point.subtract(moteur.getTailleBoiteX(), 0) ;
+			point = point.substract(moteur.getTailleBoiteX(), 0) ;
 
 			i ++ ;
 
 		}
 
-		while (point.getY() > moteur.getTailleBoiteY()) {
+		while (point.getY() >= moteur.getTailleBoiteY()) {
 
-			point.subtract(0, moteur.getTailleBoiteY()) ;
+			point = point.substract(0, moteur.getTailleBoiteY()) ;
 
 			j ++ ;
 
 		}
+		
+		for (int k = 0 ; k < 10 ;k ++) System.out.println("y : " + j);
 
-		coordonnees[0] = i ;
-		coordonnees[1] = j ;
-
-		return coordonnees ;
+		coordonneesAModifier[0] = i ;
+		coordonneesAModifier[1] = j ;
 
 	}
 	

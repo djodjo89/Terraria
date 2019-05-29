@@ -11,6 +11,7 @@ public class GameObject {
 	private DoubleProperty posX ;
 	private DoubleProperty posY ;
 	private Vecteur vecteurVitesse ; 
+	public double vitesseDeplacement ;
 	private double masse ;
 	private boolean estUnObstacle ;
 	/**
@@ -26,6 +27,7 @@ public class GameObject {
 	
 	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur) {
 		
+		this.vitesseDeplacement = 5 ;
 		this.tag = tag ;
 		this.posX = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
@@ -106,6 +108,12 @@ public class GameObject {
 		
 	}
 	
+	public double getVitesseDeplacement () {
+		
+		return this.vitesseDeplacement ;
+		
+	}
+	
 	public void setVitesse (Vecteur vecteur) {
 		
 		this.vecteurVitesse = vecteur ;
@@ -123,12 +131,6 @@ public class GameObject {
 	public Vecteur getVecteurVitesse () {
 		
 		return this.vecteurVitesse ;
-		
-	}
-	
-	public double getDistanceDeplacement () {
-		
-		return this.vecteurVitesse.getNorme() ;
 		
 	}
 	
