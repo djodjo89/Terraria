@@ -1,10 +1,15 @@
 package modele;
 
+import exceptions.VousEtesCoinceException;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import physique.Collisionneur;
 import physique.GameObject;
 
 public abstract class NonInventeriable extends GameObject{
+	
+	private Jeu jeu;
+	private DoubleProperty ptsAttaque ;
 	
 	public NonInventeriable () {
 		
@@ -12,10 +17,46 @@ public abstract class NonInventeriable extends GameObject{
 		
 	}
 	
-	public NonInventeriable (String nom, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, double distanceDeplacement) {
+	public NonInventeriable (String nom, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, double distanceDeplacement,Jeu jeu,double ptsAtt) {
 		
 		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement) ;
+		this.jeu=jeu;
+		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		
+	}
+	
+	public void deplacementColision (String direction) throws VousEtesCoinceException {
+		
+		switch (direction) {
+		
+			case "haut" : this.sauter(this.jeu.getTerrain(),this.jeu.getMoteur()); break;
+			
+			case "droite" : if (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getTerrain(), this, this.jeu.getMoteur())) this.deplacementSansVerif("droite") ; break ;
+			
+			case "bas" : if (this.getCollisionneur().deplacementPossible ("bas", this.jeu.getTerrain(), this, this.jeu.getMoteur())) this.deplacementSansVerif("bas"); break ;
+			
+			case "gauche" : if (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getTerrain(), this, this.jeu.getMoteur())) this.deplacementSansVerif("gauche") ; break ;
+		
+		}
+		
+	}
+	
+	public boolean jePeuxMeDeplacerLa(String direction) throws VousEtesCoinceException {
+		
+		if (direction=="droite")
+			return (this.getCollisionneur().deplacementPossible ("droite", this.jeu.getTerrain(), this, this.jeu.getMoteur()));
+		if (direction=="gauche")
+			return (this.getCollisionneur().deplacementPossible ("gauche", this.jeu.getTerrain(), this, this.jeu.getMoteur()));
+		return false;
+
+	}
+	public double getPtsAttaque () {
+		
+		return this.ptsAttaque.getValue () ;
+		
+	}
+	public Jeu getJeu() {
+		return jeu;
 	}
 
 }

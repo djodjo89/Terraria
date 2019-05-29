@@ -1,10 +1,10 @@
 package vue;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +17,7 @@ public class Menu {
 	private Pane panePrincipal;
 	private VBox menuBox;
 	private Button resume;
+	private Button exit;
 	private ImageView fond;
 	private Boolean estLa;
 	
@@ -29,19 +30,32 @@ public class Menu {
 		resume.setText("Jouer");
 		resume.setMinSize(500, 100);
 		resume.setFont(Font.font("regular",FontWeight.NORMAL,50));
+		exit=new Button();
+		exit.setText("Exit");
+		exit.setMinSize(500, 100);
+		exit.setFont(Font.font("regular",FontWeight.NORMAL,50));
 		menuBox = new VBox(-5);
 		menuBox.getChildren().add(resume);
+		menuBox.getChildren().add(exit);
         resume.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 disparait();
             }
         });
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.exit(0);
+            }
+        });
 		panePrincipal.getChildren().add(menuBox);
 		estLa=true;
 	}
 	
-	public void afficheMenu() {
+	public void afficheMenu(int X) throws URISyntaxException {
+		fond.setTranslateX(-X);
+		menuBox.setTranslateX(-X);
 		menuBox.setVisible(true);
         fond.setVisible(true);
         estLa=true;

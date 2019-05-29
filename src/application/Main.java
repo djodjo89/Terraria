@@ -26,6 +26,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setTitle("Terraria");
+			primaryStage.setFullScreen(true);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

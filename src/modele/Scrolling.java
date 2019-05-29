@@ -20,10 +20,14 @@ public class Scrolling {
 	public void faireScroll(String direction,Personnage Perso) {
 		if(direction=="D" && (Perso.getX()>this.paneMap.getWidth())) 
 			this.xTranslate-=Perso.getDistanceDeplacement();
-		else if(direction=="Q"&& xTranslate<0 && pane.getWidth()>Perso.getX()-this.pane.getWidth()/2 )
+		else if(direction=="Q"&& xTranslate<0  )
 			this.xTranslate+=Perso.getDistanceDeplacement();
 		this.pane.setTranslateX(xTranslate);
 		this.paneInventaire.setTranslateX(-xTranslate);
+	}
+	
+	public int getX() {
+		return xTranslate;
 	}
 	
 	// Une version du scroll avec les vecteurs

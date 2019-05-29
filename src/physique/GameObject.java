@@ -25,7 +25,7 @@ public class GameObject {
 	// Pour les objets statiques
 	public GameObject (String tag, double pv, Collisionneur c,boolean estUnObstacle) {
 		
-		this(tag, pv, c.getXDeb(), c.getYDeb(), 0., 0., 0., c, 0.) ;
+		this(tag, pv, 0, 0, 0., 0., 0., c, 0.) ;
 		this.estUnObstacle=estUnObstacle;
 		
 	}
@@ -33,7 +33,7 @@ public class GameObject {
 	public GameObject (String tag, double pv, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur collisionneur, double distanceDeplacement) {
 		
 		this.tag = tag ;
-		this.x = new SimpleDoubleProperty(pv) ;
+		this.pv = new SimpleDoubleProperty(pv);
 		this.x = new SimpleDoubleProperty(x) ;
 		this.y = new SimpleDoubleProperty(y) ;
 		this.vitesseX = vitesseX ;
