@@ -11,9 +11,7 @@ public abstract class NonInventeriable extends GameObject{
 	private Jeu jeu;
 	private DoubleProperty ptsAttaque ;
 	
-	public NonInventeriable(String tag) {
-		super(tag);
-	}
+	
 	
 	public NonInventeriable () {
 		

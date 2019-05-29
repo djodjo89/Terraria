@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -207,6 +208,7 @@ public class ControleurTerraria implements Initializable {
 	private Personnage personnage;
 	private ControleurInventaire controlInvent;
 	private ArrayList<Tuile> listItemsInvent;
+	private ImageView ennemi;
 	
 	public void initBoucleJeu() {
 		
@@ -368,6 +370,7 @@ public class ControleurTerraria implements Initializable {
 			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
 			this.initMap() ;
 			this.initPositionPerso() ;
+			this.initEnnemi();
 
 
 			//controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap, this.jeu);
@@ -417,6 +420,14 @@ public class ControleurTerraria implements Initializable {
 		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
 		this.perso.setRotationAxis(new Point3D(0,1,0));
 		
+	}
+	public void initEnnemi() {
+		this.ennemi= new Tuile("first",0,0,this.images.getImage("ennemi")) ;
+		this.paneMap.getChildren().add(ennemi);
+		this.ennemi.setFocusTraversable(false);
+		this.ennemi.toFront();
+		this.ennemi.translateXProperty().bind(jeu.getEnnemi().getXProperty());
+		this.ennemi.translateYProperty().bind(jeu.getEnnemi().getYProperty());
 	}
 	
 	public void derouleInventaire() {

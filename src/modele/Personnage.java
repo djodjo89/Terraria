@@ -34,6 +34,7 @@ public class Personnage extends NonInventeriable {
 		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement,jeu,ptsAtt) ;
 		
 		this.i = new Inventaire (20) ;
+		this.setObstacle() ;
 		
 	}
 	
