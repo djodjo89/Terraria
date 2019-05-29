@@ -12,35 +12,39 @@ public class Segment {
 		
 	}
 	
+	public double coteDuSegment (Point p) {
+
+		return (this.getPoint2().getX() - this.getPoint1().getX())*(p.getY() - this.getPoint1().getY())
+			 -(this.getPoint2().getY() - this.getPoint1().getY())*(p.getX() - this.getPoint1().getX()) ;
+		
+	}
+	
 	public Point intersection (Segment ligne) {
 		
 		double intersectX, intersectY ;
-		double ratioIntersectY0, ratioIntersectX0 ;
-		double ratioIntersectY1, ratioIntersectX1 ;
 		Point coordonneesIntersection ;
 		
 		intersectX=((this.p0.getX() + ligne.getPoint1().getX()) + (this.p1.getX() + ligne.getPoint2().getX())) / 4 ;
 		intersectY=((this.p0.getY() + ligne.getPoint1().getY()) + (this.p1.getY() + ligne.getPoint2().getY())) / 4 ;
-
-		ratioIntersectX0 = (intersectX - this.p0.getX()) / (this.p1.getX() - this.p0.getX()) ;
-		ratioIntersectY0 = (intersectY - this.p0.getY()) / (this.p1.getY() - this.p0.getY()) ;
-		ratioIntersectX1 = (intersectX - ligne.getPoint1().getX()) / (ligne.getPoint2().getX() - ligne.getPoint1().getX()) ;
-		ratioIntersectY1 = (intersectY - ligne.getPoint1().getY()) / (ligne.getPoint2().getY() - ligne.getPoint1().getY()) ;
 		
-		if (((ratioIntersectX0 >= 0 && ratioIntersectX0 <= 1) || (ratioIntersectY0 >= 0 && ratioIntersectY0 <= 1)
-		&& (ratioIntersectX1 >= 0 && ratioIntersectX1 <= 1) || (ratioIntersectY1 >= 0 && ratioIntersectY1 <= 1))) {
+		if ((this.coteDuSegment(ligne.getPoint1()) == 0 || this.coteDuSegment(ligne.getPoint2()) == 0) && (this.seSuperposeA(ligne)) || ((this.coteDuSegment(ligne.getPoint1()) != 0 && this.coteDuSegment(ligne.getPoint2()) != 0)) && (this.coteDuSegment(ligne.getPoint1()) != this.coteDuSegment(ligne.getPoint2())))
 			
-			coordonneesIntersection = new Point (intersectX, intersectY) ;
-			
-		}
+			coordonneesIntersection = new Point ((int)intersectX, (int)intersectY) ;
 		
-		else {
+		else
 			
 			coordonneesIntersection = null ;
-			
-		}
 		
 		return coordonneesIntersection ;
+		
+	}
+	
+	public boolean seSuperposeA (Segment ligne) {
+		
+		return ((this.getPoint1().getX() <= ligne.getPoint1().getX() && ligne.getPoint1().getX() <= this.getPoint2().getX() &&
+			this.getPoint1().getY() <= ligne.getPoint1().getY() && this.getPoint2().getY() >= ligne.getPoint1().getY()) ||
+			(this.getPoint1().getX() >= ligne.getPoint1().getX() && this.getPoint2().getX() <= ligne.getPoint1().getX() &&
+			this.getPoint1().getY() >= ligne.getPoint1().getY() && this.getPoint2().getY() <= ligne.getPoint1().getY())) ;
 		
 	}
 	

@@ -121,17 +121,22 @@ public class Polygone {
 		j = 0 ;
 		intersection = null ;
 		
-		while (intersection != null && i < this.listeSommets.size()) {
+		while (intersection == null && i < this.listeSommets.size()) {
+
+				s1 = new Segment(this.get(i), this.get((i + 1) % this.nbSommets())) ;
+				System.out.println(s1);
 			
-			s1 = new Segment(this.get(i), this.get((i + 1) % this.nbSommets())) ;
-			
-			while (intersection != null && j < polygone.nbSommets()) {
+			while (intersection == null && j < polygone.nbSommets()) {
 				
 				s2 = new Segment(polygone.get(j), polygone.get((j + 1) % this.nbSommets())) ;
-				
+				System.out.println(s2);
 				intersection = s1.intersection(s2) ;
 				
+				j ++ ;
+				
 			}
+			
+			i++ ;
 			
 		}
 		

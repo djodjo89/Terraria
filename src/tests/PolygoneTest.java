@@ -89,14 +89,64 @@ class PolygoneTest {
 	@Test
 	void testIntersection () {
 		
+		Polygone poly1, poly2, poly3 ;
 		
+		poly1 = new Polygone() ;
+		poly2 = new Polygone() ;
+		poly3 = new Polygone() ;
+		
+		
+		poly1.ajouterSommet(1, 1) ;
+		poly1.ajouterSommet(3, 1) ;
+		poly1.ajouterSommet(3, 2) ;
+		poly1.ajouterSommet(1,2) ;
+		/*
+		poly2.ajouterSommet(2, 1) ;
+		poly2.ajouterSommet(4, 1) ;
+		poly2.ajouterSommet(2, 2) ;
+		poly2.ajouterSommet(4, 2) ;
+		*/
+		System.out.println(poly1);
+		poly2.ajouterSommet(4, 1) ;
+		poly2.ajouterSommet(6, 1) ;
+		poly2.ajouterSommet(6, 2) ;
+		poly2.ajouterSommet(4, 2) ;
+		System.out.println(poly2);
+		assertEquals(null, poly1.intersection(poly2)) ;
+		
+		poly3.ajouterSommet(2, 1) ;
+		poly3.ajouterSommet(4, 1) ;
+		poly3.ajouterSommet(2, 2) ;
+		poly3.ajouterSommet(4, 2) ;
+		
+		System.out.println(poly1);
+		System.out.println(poly3);
+		assertEquals(new Point(2, 1), poly1.intersection(poly3)) ;
+
+		poly1 = new Polygone () ;
+		
+		poly1.ajouterSommet(0,2) ;
+		poly1.ajouterSommet(6,0) ;
+		poly1.ajouterSommet(8,2) ;
+		poly1.ajouterSommet(6,4) ;
+		System.out.println(poly1) ;
+		
+		poly2 = new Polygone () ;
+		
+		poly2.ajouterSommet(2, 3) ;
+		poly2.ajouterSommet(1, 6) ;
+		poly2.ajouterSommet(4, 1) ;
+		
+		System.out.println(poly2) ;
+		
+		assertEquals(new Point(2, 2), poly1.intersection(poly2)) ;
 		
 	}
 	
 	@Test
 	void testToString () {
 		
-		ArrayList<ArrayList<Point>> liste ;
+		/*ArrayList<ArrayList<Point>> liste ;
 		Polygone poly ;
 		
 		poly = new Polygone () ;
@@ -116,7 +166,7 @@ class PolygoneTest {
 		
 		poly.ajouterAChaquePoint(new Vecteur (2, -1));
 		
-		System.out.print(poly);
+		System.out.print(poly);*/
 		
 	}
 
