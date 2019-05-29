@@ -1,33 +1,52 @@
 package modele;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import vue.Tuile;
 
 public class Scrolling {
 	
-	private int xTranslate;
+	private SimpleDoubleProperty xTranslate;
+	private SimpleDoubleProperty yTranslate;
 	private Pane pane;
 	private Pane paneMap;
 	private Pane paneInventaire;
 
 	public Scrolling(Pane pane,Pane paneMap,Pane paneInventaire) {
-		this.xTranslate = 0;
+		this.xTranslate = new SimpleDoubleProperty(0);
+		this.yTranslate = new SimpleDoubleProperty(0);
 		this.paneMap=paneMap;
 		this.pane=pane;
 		this.paneInventaire=paneInventaire;
 	}
 	
-	public void faireScroll(String direction,Personnage Perso) {
-		if(direction=="D" && (Perso.getX()>this.paneMap.getWidth())) 
-			this.xTranslate-=Perso.getDistanceDeplacement();
-		else if(direction=="Q"&& xTranslate<0  )
-			this.xTranslate+=Perso.getDistanceDeplacement();
-		this.pane.setTranslateX(xTranslate);
-		this.paneInventaire.setTranslateX(-xTranslate);
+	public void faireScroll(Personnage Perso) {
+		this.xTranslate.setValue(-Perso.getX()+pane.getWidth()/2);
+		this.yTranslate.setValue((-Perso.getY()+pane.getHeight()/2));
+		this.pane.setTranslateY(this.getY());
+		this.pane.setTranslateX(this.getX());
+		this.paneInventaire.setTranslateX(-this.getX());
+		this.paneInventaire.setTranslateY(-this.getY());
 	}
 	
-	public int getX() {
+	public double getX() {
+		return xTranslate.getValue();
+	}
+	public double getY() {
+		return yTranslate.getValue();
+	}
+	
+	public SimpleDoubleProperty getXProperty() {
 		return xTranslate;
+	}
+	public SimpleDoubleProperty getYProperty() {
+		return yTranslate;
+	}
+	public void setX(double v) {
+		this.xTranslate.setValue(v);
+	}
+	public void setY(double v) {
+		this.yTranslate.setValue(v);
 	}
 	
 	// Une version du scroll avec les vecteurs

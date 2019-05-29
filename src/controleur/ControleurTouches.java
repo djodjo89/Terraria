@@ -138,8 +138,11 @@ public class ControleurTouches {
 		this.ToucheAppuyer = new ArrayList<String>();
 		derniereDirection=new String("droite");
 		this.perso=perso;
+		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
+		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
 		menu=new Menu(pane);
 		this.controlIvent=controlInvent;
+
 	}
 	
 	
@@ -177,8 +180,7 @@ public class ControleurTouches {
 			switch(touche) {
 
 				case "Q":		
-					if(jeu.getPerso().jePeuxMeDeplacerLa("gauche"))
-						scroll.faireScroll("Q", jeu.getPerso());
+					scroll.faireScroll( jeu.getPerso());
 					jeu.getPerso().deplacementColision("gauche");
 					if(derniereDirection.equals("droite")) {
 
@@ -194,8 +196,7 @@ public class ControleurTouches {
 				break;
 
 				case "D":
-					if(jeu.getPerso().jePeuxMeDeplacerLa("droite"))
-						scroll.faireScroll("D",jeu.getPerso());
+					scroll.faireScroll(jeu.getPerso());
 					jeu.getPerso().deplacementColision("droite") ;
 					
 					if(derniereDirection.equals("gauche")) {
@@ -218,12 +219,13 @@ public class ControleurTouches {
 				break;
 
 				case "SPACE":
+						scroll.faireScroll(jeu.getPerso());
 					espace=true;
 				break;
 				
 				case "ESCAPE":
 					if(!menu.estAffiche())
-						menu.afficheMenu(scroll.getX());
+						menu.afficheMenu(scroll.getX(),scroll.getY());
 						
 					else
 						menu.disparait();
@@ -241,6 +243,9 @@ public class ControleurTouches {
 	}
 	public void setEspaceFalse() {
 		espace=false;
+	}
+	public Menu getMenu() {
+		return this.menu;
 	}
 
 }
