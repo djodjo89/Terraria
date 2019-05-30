@@ -13,6 +13,7 @@ public class GameObject {
 	private Vecteur vecteurVitesse ; 
 	public double vitesseDeplacement ;
 	private double masse ;
+	private double hauteurSaut ;
 	private boolean estUnObstacle ;
 	/**
 	 * @see Collisionneur
@@ -27,7 +28,8 @@ public class GameObject {
 	
 	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur) {
 		
-		this.vitesseDeplacement = 5 ;
+		this.vitesseDeplacement = 0.000001 ;
+		this.hauteurSaut = 1 ;
 		this.tag = tag ;
 		this.posX = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
@@ -36,6 +38,87 @@ public class GameObject {
 		this.masse = masse ;
 		this.collisionneur = collisionneur ;
 		this.estUnObstacle = false ;
+		
+	}
+	
+	public double getMasse () {
+		
+		return this.masse ;
+		
+	}
+	
+	private double getPuissanceSaut (Moteur m) {
+		System.out.println(Math.pow(m.getTailleBoiteY(), 2));
+		return -((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()) ;
+		
+	}
+	
+	public double getHauteur (Moteur m, Terrain t) {
+		
+		int i ;
+		int[] coordonnees ;
+		
+		i = 0 ;
+		coordonnees = new int[2] ;
+		
+		this.collisionneur.getCoordonneesEntieresSurLaMap (new Point (this.getX(), this.getY()), m, coordonnees) ;
+		
+		while (!t.getCase(coordonnees, m).getTag().equals("T") && i < t.getDimY()) {
+			
+			coordonnees[1] += 1 ;
+			i ++ ;
+			
+		}
+		
+		return i * m.getTailleBoiteY() ;
+		
+	}
+	
+	public void deplacerVers (String direction, Moteur m) {
+		
+		Vecteur vecteurDeplacement ;
+
+		switch (direction) {
+
+			case "haut" : vecteurDeplacement = new Vecteur (0, -this.getPuissanceSaut(m)) ;
+	
+			break ;
+	
+			case "droite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, 0) ;
+	
+			break ;
+	
+			case "bas" : vecteurDeplacement = new Vecteur (0, this.vitesseDeplacement) ;
+	
+			break ;
+	
+			case "gauche" : vecteurDeplacement = new Vecteur (-vitesseDeplacement, 0) ;
+	
+			break ;
+			
+			case "hautdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, -this.getPuissanceSaut(m)) ;
+	
+			break ;
+			
+			case "basdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, this.vitesseDeplacement) ;
+	
+			break ;
+			
+			case "basgauche" : vecteurDeplacement = new Vecteur (-vitesseDeplacement, this.vitesseDeplacement) ;
+	
+			break ;
+			
+			case "hautgauche" : vecteurDeplacement = new Vecteur (-this.vitesseDeplacement, -this.getPuissanceSaut(m)) ;
+	
+			break ;
+			
+			default : vecteurDeplacement = new Vecteur (0, 0) ;
+			
+			break ;
+
+		}
+		
+		this.ajouter(vecteurDeplacement) ;
 		
 	}
 	
@@ -114,9 +197,9 @@ public class GameObject {
 		
 	}
 	
-	public void setVitesse (Vecteur vecteur) {
+	public void ajouter (Vecteur vecteur) {
 		
-		this.vecteurVitesse = vecteur ;
+		this.vecteurVitesse.ajouter(vecteur); ;
 		
 	}
 	

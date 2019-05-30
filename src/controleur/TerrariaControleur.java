@@ -87,7 +87,7 @@ public class TerrariaControleur implements Initializable {
 				// c'est un eventHandler d'ou le lambda
 				(ev ->{
 					try {
-						nbTour=this.jeu.evoluer(nbTour,controlTouche);						
+						this.jeu.evoluer(nbTour,controlTouche);						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -165,6 +165,7 @@ public class TerrariaControleur implements Initializable {
     	
     	
     	try {
+    		
 			this.jeu = new Jeu("map.csv", this.images.getImage("air").getWidth(), this.images.getImage("air").getHeight(), 400., 200.) ;
 			controlMap=new MapControleur(this.paneMap,this.jeu);
 			this.controlMap.ajouterEcouteur () ;
@@ -174,18 +175,6 @@ public class TerrariaControleur implements Initializable {
 			this.controlTouche = new ControleurTouches(this.borderPanePerso, this.jeu) ;
 			this.gameLoop.play();
 			this.paneItemsInventaire.toFront();
-			Collisionneur colli ;
-			
-			Point p1, p2, p3, p4 ;
-			
-			p1 = new Point (10, 10) ;
-			p2 = new Point (20, 10) ;
-			p3 = new Point (10, 20) ;
-			p4 = new Point (20, 20) ;
-			
-			colli = new Collisionneur (p1, p2, p3, p4) ;
-			
-			System.out.println(colli.depasseLesLimitesDeLaMap(jeu.getMap())) ;
 
     	} 
     	

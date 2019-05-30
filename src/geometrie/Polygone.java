@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * <h1>Un Polygone est une liste ordonnée de Points appelés sommets.</h1>
+ * <h1>Un Polygone est une liste ordonnÃ©e de Points appelÃ©s sommets.</h1>
  * <p>Un Polygone peut :
  * 	<ul>
  * 		<li>En copier un autre</li>
- * 		<li>Retourne un point à une position donnée</li>
- * 		<li>Ajouter un vecteur à chaque point</li>
+ * 		<li>Retourne un point Ã  une position donnÃ©e</li>
+ * 		<li>Ajouter un vecteur Ã  chaque point</li>
  * 		<li>Ajouter un sommet</li>
  * 		<li>Dire s'il contient un point</li>
  * 		<li>Donner son nombre de sommets</li>
  * 		<li>Dire s'il est inclus dans un rectangle</li>
- * 		<li>S'ordonner de façon à être affichable en console</li>
- * 		<li>Donner les extrêmes de ses points</li>
+ * 		<li>S'ordonner de faÃ§on Ã  Ãªtre affichable en console</li>
+ * 		<li>Donner les extrÃªmes de ses points</li>
  * 		<li>S'afficher</li>
  * </ul>
  * La classe Polygone permet de manipuler facilement des ensembles de points
- * utiles notamment lors des opérations de collisions.
+ * utiles notamment lors des opÃ©rations de collisions.
  * </p>
  * @see Point
  * @see Vecteur
@@ -38,6 +38,12 @@ public class Polygone {
 	
 	ArrayList<Point> listeSommets ;
 	
+	/**
+	 * Constructeur permettant d'initialiser rapidement un polygone vide
+	 * 
+	 * @since 1.0
+	 */
+	
 	public Polygone () {
 		
 		this.listeSommets = new ArrayList<Point> () ;
@@ -45,12 +51,12 @@ public class Polygone {
 	}
 	
 	/**
-	 * Crée un Polygone de nbSommets initialisés à 0:0
+	 * CrÃ©e un Polygone de nbSommets initialisÃ©s Ã  0:0
 	 * 
 	 * @param nbSommets
 	 * @since 2.0
 	 */
-
+	
 	public Polygone (int nbSommets) {
 		
 		this () ;
@@ -63,7 +69,7 @@ public class Polygone {
 	}
 	
 	/**
-	 * Crée un polygone de nbSommets initialisés à x:y
+	 * CrÃ©e un polygone de nbSommets initialisÃ©s Ã  x:y
 	 * 
 	 * @param nbSommet
 	 * @param x
@@ -85,7 +91,7 @@ public class Polygone {
 	}
 	
 	/**
-	 * Crée un Polygone composé des points entrés en paramètre
+	 * CrÃ©e un Polygone composÃ© des points entrÃ©s en paramÃ¨tre
 	 * dans l'ordre
 	 * 
 	 * @param points
@@ -124,12 +130,10 @@ public class Polygone {
 		while (intersection == null && i < this.listeSommets.size()) {
 
 				s1 = new Segment(this.get(i), this.get((i + 1) % this.nbSommets())) ;
-				System.out.println(s1);
 			
 			while (intersection == null && j < polygone.nbSommets()) {
 				
 				s2 = new Segment(polygone.get(j), polygone.get((j + 1) % this.nbSommets())) ;
-				System.out.println(s2);
 				intersection = s1.intersection(s2) ;
 				
 				j ++ ;
@@ -144,6 +148,16 @@ public class Polygone {
 		
 	}
 	
+	public void dezoom () {
+		
+		for (Point p : this.listeSommets) {
+			
+			p = p.add(p.getX()/100 - p.getX(), p.getY()/100 - p.getY()) ;
+			System.out.println(p);
+		}
+		
+	}
+	
 	/**
 	 * Copie le contenu d'un autre polygone dans celui-ci
 	 * 
@@ -155,6 +169,8 @@ public class Polygone {
 		
 		int i ;
 		
+		this.listeSommets = new ArrayList<Point> () ;
+		
 		for (i = 0 ; i < polygone.nbSommets() ; i ++) {
 			
 			this.ajouterSommet(new Point (polygone.get(i).getX(), polygone.get(i).getY())) ;
@@ -164,7 +180,7 @@ public class Polygone {
 	}
 	
 	/**
-	 * Retourne le point situé à l'indice i dans la liste
+	 * Retourne le point situï¿½ ï¿½ l'indice i dans la liste
 	 * 
 	 * @param i
 	 * @return Point
@@ -176,6 +192,14 @@ public class Polygone {
 		return this.listeSommets.get(i) ;
 		
 	}
+	
+	/**
+	 * Ajoute les x et les y du vecteur Ã  chaque point
+	 * du polygone
+	 * 
+	 * @param vecteur
+	 * @since 2.0
+	 */
 	
 	public void ajouterAChaquePoint (Vecteur vecteur) {
 		
@@ -190,7 +214,7 @@ public class Polygone {
 	}
 	
 	/**
-	 * Ajoute les x et les y du vecteur à chaque point
+	 * Ajoute les x et les y du vecteur ï¿½ chaque point
 	 * du polygone
 	 * 
 	 * @param vecteur
@@ -221,7 +245,7 @@ public class Polygone {
 		
 		while (!trouve && i < this.nbSommets ()) {
 			
-			if (this.listeSommets.get(i).estEgalA(point))
+			if (this.listeSommets.get(i).compareTo(point) == 0)
 				
 				trouve = true ;
 			
@@ -275,7 +299,7 @@ public class Polygone {
 		
 			while (estEgal && i < this.nbSommets() && i < poly2.nbSommets()) {
 				
-				if (!this.get(i).estEgalA(poly2.get(i)))
+				if (!(this.get(i).compareTo(poly2.get(i)) == 0))
 					
 					estEgal = false ;
 				

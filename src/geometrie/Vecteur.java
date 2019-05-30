@@ -12,6 +12,13 @@ public class Vecteur {
 		
 	}
 	
+	public void ajouter (Vecteur v) {
+		
+		this.x += v.getX() ;
+		this.y += v.getY() ;
+		
+	}
+	
 	public void ajouter (double x, double y) {
 		
 		this.x += x ;

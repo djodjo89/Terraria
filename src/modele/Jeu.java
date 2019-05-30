@@ -32,10 +32,10 @@ public class Jeu {
 		Point p1, p2, p3, p4 ;
 		
 		p1 = new Point (posXJoueur, posYJoueur) ;
-		p2 = new Point (posXJoueur + taillePixelsXCase, posYJoueur) ;
-		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase) ;
-		p4 = new Point (posXJoueur + taillePixelsXCase, posYJoueur + taillePixelsYCase) ;
-		this.perso = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., new Collisionneur (p1, p2, p3, p4),this) ;
+		p2 = new Point (posXJoueur + taillePixelsXCase - 1, posYJoueur) ;
+		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase - 1) ;
+		p4 = new Point (posXJoueur + taillePixelsXCase - 1, posYJoueur + taillePixelsYCase - 1) ;
+		this.perso = new Personnage ("Wall-E", 100., 50., posXJoueur, posYJoueur, 1., new Collisionneur (p1, p2, p3, p4),this) ;
 		this.tf = new TraducteurFichier(nomF) ;
 		this.terrain = new Terrain (this.tf.getTabMap(), this.moteur.getTailleBoiteX(), this.moteur.getTailleBoiteY()) ;
 		
@@ -59,12 +59,10 @@ public class Jeu {
 		
 	} 
 	
-	public int evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
-		//controlTouche.setEspaceFalse();
-		this.moteur.appliquerGravite(this.perso);
-		this.perso.setVitesse(this.perso.getCollisionneur().deplacementPossible(this.perso.getVecteurVitesse(), this.terrain, this.moteur)) ;
-		this.perso.deplacer () ;
-		return nbTour;
+	public void evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
+		
+		this.moteur.appliquerForces(this.perso, this.terrain);
+		
 	}
 
 }

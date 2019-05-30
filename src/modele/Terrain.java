@@ -36,7 +36,6 @@ import javafx.collections.ObservableList;
 		
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
-			int unPixel=1, unAutrePixel=1 ;
 			String nomCase ;
 			GameObject caseMap = null ;
 
@@ -57,11 +56,10 @@ import javafx.collections.ObservableList;
 					
 					}
 					
-					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, 0),
-							new Point (0, i * this.tailleCaseY),
-							new Point (j * this.tailleCaseX, this.tailleCaseX - unAutrePixel),
-							new Point (this.tailleCaseY - unPixel, i * this.tailleCaseY))) ;
-					
+					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
+							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY),
+							new Point (j * this.tailleCaseX, i * this.tailleCaseY + 49),
+							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49))) ;
 					this.listeDeLignes.get(i).add(caseMap) ;
 					
 				}
