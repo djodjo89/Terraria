@@ -1,4 +1,4 @@
-package physique;
+ package physique;
 import geometrie.*;
 
 import modele.* ;
@@ -28,8 +28,8 @@ public class GameObject {
 	
 	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur) {
 		
-		this.vitesseDeplacement = 0.000001 ;
-		this.hauteurSaut = 1 ;
+		this.vitesseDeplacement = 1 ;
+		this.hauteurSaut = 10 ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
 		this.tag = tag ;
 		this.posX = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
@@ -48,8 +48,8 @@ public class GameObject {
 	}
 	
 	private double getPuissanceSaut (Moteur m) {
-		System.out.println(Math.pow(m.getTailleBoiteY(), 2));
-		return -((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()) ;
+
+		return this.hauteurSaut ;
 		
 	}
 	
@@ -188,6 +188,12 @@ public class GameObject {
 	public void changerVitesse (double x, double y) {
 		
 		this.vecteurVitesse.ajouter(x, y) ;
+		
+	}
+	
+	public void setVitesse (Vecteur v) {
+		
+		this.vecteurVitesse = v ;
 		
 	}
 	

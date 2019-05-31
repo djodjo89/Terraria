@@ -98,7 +98,7 @@ import javafx.collections.ObservableList;
 			
 		}
 		
-		private GameObject getDerniereCase () {
+		public GameObject getDerniereCase () {
 			
 			return this.listeDeLignes.get(this.getDimY() - 1).get(this.getDimX() - 1) ;
 			

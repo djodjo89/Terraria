@@ -10,7 +10,8 @@ public class Moteur {
 	private double tailleBoiteX ;
 	private double tailleBoiteY ;
 	private Vecteur gravite ;
-	final double poidsDeLaTerre = 5.972 ; // x10^24
+	final double accelerationDePesanteur = 0.3 ;
+	final double poidsDeLaTerre = 5.972 ; // x10^24 (6.67 * this.poidsDeLaTerre * Math.pow(10, -13) * go.getMasse()) / go.getHauteur(this, t)
 	final double constanteGravitationnelle = 6.67 ; // x10^-11
 	
 	public Moteur (double tailleBoiteX, double tailleBoiteY, double gravite) {
@@ -31,15 +32,16 @@ public class Moteur {
 	
 	public void appliquerGravite (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
-		/*Vecteur accelerationDePesanteur ;
-		accelerationDePesanteur = new Vecteur (0, (6.67 * this.poidsDeLaTerre * Math.pow(10, -13) * go.getMasse()) / go.getHauteur(this, t)) ;
-		go.ajouter(go.getCollisionneur().deplacementPossible(accelerationDePesanteur, t, this)) ;*/
+		Vecteur poids ;
+		poids = new Vecteur (0, go.getMasse() * this.accelerationDePesanteur) ;
+		go.ajouter(go.getCollisionneur().deplacementPossible(poids, t, this)) ;
 		
 	}
 	
 	public void appliquerForceElectromagnetique (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
-		go.ajouter(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
+//		go.ajouter(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
+		go.setVitesse((go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this))) ;
 		
 	}
 	

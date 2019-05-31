@@ -21,13 +21,15 @@ public class Collisionneur {
 
 	}
 
-	public boolean depasseLesLimitesDeLaMap (Terrain t) throws HorsDeLaMapException {
+	public boolean depasseLesLimitesDeLaMap (Terrain t, Moteur m) throws HorsDeLaMapException {
 
 		boolean depasse = false ;
-
-		/*if (this.boite.minMaxY()[0] < 0 || this.boite.minMaxX()[0] < 0 || this.boite.minMaxY()[1] > t.getTailleY() || this.boite.minMaxY()[1] > t.getTailleX())
-
-			throw new HorsDeLaMapException (t) ;*/
+		System.out.println(this.getBoite().get(3));
+		System.out.println(t.getDerniereCase().getCollisionneur().getBoite().get(3));
+		System.out.println("maxX : " + Math.ceil(this.boite.minMaxX()[1]));
+		if (this.boite.minMaxY()[0] < 0 || this.boite.minMaxX()[0] < 0 || Math.ceil(this.boite.minMaxY()[1]) >= t.getDerniereCase().getCollisionneur().getBoite().get(3).getY() || Math.ceil(this.boite.minMaxX()[1]) >= t.getDerniereCase().getCollisionneur().getBoite().get(3).getX())
+		{
+			depasse = true ;System.out.println("hors de la map");}
 
 		return depasse ;
 
@@ -46,14 +48,14 @@ public class Collisionneur {
 		deplacementPossible = true ;
 		nouveauVecteur = new Vecteur (0, 0) ;
 
-		if (!this.depasseLesLimitesDeLaMap(terrain)) {
+		if (!this.depasseLesLimitesDeLaMap(terrain, moteur)) {
 
 			// On crée un collisionneur virtuel qui se déplace sur la case visée
 			collisionneurTemporaire = new Collisionneur () ;
 			collisionneurTemporaire.getBoite().copie(this.boite) ;
 
-			while (deplacementPossible && (Math.abs(nouveauVecteur.getX()) < Math.abs(vecteur.getX()) || Math.abs(nouveauVecteur.getY()) < Math.abs(vecteur.getY())) && !collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain)) {
-
+			while (deplacementPossible && (Math.abs(nouveauVecteur.getX()) < Math.abs(vecteur.getX()) || Math.abs(nouveauVecteur.getY()) < Math.abs(vecteur.getY())) && !collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur)) {
+				System.out.println("oighrzeeoughzouh");
 				System.out.println("nv:"+Math.abs(nouveauVecteur.getY()));
 				System.out.println("vecteur:"+Math.abs(vecteur.getY()));
 				collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (vecteur.getX() / 100, vecteur.getY() / 100)) ;
@@ -81,7 +83,7 @@ public class Collisionneur {
 
 					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
 					
-					if (collisionneurTemporaire.chevauche(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).getTag().equals("T")) {
+					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.chevauche(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).getTag().equals("T"))) {
 
 						deplacementPossible = false ;
 						System.out.println(coordonneesDuPoint[0]+":"+coordonneesDuPoint[1]);
@@ -94,22 +96,24 @@ public class Collisionneur {
 
 				}
 				
-				if (!deplacementPossible) {
-					
-					collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (-vecteur.getX() / 100, -vecteur.getY() / 100)) ;
-					nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
-					
-				}
 
+
+			}
+			
+			if (!deplacementPossible) {
+				
+				collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (-vecteur.getX() / 100, -vecteur.getY() / 100)) ;
+				nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
+				
 			}
 
 		}
-
-		else {
-
-			throw new VousEtesCoinceException (this, terrain, moteur) ;
-
-		}
+		
+		else
+			
+			nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
+		
+		System.out.println("nouveau vecteur renvoyé : " + nouveauVecteur);
 		
 		return nouveauVecteur ;
 	

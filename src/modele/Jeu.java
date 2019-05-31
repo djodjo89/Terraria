@@ -29,12 +29,11 @@ public class Jeu {
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
 		this.moteur = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.1) ;
-		Point p1, p2, p3, p4 ;
-		
+		Point p1, p2, p3, p4 ;		
 		p1 = new Point (posXJoueur, posYJoueur) ;
-		p2 = new Point (posXJoueur + taillePixelsXCase - 1, posYJoueur) ;
-		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase - 1) ;
-		p4 = new Point (posXJoueur + taillePixelsXCase - 1, posYJoueur + taillePixelsYCase - 1) ;
+		p2 = new Point (posXJoueur + taillePixelsXCase, posYJoueur) ;
+		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase) ;
+		p4 = new Point (posXJoueur + taillePixelsXCase, posYJoueur + taillePixelsYCase) ;
 		this.perso = new Personnage ("Wall-E", 100., 50., posXJoueur, posYJoueur, 1., new Collisionneur (p1, p2, p3, p4),this) ;
 		this.tf = new TraducteurFichier(nomF) ;
 		this.terrain = new Terrain (this.tf.getTabMap(), this.moteur.getTailleBoiteX(), this.moteur.getTailleBoiteY()) ;
