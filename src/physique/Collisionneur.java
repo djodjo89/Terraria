@@ -4,9 +4,41 @@ import modele.* ;
 import exceptions.* ;
 import geometrie.* ;
 
+/**
+ * <h1>Un Collisionneur est un objet possédant un Polygone
+ * appelé "boîte".</h1>
+ * <p>Il sert à :</>
+ * <ul>
+ * 		<li>Détecter, à partir d'un Terrain et d'un
+ * 		moteur, si la boîte se situe hors des limites de la map</li>
+ * 		<li>Vérifier s'il peut se déplacer selon un certain
+ * 		vecteur, et renvoyer un vecteur plus petit si nécessaire</li>
+ * 		<li>Vérifier s'il chevauche un autre Collisionneur, et renvoyer
+ * 		le Point de chevauchement le cas échéant</li>
+ * 		<li>Placer dans un tableau d'entier ses coordonnées selon le
+ *		 Moteur</li>
+ * 		<li>Fournir sa boîte</li>
+ * </ul>
+ * @see Point
+ * @see Polygone
+ * @see Vecteur
+ * @see Moteur
+ * @see Terrain
+ * 
+ * @author Mathys
+ * @version 2.0
+ *
+ */
+
 public class Collisionneur {
 
 	Polygone boite ;
+	
+	/**
+	 * Crée un Collisionneur vide
+	 * 
+	 * @version 2.0
+	 */
 
 	public Collisionneur () {
 
@@ -14,28 +46,60 @@ public class Collisionneur {
 
 	}
 	
+	/**
+	 * Crée un Collisionneur à partir des Points
+	 * entrés en paramètres
+	 * 
+	 * @param points
+	 * 
+	 * @version 2.0
+	 */
+	
 	public Collisionneur (Point... points) {
 
 		this() ;
 		this.boite = new Polygone (points) ;		
 
 	}
+	
+	/**
+	 * 
+	 * Retourne vrai si le Collisionneur dépasse les
+	 * limites de la map passée en paramètre
+	 * 
+	 * @param t
+	 * @param m
+	 * @return
+	 * @throws HorsDeLaMapException
+	 * 
+	 * @version 2.0
+	 */
 
 	public boolean depasseLesLimitesDeLaMap (Terrain t, Moteur m) throws HorsDeLaMapException {
 
 		boolean depasse = false ;
-		System.out.println(this.getBoite().get(3));
-		System.out.println(t.getDerniereCase().getCollisionneur().getBoite().get(3));
-		System.out.println("maxX : " + Math.ceil(this.boite.minMaxX()[1]));
-		if (this.boite.minMaxY()[0] < 0 || this.boite.minMaxX()[0] < 0 || Math.ceil(this.boite.minMaxY()[1]) >= t.getDerniereCase().getCollisionneur().getBoite().get(3).getY() || Math.ceil(this.boite.minMaxX()[1]) >= t.getDerniereCase().getCollisionneur().getBoite().get(3).getX())
-		{
-			depasse = true ;System.out.println("hors de la map");}
+
+		if (this.boite.minMaxY()[0] < 0 || this.boite.minMaxX()[0] < 0 || Math.ceil(this.boite.minMaxY()[1]) > t.getDerniereCase().getCollisionneur().getBoite().get(3).getY() || Math.ceil(this.boite.minMaxX()[1]) > t.getDerniereCase().getCollisionneur().getBoite().get(3).getX())
+
+			depasse = true ;
 
 		return depasse ;
 
 	}
 
-	// Renvoie la distance dont peut se d�placer le perso dans la direction donn�e
+	/**
+	 * 
+	 * <h1>Retourne le Vecteur dont peut se déplacer le Collisionneur dans la direction donnée</h1>
+	 * <p>A partir du Vecteur, du Terrain et du Moteur passés en paramètre, calcule la position d'un
+	 * "Collisionneur virtuel". S'il est en collision, retourne un vecteur réduit, sinon retourne le vecteur tel quel</p>
+	 * 
+	 * @param vecteur
+	 * @param terrain
+	 * @param moteur
+	 * @return Le Vecteur dont peut se déplacer le Collisionneur
+	 * @throws VousEtesCoinceException
+	 * @throws HorsDeLaMapException
+	 */
 
 	public Vecteur deplacementPossible (Vecteur vecteur, Terrain terrain, Moteur moteur) throws VousEtesCoinceException, HorsDeLaMapException {
 
@@ -55,12 +119,9 @@ public class Collisionneur {
 			collisionneurTemporaire.getBoite().copie(this.boite) ;
 
 			while (deplacementPossible && (Math.abs(nouveauVecteur.getX()) < Math.abs(vecteur.getX()) || Math.abs(nouveauVecteur.getY()) < Math.abs(vecteur.getY())) && !collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur)) {
-				System.out.println("oighrzeeoughzouh");
-				System.out.println("nv:"+Math.abs(nouveauVecteur.getY()));
-				System.out.println("vecteur:"+Math.abs(vecteur.getY()));
+
 				collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (vecteur.getX() / 100, vecteur.getY() / 100)) ;
 				nouveauVecteur.ajouter(vecteur.getX() / 100, vecteur.getY() / 100);
-				System.out.println(collisionneurTemporaire.getBoite().get(0));
 				
 				/*
 				 * i <- 0
@@ -83,13 +144,9 @@ public class Collisionneur {
 
 					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
 					
-					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.chevauche(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).getTag().equals("T"))) {
+					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).getTag().equals("T"))) {
 
 						deplacementPossible = false ;
-						System.out.println(coordonneesDuPoint[0]+":"+coordonneesDuPoint[1]);
-						System.out.println(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur().getBoite().get(0));
-						System.out.println("Déplacement impossible");
-
 					}
 
 					i ++ ;
@@ -102,8 +159,10 @@ public class Collisionneur {
 			
 			if (!deplacementPossible) {
 				
-				collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (-vecteur.getX() / 100, -vecteur.getY() / 100)) ;
+				//collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (-vecteur.getX() / 100, -vecteur.getY() / 100)) ;
 				nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
+				//System.out.println(vecteur);
+				//System.out.println(nouveauVecteur);
 				
 			}
 
@@ -113,17 +172,31 @@ public class Collisionneur {
 			
 			nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
 		
-		System.out.println("nouveau vecteur renvoyé : " + nouveauVecteur);
-		
 		return nouveauVecteur ;
 	
 	}
 
-	public Point chevauche (Collisionneur collisionneur) {
+	/**
+	 * Retourne, le cas échéant, le Point d'intersection entre ce
+	 * Collisionneur et un autre. Sinon, retourne null
+	 * 
+	 * @param collisionneur
+	 * @return Le Point d'intersection entre les Collisionneur
+	 */
+	
+	public Point pointDeChevauchement (Collisionneur collisionneur) {
 
 		return this.getBoite().intersection(collisionneur.getBoite()) ;
 
 	}
+	
+	/**
+	 * Place les coordonnées du Collisionneur dans coordonneesAModifier
+	 * 
+	 * @param point
+	 * @param moteur
+	 * @param coordonneesAModifier
+	 */
 
 	public void getCoordonneesEntieresSurLaMap (Point point, Moteur moteur, int[] coordonneesAModifier) {
 
@@ -152,6 +225,12 @@ public class Collisionneur {
 		coordonneesAModifier[1] = j ;
 
 	}
+	
+	/**
+	 * Retourne le Polygone du Collisionneur
+	 * 
+	 * @return La boîte du Collisionneur
+	 */
 	
 	public Polygone getBoite () {
 

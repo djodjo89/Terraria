@@ -36,7 +36,7 @@ public class ControleurTouches {
 
 	public void setKeyListener () {
 		
-		this.p.setOnKeyReleased(new EventHandler<KeyEvent>() {		
+		/*this.p.setOnKeyReleased(new EventHandler<KeyEvent>() {		
 
 			@Override
 			public void handle(KeyEvent event) {
@@ -59,7 +59,7 @@ public class ControleurTouches {
 				
 			}
 			
-		});
+		});*/
 
 		this.p.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -67,6 +67,22 @@ public class ControleurTouches {
 			public void handle(KeyEvent event) {
 				
 				if (event.getCode() == KeyCode.SPACE)
+					
+					j.getPerso().deplacerVers("haut", j.getMoteur());
+				
+				if (event.getCode() == KeyCode.D)
+					
+					j.getPerso().deplacerVers("droite", j.getMoteur());
+				
+				if (event.getCode() == KeyCode.S)
+					
+					j.getPerso().deplacerVers("bas", j.getMoteur());
+				
+				if (event.getCode() == KeyCode.Q)
+					
+					j.getPerso().deplacerVers("gauche", j.getMoteur());
+				
+				/*if (event.getCode() == KeyCode.SPACE)
 					
 					touchesPressees.add("E") ;
 				
@@ -104,7 +120,7 @@ public class ControleurTouches {
 			
 				else if (touchesPressees.contains("S"))
 					
-					j.getPerso().deplacerVers("bas", j.getMoteur()) ;
+					j.getPerso().deplacerVers("bas", j.getMoteur()) ;*/
 
 			}
 

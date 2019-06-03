@@ -5,6 +5,22 @@ import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
 import modele.Terrain;
 
+/**<h1>Le Moteur gère la physique d'un Jeu</h1>
+ * <p>Il peut :</p>
+ * <ul>
+ * 		<li>Appliquer toutes les forces en même temps sur un objet</li>
+ * 		<li>Appliquer les frottements à un objet</li>
+ * 		<li>Appliquer la force de pesanteur sur un objet</li>
+ * 		<li>Appliquer la force éléctromagnétique sur un objet</li>
+ * 		<li>Donner la gravité</li>
+ * 		<li>Donner la largeur d'une case</li>
+ * 		<li>Donner la hauteur d'une case</li>
+ * 
+ * 
+ * @author Mathys
+ *
+ */
+
 public class Moteur {
 	
 	private double tailleBoiteX ;
@@ -14,6 +30,15 @@ public class Moteur {
 	final double poidsDeLaTerre = 5.972 ; // x10^24 (6.67 * this.poidsDeLaTerre * Math.pow(10, -13) * go.getMasse()) / go.getHauteur(this, t)
 	final double constanteGravitationnelle = 6.67 ; // x10^-11
 	
+	/**
+	 * Constructeur qui initialise la largeur et la
+	 * hauteur des cases avec une certaine gravité
+	 * 
+	 * @param tailleBoiteX
+	 * @param tailleBoiteY
+	 * @param gravite
+	 */
+	
 	public Moteur (double tailleBoiteX, double tailleBoiteY, double gravite) {
 		
 		this.tailleBoiteX = tailleBoiteX ;
@@ -22,15 +47,46 @@ public class Moteur {
 		
 	}
 	
+	/**
+	 * Applique les forces physiques à un objet sur un Terrain
+	 * 
+	 * @param go
+	 * @param t
+	 * @throws VousEtesCoinceException
+	 * @throws HorsDeLaMapException
+	 */
+	
 	public void appliquerForces (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
-		this.appliquerGravite(go, t);
+		this.appliquerPesanteur(go, t);
 		this.appliquerForceElectromagnetique(go, t);
 		go.deplacer () ;
 		
 	}
 	
-	public void appliquerGravite (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
+	/**
+	 * Applique les frottements à un objet sur un Terrain
+	 * 
+	 * @param go
+	 * @param t
+	 * @param v
+	 */
+	
+	public void appliquerFrottements (GameObject go, Terrain t) {
+		
+		
+	}
+	
+	/**
+	 * Applique la force de pesanteur sur un objet sur un Terrain
+	 * 
+	 * @param go
+	 * @param t
+	 * @throws VousEtesCoinceException
+	 * @throws HorsDeLaMapException
+	 */
+	
+	public void appliquerPesanteur (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 		Vecteur poids ;
 		poids = new Vecteur (0, go.getMasse() * this.accelerationDePesanteur) ;
@@ -38,12 +94,30 @@ public class Moteur {
 		
 	}
 	
-	public void appliquerForceElectromagnetique (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
+	/**
+	 * Applique la force éléctromagnétique à un objet sur un Terrain
+	 * 
+	 * @param go
+	 * @param t
+	 * @throws VousEtesCoinceException
+	 * @throws HorsDeLaMapException
+	 */
+	
+	public Vecteur appliquerForceElectromagnetique (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 //		go.ajouter(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
-		go.setVitesse((go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this))) ;
+		Vecteur v ;
+		
+		v = go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this) ;
+		go.setVitesse(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
+		
+		return v ;
 		
 	}
+	
+	/**
+	 * Retourne la gravité du Moteur
+	 */
 	
 	public Vecteur getGravite () {
 		
@@ -51,11 +125,19 @@ public class Moteur {
 		
 	}
 	
+	/**
+	 * Retourne la largeur d'une case
+	 */
+	
 	public double getTailleBoiteX () {
 		
 		return this.tailleBoiteX ;
 		
 	}
+	
+	/**
+	 * Retourne la hauteur d'une case
+	 */
 	
 	public double getTailleBoiteY () {
 		

@@ -15,6 +15,7 @@ public class Terre extends GameObject {
 		
 		super(tag, pv, x, y, masse, collisionneur) ;
 		this.setObstacle() ;
+		super.setCoeffFrottement(10) ;
 		
 	}
 

@@ -30,12 +30,6 @@ import java.util.Collections;
 
 public class Polygone {
 	
-	/**
-	 * Constructeur permettant d'initialiser rapidement un polygone vide
-	 * 
-	 * @since 1.0
-	 */
-	
 	ArrayList<Point> listeSommets ;
 	
 	/**
@@ -112,8 +106,9 @@ public class Polygone {
 	
 	/**
 	 * Retourne le point d'intersection des deux polygones
+	 * 
 	 * @param polygone0
-	 * @return
+	 * @return Le premier Point rencontré
 	 * @since 2.1
 	 */
 	
@@ -183,7 +178,7 @@ public class Polygone {
 	 * Retourne le point situ� � l'indice i dans la liste
 	 * 
 	 * @param i
-	 * @return Point
+	 * @return Le Point à l'indice i
 	 * @since 1.0
 	 */
 	
@@ -214,8 +209,7 @@ public class Polygone {
 	}
 	
 	/**
-	 * Ajoute les x et les y du vecteur � chaque point
-	 * du polygone
+	 * Ajoute le Point au Polygone
 	 * 
 	 * @param vecteur
 	 * @since 2.0
@@ -229,11 +223,27 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Ajoute un nouveau Point crée à partir
+	 * des coordonnées fournies
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	
 	public void ajouterSommet (double x, double y) {
 		
 		this.ajouterSommet(new Point (x, y)) ;
 		
 	}
+	
+	/**
+	 * Retourne vrai si le Polygone contient le Point
+	 * passé en paramètre
+	 * 
+	 * @param point
+	 * @return
+	 */
 	
 	public boolean contient (Point point) {
 		
@@ -257,11 +267,27 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Retourne le nombre de Points que contient
+	 * le Polygone
+	 * 
+	 * @return La taille de la liste de Point
+	 */
+	
 	public int nbSommets () {
 		
 		return this.listeSommets.size() ;
 		
 	}
+	
+	/**
+	 * Retourne vrai si tous les sommets du Polygone
+	 * sont compris entre 0 et xMax et 0 et yMax
+	 * 
+	 * @param xMax
+	 * @param yMax
+	 * @return Vrai si le Polygone est situé dans les bornes données
+	 */
 	
 	public boolean estInclusDans (double xMax, double yMax) {
 		
@@ -286,6 +312,12 @@ public class Polygone {
 		return !depasseLesBornes ;
 		
 	}
+	
+	/**
+	 * Renvoie vrai si les deux figures sont identiques
+	 * 
+	 * @param poly2
+	 */
 	
 	public boolean estEgalA (Polygone poly2) {
 		
@@ -314,6 +346,13 @@ public class Polygone {
 		return estEgal ;
 		
 	}
+	
+	/**
+	 * Classe les Point du Polygone dans un ordre permettant de les afficher
+	 * séquentiellement
+	 * 
+	 * @return Un tableau permettant d'afficher le Polygone
+	 */
 	
 	public ArrayList<ArrayList<Point>> tableauOrdonne () {
 		
@@ -348,6 +387,12 @@ public class Polygone {
 		return nvListe ;
 		
 	}
+	
+	/**
+	 * Retourne la plus petite et la plus grande coordonnées x du Polygone
+	 * 
+	 * @return Les extrêmités x du Polygone
+	 */
 	
 	public double[] minMaxX () {
 		
@@ -387,6 +432,12 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Retourne la plus petite et la plus grande coordonnées y du Polygone
+	 * 
+	 * @return Les extrêmités y du Polygone
+	 */
+	
 	public double[] minMaxY () {
 		
 		int i ;
@@ -425,6 +476,10 @@ public class Polygone {
 		return minMax ;
 		
 	}
+	
+	/**
+	 * Affiche le Polygone à l'aide d'étoiles
+	 */
 	
 	public String toString () {
 		
