@@ -41,10 +41,10 @@ public class Jeu {
 		this.tf = new TraducteurFichier(nomF) ;
 		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
 		
-		this.ennemi= new Ennemi("first", 100, 5,t.getTailleX()/2, posYJoueur+1000, 1., 1., 1., new Collisionneur (t.getTailleX()/2, posYJoueur+1000, m.getTailleTileY() + t.getTailleX()/2 - 1, m.getTailleTileX() + posYJoueur+1000 - 1), this, 5);
-		this.p = new Personnage ("Wall-E", 100., 10., t.getTailleX()/2, posYJoueur+1000, 1., 1., 1., new Collisionneur (t.getTailleX()/2, posYJoueur+1000, m.getTailleTileY() + t.getTailleX()/2 - 1, m.getTailleTileX() + posYJoueur+1000 - 1),this, 10);
-		this.p.getInventaire().ajouterObjet(o) ;
-		this.p.ajouterObjetMain(o);
+		//this.ennemi= new Ennemi("first", 100, 5,t.getTailleX()/2, posYJoueur+1000, 1., 1., 1., new Collisionneur (t.getTailleX()/2, posYJoueur+1000, m.getTailleTileY() + t.getTailleX()/2 - 1, m.getTailleTileX() + posYJoueur+1000 - 1), this, 5);
+		//this.p = new Personnage ("Wall-E", 100., 10., t.getTailleX()/2, posYJoueur+1000, 1., 1., 1., new Collisionneur (t.getTailleX()/2, posYJoueur+1000, m.getTailleTileY() + t.getTailleX()/2 - 1, m.getTailleTileX() + posYJoueur+1000 - 1),this, 10);
+		//this.p.getInventaire().ajouterObjet(o) ;
+		//this.p.ajouterObjetMain(o);
 		this.m.apparaitDansLaMap(this.p, this.t) ;
 	}
 	

@@ -24,6 +24,7 @@ public abstract class NonInventeriable extends GameObject{
 		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement) ;
 		this.jeu=jeu;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
+		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		
 	}
 	

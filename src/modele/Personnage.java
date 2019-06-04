@@ -58,9 +58,10 @@ public class Personnage extends NonInventeriable {
 			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
 		
 		
-		else 
+		else {
+			System.out.println(this.getPtsAttaque());
 			o.perdrePV(this.getPtsAttaque());
-			
+		}
 		
 		
 	}
