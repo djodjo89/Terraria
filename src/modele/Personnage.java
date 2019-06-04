@@ -57,8 +57,11 @@ public class Personnage extends NonInventeriable {
 		if(this.main instanceof Outil ) 
 			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
 		
+		
 		else 
 			o.perdrePV(this.getPtsAttaque());
+			
+		
 		
 	}
 	public void ajouterObjetMain (Inventeriable o) {
@@ -69,18 +72,22 @@ public class Personnage extends NonInventeriable {
 	
 	public Inventeriable destructionTerrain(int x, int y) {
 		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
+		
 		Terrain terrain = this.getJeu().getTerrain();
 		Inventeriable blocCible = null;
+		
 		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
 			
-			terrain.getListeLignes().get(y).get(x).perdrePV(10);
+			this.attaque(terrain.getListeLignes().get(y).get(x));
 			System.out.println(terrain.getListeLignes().get(y).get(x).getPV());
 				
 			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
+				
+				terrain.getListeLignes().get(y).get(x).setPv(100);
 				Air caseMap = new Air("air");
 				blocCible = terrain.getListeLignes().get(y).get(x);
-				System.out.println(x);
-				System.out.println(y);
+				//System.out.println(x);
+				//System.out.println(y);
 				terrain.getListeLignes().get(y).set(x,caseMap);
 				
 			}
@@ -89,14 +96,18 @@ public class Personnage extends NonInventeriable {
 	}
 	
 	public void poserBlockTerrain(int x, int y) {
+		
 		Terrain terrain = this.getJeu().getTerrain();
-		if (this.getInventaire().getListObjet().get(2).getTag().equals("terre")) {
+		this.donner(this.getInventaire().getListObjet().get(2));
+		int j = this.i.chercheObjetDansInventaire(this.getMain());
+		
+		if (this.main.estUnObstacle() && this.main !=null) {
 	
-			Terre caseMap = new Terre("terre");
-			caseMap.estUnObstacle();
+			Inventeriable caseMap = this.getInventaire().getListObjet().get(j);
 			terrain.getListeLignes().get(y).set(x,caseMap);
 			this.getInventaire().retirerObjet(caseMap);
-			System.out.println("etape2");
+			objetMainExisteEncore(caseMap);
+			//System.out.println("etape2");
 		}
 	}
 	
@@ -111,6 +122,15 @@ public class Personnage extends NonInventeriable {
 	public Inventaire getInventaire (){
 		
 		return this.i ;
+	}
+	
+	public void objetMainExisteEncore(GameObject o) {
+		if (this.i.chercheObjetDansInventaire(o) == -1) {
+			this.main = null;
+			System.out.println("main vide");
+			
+		}
+		System.out.println(this.main);
 	}
 	
 

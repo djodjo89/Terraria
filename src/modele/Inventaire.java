@@ -84,19 +84,23 @@ public class Inventaire {
 		if (this.estVide()) if (this.listeObjets.contains(o)) this.listeQtes.set(this.listeObjets.indexOf(o), this.listeObjets.indexOf(o) - 1) ;
 		this.listeQtes.set(j, this.listeQtes.get(j)-1);
 		System.out.println(this.listeQtes);
+		if(this.listeQtes.get(j) == 0) {
+			supprimerObjet(o);
+			System.out.println("yes");
+		}
 	}
 
 	// Supprime complètement un type d'objet de la liste
 	
 	public void supprimerObjet (GameObject o) {
 		
-		if (this.estVide())
-		
-			if (this.listeObjets.contains(o)) {
+		if (!this.estVide())
 			
+			if (this.listeObjets.contains(o)) {
+				
 				this.listeQtes.set(this.listeObjets.indexOf(o), 0) ;
 				this.listeObjets.remove(o) ;
-			
+				System.out.println(this.listeObjets);
 			}
 		
 	}

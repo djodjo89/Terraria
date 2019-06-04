@@ -76,4 +76,12 @@ public abstract class NonInventeriable extends GameObject{
 		
 		return nb;
 	}
+	/*
+	public boolean zoneDetection(int clickx,int clicky) {
+		if ((this.getX()>=clickx && this.getX()+50<=clickx) || this.getY()>=clicky && this.getY()+50<=clicky) {
+			return true;
+		}
+		return false;
+	}
+	*/
 }

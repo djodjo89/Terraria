@@ -63,6 +63,8 @@ public class ControleurMap {
 	private int y;
 	
 	
+	
+	
 	public ControleurMap(Pane pane, Jeu jeu, Images image) {
 		
 		this.pane =pane ;
@@ -99,6 +101,7 @@ public class ControleurMap {
 					while (changement.next()) {
 						if(changement.wasReplaced()) {
 							x = changement.getFrom();
+							
 							//get(x).getFrom;//changement.getAddedSubList();
 							System.out.println(x);
 							remplacerImage();
@@ -115,6 +118,7 @@ public class ControleurMap {
 	public void remplacerImage() {
 		
 		int y = this.jeu.getTerrain().getPositionBlockY();
+		
 		//System.out.println("ok");
 		//System.out.println(pane.getChildren().toString());
 		String nom = x + ":" + y;
