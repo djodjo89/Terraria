@@ -2,7 +2,7 @@ package modele;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
-import vue.Tuile;
+import modele.Personnage;
 
 public class Scrolling {
 	

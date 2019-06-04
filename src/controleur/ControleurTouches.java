@@ -2,6 +2,7 @@ package controleur;
 
 import modele.* ;
 import vue.Menu;
+import vue.Scrolling;
 import vue.Tuile;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -138,9 +139,9 @@ public class ControleurTouches {
 		this.ToucheAppuyer = new ArrayList<String>();
 		derniereDirection=new String("droite");
 		this.perso=perso;
+		menu=new Menu(pane);
 		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
-		menu=new Menu(pane);
 		this.controlIvent=controlInvent;
 
 	}
@@ -224,10 +225,10 @@ public class ControleurTouches {
 				break;
 				
 				case "ESCAPE":
-					if(!menu.estAffiche())
+					if(!menu.estAffiche()) 
 						menu.afficheMenu(scroll.getX(),scroll.getY());
 						
-					else
+					else 
 						menu.disparait();
 					break;
 
