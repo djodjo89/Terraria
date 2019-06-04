@@ -299,7 +299,7 @@ public class Polygone {
 		
 		while (!depasseLesBornes && i < this.nbSommets()) {
 			
-			if (this.get(i).getX() < 0 || this.get(i).getY() < 0 || this.get(i).getX() >= xMax || this.get(i).getY() >= yMax) {
+			if (this.get(i).getX() < 0 || this.get(i).getY() < 0 || (int)this.get(i).getX() - 1 >= xMax || (int)this.get(i).getY() - 1 >= yMax) {
 				
 				depasseLesBornes = true ;
 				

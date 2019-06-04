@@ -3,9 +3,6 @@ package controleur;
 import modele.* ;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 
@@ -23,44 +20,17 @@ public class ControleurTouches {
 
 	private Jeu j ;
 	private Pane p ;
-	private ArrayList<String> touchesPressees ;
 
 	public ControleurTouches (Pane p, Jeu j) {
 
 		this.j = j ;
 		this.p = p ;
-		this.touchesPressees = new ArrayList<>() ;
 		this.setKeyListener () ;
 
 	}
 
 	public void setKeyListener () {
-		
-		/*this.p.setOnKeyReleased(new EventHandler<KeyEvent>() {		
-
-			@Override
-			public void handle(KeyEvent event) {
-
-				if (event.getCode() == KeyCode.SPACE)
-					
-					touchesPressees.remove("E") ;
-				
-				if (event.getCode() == KeyCode.D)
-					
-					touchesPressees.remove("D") ;
-				
-				if (event.getCode() == KeyCode.S)
-					
-					touchesPressees.remove("S") ;
-				
-				if (event.getCode() == KeyCode.Q)
-					
-					touchesPressees.remove("Q") ;
-				
-			}
 			
-		});*/
-
 		this.p.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override

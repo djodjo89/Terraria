@@ -55,6 +55,7 @@ public class GameObject {
 	private double hauteurSaut ;
 	private boolean estUnObstacle ;
 	private double coeffFrottement ;
+	public boolean peutSauter ;
 	private Collisionneur collisionneur ;
 	
 	/**
@@ -93,6 +94,31 @@ public class GameObject {
 		this.collisionneur = collisionneur ;
 		this.estUnObstacle = false ;
 		this.coeffFrottement = 0 ;
+		this.peutSauter = false ;
+		
+	}
+	
+	public void setSautPossible () {
+		
+		this.peutSauter = true ;
+		
+	}
+	
+	public void setSautImpossible () {
+		
+		this.peutSauter = false ;
+		
+	}
+	
+	public void verifSiPeutSauter (Vecteur v) {
+		
+		if (v.getY() == 0.0)
+			
+			this.setSautPossible() ;
+		
+		else
+			
+			this.setSautImpossible() ;
 		
 	}
 	
@@ -161,7 +187,13 @@ public class GameObject {
 
 		switch (direction) {
 
-			case "haut" : vecteurDeplacement = new Vecteur (0, -this.getPuissanceSaut(m)) ;
+			case "haut" : if (this.peutSauter)
+				
+							vecteurDeplacement = new Vecteur (0, -this.getPuissanceSaut(m)) ;
+			
+						  else
+							  
+							vecteurDeplacement = new Vecteur (0, 0) ;
 	
 			break ;
 	
@@ -368,7 +400,7 @@ public class GameObject {
 	
 	public void ajouter (Vecteur vecteur) {
 		
-		this.vecteurVitesse.ajouter(vecteur); ;
+		this.vecteurVitesse.ajouter(vecteur);
 		
 	}
 	

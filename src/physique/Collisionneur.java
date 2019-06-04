@@ -79,8 +79,8 @@ public class Collisionneur {
 
 		boolean depasse = false ;
 
-		if (this.boite.minMaxY()[0] < 0 || this.boite.minMaxX()[0] < 0 || Math.ceil(this.boite.minMaxY()[1]) > t.getDerniereCase().getCollisionneur().getBoite().get(3).getY() || Math.ceil(this.boite.minMaxX()[1]) > t.getDerniereCase().getCollisionneur().getBoite().get(3).getX())
-
+		if (!this.boite.estInclusDans(t.getDerniereCase().getCollisionneur().getBoite().get(3).getX(), t.getDerniereCase().getCollisionneur().getBoite().get(3).getY()))
+		
 			depasse = true ;
 
 		return depasse ;
@@ -108,9 +108,11 @@ public class Collisionneur {
 		boolean deplacementPossible ;
 		Collisionneur collisionneurTemporaire ;
 		Vecteur nouveauVecteur ;
+		Vecteur vecteurDeplacement ;
 		
 		deplacementPossible = true ;
 		nouveauVecteur = new Vecteur (0, 0) ;
+		vecteurDeplacement = new Vecteur (vecteur.getX() / 200, vecteur.getY() / 200) ;
 
 		if (!this.depasseLesLimitesDeLaMap(terrain, moteur)) {
 
@@ -120,8 +122,8 @@ public class Collisionneur {
 
 			while (deplacementPossible && (Math.abs(nouveauVecteur.getX()) < Math.abs(vecteur.getX()) || Math.abs(nouveauVecteur.getY()) < Math.abs(vecteur.getY())) && !collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur)) {
 
-				collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (vecteur.getX() / 100, vecteur.getY() / 100)) ;
-				nouveauVecteur.ajouter(vecteur.getX() / 100, vecteur.getY() / 100);
+				collisionneurTemporaire.getBoite().ajouterAChaquePoint(vecteurDeplacement) ;
+				nouveauVecteur.ajouter(vecteurDeplacement);
 				
 				/*
 				 * i <- 0
@@ -147,30 +149,22 @@ public class Collisionneur {
 					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).getTag().equals("T"))) {
 
 						deplacementPossible = false ;
+
 					}
 
 					i ++ ;
 
 				}
 				
-
-
-			}
-			
-			if (!deplacementPossible) {
-				
-				//collisionneurTemporaire.getBoite().ajouterAChaquePoint(new Vecteur (-vecteur.getX() / 100, -vecteur.getY() / 100)) ;
-				nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
-				//System.out.println(vecteur);
-				//System.out.println(nouveauVecteur);
-				
 			}
 
 		}
-		
-		else
+
+		if (this.depasseLesLimitesDeLaMap(terrain, moteur) || !deplacementPossible) {
 			
-			nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
+			nouveauVecteur.ajouter(-vecteur.getX() / 200, -vecteur.getY() / 200);
+			
+		}
 		
 		return nouveauVecteur ;
 	

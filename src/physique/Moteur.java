@@ -59,7 +59,7 @@ public class Moteur {
 	public void appliquerForces (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 		this.appliquerPesanteur(go, t);
-		this.appliquerForceElectromagnetique(go, t);
+		go.verifSiPeutSauter(this.appliquerForceElectromagnetique(go, t)) ;
 		go.deplacer () ;
 		
 	}
