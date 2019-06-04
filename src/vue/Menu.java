@@ -53,9 +53,11 @@ public class Menu {
 		estLa=true;
 	}
 	
-	public void afficheMenu(int X) throws URISyntaxException {
+	public void afficheMenu(double X,double y) throws URISyntaxException {
 		fond.setTranslateX(-X);
 		menuBox.setTranslateX(-X);
+		fond.setTranslateY(-y);
+		menuBox.setTranslateY(-y);
 		menuBox.setVisible(true);
         fond.setVisible(true);
         estLa=true;
