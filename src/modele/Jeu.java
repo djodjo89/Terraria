@@ -30,10 +30,10 @@ public class Jeu {
 		
 		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.80) ;
 		this.ennemi= new Ennemi("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1), this, 5);
-		this.p = new Personnage ("Wall-E", 100., 10., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1),this, 10) ;
+		this.p = new Personnage ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1),this, 10) ;
 		Outil o = new Outil("Torche", new Collisionneur(posXJoueur, posYJoueur, posXJoueur + this.m.getTailleTileX(), posYJoueur + this.m.getTailleTileY())) ;
 		this.p.getInventaire().ajouterObjet(o) ;
-		this.p.ajouterObjetMain(o);
+		//this.p.ajouterObjetMain(o);
 		this.tf = new TraducteurFichier(nomF) ;
 		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
 		this.m.apparaitDansLaMap(this.p, this.t) ;
