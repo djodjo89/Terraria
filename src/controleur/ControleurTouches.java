@@ -1,10 +1,30 @@
 package controleur;
 
 import modele.* ;
+import vue.Menu;
+import vue.Scrolling;
+import vue.Tuile;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+
+import exceptions.VousEtesCoinceException;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
+import javafx.geometry.Insets;
+import javafx.geometry.Point3D;
+import javafx.geometry.Pos;
+
 
 /*
  * Le Controleur de touches gère les cas d'entrées
@@ -16,86 +36,209 @@ import javafx.scene.input.KeyCode;
  * - "Q" fait aller à gauche
  */
 
+/**
+ * <h1>ControleurTouches est la classe chargée d'enregister les touches
+ * pressées par le joueur et de modifier le modèle en conséquence</h1>
+ * 
+ * <p>Un ControleurTouches possède :
+ * 	<ul>
+ * 		<li>Un booléen espace permettant de déclencher un saut</li>
+ * 		<li>Une String derniereDirection permettant de connaître la dernière direction du personnage</li>
+ * 		<li>Un Jeu permettant de faire bouger le personnage dans le modèle</li>
+ * 		<li>Une ArrayList<String> permettant de connaître les touches pressées lors d'une frame</li>
+ * 		<li>Un Pane chargé de transmettre les touches pressées et relâchées</li>
+ * 		<li>Une Tuile à faire pivoter sur elle-même lors d'un chagement de direction</li>
+ * 	<ul>
+ * 	Lorsque le joueur appuie sur plusieurs touches, le contrôleur le prend en compte et les active les unes
+ * 	à la suite des autres.
+ * <p>
+ * 
+ * @see Jeu
+ * @see Tuile
+ * 
+ * @author Mathys
+ * @version 2.0
+ */
+
 public class ControleurTouches {
-
-	private Jeu j ;
+	
 	private Pane p ;
+	
+	/**
+	 * La dernière direction
+	 * 
+	 * <p>Donne la dernière direction dans laquelle est allé le personnage</p>
+	 * 
+	 * @see ControleurTouches#gererControleur()
+	 * @see ControleurTouches#setKeyListener()
+	 */
+	
+	private String derniereDirection;
+	
+	/**
+	 * La Jeu du contrôleur
+	 * 
+	 * <p>Permet de déplacer le personnage du jeu lors de l'appui sur une touche</p>
+	 * 
+	 * @see ControleurTouches#ControleurTouches(Pane, Jeu, Tuile)
+	 * @see Jeu#getPerso()
+	 */
+	
+	private Jeu jeu ;
+	
+	/**
+	 * La liste des touches pressées par le joueur
+	 * 
+	 * <p>Permet de déplacer le personnage du jeu lors de l'appui sur une touche</p>
+	 * 
+	 * @see Jeu#getPerso()
+	 */
+	
+	private ArrayList<String> ToucheAppuyer;
+	
+	/**
+	 * Le Pane principal
+	 * 
+	 * <p>Permet de connaître les touches pressées par le joueur</p>
+	 * 
+	 * @see ControleurTouches#setKeyListener()
+	 */
+	
+	private Pane pane ;
+	
+	/**
+	 * La Tuile du personnage
+	 * 
+	 * <p>Tourne sur son axe y en cas de changement de direction</p>
+	 * 
+	 * @see ControleurTouches#setKeyListener()
+	 */
+	
+	private Tuile perso;
 
-	public ControleurTouches (Pane p, Jeu j) {
+	private Scrolling scroll;
+	
+	private Menu menu;
+	
+	private int nbE=0;
+	
+	private ControleurTerraria controlIvent;
 
-		this.j = j ;
-		this.p = p ;
-		this.setKeyListener () ;
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, ControleurTerraria controlInvent) {
+		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
+		this.jeu = jeu ;
+		this.pane = pane ;
+		this.ToucheAppuyer = new ArrayList<String>();
+		derniereDirection=new String("droite");
+		this.perso=perso;
+		menu=new Menu(pane);
+		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
+		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
+		this.controlIvent=controlInvent;
 
 	}
 
-	public void setKeyListener () {
-			
-		this.p.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	public void gererControleur() {
+		this.pane.setOnKeyPressed(
+				new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
 				
-				if (event.getCode() == KeyCode.SPACE)
-					
-					j.getPerso().deplacerVers("haut", j.getMoteur());
-				
-				if (event.getCode() == KeyCode.D)
-					
-					j.getPerso().deplacerVers("droite", j.getMoteur());
-				
-				if (event.getCode() == KeyCode.S)
-					
-					j.getPerso().deplacerVers("bas", j.getMoteur());
-				
-				if (event.getCode() == KeyCode.Q)
-					
-					j.getPerso().deplacerVers("gauche", j.getMoteur());
-				
-				/*if (event.getCode() == KeyCode.SPACE)
-					
-					touchesPressees.add("E") ;
-				
-				if (event.getCode() == KeyCode.D)
-					
-					touchesPressees.add("D") ;
-				
-				if (event.getCode() == KeyCode.S)
-					
-					touchesPressees.add("S") ;
-				
-				if (event.getCode() == KeyCode.Q)
-					
-					touchesPressees.add("Q") ;
-				
-				if (touchesPressees.contains("E") && touchesPressees.contains("D"))
-					
-					j.getPerso().deplacerVers("hautdroite", j.getMoteur()) ;
-				
-				else if (touchesPressees.contains("E") && touchesPressees.contains("Q"))
-					
-					j.getPerso().deplacerVers("hautgauche", j.getMoteur()) ;
-				
-				else if (touchesPressees.contains("E"))
-					
-					j.getPerso().deplacerVers("haut", j.getMoteur());
-				
-				else if (touchesPressees.contains("D"))
-					
-					j.getPerso().deplacerVers("droite", j.getMoteur()) ;
-				
-				else if (touchesPressees.contains("Q"))
-					
-					j.getPerso().deplacerVers("gauche", j.getMoteur()) ;
+				String code=event.getCode().toString();
+				if(!ToucheAppuyer.contains(code) && code!="ESCAPE"&& code!="E" && !menu.estAffiche())
+					ToucheAppuyer.add(code);
+			}
 			
-				else if (touchesPressees.contains("S"))
+		});
+		
+		this.pane.setOnKeyReleased(
+				new EventHandler<KeyEvent>() {
 					
-					j.getPerso().deplacerVers("bas", j.getMoteur()) ;*/
+			@Override
+			public void handle(KeyEvent event) {
+				
+				String code = event.getCode().toString() ;
+				ToucheAppuyer.remove(code) ;
+				if (code =="ESCAPE" || code == "E")
+					ToucheAppuyer.add(code) ;
+				
+			}
+					
+					
+		}) ;
+				
+	}
+	
+	public void setKeyListener () throws VousEtesCoinceException, URISyntaxException {
+		
+		for(String touche : this.ToucheAppuyer) {
+
+			switch(touche) {
+
+				case "Q":
+
+					jeu.getPerso().deplacerVers("gauche", jeu.getMoteur());
+					if(derniereDirection.equals("droite")) {
+
+						perso.setRotate(180);
+
+					}
+
+					derniereDirection="gauche";						
+				break;
+
+				case "S":
+					jeu.getPerso().deplacerVers("bas", jeu.getMoteur());
+				break;
+
+				case "D":
+
+					jeu.getPerso().deplacerVers("droite", jeu.getMoteur());
+					
+					if(derniereDirection.equals("gauche")) {
+						perso.setRotate(0);
+					}
+
+					derniereDirection="droite";
+				break;
+				
+				case "SPACE" :
+					
+					jeu.getPerso().deplacerVers("haut", jeu.getMoteur());
+					
+				break ;
+
+				case "E":
+					if(nbE%2==0) {
+						this.controlIvent.derouleInventaire();
+						this.nbE++;
+					}
+					else {
+						this.controlIvent.reduitInventaire();
+						this.nbE++;
+					}		
+				break;
+				
+				case "ESCAPE":
+					if(!menu.estAffiche()) {
+						this.ToucheAppuyer.removeAll(ToucheAppuyer);
+						menu.afficheMenu(scroll.getX(),scroll.getY());}
+						
+					else 
+						menu.disparait();
+					break;
 
 			}
 
-		});
+		}
+		this.ToucheAppuyer.remove("ESCAPE");
+		this.ToucheAppuyer.remove("E");
 
+	}
+		
+	public Menu getMenu() {
+		return this.menu;
 	}
 
 }

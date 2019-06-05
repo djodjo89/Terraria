@@ -23,21 +23,25 @@ import javafx.collections.ObservableList;
 		
 		private double tailleCaseX ;
 		private double tailleCaseY ;
-		private ArrayList<ObservableList<GameObject>> listeDeLignes ;
+		private ObservableList<ObservableList<Inventeriable>> listeDeLignes ;
+		
+		private int positionBlockY;
+		
 
 		public Terrain (ArrayList<ObservableList<String>> newlist, double tailleCaseX, double tailleCaseY) {
 			
 			this.tailleCaseX = tailleCaseX ;
 			this.tailleCaseY = tailleCaseY ;
-			this.listeDeLignes = new ArrayList<ObservableList<GameObject>> () ;
+			this.listeDeLignes = FXCollections.observableArrayList() ;
 			this.initTerrain(newlist) ;
+			this.positionBlockY = 0;
 			
 		}
 		
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
 			String nomCase ;
-			GameObject caseMap = null ;
+			Inventeriable caseMap = null ;
 
 			
 			for (int i = 0 ; i < newlist.size() ; i ++) {
@@ -50,9 +54,11 @@ import javafx.collections.ObservableList;
 					
 					switch (nomCase) {
 					
-					case "T" : caseMap = new Terre(nomCase) ; break ;
+					case "T" : caseMap = new Terre("terre") ; break ;
 					
-					case "A" : caseMap = new Air(nomCase) ; break ;
+					case "A" : caseMap = new Air("air") ; break ;
+					
+					case "G": caseMap = new Granite("granite"); break;
 					
 					}
 					
@@ -60,6 +66,7 @@ import javafx.collections.ObservableList;
 							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY),
 							new Point (j * this.tailleCaseX, i * this.tailleCaseY + 49),
 							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49))) ;
+
 					this.listeDeLignes.get(i).add(caseMap) ;
 					
 				}
@@ -104,11 +111,46 @@ import javafx.collections.ObservableList;
 			
 		}
 		
-		public ArrayList<ObservableList<GameObject>> getListeLignes () {
+		public ObservableList<ObservableList<Inventeriable>> getListeLignes () {
 			
 			return this.listeDeLignes ;
 			
 		}
+		/*
+		public Inventeriable destructionTerrain(int x, int y) {
+			//System.out.println(this.getListeLignes().get(y).get(x).getPV());
+			Inventeriable blocCible = null;
+			if(this.listeDeLignes.get(y).get(x).estUnObstacle() && this.listeDeLignes.get(y).get(x).getPV()>0) {
+				
+				this.listeDeLignes.get(y).get(x).perdrePV(10);
+				System.out.println(this.listeDeLignes.get(y).get(x).getPV());
+					
+				if(this.listeDeLignes.get(y).get(x).getPV() <= 0) {
+					Inventeriable caseMap = new Air("A");
+					blocCible = this.listeDeLignes.get(y).get(x);
+					System.out.println(x);
+					System.out.println(y);
+					this.listeDeLignes.get(y).set(x,caseMap);
+					
+				}
+			}
+			return blocCible;
+		}
+		
+		public void poserBlockTerrain(int x, int y) {
+			Terre caseMap = new Terre("T");
+			this.listeDeLignes.get(y).set(x,caseMap);
+		}
+		*/
+		public void setPositionBlockY(int y) {
+			this.positionBlockY = y;
+		}
+		
+		public int getPositionBlockY() {
+			return this.positionBlockY;
+		}
+		
+		
 
 	}
 

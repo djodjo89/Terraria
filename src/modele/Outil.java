@@ -13,13 +13,18 @@ import physique.GameObject;
  * - donner la propriété de ses points d'attaque
  */
 
-public class Outil extends GameObject {
+public class Outil extends Inventeriable {
 	
 	private DoubleProperty ptsAttaque ;
 	
-	public Outil (String tag, double pv, double x, double y, double masse, Collisionneur c) {
+	public Outil(String tag) {
+		super(tag);
+		this.ptsAttaque=new SimpleDoubleProperty(50);
+	}
+	
+	public Outil (String tag, Collisionneur c) {
 		
-		super (tag, 500, 0, 0, 10, c) ;
+		super (tag, 500, c,false) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}

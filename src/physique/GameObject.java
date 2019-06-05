@@ -43,7 +43,7 @@ import javafx.beans.property.* ;
  *
  */
 
-public class GameObject {
+public abstract class GameObject {
 	
 	String tag ;
 	private DoubleProperty pv ;
@@ -66,7 +66,15 @@ public class GameObject {
 	
 	public GameObject (String tag) {
 		
-		this.tag = tag ;
+		this(tag, 100, 0., 0., 0., null, 0.) ;
+		
+	}
+	
+	// Pour les objets statiques
+	public GameObject (String tag, double pv, Collisionneur c,boolean estUnObstacle) {
+		
+		this(tag, pv, 0, 0, 0., c, 0.) ;
+		this.estUnObstacle=estUnObstacle;
 		
 	}
 	
@@ -81,18 +89,17 @@ public class GameObject {
 	 * @param collisionneur
 	 */
 	
-	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur) {
+	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur, double vitesseDeplacement) {
 		
 		this.vitesseDeplacement = 1 ;
 		this.hauteurSaut = 10 ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
 		this.tag = tag ;
-		this.posX = new SimpleDoubleProperty(pv) ;
+		this.pv = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
 		this.posY = new SimpleDoubleProperty(posY) ;
 		this.vecteurVitesse = new Vecteur(0, 0) ;
 		this.masse = masse ;
 		this.collisionneur = collisionneur ;
-		this.estUnObstacle = false ;
 		this.coeffFrottement = 0 ;
 		this.peutSauter = false ;
 		

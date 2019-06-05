@@ -15,33 +15,37 @@ import javafx.beans.property.* ;
  * - attaquer un objet
  */
 
-public class Personnage extends GameObject {
+public class Personnage extends NonInventeriable {
 	
-	private DoubleProperty ptsAttaque ;
-	private Outil main ;
-	private Jeu jeu;
+	
+	private Inventeriable main ;
+
 	private Inventaire i ;
 	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double masse, Collisionneur c, Jeu jeu) {
+	public Personnage () {
 		
-		super (nom, pv, x, y, masse, c) ;
-		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
-		this.jeu=jeu;
-		this.i = new Inventaire (20) ;
+		super () ;
+		this.main = null;
+		this.i = new Inventaire(10);		
 		
 	}
 	
-	public void donner (Outil o) {
+	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
+		
+		super (nom, pv, x, y, vitesseX, c, distanceDeplacement,jeu,ptsAtt) ;
+		
+		this.i = new Inventaire (20) ;
+		this.setObstacle() ;
+		
+	}
+	
+	public void donner (Inventeriable o) {
 		
 		this.main = o ;
 		
 	}
 	
-	public double getPtsAttaque () {
-		
-		return this.ptsAttaque.getValue () ;
-		
-	}
+
 	
 	public GameObject getMain () {
 		
@@ -51,16 +55,63 @@ public class Personnage extends GameObject {
 	
 	public void attaque (GameObject o) {
 		
-		o.perdrePV (this.main.getPtsAttaque()) ;
+		if(this.main instanceof Outil ) 
+			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
+		
+		
+		else {
+			System.out.println(this.getPtsAttaque());
+			o.perdrePV(this.getPtsAttaque());
+		}
+		
+	}
+	
+	public void ajouterObjetMain (Inventeriable o) {
+		
+		this.donner(this.i.getInventaire().get(0)) ;
+		
+	}
+	
+	public Inventeriable destructionTerrain(int x, int y) {
+		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
+		
+		Terrain terrain = this.getJeu().getTerrain();
+		Inventeriable blocCible = null;
+		
+		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
+			
+			this.attaque(terrain.getListeLignes().get(y).get(x));
+				
+			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
+				
+				Air caseMap = new Air("air");
+				
+				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
+				blocCible = terrain.getListeLignes().get(y).get(x);
+				blocCible.setPv(100) ;
+				terrain.getListeLignes().get(y).set(x,caseMap);
+				
+			}
+		}
+		return blocCible;
+	}
+	
+	public void poserBlockTerrain(int x, int y) {
+		
+		Terrain terrain = this.getJeu().getTerrain();
+		this.donner(this.getInventaire().getListObjet().get(2));
+		int j = this.i.chercheObjetDansInventaire(this.getMain());
+		
+		if (this.main.estUnObstacle() && this.main !=null) {
+	
+			Inventeriable caseMap = this.getInventaire().getListObjet().get(j);
+			terrain.getListeLignes().get(y).set(x,caseMap);
+			this.getInventaire().retirerObjet(caseMap);
+			objetMainExisteEncore(caseMap);
+		}
+	}
+	
 
-	}
-	
-	public void ajouterObjetMain (Outil o) {
-		
-		this.donner((Outil)this.i.getInventaire().get(0)) ;
-		
-	}
-	
 	public Inventaire getInventaire (){
 		
 		return this.i ;
@@ -69,6 +120,18 @@ public class Personnage extends GameObject {
 	public String toString () {
 		
 		return "" + this.getVecteurVitesse().getX() + ":" + this.getVecteurVitesse().getY() ;
+		
 	}
+		
+	public void objetMainExisteEncore(GameObject o) {
+		if (this.i.chercheObjetDansInventaire(o) == -1) {
+			this.main = null;
+			System.out.println("main vide");
+			
+		}
+		System.out.println(this.main);
+	}
+	
+
 
 }

@@ -109,7 +109,7 @@ public class Moteur {
 		Vecteur v ;
 		
 		v = go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this) ;
-		go.setVitesse(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
+		go.setVitesse(v) ;
 		
 		return v ;
 		
