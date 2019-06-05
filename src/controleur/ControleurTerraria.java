@@ -208,7 +208,6 @@ public class ControleurTerraria implements Initializable {
 	private Personnage personnage;
 	private ControleurInventaire controlInvent;
 	private ArrayList<Tuile> listItemsInvent;
-	private ImageView ennemi;
 	
 	public void initBoucleJeu() {
 		
@@ -421,12 +420,16 @@ public class ControleurTerraria implements Initializable {
 		
 	}
 	public void initEnnemi() {
-		this.ennemi= new Tuile("first",0,0,this.images.getImage("ennemi")) ;
-		this.paneMap.getChildren().add(ennemi);
-		this.ennemi.setFocusTraversable(false);
-		this.ennemi.toFront();
-		this.ennemi.translateXProperty().bind(jeu.getEnnemi().getXProperty());
-		this.ennemi.translateYProperty().bind(jeu.getEnnemi().getYProperty());
+		Tuile ennemi;
+		for(NonInventeriable ennemiJeu: jeu.getEnnemi()) {
+			ennemi= new Tuile(ennemiJeu.getTag(),0,0,this.images.getImage("ennemi")) ;
+			paneMap.getChildren().add(ennemi);
+			ennemi.setFocusTraversable(false);
+			ennemi.toFront();
+			ennemi.translateXProperty().bind(ennemiJeu.getXProperty());
+			ennemi.translateYProperty().bind(ennemiJeu.getYProperty());
+		}
+		
 	}
 	
 	public void derouleInventaire() {

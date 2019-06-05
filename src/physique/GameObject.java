@@ -55,7 +55,7 @@ public abstract class GameObject {
 	private double hauteurSaut ;
 	private boolean estUnObstacle ;
 	private double coeffFrottement ;
-	public boolean peutSauter ;
+	
 	private Collisionneur collisionneur ;
 	
 	/**
@@ -101,33 +101,13 @@ public abstract class GameObject {
 		this.masse = masse ;
 		this.collisionneur = collisionneur ;
 		this.coeffFrottement = 0 ;
-		this.peutSauter = false ;
+		
 		
 	}
 	
-	public void setSautPossible () {
-		
-		this.peutSauter = true ;
-		
-	}
+
 	
-	public void setSautImpossible () {
-		
-		this.peutSauter = false ;
-		
-	}
-	
-	public void verifSiPeutSauter (Vecteur v) {
-		
-		if (v.getY() == 0.0)
-			
-			this.setSautPossible() ;
-		
-		else
-			
-			this.setSautImpossible() ;
-		
-	}
+
 	
 	/**
 	 * Retourne la masse du GameObject
@@ -145,7 +125,7 @@ public abstract class GameObject {
 	 * @param m
 	 */
 	
-	private double getPuissanceSaut (Moteur m) {
+	protected double getPuissanceSaut (Moteur m) {
 
 		return this.hauteurSaut ;
 		
@@ -180,67 +160,7 @@ public abstract class GameObject {
 		
 	}
 	
-	/**
-	 * Ajoute au Vecteur vitesse du GameObject un nouveau Vecteur
-	 * en fonction de la direction entrée en paramètre
-	 * 
-	 * @param direction
-	 * @param m
-	 */
-	
-	public void deplacerVers (String direction, Moteur m) {
-		
-		Vecteur vecteurDeplacement ;
 
-		switch (direction) {
-
-			case "haut" : if (this.peutSauter)
-				
-							vecteurDeplacement = new Vecteur (0, -this.getPuissanceSaut(m)) ;
-			
-						  else
-							  
-							vecteurDeplacement = new Vecteur (0, 0) ;
-	
-			break ;
-	
-			case "droite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, 0) ;
-	
-			break ;
-	
-			case "bas" : vecteurDeplacement = new Vecteur (0, this.vitesseDeplacement) ;
-	
-			break ;
-	
-			case "gauche" : vecteurDeplacement = new Vecteur (-vitesseDeplacement, 0) ;
-	
-			break ;
-			
-			case "hautdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, -this.getPuissanceSaut(m)) ;
-	
-			break ;
-			
-			case "basdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, this.vitesseDeplacement) ;
-	
-			break ;
-			
-			case "basgauche" : vecteurDeplacement = new Vecteur (-vitesseDeplacement, this.vitesseDeplacement) ;
-	
-			break ;
-			
-			case "hautgauche" : vecteurDeplacement = new Vecteur (-this.vitesseDeplacement, -this.getPuissanceSaut(m)) ;
-	
-			break ;
-			
-			default : vecteurDeplacement = new Vecteur (0, 0) ;
-			
-			break ;
-
-		}
-		
-		this.ajouter(vecteurDeplacement) ;
-		
-	}
 	
 	/**
 	 * Change les pv du GameObject

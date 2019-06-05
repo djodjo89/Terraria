@@ -13,19 +13,6 @@ public class Licorne extends Ennemi{
 	
 	public void deplaceVersPerso(Personnage perso) {
 		
-		System.out.println(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()+1).getTag());
-		if(perso.getX()>this.getX()) {
-			if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getTag()=="air")
-				this.deplacerVers("droite", super.getJeu().getMoteur());
-			else
-				this.deplacerVers("haut", super.getJeu().getMoteur());
-		}
-		else if(perso.getX()<this.getX()) {
-			if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()+1).getTag()=="air")
-				this.deplacerVers("gauche", super.getJeu().getMoteur());
-			else
-				this.deplacerVers("haut", super.getJeu().getMoteur());
-		}
 	}
 
 

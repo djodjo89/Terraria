@@ -3,6 +3,7 @@ package physique;
 import exceptions.HorsDeLaMapException;
 import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
+import modele.NonInventeriable;
 import modele.Terrain;
 
 /**<h1>Le Moteur gère la physique d'un Jeu</h1>
@@ -56,7 +57,7 @@ public class Moteur {
 	 * @throws HorsDeLaMapException
 	 */
 	
-	public void appliquerForces (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
+	public void appliquerForces (NonInventeriable go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 		this.appliquerPesanteur(go, t);
 		go.verifSiPeutSauter(this.appliquerForceElectromagnetique(go, t)) ;
@@ -143,6 +144,10 @@ public class Moteur {
 		
 		return this.tailleBoiteY ;
 		
+	}
+	
+	public Vecteur getGraviteInverse(GameObject go) {
+		return new Vecteur (0, -(go.getMasse() * this.accelerationDePesanteur));
 	}
 	
 }

@@ -2,7 +2,7 @@ package modele;
 
 import physique.Collisionneur;
 
-public class EnnemiVolant extends Ennemi {
+public abstract class EnnemiVolant extends Ennemi {
 
 	public EnnemiVolant (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
 		
@@ -10,9 +10,7 @@ public class EnnemiVolant extends Ennemi {
 		
 	}
 
+
 	@Override
-	public void deplaceVersPerso(Personnage perso) {
-		// TODO Auto-generated method stub
-		
-	}
+	public abstract void deplaceVersPerso(Personnage perso);
 }

@@ -22,6 +22,7 @@ public class Personnage extends NonInventeriable {
 
 	private Inventaire i ;
 	
+	
 	public Personnage () {
 		
 		super () ;
