@@ -24,7 +24,7 @@ public class Jeu {
 	private Moteur moteur ;
 	private Personnage perso ;
 	private Terrain terrain ;
-	private Ennemi ennemi;
+	private Licorne ennemi;
 	private TraducteurFichier tf ;
 	
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
@@ -35,7 +35,7 @@ public class Jeu {
 		p2 = new Point (posXJoueur + 41, posYJoueur) ;
 		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase) ;
 		p4 = new Point (posXJoueur + 41, posYJoueur + taillePixelsYCase) ;
-		this.ennemi= new Ennemi("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
+		this.ennemi= new Licorne("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
 		this.perso = new Personnage ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4),this, 10) ;
 		
 		this.tf = new TraducteurFichier(nomF) ;
@@ -75,7 +75,7 @@ public class Jeu {
 	
 	}
 
-	public Ennemi getEnnemi() {
+	public Licorne getEnnemi() {
 		return this.ennemi;
 	}
 

@@ -17,4 +17,5 @@ public abstract class Inventeriable extends GameObject {
 	public Inventeriable() {
 		super("vide");
 	}
+	
 }

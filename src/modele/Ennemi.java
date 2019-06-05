@@ -12,7 +12,7 @@ import physique.GameObject;
  *
  */
 
-public class Ennemi extends NonInventeriable{
+public abstract class Ennemi extends NonInventeriable{
 	
 	private int nbTourSaut;
 	
@@ -31,14 +31,23 @@ public class Ennemi extends NonInventeriable{
 	}
 	
 	
-	public void deplaceVersPerso(Personnage perso) throws VousEtesCoinceException {
-
-		if (perso.getX()<this.getX()) {
-			this.deplacerVers("gauche", super.getJeu().getMoteur());
-		}
-		else  {
-			this.deplacerVers("bas", super.getJeu().getMoteur());
-		}
+	public abstract void deplaceVersPerso(Personnage perso);
+		
+		
+	
+	public int positionXMap() {
+		int position;
+		
+		position=(int)this.getX()/50;
+		
+		return position;
+	}
+	public int positionYMap() {
+		int position;
+		
+		position=(int)this.getY()/50;
+		
+		return position;
 	}
 	
 	public int getNbTourSaut() {
