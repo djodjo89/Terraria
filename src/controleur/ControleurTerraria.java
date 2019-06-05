@@ -332,16 +332,20 @@ public class ControleurTerraria implements Initializable {
     		nom = "" +i;
     		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleTileX()),0,this.images.getImage("fondInventaire"));
     		this.paneInventaire.getChildren().add(tile);
-    		
+    		/*
     		if(jeu.getPerso().getInventaire().getListObjet().get(i) != null) {
 		    		tileItem1 = new Tuile(nom,(i*jeu.getMoteur().getTailleTileX())+10,10,this.images.getImage(this.jeu.getPerso().getInventaire().getListObjet().get(i).getTag()));
 		    		this.paneItemsInventaire.getChildren().add(tileItem1);
 		    		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.jeu.getPerso(), this.jeu.getPerso().getInventaire().getListObjet().get(i));
     			
-    		}
-}
+    		}*/
+    	}
 	}
 
+	public void afficheObjetInventaire() {
+		
+	}
+	
 	/**
 	 * Initialise tous les composants nécessaires au lancement du jeu
 	 * 

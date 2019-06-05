@@ -2,7 +2,7 @@ package controleur;
 
 import modele.* ;
 import vue.Menu;
-import vue.Scrolling;
+//import modele.Scrolling;
 import vue.Tuile;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

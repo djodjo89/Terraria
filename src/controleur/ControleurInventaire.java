@@ -1,39 +1,52 @@
 package controleur;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.sun.javafx.tk.Toolkit;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import modele.Inventeriable;
 import modele.Jeu;
 import modele.Personnage;
 import vue.Tuile;
+import ressources.Images;
 
 public class ControleurInventaire {
 
-	private Tuile t;
 	private Jeu j;
-	private Inventeriable objet;
+	private Images image;
+	private Pane pane;
 	private Personnage perso;
+	
 
-	public ControleurInventaire(Tuile t, Jeu j, Personnage perso , Inventeriable obj) {
-		this.t=t;
+	public ControleurInventaire(Jeu j, Images img, Pane pane, Personnage perso) {
 		this.j=j;
-		this.perso = perso;
-		this.objet = obj;
-		this.setClickListener();
-		
+		this.image=img;
+		this.pane=pane;
+		this.perso=perso;
 	}
 	
-	public void setClickListener() {
-		this.t.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-			this.perso.donner(this.objet);	
-			System.out.println(this.perso.getMain().getTag());
-			event.consume();
-		});
+	public Personnage getPerso() {
+		return this.perso;
 	}
 	
-	public void setObjet(Inventeriable ob) {
-		this.objet=ob;
+	public Images getImg() {
+		return this.image;
+	}
+	
+	public void afficheItem(Inventeriable item) {
+		for(int i=0; i<this.perso.getInventaire().getListObjet().size(); i++) {
+			Tuile itemes = new Tuile((""+i), this.image.getImage(this.perso.getInventaire().getListObjet().get(i).getTag()));
+			
+			this.pane.getChildren().add(itemes);
+		}
 	}
 }

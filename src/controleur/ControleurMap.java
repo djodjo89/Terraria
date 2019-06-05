@@ -119,26 +119,13 @@ public class ControleurMap {
 		
 		int y = this.jeu.getTerrain().getPositionBlockY();
 		
-		//System.out.println("ok");
-		//System.out.println(pane.getChildren().toString());
 		String nom = x + ":" + y;
-		//System.out.println(pane.getChildren().get(0).getId());
 		for (int i = 0; i < pane.getChildren().size(); i++) {
 			if(pane.getChildren().get(i).getId().equals(nom)) {
-				//System.out.println("cool");
-				//ImageView b = (ImageView) pane.getChildren().get(i);
-			
 				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleTileX(), y * this.jeu.getMoteur().getTailleTileY(), this.images.getImage(this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag()));
 				pane.getChildren().set(i, a);
-				//b.setImage(images.getImage("air"));
 			}
 		}
-		
-		//Parent parent = pane;
-		//System.out.println(parent.toString());
-		//Tuile b = (Tuile) parent.lookup("#" + x + ":" + y);
-		//b.toString();
-		//b.setImg("air");
 	}
 	
 }
