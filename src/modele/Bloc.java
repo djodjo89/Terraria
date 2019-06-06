@@ -39,7 +39,7 @@ public class Bloc extends Inventeriable implements Cliquable {
 				terrain.getListeLignes().get(y).set(x,caseMap);
 					
 					jeu.getPerso().getInventaire().ajouterObjet(this);
-					System.out.println(jeu.getPerso().getInventaire().getListObjet());
+					System.out.println(jeu.getPerso().getInventaire().getInventaire());
 				
 			}
 		}

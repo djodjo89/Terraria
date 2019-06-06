@@ -4,6 +4,7 @@
 import physique.* ;
 import java.util.ArrayList;
 
+import fabriques.FabriqueGameObject;
 import geometrie.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,20 +53,13 @@ import javafx.collections.ObservableList;
 					
 					nomCase = newlist.get(i).get(j) ;
 					
-					switch (nomCase) {
 					
-					case "T" : caseMap = new Terre("terre") ; break ;
-					
-					case "A" : caseMap = new Air("air") ; break ;
-					
-					case "G": caseMap = new Granite("granite"); break;
-					
-					}
-					
-					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
+					Collisionneur colisionobjet = new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
 							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY),
 							new Point (j * this.tailleCaseX, i * this.tailleCaseY + 49),
-							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49))) ;
+							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49)) ;
+					
+					caseMap = (Bloc)FabriqueGameObject.creerGameObjectDemander(nomCase, colisionobjet);
 
 					this.listeDeLignes.get(i).add(caseMap) ;
 					

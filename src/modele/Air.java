@@ -1,5 +1,7 @@
 package modele;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap;
+
 /**
  * <h1>Air est un bloc non Inventeriable traversable</h1>
  * 
@@ -21,13 +23,14 @@ public class Air extends Bloc implements Cliquable {
 		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
 		Terrain terrain = jeu.getTerrain();
 		Personnage perso = jeu.getPerso();
-		System.out.println(perso.getInventaire().getListObjet());
-		perso.donner(perso.getInventaire().getListObjet().get(1));
+		System.out.println(perso.getInventaire().getInventaire());
+		perso.donner((Inventeriable)perso.getInventaire().getInventaire().get(1).getKey());
 		int j = perso.getInventaire().chercheObjetDansInventaire(perso.getMain());
 		
 		if (perso.getMain().estUnObstacle() && perso.getMain() !=null) {
 	
-			Bloc caseMap = (Bloc) perso.getInventaire().getListObjet().get(j);
+			Bloc caseMap = (Bloc) perso.getInventaire().getInventaire().get(j).getKey();
+			caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur());
 			terrain.getListeLignes().get(y).set(x,caseMap);
 			perso.getInventaire().retirerObjet(caseMap);
 			perso.objetMainExisteEncore(caseMap);

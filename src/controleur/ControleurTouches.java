@@ -1,7 +1,9 @@
 package controleur;
 
 import modele.* ;
+import vue.InventaireVue;
 import vue.Menu;
+//import modele.Scrolling;
 import vue.Scrolling;
 import vue.Tuile;
 import javafx.scene.control.Button;
@@ -123,8 +125,9 @@ public class ControleurTouches {
 	private int nbE=0;
 	
 	private ControleurTerraria controlIvent;
+	private InventaireVue invVue;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, ControleurTerraria controlInvent) {
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, InventaireVue vueInvent) {
 		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
@@ -134,7 +137,7 @@ public class ControleurTouches {
 		menu=new Menu(pane);
 		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
-		this.controlIvent=controlInvent;
+		this.invVue=vueInvent;
 
 	}
 
@@ -211,11 +214,11 @@ public class ControleurTouches {
 
 				case "E":
 					if(nbE%2==0) {
-						this.controlIvent.derouleInventaire();
+						this.invVue.derouleInventaire();
 						this.nbE++;
 					}
 					else {
-						this.controlIvent.reduitInventaire();
+						this.invVue.reduitInventaire();
 						this.nbE++;
 					}		
 				break;

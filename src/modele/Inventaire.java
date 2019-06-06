@@ -1,7 +1,10 @@
 package modele;
 
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import physique.* ;
 
 /*
@@ -26,25 +29,18 @@ import physique.* ;
 
 public class Inventaire {
 
-	public ObservableList<Inventeriable> listeObjets ;
-	public ObservableList<Integer> listeQtes ;
+	private ObservableList<Tuple> listeObjets;
 
 	public Inventaire (int taille) {
-
-		this.listeObjets = FXCollections.observableArrayList() ;
-		this.listeQtes = FXCollections.observableArrayList() ;
+		this.listeObjets=FXCollections.observableArrayList();
 		this.initInventaire(taille);
 
 	}
 
 	private void initInventaire (int taille) {
-
-
-		for (int i = 0 ; i < taille ; i ++) {
-			this.listeObjets.add(null) ;
-			this.listeQtes.add(0) ;
-		}
-
+		
+		for (int i = 0 ; i < taille ; i ++) 
+			this.listeObjets.add(new Tuple(null,0)) ;
 	}
 
 	// Si l'objet n'existe pas dans la liste d'objets,
@@ -54,37 +50,36 @@ public class Inventaire {
 		
 		int i =0 ;
 		int j = chercheObjetDansInventaire(o);
-		System.out.println(o.getPV());
 			
-		
-
 			if (j == -1) {
-				while (this.listeObjets.get(i) != null) {
+				while (this.listeObjets.get(i).getKey() != null && i<19) {
 					i ++ ;
 				}
-				this.listeObjets.set(i, o) ;
-				this.listeQtes.set(i, 1) ;
+				System.out.println("i" + i);
+				this.listeObjets.add(i,new Tuple(o, 1));
+				
 			}
 			else {
-
-				this.listeQtes.set(j, this.listeQtes.get(j)+1);
-				System.out.println(this.listeQtes);
+				this.listeObjets.get(i).increment();
+				
 			}
 			
-
-
 	}
 	
 	// Retire un seul objet de la liste
 	
-	public void retirerObjet (GameObject o) {
+	public void retirerObjet (Inventeriable o) {
 		
-		int j = chercheObjetDansInventaire(o);
+		int pos = chercheObjetDansInventaire(o);
 		
-		if (this.estVide()) if (this.listeObjets.contains(o)) this.listeQtes.set(this.listeObjets.indexOf(o), this.listeObjets.indexOf(o) - 1) ;
-		this.listeQtes.set(j, this.listeQtes.get(j)-1);
-		System.out.println(this.listeQtes);
-		if(this.listeQtes.get(j) == 0) {
+		if (!this.estVide()) {
+			
+			if(pos != -1) {
+				this.listeObjets.get(pos).decrement();
+			}
+		}
+
+		if(this.listeObjets.get(pos).getValue() == 0) {
 			supprimerObjet(o);
 			System.out.println("yes");
 		}
@@ -92,33 +87,16 @@ public class Inventaire {
 
 	// Supprime complètement un type d'objet de la liste
 	
-	public void supprimerObjet (GameObject o) {
+	public void supprimerObjet (Inventeriable o) {
 		
-		if (!this.estVide())
-			
-			if (this.listeObjets.contains(o)) {
-				
-				this.listeQtes.set(this.listeObjets.indexOf(o), 0) ;
-				this.listeObjets.remove(o) ;
-				System.out.println(this.listeObjets);
+		int pos = chercheObjetDansInventaire(o);
+		
+		if (!this.estVide())	
+			if (pos != -1) {		
+				this.listeObjets.remove(pos);
 			}
-		
 	}
 	
-	//public boolean estDansLInventaire (GameObject o) {
-		
-		//boolean estDansInventaire = false;
-		//int i ;
-		//while (i<this.listeObjets.size() && !estDansInventaire) {
-			//if(this.listeObjets.get(i).getTag().equals(o.getTag())) {
-				//estDansInventaire = true;
-			//}
-			///i++;
-		//}
-		//return estDansInventaire;
-		
-		
-	//}
 	
 	public boolean estVide () {
 		
@@ -126,15 +104,16 @@ public class Inventaire {
 		
 	}
 	
-	public int chercheObjetDansInventaire(GameObject o) {
+	public int chercheObjetDansInventaire(Inventeriable o) {
 		
 		boolean objetExistant = false;
 		int j = 0;
 			
-			while (this.listeObjets.get(j)!=null && (j < this.listeObjets.size() && objetExistant == false)) {
-				//System.out.println(o.getTag());
-				
-				if (this.listeObjets.get(j).getTag().equals(o.getTag())) {
+
+
+			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
+				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
+				if (inv.getTag().equals(o.getTag())) {
 					
 					objetExistant  = true;
 					
@@ -144,26 +123,25 @@ public class Inventaire {
 				}
 			}
 			if (objetExistant) {
-			return j;
+				return j;
 			}
 			else {
 				return -1;
 			}
 	}
 	
-	public ObservableList<Inventeriable> getInventaire () {
+	public ObservableList<Tuple> getInventaire () {
 		
 		return this.listeObjets ;
 		
 	}
 	
-	
-	public ObservableList<Inventeriable> getListObjet(){
-		return this.listeObjets;
-	}
-	
-	public ObservableList<Integer> getQuantiteObjets(){
-		return this.listeQtes;
+	public ObservableList<Inventeriable> getListeObjets(){
+		ObservableList<Inventeriable> listObjets = FXCollections.observableArrayList();
+		for(int i=0; i<this.listeObjets.size();i++) {
+			listObjets.add((Inventeriable)this.listeObjets.get(i).getKey());
+		}
+		return listObjets;
 	}
 	
 

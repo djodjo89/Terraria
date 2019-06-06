@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ressources.Images;
 
-public class Tuile extends ImageView{
+public class Tuile extends ImageView {
 	private Images image;
 	
 	public Tuile(String id, double x, double y, Image img) {
@@ -15,8 +15,7 @@ public class Tuile extends ImageView{
 		this.setImage(img);
 		
 	}
-	
-	
+		
 	//Constructeur qui initialise les coordonnée à 0
 	public Tuile(String id, Image img) {
 		this.setId(id);
