@@ -38,10 +38,9 @@ public class Jeu {
 		p2 = new Point (posXJoueur + 41, posYJoueur) ;
 		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase) ;
 		p4 = new Point (posXJoueur + 41, posYJoueur + taillePixelsYCase) ;
-		this.ennemi= new Licorne("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
-		this.ennemiVol= new LicorneVolante("second", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
-		
-		this.perso = new PersonnagePrincipal ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4),this) ;
+		this.ennemi= new Licorne("first", 100, 10,posXJoueur, posYJoueur, 1., 8.5, 1., new Collisionneur (p1, p2, p3, p4), this, 5);
+		this.ennemiVol= new LicorneVolante("second", 100, 10,posXJoueur, posYJoueur, 1., 8.5, 1., new Collisionneur (p1, p2, p3, p4), this, 5);		
+		this.perso = new PersonnagePrincipal ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 8.5, 1., new Collisionneur (p1, p2, p3, p4),this) ;
 		
 		this.tf = new TraducteurFichier(nomF) ;
 		
