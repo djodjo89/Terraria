@@ -45,13 +45,15 @@ public abstract class Personnage extends GameObject{
 	}
 	public void verifSiPeutSauter (Vecteur v) {
 		
-		if (v.getY() <= 0.1)
+		if (v.getY() == 0)
 			
 			this.setSautPossible() ;
 		
 		else
 			
 			this.setSautImpossible() ;
+		
+		System.out.println(v.getY());
 		
 	}
 	
