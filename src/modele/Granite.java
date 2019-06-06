@@ -1,8 +1,5 @@
 package modele;
 
-import physique.Collisionneur;
-
-
 public class Granite extends Bloc {
 		
 		

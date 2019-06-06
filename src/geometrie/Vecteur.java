@@ -12,6 +12,13 @@ public class Vecteur {
 		
 	}
 	
+	public void ajouter (Vecteur v) {
+		
+		this.x += v.getX() ;
+		this.y += v.getY() ;
+		
+	}
+	
 	public void ajouter (double x, double y) {
 		
 		this.x += x ;
@@ -34,6 +41,12 @@ public class Vecteur {
 	public double getY () {
 		
 		return this.y ;
+		
+	}
+	
+	public String toString () {
+		
+		return this.x + ":" + this.y ;
 		
 	}
 

@@ -20,29 +20,24 @@ public class Ennemi extends NonInventeriable{
 		
 		super () ;
 		this.nbTourSaut=0;
-
-		
 		
 	}
 	
 	public Ennemi (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
 		
-		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement,jeu,ptsAtt) ;
+		super (nom, pv, x, y, vitesseX, c, distanceDeplacement,jeu,ptsAtt) ;
 		this.setObstacle() ;
 		this.nbTourSaut=0;
 	}
 	
 	
 	public void deplaceVersPerso(Personnage perso) throws VousEtesCoinceException {
+
 		if (perso.getX()<this.getX()) {
-			this.deplacementColision("gauche");
-			if(!this.jePeuxMeDeplacerLa("gauche") && nbTourSaut<=20)
-				nbTourSaut=this.sauter(nbTourSaut, true);
+			this.deplacerVers("gauche", super.getJeu().getMoteur());
 		}
 		else  {
-			this.deplacementColision("droite");
-			if(!this.jePeuxMeDeplacerLa("droite")&& nbTourSaut<=20)
-				nbTourSaut=this.sauter(nbTourSaut, true);
+			this.deplacerVers("bas", super.getJeu().getMoteur());
 		}
 	}
 	

@@ -1,12 +1,15 @@
 package controleur;
 
 import modele.* ;
+import vue.InventaireVue;
 import vue.Menu;
 //import modele.Scrolling;
+import vue.Scrolling;
 import vue.Tuile;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,7 +32,7 @@ import javafx.geometry.Pos;
  * Le Controleur de touches gère les cas d'entrées
  * clavier et définit ce qui se passe en fonction
  * de la touche :
- * - "ESPACE" fait monter/sauter
+ * - "ESPACE" fait sauter
  * - "D" fait aller à droite
  * - "S" fait descendre
  * - "Q" fait aller à gauche
@@ -61,16 +64,7 @@ import javafx.geometry.Pos;
 
 public class ControleurTouches {
 	
-	/**
-	 * La touche espace
-	 * 
-	 * <p>Dit si la touche espace a été pressée. Si c'est le case, espace est à mis à true</p>
-	 * 
-	 * @see ControleurTouches#espaceActive()
-	 * @see ControleurTouches#setEspaceFalse()
-	 */
-
-	private boolean espace;
+	private Pane p ;
 	
 	/**
 	 * La dernière direction
@@ -131,8 +125,9 @@ public class ControleurTouches {
 	private int nbE=0;
 	
 	private ControleurTerraria controlIvent;
+	private InventaireVue invVue;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, ControleurTerraria controlInvent) {
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, InventaireVue vueInvent) {
 		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
@@ -142,47 +137,51 @@ public class ControleurTouches {
 		menu=new Menu(pane);
 		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
-		this.controlIvent=controlInvent;
+		this.invVue=vueInvent;
 
 	}
-	
-	
-	public ControleurTouches() {
-		// TODO Auto-generated constructor stub
-	}
-
 
 	public void gererControleur() {
 		this.pane.setOnKeyPressed(
 				new EventHandler<KeyEvent>() {
-				public void handle(KeyEvent e) {
-					String code=e.getCode().toString();
 
-					if(!ToucheAppuyer.contains(code) && code!="ESCAPE"&& code!="E" && !menu.estAffiche())
-						ToucheAppuyer.add(code);
-				}
-				});
+			@Override
+			public void handle(KeyEvent event) {
+				
+				String code=event.getCode().toString();
+				if(!ToucheAppuyer.contains(code) && code!="ESCAPE"&& code!="E" && !menu.estAffiche())
+					ToucheAppuyer.add(code);
+			}
+			
+		});
+		
 		this.pane.setOnKeyReleased(
 				new EventHandler<KeyEvent>() {
-				public void handle(KeyEvent e) {
-					String code=e.getCode().toString();
-						ToucheAppuyer.remove(code);
-						if(code=="ESCAPE"||code=="E")
-							ToucheAppuyer.add(code);
-				}
-				});
+					
+			@Override
+			public void handle(KeyEvent event) {
+				
+				String code = event.getCode().toString() ;
+				ToucheAppuyer.remove(code) ;
+				if (code =="ESCAPE" || code == "E")
+					ToucheAppuyer.add(code) ;
+				
+			}
+					
+					
+		}) ;
 				
 	}
 	
 	public void setKeyListener () throws VousEtesCoinceException, URISyntaxException {
-
+		
 		for(String touche : this.ToucheAppuyer) {
 
 			switch(touche) {
 
-				case "Q":		
-					scroll.faireScroll( jeu.getPerso());
-					jeu.getPerso().deplacementColision("gauche");
+				case "Q":
+
+					jeu.getPerso().deplacerVers("gauche", jeu.getMoteur());
 					if(derniereDirection.equals("droite")) {
 
 						perso.setRotate(180);
@@ -193,12 +192,12 @@ public class ControleurTouches {
 				break;
 
 				case "S":
-					jeu.getPerso().deplacementColision("bas") ;
+					jeu.getPerso().deplacerVers("bas", jeu.getMoteur());
 				break;
 
 				case "D":
-					scroll.faireScroll(jeu.getPerso());
-					jeu.getPerso().deplacementColision("droite") ;
+
+					jeu.getPerso().deplacerVers("droite", jeu.getMoteur());
 					
 					if(derniereDirection.equals("gauche")) {
 						perso.setRotate(0);
@@ -207,26 +206,27 @@ public class ControleurTouches {
 					derniereDirection="droite";
 				break;
 				
+				case "SPACE" :
+					
+					jeu.getPerso().deplacerVers("haut", jeu.getMoteur());
+					
+				break ;
 
 				case "E":
 					if(nbE%2==0) {
-						this.controlIvent.derouleInventaire();
+						this.invVue.derouleInventaire();
 						this.nbE++;
 					}
 					else {
-						this.controlIvent.reduitInventaire();
+						this.invVue.reduitInventaire();
 						this.nbE++;
 					}		
 				break;
-
-				case "SPACE":
-						scroll.faireScroll(jeu.getPerso());
-					espace=true;
-				break;
 				
 				case "ESCAPE":
-					if(!menu.estAffiche()) 
-						menu.afficheMenu(scroll.getX(),scroll.getY());
+					if(!menu.estAffiche()) {
+						this.ToucheAppuyer.removeAll(ToucheAppuyer);
+						menu.afficheMenu(scroll.getX(),scroll.getY());}
 						
 					else 
 						menu.disparait();
@@ -239,12 +239,7 @@ public class ControleurTouches {
 		this.ToucheAppuyer.remove("E");
 
 	}
-	public boolean espaceActive() { 
-		return espace;
-	}
-	public void setEspaceFalse() {
-		espace=false;
-	}
+		
 	public Menu getMenu() {
 		return this.menu;
 	}

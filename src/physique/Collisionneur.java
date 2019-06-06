@@ -2,215 +2,233 @@ package physique;
 
 import modele.* ;
 import exceptions.* ;
+import geometrie.* ;
 
-/*
- * Ma classe préférée :) J'ai passé un week-end dessus
- * Collisionneur est une "boîte" délimitée par quatre
- * côtés : xDeb pour le gauche, yDeb pour le haut, 
- * xFin pour le droit et yFin pour celui du bas
- * Il peut dire si un déplacement est possible à partir
- * d'une direction de déplacement, d'un terrain et d'un
- * moteur et s'afficher.
+/**
+ * <h1>Un Collisionneur est un objet possédant un Polygone
+ * appelé "boîte".</h1>
+ * <p>Il sert à :</>
+ * <ul>
+ * 		<li>Détecter, à partir d'un Terrain et d'un
+ * 		moteur, si la boîte se situe hors des limites de la map</li>
+ * 		<li>Vérifier s'il peut se déplacer selon un certain
+ * 		vecteur, et renvoyer un vecteur plus petit si nécessaire</li>
+ * 		<li>Vérifier s'il chevauche un autre Collisionneur, et renvoyer
+ * 		le Point de chevauchement le cas échéant</li>
+ * 		<li>Placer dans un tableau d'entier ses coordonnées selon le
+ *		 Moteur</li>
+ * 		<li>Fournir sa boîte</li>
+ * </ul>
+ * @see Point
+ * @see Polygone
+ * @see Vecteur
+ * @see Moteur
+ * @see Terrain
+ * 
+ * @author Mathys
+ * @version 2.0
+ *
  */
 
 public class Collisionneur {
 
-	private double xDeb;
-	private double yDeb;
-	private double xFin;
-	private double yFin;
+	Polygone boite ;
+	
+	/**
+	 * Crée un Collisionneur vide
+	 * 
+	 * @version 2.0
+	 */
 
 	public Collisionneur () {
 
-		this (0., 0., 0., 0.);
+		this.boite = new Polygone () ;
+
+	}
+	
+	/**
+	 * Crée un Collisionneur à partir des Points
+	 * entrés en paramètres
+	 * 
+	 * @param points
+	 * 
+	 * @version 2.0
+	 */
+	
+	public Collisionneur (Point... points) {
+
+		this() ;
+		this.boite = new Polygone (points) ;		
+
+	}
+	
+	/**
+	 * 
+	 * Retourne vrai si le Collisionneur dépasse les
+	 * limites de la map passée en paramètre
+	 * 
+	 * @param t
+	 * @param m
+	 * @return
+	 * @throws HorsDeLaMapException
+	 * 
+	 * @version 2.0
+	 */
+
+	public boolean depasseLesLimitesDeLaMap (Terrain t, Moteur m) throws HorsDeLaMapException {
+
+		boolean depasse = false ;
+
+		if (!this.boite.estInclusDans(t.getDerniereCase().getCollisionneur().getBoite().get(3).getX(), t.getDerniereCase().getCollisionneur().getBoite().get(3).getY()))
+		
+			depasse = true ;
+
+		return depasse ;
 
 	}
 
-	public Collisionneur (double xDeb, double yDeb, double xFin, double yFin) {
+	/**
+	 * 
+	 * <h1>Retourne le Vecteur dont peut se déplacer le Collisionneur dans la direction donnée</h1>
+	 * <p>A partir du Vecteur, du Terrain et du Moteur passés en paramètre, calcule la position d'un
+	 * "Collisionneur virtuel". S'il est en collision, retourne un vecteur réduit, sinon retourne le vecteur tel quel</p>
+	 * 
+	 * @param vecteur
+	 * @param terrain
+	 * @param moteur
+	 * @return Le Vecteur dont peut se déplacer le Collisionneur
+	 * @throws VousEtesCoinceException
+	 * @throws HorsDeLaMapException
+	 */
 
-		this.xDeb = xDeb ;
-		this.yDeb = yDeb ;
-		this.xFin = xFin ;
-		this.yFin = yFin ;
+	public Vecteur deplacementPossible (Vecteur vecteur, Terrain terrain, Moteur moteur) throws VousEtesCoinceException, HorsDeLaMapException {
 
-	}
+		int i ;
+		int[] coordonneesDuPoint ;
+		boolean deplacementPossible ;
+		Collisionneur collisionneurTemporaire ;
+		Vecteur nouveauVecteur ;
+		Vecteur vecteurDeplacement ;
+		
+		deplacementPossible = true ;
+		nouveauVecteur = new Vecteur (0, 0) ;
+		vecteurDeplacement = new Vecteur (vecteur.getX() / 200, vecteur.getY() / 200) ;
 
-	public boolean deplacementPossible (String direction, Terrain t, GameObject go, Moteur m) throws VousEtesCoinceException {
+		if (!this.depasseLesLimitesDeLaMap(terrain, moteur)) {
 
-		boolean deplacementOK ;
+			// On crée un collisionneur virtuel qui se déplace sur la case visée
+			collisionneurTemporaire = new Collisionneur () ;
+			collisionneurTemporaire.getBoite().copie(this.boite) ;
 
-		deplacementOK = false ;
+			while (deplacementPossible && (Math.abs(nouveauVecteur.getX()) < Math.abs(vecteur.getX()) || Math.abs(nouveauVecteur.getY()) < Math.abs(vecteur.getY())) && !collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur)) {
 
-		switch (direction) {
+				collisionneurTemporaire.getBoite().ajouterAChaquePoint(vecteurDeplacement) ;
+				nouveauVecteur.ajouter(vecteurDeplacement);
+				
+				/*
+				 * i <- 0
+				 * Tant Que le d�placement est possible et que le point � l'indice i ne chevauche pas d'obstacle
+				 * 	Récupérer ses coordonnées enti�res
+				 * 	Récupérer le Collisionneur situé à ces coordonnées
+				 * 	Si c'est un obstacle
+				 * 		Voir si notre collisionneur le chevauche
+				 * 		S'il le chevauche
+				 * 			le déplacement est impossible
+				 *		Fin Si
+				 * 	Fin Si
+				 * Fin Tant Que
+				 */
 
-		case "haut" : deplacementOK = !tombeSurUnObstacle(direction,0, -1, t, m, go) ; break ;
-		case "droite" : deplacementOK = !tombeSurUnObstacle(direction,1, 0, t, m, go) ; break ;
-		case "bas" : deplacementOK = !tombeSurUnObstacle(direction,0, 1, t, m, go) ; break ;
-		case "gauche" : deplacementOK = !tombeSurUnObstacle(direction,-1, 0, t, m, go) ; break ;
+				i = 0 ;
+				coordonneesDuPoint = new int[2] ;
 
-		}
+				while (deplacementPossible && i < collisionneurTemporaire.getBoite().nbSommets()) {
 
-		return deplacementOK ;
+					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
 
-	}
+					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle())) {
+						//System.out.println("d�placement impossible");
+						deplacementPossible = false ;
 
-	private boolean tombeSurUnObstacle (String direction, int x, int y, Terrain t, Moteur m, GameObject go) throws VousEtesCoinceException {
+					}
 
-		boolean depassePlafond = this.yDeb + y * go.getDistanceDeplacement() < 0 ;
-		boolean depasseMurDroite = this.xFin + x * go.getDistanceDeplacement() > t.getTailleX() ;
-		boolean depasseFond = this.yFin + y * m.getGravite() * go.getDistanceDeplacement() > t.getTailleY() ;
-		boolean depasseMurGauche = this.xDeb + x * go.getDistanceDeplacement() < 0 ;
-
-		boolean rentreDansUnObstacle=true;
-		boolean peutAvancer = !(depassePlafond || depasseMurDroite || depasseFond || depasseMurGauche) ;
-
-		if (peutAvancer) {
-
-			if (!this.chevaucheUnObstacle(t, m)) {
-
-				switch (direction) {
-
-				case "haut" :
-
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebSuiv(y, m, go), this.getCoorXDebActuel(m), this.getCoorYDebSuiv(y, m, go), this.getCoorXFinActuel(m), t, m, go) ;
-
-					break ;
-
-				case "droite" :
-
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebActuel(m), this.getCoorXFinSuiv(x, m, go), this.getCoorYFinActuel(m), this.getCoorXFinSuiv(x, m, go), t, m, go) ;
-
-					break ;
-
-				case "bas" :
-
-					if (peutAvancer) 
-						
-						rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYFinSuiv(y, m, go), this.getCoorXDebActuel(m), this.getCoorYFinSuiv(y, m, go), this.getCoorXFinActuel(m), t, m, go) ;
-					break ;
-
-				case "gauche" :
-
-					if (peutAvancer) rentreDansUnObstacle = laCaseDeCeCoteEstUnObstacle (this.getCoorYDebActuel(m), this.getCoorXDebSuiv(x, m, go), this.getCoorYFinActuel(m), this.getCoorXDebSuiv(x, m, go), t, m, go) ;
-
-					break ;
+					i ++ ;
 
 				}
-
-			}
-
-			else {
-
-				throw new VousEtesCoinceException (this, t, m) ;
-
+				
 			}
 
 		}
-		return rentreDansUnObstacle ;
 
-	}
+		if (this.depasseLesLimitesDeLaMap(terrain, moteur) || !deplacementPossible) {
 
-	// J'admets que c'est un peu lourd, mais c'est toujours mieux que de tout dupliquer dans tomberSurUnObstacle
-	private boolean laCaseDeCeCoteEstUnObstacle (int coor1, int coor2, int coor3, int coor4, Terrain t, Moteur m, GameObject go) {
+			nouveauVecteur.ajouter(-vecteur.getX() / 200, -vecteur.getY() / 200);
+			
+		}
 		
-		return t.getListeLignes().get(coor1).get(coor2).estUnObstacle()
-				|| t.getListeLignes().get(coor3).get(coor4).estUnObstacle() ;
-
-	}
-
-	private boolean chevaucheUnObstacle (Terrain t, Moteur m) {
-
-		return t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXDebActuel(m)).estUnObstacle()
-				|| t.getListeLignes().get(this.getCoorYDebActuel(m)).get(this.getCoorXFinActuel(m)).estUnObstacle()
-				|| t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXDebActuel(m)).estUnObstacle()
-				|| t.getListeLignes().get(this.getCoorYFinActuel(m)).get(this.getCoorXFinActuel(m)).estUnObstacle() ;
-
-	}
-
-	public double getXDeb() {
-		return this.xDeb ;
-	}
+		return nouveauVecteur ;
 	
-	public double getYDeb() {
-		return this.yDeb ;
-	}
-	
-	public double getXFin() {
-		return this.xFin ; 
-	}
-	
-	public double getYFin() {
-		return this.yFin ;
 	}
 
-	private int getCoorXDebSuiv (int x, Moteur m, GameObject go) {
+	/**
+	 * Retourne, le cas échéant, le Point d'intersection entre ce
+	 * Collisionneur et un autre. Sinon, retourne null
+	 * 
+	 * @param collisionneur
+	 * @return Le Point d'intersection entre les Collisionneur
+	 */
+	
+	public Point pointDeChevauchement (Collisionneur collisionneur) {
 
-		return (int) ((this.getXDeb() + x * go.getDistanceDeplacement()) / m.getTailleTileX()) ;
+		return this.getBoite().intersection(collisionneur.getBoite()) ;
 
 	}
 	
-	private int getCoorYDebSuiv (int y, Moteur m, GameObject go) {
+	/**
+	 * Place les coordonnées du Collisionneur dans coordonneesAModifier
+	 * 
+	 * @param point
+	 * @param moteur
+	 * @param coordonneesAModifier
+	 */
 
-		return (int) ((this.getYDeb() + y * go.getDistanceDeplacement()-10)  / m.getTailleTileY()) ;
+	public void getCoordonneesEntieresSurLaMap (Point point, Moteur moteur, int[] coordonneesAModifier) {
 
-	}
-	
-	private int getCoorXFinSuiv (int x, Moteur m, GameObject go) {
-
-		return (int) ((this.getXFin() + x * go.getDistanceDeplacement())  / m.getTailleTileX()) ;
-
-	}
-	
-	private int getCoorYFinSuiv (int y, Moteur m, GameObject go) {
-
+		int i, j ;
 		
-		return (int) ((this.getYFin() + y * go.getDistanceDeplacement())  / m.getTailleTileY()) ;
+		i = 0;
+		j = 0 ;
+
+		while (point.getX() >= moteur.getTailleBoiteX()) {
+
+			point = point.substract(moteur.getTailleBoiteX(), 0) ;
+
+			i ++ ;
+
+		}
+
+		while (point.getY() > moteur.getTailleBoiteY()) {
+
+			point = point.substract(0, moteur.getTailleBoiteY()) ;
+
+			j ++ ;
+
+		}
+
+		coordonneesAModifier[0] = i ;
+		coordonneesAModifier[1] = j ;
 
 	}
 	
-	public int getCoorXDebActuel (Moteur m) {
-
-		return (int) ((this.getXDeb()) / m.getTailleTileX()) ;
-
-	}
+	/**
+	 * Retourne le Polygone du Collisionneur
+	 * 
+	 * @return La boîte du Collisionneur
+	 */
 	
-	public int getCoorYDebActuel (Moteur m) {
+	public Polygone getBoite () {
 
-		return (int) ((this.getYDeb()) / m.getTailleTileY()) ;
-
-	}
-	
-	public int getCoorXFinActuel (Moteur m) {
-
-		return (int) ((this.getXFin()) / m.getTailleTileX()) ;
-
-	}
-	
-	public int getCoorYFinActuel (Moteur m) {
-
-		return (int) ((this.getYFin()) / m.getTailleTileY()) ;
-
-	}
-
-	public void setXDeb(double x) {
-		this.xDeb = x;
-	}
-
-	public void setYDeb(double y) {
-		this.yDeb = y ;
-	}
-	
-	public void setXFin(double x) {
-		this.xFin = x ;
-	}
-	
-	public void setYFin(double y) {
-		this.yFin = y ;
-	}
-
-	public String toString () {
-
-		return "xDeb : " + this.xDeb + ", yDeb : " + this.yDeb + "\nxFin : " + this.xFin + ", yFin : " + this.yFin ;
+		return this.boite ;
 
 	}
 

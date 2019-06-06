@@ -4,6 +4,7 @@
 import physique.* ;
 import java.util.ArrayList;
 
+import geometrie.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -39,7 +40,6 @@ import javafx.collections.ObservableList;
 		
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
-			int unPixel=1, unAutrePixel=1 ;
 			String nomCase ;
 			Inventeriable caseMap = null ;
 
@@ -62,17 +62,23 @@ import javafx.collections.ObservableList;
 					
 					}
 					
-					caseMap.setCollisionneur(new Collisionneur (j * this.tailleCaseX,
-									   i * this.tailleCaseY,
-									 ((j * this.tailleCaseX) + this.tailleCaseX - unAutrePixel),
-									 ((i * this.tailleCaseY) + this.tailleCaseY - unPixel)));
-					
+					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
+							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY),
+							new Point (j * this.tailleCaseX, i * this.tailleCaseY + 49),
+							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49))) ;
+
 					this.listeDeLignes.get(i).add(caseMap) ;
 					
 				}
 				
 			}
 			
+		}
+		
+		public GameObject getCase (int[] coordonneesDeLaCase, Moteur moteur) {
+
+			return this.getListeLignes().get(coordonneesDeLaCase[1]).get(coordonneesDeLaCase[0]) ;
+
 		}
 		
 		public int getDimY () {
@@ -89,17 +95,17 @@ import javafx.collections.ObservableList;
 		
 		public double getTailleY () {
 			
-			return this.getDerniereCase().getCollisionneur().getYFin() ;
+			return Math.abs(this.getDerniereCase().getCollisionneur().getBoite().minMaxY()[0] - this.getDerniereCase().getCollisionneur().getBoite().minMaxY()[1]) ;
 			
 		}
 		
 		public double getTailleX () {
 			
-			return this.getDerniereCase().getCollisionneur().getXFin() ;
+			return Math.abs(this.getDerniereCase().getCollisionneur().getBoite().minMaxX()[0] - this.getDerniereCase().getCollisionneur().getBoite().minMaxX()[1]);
 			
 		}
 		
-		private GameObject getDerniereCase () {
+		public GameObject getDerniereCase () {
 			
 			return this.listeDeLignes.get(this.getDimY() - 1).get(this.getDimX() - 1) ;
 			

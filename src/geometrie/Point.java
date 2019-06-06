@@ -2,7 +2,26 @@ package geometrie;
 
 import javafx.geometry.Point2D;
 
+/**
+ * <h1>Un Point est un objet disposant de coordonnées x et y.</h1>
+ * <p>On peut lui ajouter des x et des y, ou le baser sur un
+ * autre point. On peut également le comparer à un autre
+ * et l'afficher.</p>
+ * 
+ * @author Mathys
+ * @version 1.0
+ */
+
 public class Point extends Point2D implements Comparable<Point> {
+	
+	/**
+	 * Crée un Point aux coordonnées x en abscisse et y
+	 * en ordonnée
+	 * @param x
+	 * @param y
+	 * 
+	 * @version 1.0
+	 */
 	
 	public Point (double x, double y) {
 		
@@ -10,11 +29,36 @@ public class Point extends Point2D implements Comparable<Point> {
 		
 	}
 	
+	public Point substract (double x, double y) {
+		
+		return new Point (this.getX() - x, this.getY() - y) ;
+		
+	}
+	/**
+	 * Retourne un nouveau Point auquel on a ajouté x et y
+	 * 
+	 * @param x
+	 * @param y
+	 * @return Point
+	 * 
+	 * @since 1.0
+	 * @version 1.0
+	 */
+	
 	public Point add (double x, double y) {
 		
 		return new Point (this.getX() + x, this.getY() + y) ;
 		
 	}
+	
+	/**
+	 * Retourne un nouveau point égal à celui entré en paramètre
+	 * @param point
+	 * @return Point
+	 * 
+	 * @since 1.0
+	 * @version 1.0
+	 */
 	
 	public Point set (Point point) {
 		
@@ -22,11 +66,14 @@ public class Point extends Point2D implements Comparable<Point> {
 		
 	}
 	
-	public boolean estEgalA (Point p2) {
-		
-		return this.getX() == p2.getX() && this.getY() == p2.getY() ;
-		
-	}
+	/**
+	 * Compare deux points entre eux. On regarde d'abord la ligne (y)
+	 * sur laquelle ils se trouvent, puis on compare la colonne (x)
+	 * Retourne 0 si les deux points sont égaux
+	 * 
+	 * @since 1.0
+	 * @version 1.0
+	 */
 
 	@Override
 	public int compareTo(Point point) {
@@ -49,6 +96,13 @@ public class Point extends Point2D implements Comparable<Point> {
 		return diffTotale ;
 		
 	}
+	
+	/**
+	 * Permet d'afficher le point
+	 * 
+	 * @since 1.0
+	 * @version 1.0
+	 */
 	
 	public String toString () {
 		

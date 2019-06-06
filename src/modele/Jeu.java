@@ -1,7 +1,8 @@
-package modele;
-import physique.*;
+package modele ;
+import physique.* ;
 import exceptions.* ;
-import ressources.TraducteurFichier;
+import geometrie.* ;
+import ressources.TraducteurFichier ;
 
 import java.io.IOException;
 
@@ -20,32 +21,27 @@ import controleur.ControleurTouches;
 
 public class Jeu {
 	
-	private Moteur m ;
-	private Personnage p ;
+	private Moteur moteur ;
+	private Personnage perso ;
+	private Terrain terrain ;
 	private Ennemi ennemi;
-	private Terrain t ;
 	private TraducteurFichier tf ;
 	
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
-		this.m = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.80) ;
-		this.ennemi= new Ennemi("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1), this, 5);
-		this.p = new Personnage ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (posXJoueur, posYJoueur, m.getTailleTileY() + posXJoueur - 1, m.getTailleTileX() + posYJoueur - 1),this, 10) ;
-		Outil o = new Outil("Torche", new Collisionneur(posXJoueur, posYJoueur, posXJoueur + this.m.getTailleTileX(), posYJoueur + this.m.getTailleTileY())) ;
-		this.p.getInventaire().ajouterObjet(o) ;
-		//this.p.ajouterObjetMain(o);
-
-		//Outil o = new Outil("Torche", new Collisionneur(posXJoueur, posYJoueur, posXJoueur + this.m.getTailleTileX(), posYJoueur + this.m.getTailleTileY())) ;
+		this.moteur = new Moteur (taillePixelsXCase, taillePixelsYCase, 0.1) ;
+		Point p1, p2, p3, p4 ;		
+		p1 = new Point (posXJoueur, posYJoueur) ;
+		p2 = new Point (posXJoueur + 41, posYJoueur) ;
+		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase) ;
+		p4 = new Point (posXJoueur + 41, posYJoueur + taillePixelsYCase) ;
+		this.ennemi= new Ennemi("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
+		this.perso = new Personnage ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4),this, 10) ;
 		
-
 		this.tf = new TraducteurFichier(nomF) ;
-		this.t = new Terrain (this.tf.getTabMap(), this.m.getTailleTileX(), this.m.getTailleTileY()) ;
 		
-		//this.ennemi= new Ennemi("first", 100, 5,t.getTailleX()/2, posYJoueur+1000, 1., 1., 1., new Collisionneur (t.getTailleX()/2, posYJoueur+1000, m.getTailleTileY() + t.getTailleX()/2 - 1, m.getTailleTileX() + posYJoueur+1000 - 1), this, 5);
-		//this.p = new Personnage ("Wall-E", 100., 10., t.getTailleX()/2, posYJoueur+1000, 1., 1., 1., new Collisionneur (t.getTailleX()/2, posYJoueur+1000, m.getTailleTileY() + t.getTailleX()/2 - 1, m.getTailleTileX() + posYJoueur+1000 - 1),this, 10);
-		//this.p.getInventaire().ajouterObjet(o) ;
-		//this.p.ajouterObjetMain(o);
-		this.m.apparaitDansLaMap(this.p, this.t) ;
+		this.terrain = new Terrain (this.tf.getTabMap(), this.moteur.getTailleBoiteX(), this.moteur.getTailleBoiteY()) ;
+		
 	}
 	
 	public Jeu() {
@@ -53,36 +49,34 @@ public class Jeu {
 
 	public Moteur getMoteur () {
 		
-		return this.m ;
+		return this.moteur ;
 		
 	}
 	
 	public Terrain getTerrain () {
 		
-		return this.t ;
+		return this.terrain ;
 		
 	}
 	
 	public Personnage getPerso () {
+		      
+		return this.perso ;
 		
-		return this.p ;
-		
-	}
+	} 
 	
+	public void evoluer(ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
+		
+		if(!controlTouche.getMenu().estAffiche()) {
+			this.moteur.appliquerForces(this.perso, this.terrain);
+			this.moteur.appliquerForces(this.ennemi, this.terrain);
+			this.ennemi.deplaceVersPerso(this.perso);
+		}
+	
+	}
+
 	public Ennemi getEnnemi() {
 		return this.ennemi;
-	}
-	
-	public int evoluer(int nbTour, ControleurTouches controlTouche) throws VousEtesCoinceException{
-		if(!controlTouche.getMenu().estAffiche()) {
-			nbTour=this.getPerso().sauter(nbTour,controlTouche.espaceActive());
-			controlTouche.setEspaceFalse();
-			this.p.deplacementColision("bas");
-			this.ennemi.deplacementColision("bas");
-			this.ennemi.deplaceVersPerso(this.p);
-			
-		}
-		return nbTour;
 	}
 
 }

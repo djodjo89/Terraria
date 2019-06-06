@@ -1,7 +1,9 @@
 package modele;
 
 import physique.*;
+import exceptions.HorsDeLaMapException;
 import exceptions.VousEtesCoinceException;
+import geometrie.Vecteur;
 import javafx.beans.property.* ;
 
 /*
@@ -24,14 +26,13 @@ public class Personnage extends NonInventeriable {
 		
 		super () ;
 		this.main = null;
-		this.i = new Inventaire(10);
-		
+		this.i = new Inventaire(10);		
 		
 	}
 	
 	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
 		
-		super (nom, pv, x, y, vitesseX, vitesseY, poids, c, distanceDeplacement,jeu,ptsAtt) ;
+		super (nom, pv, x, y, vitesseX, c, distanceDeplacement,jeu,ptsAtt) ;
 		
 		this.i = new Inventaire (20) ;
 		this.setObstacle() ;
@@ -46,7 +47,7 @@ public class Personnage extends NonInventeriable {
 	
 
 	
-	public GameObject getMain () {
+	public Inventeriable getMain () {
 		
 		return this.main ;
 		
@@ -63,11 +64,11 @@ public class Personnage extends NonInventeriable {
 			o.perdrePV(this.getPtsAttaque());
 		}
 		
-		
 	}
+	
 	public void ajouterObjetMain (Inventeriable o) {
 		
-		this.donner(this.i.getInventaire().get(0)) ;
+		this.donner(this.i.getListeObjets().get(0)) ;
 		
 	}
 	
@@ -80,15 +81,14 @@ public class Personnage extends NonInventeriable {
 		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
 			
 			this.attaque(terrain.getListeLignes().get(y).get(x));
-			System.out.println(terrain.getListeLignes().get(y).get(x).getPV());
 				
 			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
 				
-				terrain.getListeLignes().get(y).get(x).setPv(100);
 				Air caseMap = new Air("air");
+				
+				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
 				blocCible = terrain.getListeLignes().get(y).get(x);
-				//System.out.println(x);
-				//System.out.println(y);
+				blocCible.setPv(100) ;
 				terrain.getListeLignes().get(y).set(x,caseMap);
 				
 			}
@@ -99,33 +99,31 @@ public class Personnage extends NonInventeriable {
 	public void poserBlockTerrain(int x, int y) {
 		
 		Terrain terrain = this.getJeu().getTerrain();
-		this.donner(this.getInventaire().getListObjet().get(2));
-		int j = this.i.chercheObjetDansInventaire(this.getMain());
+		this.donner(this.getInventaire().getListeObjets().get(2));
+		int j = this.i.chercheObjetDansInventaire(this.main);
 		
 		if (this.main.estUnObstacle() && this.main !=null) {
 	
-			Inventeriable caseMap = this.getInventaire().getListObjet().get(j);
+			Inventeriable caseMap = this.getInventaire().getListeObjets().get(j);
 			terrain.getListeLignes().get(y).set(x,caseMap);
 			this.getInventaire().retirerObjet(caseMap);
 			objetMainExisteEncore(caseMap);
-			//System.out.println("etape2");
 		}
 	}
 	
-	//public void poserBlock() {
-		//if (this.getInventaire().getListObjet().get(2).getTag().equals("T")) {
-		//	this.getJeu().getTerrain().
-		//}
-	//}
-	
 
-	
 	public Inventaire getInventaire (){
 		
 		return this.i ;
 	}
 	
-	public void objetMainExisteEncore(GameObject o) {
+	public String toString () {
+		
+		return "" + this.getVecteurVitesse().getX() + ":" + this.getVecteurVitesse().getY() ;
+		
+	}
+		
+	public void objetMainExisteEncore(Inventeriable o) {
 		if (this.i.chercheObjetDansInventaire(o) == -1) {
 			this.main = null;
 			System.out.println("main vide");

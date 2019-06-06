@@ -40,6 +40,7 @@ class CollisionneurTest {
 			//colli = new Collisionneur (p1, p2, p3, p4) ;
 			
 			//assertFalse (colli.depasseLesLimitesDeLaMap(jeu.getMap())) ;
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

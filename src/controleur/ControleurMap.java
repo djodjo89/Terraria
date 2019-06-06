@@ -122,7 +122,11 @@ public class ControleurMap {
 		String nom = x + ":" + y;
 		for (int i = 0; i < pane.getChildren().size(); i++) {
 			if(pane.getChildren().get(i).getId().equals(nom)) {
-				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleTileX(), y * this.jeu.getMoteur().getTailleTileY(), this.images.getImage(this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag()));
+
+				//System.out.println("cool");
+				//ImageView b = (ImageView) pane.getChildren().get(i);
+			
+				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag()));
 				pane.getChildren().set(i, a);
 			}
 		}

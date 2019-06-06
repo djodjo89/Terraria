@@ -1,5 +1,6 @@
 package tests;
 import geometrie.* ;
+
 import javafx.geometry.Point2D;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -109,6 +110,7 @@ class PolygoneTest {
 		poly.ajouterAChaquePoint(new Vecteur (2, -1));
 		
 		System.out.print(poly);
+
 		
 	}
 
