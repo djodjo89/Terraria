@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.* ;
+import objetRessources.Inventeriable;
 import ressources.Images;
 import vue.Tuile;
 import javafx.scene.input.KeyEvent ;

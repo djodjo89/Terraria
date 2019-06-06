@@ -3,6 +3,9 @@ package modele;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import objetRessources.Air;
+import objetRessources.Inventeriable;
+import objetRessources.Outil;
 import physique.Collisionneur;
 import physique.GameObject;
 import physique.Moteur;
@@ -53,7 +56,6 @@ public class PersonnagePrincipal extends Personnage{
 	public void poserBlockTerrain(int x, int y) {
 		
 		Terrain terrain = this.getJeu().getTerrain();
-		this.donner(this.getInventaire().getListeObjets().get(2));
 		int j = this.i.chercheObjetDansInventaire(this.main);
 		
 		if (this.main.estUnObstacle() && this.main !=null) {

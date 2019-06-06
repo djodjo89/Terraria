@@ -5,6 +5,7 @@ import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import objetRessources.Inventeriable;
 import physique.* ;
 
 /*
