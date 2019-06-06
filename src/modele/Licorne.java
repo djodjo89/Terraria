@@ -11,7 +11,7 @@ public class Licorne extends Ennemi{
 		
 	}
 	
-	public void deplaceVersPerso(Personnage perso) {
+	public void deplaceVersPerso(PersonnagePrincipal perso) {
 		
 	}
 

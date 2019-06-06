@@ -373,7 +373,7 @@ public class ControleurTerraria implements Initializable {
 	}
 	public void initEnnemi() {
 		Tuile ennemi;
-		for(NonInventeriable ennemiJeu: jeu.getEnnemi()) {
+		for(Personnage ennemiJeu: jeu.getEnnemi()) {
 			ennemi= new Tuile(ennemiJeu.getTag(),0,0,this.images.getImage("ennemi")) ;
 			paneMap.getChildren().add(ennemi);
 			ennemi.setFocusTraversable(false);

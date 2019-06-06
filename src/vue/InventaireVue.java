@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import modele.Foreuse;
 import modele.Inventeriable;
 import modele.Jeu;
-import modele.Personnage;
+import modele.PersonnagePrincipal;
 import ressources.Images;
 
 public class InventaireVue {

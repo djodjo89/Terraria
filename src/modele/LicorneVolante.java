@@ -17,7 +17,7 @@ public class LicorneVolante extends EnnemiVolant {
 	}
 
 	@Override
-	public void deplaceVersPerso(Personnage perso) {
+	public void deplaceVersPerso(PersonnagePrincipal perso) {
 		if(perso.getY()<(this.getY()+100)&&this.haut) {
 			this.haut=false;
 			this.bas=true;

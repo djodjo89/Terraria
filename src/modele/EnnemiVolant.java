@@ -12,5 +12,5 @@ public abstract class EnnemiVolant extends Ennemi {
 
 
 	@Override
-	public abstract void deplaceVersPerso(Personnage perso);
+	public abstract void deplaceVersPerso(PersonnagePrincipal perso);
 }

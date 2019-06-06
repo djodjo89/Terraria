@@ -11,7 +11,7 @@ import physique.Collisionneur;
  *
  */
 
-public abstract class Ennemi extends NonInventeriable{
+public abstract class Ennemi extends Personnage{
 	
 	private int nbTourSaut;
 	
@@ -31,7 +31,7 @@ public abstract class Ennemi extends NonInventeriable{
 		this.setObstacle() ;
 	}
 	
-	public void deplace(Personnage perso) {
+	public void deplace(PersonnagePrincipal perso) {
 		if(perso.getX()>this.getX()) {
 			if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getTag()=="air")
 				this.deplacerVers("droite", super.getJeu().getMoteur());
@@ -48,7 +48,7 @@ public abstract class Ennemi extends NonInventeriable{
 		this.deplaceVersPerso(perso);
 	}
 	
-	public abstract void deplaceVersPerso(Personnage perso);
+	public abstract void deplaceVersPerso(PersonnagePrincipal perso);
 		
 		
 	
