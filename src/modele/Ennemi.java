@@ -2,34 +2,14 @@ package modele;
 
 import exceptions.VousEtesCoinceException;
 import physique.Collisionneur;
-import physique.GameObject;
 
-/**
- * <h1>Air est un GameObject</h1>
- * 
- * @version 1.0
- * @author Romain
- *
- */
-
-public class Ennemi extends NonInventeriable{
+public class Ennemi extends Personnage{
 	
-	private int nbTourSaut;
-	
-	public Ennemi () {
+	public Ennemi (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		super () ;
-		this.nbTourSaut=0;
-		
-	}
-	
-	public Ennemi (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
-		
-		super (nom, pv, x, y, vitesseX, c, distanceDeplacement,jeu,ptsAtt) ;
+		super (nom, pv,ptsAtt, posX, posY, masse, hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
 		this.setObstacle() ;
-		this.nbTourSaut=0;
 	}
-	
 	
 	public void deplaceVersPerso(Personnage perso) throws VousEtesCoinceException {
 
@@ -40,13 +20,5 @@ public class Ennemi extends NonInventeriable{
 			this.deplacerVers("bas", super.getJeu().getMoteur());
 		}
 	}
-	
-	public int getNbTourSaut() {
-		return nbTourSaut;
-	}
-	public void setNbTourSaut(int nbTourSaut) {
-		this.nbTourSaut= nbTourSaut;
-	}
-
 
 }

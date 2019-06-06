@@ -111,7 +111,6 @@ public class Inventaire {
 			
 			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
 				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
-				System.out.println("rentre dedans bordel !"+inv.getTag());
 				if (inv.getTag().equals(o.getTag())) {
 					
 					objetExistant  = true;

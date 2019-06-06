@@ -20,7 +20,6 @@ public class Main extends Application {
 			Pane root = new Pane();
 			root = loader.load();
 			Scene scene = new Scene(root,1920,1080);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setTitle("Terraria");

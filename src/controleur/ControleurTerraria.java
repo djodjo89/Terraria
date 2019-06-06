@@ -76,7 +76,7 @@ public class ControleurTerraria implements Initializable {
 	 * <p>Il sert notamment à compter le temps écoulé depuis
 	 * le début d'un saut</p>
 	 * 
-	 * @see Personnage#sauter(Terrain, physique.Moteur)
+	 * @see PersonnagePrincipal#sauter(Terrain, physique.Moteur)
 	 */
 	
     private int nbTour;
@@ -206,7 +206,7 @@ public class ControleurTerraria implements Initializable {
 	 * @author Romain
 	 * @since 1.1
 	 */
-	
+
 
 	private ControleurInventaire controlInvent;
 	private ImageView ennemi;
@@ -333,7 +333,7 @@ public class ControleurTerraria implements Initializable {
 			this.initEnnemi();
 			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, this.jeu, this.images);
-			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, this.jeu.getPerso(), inv);
+			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
 			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv);
@@ -354,8 +354,8 @@ public class ControleurTerraria implements Initializable {
 	 * Place le personnage sur la map
 	 * 
 	 * @see Jeu#getPerso()
-	 * @see Personnage#getXProperty()
-	 * @see Personnage#getYProperty()
+	 * @see PersonnagePrincipal#getXProperty()
+	 * @see PersonnagePrincipal#getYProperty()
 	 * 
 	 * @author Mathys
 	 * @author Romain

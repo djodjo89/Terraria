@@ -16,9 +16,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import modele.Inventeriable;
 import modele.Jeu;
-import modele.Personnage;
-import modele.Tuple;
-import vue.InventaireVue;
+import modele.*;
+import vue.*;
 import vue.Tuile;
 import ressources.Images;
 
@@ -26,16 +25,14 @@ public class ControleurInventaire {
 
 	private Jeu j;
 	private Images image;
-	private Personnage perso;
 	private ObservableList<Tuple> listeObjets ;
 	private InventaireVue invVue;
 	
 
-	public ControleurInventaire(Jeu j, Images img, Personnage perso, InventaireVue inv) {
+	public ControleurInventaire(Jeu j, Images img, InventaireVue inv) {
 		this.j=j;
 		this.image=img;
-		this.perso=perso;
-		this.listeObjets=this.perso.getInventaire().getInventaire();
+		this.listeObjets=this.j.getPerso().getInventaire().getInventaire();
 		this.invVue=inv;
 	}
 	

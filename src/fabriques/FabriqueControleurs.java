@@ -31,8 +31,8 @@ public class FabriqueControleurs {
 		return controleurSouris;
 	}
 	
-	public static ControleurInventaire initialiserControleurInventaire(Jeu j, Images img, Personnage perso, InventaireVue inv) {
-		ControleurInventaire controlInventaire = new ControleurInventaire(j, img, perso, inv);
+	public static ControleurInventaire initialiserControleurInventaire(Jeu j, Images img, InventaireVue inv) {
+		ControleurInventaire controlInventaire = new ControleurInventaire(j, img, inv);
 		controlInventaire.ajoutListenerInventaire();
 		return controlInventaire;
 	}
