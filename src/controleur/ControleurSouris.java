@@ -2,9 +2,11 @@ package controleur;
 
 import modele.* ;
 import ressources.Images;
+import vue.Tuile;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.event.EventHandler;
 
@@ -81,13 +83,6 @@ public class ControleurSouris extends Parent {
 			@Override
 			public void handle(MouseEvent event) {
 				WhatIDoWhithThisBlockPointDInterrogation(event.getX(),event.getY());
-				//System.out.println(event.getX()/50);
-		       // System.out.println(event.getY()/50);
-	//			try {
-
-					
-
-			//	} catch (VousEtesCoinceException e) {System.out.println(e);} ;
 
 			}
 
@@ -109,10 +104,7 @@ public class ControleurSouris extends Parent {
 			
 			blocRecup = this.jeu.getPerso().destructionTerrain(blockX, blockY);
 			if (blocRecup != null) {
-				//System.out.println("miam, miam, miam, it's delicious!");
-				//System.out.println(blocRecup.getTag());
 				this.jeu.getPerso().getInventaire().ajouterObjet(blocRecup);
-				System.out.println(this.jeu.getPerso().getInventaire().getListObjet());
 			}
 		}
 		

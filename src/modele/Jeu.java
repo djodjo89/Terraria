@@ -41,7 +41,7 @@ public class Jeu {
 		this.ennemi= new Licorne("first", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
 		this.ennemiVol= new LicorneVolante("second", 100, 10,posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this, 5);
 		
-		this.perso = new Personnage ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4),this, 10) ;
+		this.perso = new Personnage ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4),this) ;
 		
 		this.tf = new TraducteurFichier(nomF) ;
 		

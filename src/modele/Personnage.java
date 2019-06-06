@@ -1,80 +1,33 @@
+
 package modele;
 
-import physique.*;
-import exceptions.HorsDeLaMapException;
-import exceptions.VousEtesCoinceException;
-import geometrie.Vecteur;
-import javafx.beans.property.* ;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import physique.Collisionneur;
+import physique.GameObject;
+import physique.Moteur;
 
-/*
- * Un Personnage dispose de coordonnées modifiables et observables
- * Voici ses responsabilités :
- * - prendre un objet dans sa main
- * - renvoyer l'objet qu'il tient
- * - donner ses points d'attaque
- * - attaquer un objet
- */
-
-public class Personnage extends NonInventeriable {
+public class Personnage extends NonInventeriable{
 	
+	private Inventaire i;
+	private Inventeriable main;
 	
-	private Inventeriable main ;
-
-	private Inventaire i ;
-	
-	
-	public Personnage () {
+	public Personnage (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		super () ;
-		this.main = null;
-		this.i = new Inventaire(10);		
+		super (nom, pv,ptsAtt, posX, posY, masse,hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
 		
-	}
-	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
-		
-		super (nom, pv, x, y, vitesseX, c, distanceDeplacement,jeu,ptsAtt) ;
-		
-		this.i = new Inventaire (20) ;
-		this.setObstacle() ;
-		
-	}
-	
-	public void donner (Inventeriable o) {
-		
-		this.main = o ;
-		
-	}
-	
-
-	
-	public GameObject getMain () {
-		
-		return this.main ;
-		
-	}
-	
-	public void attaque (GameObject o) {
-		
-		if(this.main instanceof Outil ) 
-			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
-		
-		
-		else {
-			System.out.println(this.getPtsAttaque());
-			o.perdrePV(this.getPtsAttaque());
-		}
+		this.i = new Inventaire(20);
+		//System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		
 	}
 	
 	public void ajouterObjetMain (Inventeriable o) {
 		
-		this.donner(this.i.getInventaire().get(0)) ;
+		this.donner(this.i.getListeObjets().get(0)) ;
 		
 	}
 	
 	public Inventeriable destructionTerrain(int x, int y) {
-		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
 		
 		Terrain terrain = this.getJeu().getTerrain();
 		Inventeriable blocCible = null;
@@ -100,12 +53,12 @@ public class Personnage extends NonInventeriable {
 	public void poserBlockTerrain(int x, int y) {
 		
 		Terrain terrain = this.getJeu().getTerrain();
-		this.donner(this.getInventaire().getListObjet().get(2));
-		int j = this.i.chercheObjetDansInventaire(this.getMain());
+		this.donner(this.getInventaire().getListeObjets().get(2));
+		int j = this.i.chercheObjetDansInventaire(this.main);
 		
 		if (this.main.estUnObstacle() && this.main !=null) {
 	
-			Inventeriable caseMap = this.getInventaire().getListObjet().get(j);
+			Inventeriable caseMap = this.getInventaire().getListeObjets().get(j);
 			terrain.getListeLignes().get(y).set(x,caseMap);
 			this.getInventaire().retirerObjet(caseMap);
 			objetMainExisteEncore(caseMap);
@@ -117,21 +70,50 @@ public class Personnage extends NonInventeriable {
 		
 		return this.i ;
 	}
+
+	/**
+	 * Calcule et renvoie la puissance du saut du GameObject selon le Moteur
+	 * 
+	 * @param moteur
+	 */
 	
-	public String toString () {
-		
-		return "" + this.getVecteurVitesse().getX() + ":" + this.getVecteurVitesse().getY() ;
-		
-	}
-		
-	public void objetMainExisteEncore(GameObject o) {
+
+	
+
+	
+	public void objetMainExisteEncore(Inventeriable o) {
 		if (this.i.chercheObjetDansInventaire(o) == -1) {
 			this.main = null;
-			System.out.println("main vide");
 			
 		}
-		System.out.println(this.main);
 	}
+	
+	public void donner (Inventeriable o) {
+		
+		this.main = o ;
+		
+	}
+	
+	public void attaque (GameObject o) {
+		
+		if(this.main instanceof Outil ) 
+			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
+		
+		
+		else {
+			o.perdrePV(this.getPtsAttaque());
+		}
+		
+	}
+	
+
+	public GameObject getMain () {
+		
+		return this.main ;
+		
+	}
+
+
 	
 
 

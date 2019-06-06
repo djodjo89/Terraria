@@ -4,9 +4,9 @@ import physique.Collisionneur;
 
 public abstract class EnnemiVolant extends Ennemi {
 
-	public EnnemiVolant (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
+	public EnnemiVolant (String nom, double pv, double ptsAtt, double x, double y, double masse, double hauteurSaut, double poids, Collisionneur c, Jeu jeu) {
 		
-		super (nom,pv,  ptsAtt, x, y, vitesseX,  vitesseY, poids,  c, jeu,  distanceDeplacement) ;
+		super (nom,pv,  ptsAtt, x, y, masse,  hauteurSaut, poids,  c, jeu) ;
 		
 	}
 

@@ -15,6 +15,12 @@
 /Personnage$1.class
 /Scrolling.class
 /Granite.class
+<<<<<<< HEAD
 /LicorneVolante.class
 /Licorne.class
 /EnnemiVolant.class
+=======
+/Tuple.class
+/PersonnagePrincipal.class
+/Equipement.class
+>>>>>>> master

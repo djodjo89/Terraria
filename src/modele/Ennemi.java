@@ -2,7 +2,6 @@ package modele;
 
 import exceptions.VousEtesCoinceException;
 import physique.Collisionneur;
-import physique.GameObject;
 
 /**
  * <h1>Air est un GameObject</h1>
@@ -22,12 +21,14 @@ public abstract class Ennemi extends NonInventeriable{
 		this.nbTourSaut=0;
 		
 	}
+
 	
-	public Ennemi (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
+	public Ennemi (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		super (nom, pv, x, y, poids, c, distanceDeplacement,jeu,ptsAtt) ;
+
+		super (nom, pv,ptsAtt, posX, posY, masse, hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
+
 		this.setObstacle() ;
-		this.nbTourSaut=0;
 	}
 	
 	public void deplace(Personnage perso) {
@@ -36,6 +37,7 @@ public abstract class Ennemi extends NonInventeriable{
 				this.deplacerVers("droite", super.getJeu().getMoteur());
 			else
 				this.deplacerVers("haut", super.getJeu().getMoteur());
+
 		}
 		else if(perso.getX()<this.getX()) {
 			if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getTag()=="air")
@@ -64,13 +66,5 @@ public abstract class Ennemi extends NonInventeriable{
 		
 		return position;
 	}
-	
-	public int getNbTourSaut() {
-		return nbTourSaut;
-	}
-	public void setNbTourSaut(int nbTourSaut) {
-		this.nbTourSaut= nbTourSaut;
-	}
-
 
 }

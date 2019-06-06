@@ -3,12 +3,14 @@ package controleur;
 
 import modele.* ;
 import ressources.Images;
+import vue.InventaireVue;
 import vue.Tuile;
 import exceptions.HorsDeLaMapException;
 import fabriques.FabriqueControleurs;
 import fabriques.FabriqueImages;
 import fabriques.FabriqueJeu;
 import fabriques.FabriquePanes;
+import fabriques.FabriqueVue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,7 +76,7 @@ public class ControleurTerraria implements Initializable {
 	 * <p>Il sert notamment à compter le temps écoulé depuis
 	 * le début d'un saut</p>
 	 * 
-	 * @see Personnage#sauter(Terrain, physique.Moteur)
+	 * @see PersonnagePrincipal#sauter(Terrain, physique.Moteur)
 	 */
 	
     private int nbTour;
@@ -204,10 +206,14 @@ public class ControleurTerraria implements Initializable {
 	 * @author Romain
 	 * @since 1.1
 	 */
-	
-	private Personnage personnage;
+
+
 	private ControleurInventaire controlInvent;
+
 	private ArrayList<Tuile> listItemsInvent;
+	private ImageView ennemi;
+	private InventaireVue inv;
+
 	
 	public void initBoucleJeu() {
 		
@@ -279,27 +285,7 @@ public class ControleurTerraria implements Initializable {
 				
 				nom = x + ":" + y ;
 				valeur = this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag();
-/*
-				switch(valeur) {
-				
-					case "terre":
-						typeBloc="terre" ;
-					break;
-					
-					case "air":
-						typeBloc="air" ;
-					break;
-					
-					case "granite" :
-						typeBloc="granite";
-						break;
-					
-					default:
-						typeBloc="air" ;
-					break;
-					
-				}
-*/
+
 				tile= new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(valeur)) ;
 				this.paneMap.getChildren().add(tile) ;
 
@@ -315,32 +301,9 @@ public class ControleurTerraria implements Initializable {
 		this.panePerso.setFocusTraversable(true);
 		this.paneInventaire.toFront();
 		
-	
-		Foreuse foreuse = new Foreuse("forreuse");
-		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
-		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
-		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
-		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
-		
-
-		
-
-
-    	Tuile tileItem1 = new Tuile();
-    	for(int i=0; i<5; i++) {
-    		nom = "" +i;
-    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleBoiteX()),0,this.images.getImage("fondInventaire"));
-    		this.paneInventaire.getChildren().add(tile);
-    		
-    		if(jeu.getPerso().getInventaire().getListObjet().get(i) != null) {
-		    		tileItem1 = new Tuile(nom,(i*jeu.getMoteur().getTailleBoiteX())+10,10,this.images.getImage(this.jeu.getPerso().getInventaire().getListObjet().get(i).getTag()));
-		    		this.paneItemsInventaire.getChildren().add(tileItem1);
-		    		this.controlInvent = new ControleurInventaire(tileItem1, jeu, this.jeu.getPerso(), this.jeu.getPerso().getInventaire().getListObjet().get(i));
-    			
-    		}
-}
 	}
 
+	
 	/**
 	 * Initialise tous les composants nécessaires au lancement du jeu
 	 * 
@@ -363,32 +326,21 @@ public class ControleurTerraria implements Initializable {
 		
 
 		try {
-			this.listItemsInvent = new ArrayList<>();
+		
 			images=FabriqueImages.initialiserImages();
 			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
 			this.initMap() ;
 			this.initPositionPerso() ;
 			this.initEnnemi();
-
-
-			//controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap, this.jeu);
-			//controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap, this.images);
-			//controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap, this.paneInventaire);
-
-
 			
-			//controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
-			//controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
-			//controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire);
-
-
-			
+			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, this.jeu, this.images);
+			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
-			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this);
+			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv);
 
-
+			this.inv.initFondInventaire();
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
 			paneItemsInventaire.toFront();
@@ -404,8 +356,8 @@ public class ControleurTerraria implements Initializable {
 	 * Place le personnage sur la map
 	 * 
 	 * @see Jeu#getPerso()
-	 * @see Personnage#getXProperty()
-	 * @see Personnage#getYProperty()
+	 * @see PersonnagePrincipal#getXProperty()
+	 * @see PersonnagePrincipal#getYProperty()
 	 * 
 	 * @author Mathys
 	 * @author Romain
@@ -432,29 +384,6 @@ public class ControleurTerraria implements Initializable {
 		
 	}
 	
-	public void derouleInventaire() {
-		String nom;
-		Tuile tile;
-		for(int i=0; i<5 ; i++) {
-			for(int j=0; j<3; j++) {
-				nom = "der" +i;
-	    		tile= new Tuile(nom, (i*this.jeu.getMoteur().getTailleBoiteX()),55+(j*this.jeu.getMoteur().getTailleBoiteY()),this.images.getImage("fondInventaire"));
-	    		this.paneInventaire.getChildren().add(tile);
-	    		this.listItemsInvent.add(tile);
-			}
-
-		}
-	}
-	
-	public void reduitInventaire() {
-		
-		for(int i=0; i<this.listItemsInvent.size(); i++) {
-			this.paneInventaire.getChildren().remove(this.listItemsInvent.get(i));
-		}
-		
-}
-	
-
 }	
 
 

@@ -147,6 +147,7 @@ public class Collisionneur {
 					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
 
 					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle())) {
+
 						deplacementPossible = false ;
 
 					}
@@ -161,7 +162,7 @@ public class Collisionneur {
 
 		if (this.depasseLesLimitesDeLaMap(terrain, moteur) || !deplacementPossible) {
 
-			nouveauVecteur.ajouter(-vecteur.getX() / 200, -vecteur.getY() / 200);
+			nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
 			
 		}
 		
@@ -204,7 +205,7 @@ public class Collisionneur {
 
 			i ++ ;
 
-		}
+		};;
 
 		while (point.getY() > moteur.getTailleBoiteY()) {
 

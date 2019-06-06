@@ -9,9 +9,9 @@ public class LicorneVolante extends EnnemiVolant {
 	private Boolean bas;
 	private int compteur;
 	
-	public LicorneVolante (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
+	public LicorneVolante (String nom, double pv, double ptsAtt, double x, double y, double masse, double hauteurSaut, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
 		
-		super (nom,pv,  ptsAtt, x, y, vitesseX,  vitesseY, 0.7,  c, jeu,  distanceDeplacement) ;
+		super (nom,pv,  ptsAtt, x, y, masse,  hauteurSaut, 0.7,  c, jeu) ;
 		this.haut=true;
 		this.bas=false;
 	}

@@ -12,6 +12,7 @@ public abstract class NonInventeriable extends GameObject{
 	private Jeu jeu;
 	private DoubleProperty ptsAttaque ;
 	public boolean peutSauter ;
+	private double hauteurSaut;
 	
 	
 	public NonInventeriable () {
@@ -20,13 +21,14 @@ public abstract class NonInventeriable extends GameObject{
 		
 	}
 	
-	public NonInventeriable (String nom, double pv, double x, double y, double poids, Collisionneur c, double distanceDeplacement,Jeu jeu,double ptsAtt) {
+	public NonInventeriable (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		super (nom, pv, x, y, poids, c, distanceDeplacement) ;
+		super (nom, pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
 		this.jeu=jeu;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		this.peutSauter = false ;
+		this.hauteurSaut = hauteurSaut ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
 		
 	}
 	
@@ -52,6 +54,12 @@ public abstract class NonInventeriable extends GameObject{
 			this.setSautImpossible() ;
 		
 	}
+	
+	public double getPuissanceSaut () {
+
+		return this.hauteurSaut;
+	} 
+		
 	/**
 	 * Ajoute au Vecteur vitesse du GameObject un nouveau Vecteur
 	 * en fonction de la direction entrée en paramètre
@@ -68,7 +76,7 @@ public abstract class NonInventeriable extends GameObject{
 
 			case "haut" : if (this.peutSauter)
 				
-							vecteurDeplacement = new Vecteur (0, -super.getPuissanceSaut(m)) ;
+							vecteurDeplacement = new Vecteur (0, -this.getPuissanceSaut()) ;
 			
 						  else
 							  
@@ -88,7 +96,7 @@ public abstract class NonInventeriable extends GameObject{
 	
 			break ;
 			
-			case "hautdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, -this.getPuissanceSaut(m)) ;
+			case "hautdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, -this.getPuissanceSaut()) ;
 	
 			break ;
 			
@@ -100,7 +108,7 @@ public abstract class NonInventeriable extends GameObject{
 	
 			break ;
 			
-			case "hautgauche" : vecteurDeplacement = new Vecteur (-this.vitesseDeplacement, -this.getPuissanceSaut(m)) ;
+			case "hautgauche" : vecteurDeplacement = new Vecteur (-this.vitesseDeplacement, -this.getPuissanceSaut()) ;
 	
 			break ;
 			

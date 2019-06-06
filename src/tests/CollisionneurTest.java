@@ -37,15 +37,10 @@ class CollisionneurTest {
 			p3 = new Point (10, 20) ;
 			p4 = new Point (20, 20) ;
 			
-<<<<<<< HEAD
-			colli = new Collisionneur (p1, p2, p3, p4) ;
-			
-			assertFalse (colli.depasseLesLimitesDeLaMap(jeu.getMap(), jeu.getMoteur())) ;
-=======
 			//colli = new Collisionneur (p1, p2, p3, p4) ;
 			
 			//assertFalse (colli.depasseLesLimitesDeLaMap(jeu.getMap())) ;
->>>>>>> refs/heads/master
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

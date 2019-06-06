@@ -47,16 +47,18 @@ public abstract class GameObject {
 	
 	String tag ;
 	private DoubleProperty pv ;
+	private DoubleProperty pvMax ;
 	private DoubleProperty posX ;
 	private DoubleProperty posY ;
 	private Vecteur vecteurVitesse ; 
 	public double vitesseDeplacement ;
 	private double masse ;
-	private double hauteurSaut ;
 	private boolean estUnObstacle ;
 	private double coeffFrottement ;
+	private boolean peutSauter;
 	
 	private Collisionneur collisionneur ;
+	private Jeu jeu ;
 	
 	/**
 	 * Un Constructeur donnant un tag au GameObject
@@ -66,15 +68,16 @@ public abstract class GameObject {
 	
 	public GameObject (String tag) {
 		
-		this(tag, 100, 0., 0., 0., null, 0.) ;
+		this(tag, 100, 0, 0, 0, 0, null, null) ;
 		
 	}
 	
-	// Pour les objets statiques
-	public GameObject (String tag, double pv, Collisionneur c,boolean estUnObstacle) {
+	public GameObject (String tag, double pv, Collisionneur collisionneur, boolean estUnObstacle) {
 		
-		this(tag, pv, 0, 0, 0., c, 0.) ;
-		this.estUnObstacle=estUnObstacle;
+		this.tag = tag ;
+		this.pv = new SimpleDoubleProperty(pv) ;
+		this.collisionneur = collisionneur ;
+		this.estUnObstacle = estUnObstacle ;
 		
 	}
 	
@@ -89,18 +92,42 @@ public abstract class GameObject {
 	 * @param collisionneur
 	 */
 	
-	public GameObject (String tag, double pv, double posX, double posY, double masse, Collisionneur collisionneur, double vitesseDeplacement) {
+	public GameObject (String tag, double pv, double posX, double posY, double masse, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		this.vitesseDeplacement = 1 ;
-		this.hauteurSaut = 10 ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
+		this.vitesseDeplacement = vitesseDeplacement ;
 		this.tag = tag ;
 		this.pv = new SimpleDoubleProperty(pv) ;
+		this.pvMax = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
 		this.posY = new SimpleDoubleProperty(posY) ;
 		this.vecteurVitesse = new Vecteur(0, 0) ;
 		this.masse = masse ;
 		this.collisionneur = collisionneur ;
 		this.coeffFrottement = 0 ;
+		this.peutSauter = false ;
+		this.jeu = jeu;
+		
+	}
+	
+	public Jeu getJeu() {
+		
+		return this.jeu ;
+		
+	}
+	
+	/**
+	 * Calcule et renvoie la puissance du saut du GameObject selon le Moteur
+	 * 
+	 * @param moteur
+	 */
+	
+	private double getPuissanceSaut () {
+
+		return this.vitesseDeplacement ;
+		
+	}
+	
+	public void setSautPossible () {
 		
 		
 	}
@@ -119,17 +146,8 @@ public abstract class GameObject {
 		
 	}
 	
-	/**
-	 * Calcule et renvoie la puissance du saut du GameObject selon le Moteur
-	 * 
-	 * @param m
-	 */
-	
-	protected double getPuissanceSaut (Moteur m) {
 
-		return this.hauteurSaut ;
-		
-	}
+
 	
 	/**
 	 * Retourne la hauteur à laquelle se trouve le GameObject selon le Moteur et le
@@ -160,7 +178,13 @@ public abstract class GameObject {
 		
 	}
 	
-
+	public Vecteur deplacerVersLeHaut() {
+		
+		return new Vecteur (0, this.vitesseDeplacement) ;
+		
+	}
+	
+   
 	
 	/**
 	 * Change les pv du GameObject
@@ -385,5 +409,6 @@ public abstract class GameObject {
 		this.coeffFrottement = coeff ;
 		
 	}
+	
 
 }
