@@ -6,7 +6,7 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import modele.Inventeriable;
 import modele.Jeu;
-import modele.Personnage;
+import modele.PersonnagePrincipal;
 import vue.Tuile;
 
 public class ControleurInventaire {
@@ -14,9 +14,9 @@ public class ControleurInventaire {
 	private Tuile t;
 	private Jeu j;
 	private Inventeriable objet;
-	private Personnage perso;
+	private PersonnagePrincipal perso;
 
-	public ControleurInventaire(Tuile t, Jeu j, Personnage perso , Inventeriable obj) {
+	public ControleurInventaire(Tuile t, Jeu j, PersonnagePrincipal perso , Inventeriable obj) {
 		this.t=t;
 		this.j=j;
 		this.perso = perso;

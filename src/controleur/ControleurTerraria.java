@@ -74,7 +74,7 @@ public class ControleurTerraria implements Initializable {
 	 * <p>Il sert notamment à compter le temps écoulé depuis
 	 * le début d'un saut</p>
 	 * 
-	 * @see Personnage#sauter(Terrain, physique.Moteur)
+	 * @see PersonnagePrincipal#sauter(Terrain, physique.Moteur)
 	 */
 	
     private int nbTour;
@@ -205,7 +205,7 @@ public class ControleurTerraria implements Initializable {
 	 * @since 1.1
 	 */
 	
-	private Personnage personnage;
+	private PersonnagePrincipal personnage;
 	private ControleurInventaire controlInvent;
 	private ArrayList<Tuile> listItemsInvent;
 	private ImageView ennemi;
@@ -405,8 +405,8 @@ public class ControleurTerraria implements Initializable {
 	 * Place le personnage sur la map
 	 * 
 	 * @see Jeu#getPerso()
-	 * @see Personnage#getXProperty()
-	 * @see Personnage#getYProperty()
+	 * @see PersonnagePrincipal#getXProperty()
+	 * @see PersonnagePrincipal#getYProperty()
 	 * 
 	 * @author Mathys
 	 * @author Romain

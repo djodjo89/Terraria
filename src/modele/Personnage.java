@@ -1,137 +1,40 @@
 package modele;
 
-import physique.*;
-import exceptions.HorsDeLaMapException;
-import exceptions.VousEtesCoinceException;
-import geometrie.Vecteur;
-import javafx.beans.property.* ;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import physique.Collisionneur;
+import physique.GameObject;
 
-/*
- * Un Personnage dispose de coordonnées modifiables et observables
- * Voici ses responsabilités :
- * - prendre un objet dans sa main
- * - renvoyer l'objet qu'il tient
- * - donner ses points d'attaque
- * - attaquer un objet
- */
+public abstract class Personnage extends GameObject{
+	
+	private DoubleProperty ptsAttaque ;
+	private double hauteurSaut ;
+	
+	public Personnage (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
+		
+		super (nom, pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
+		this.hauteurSaut = hauteurSaut ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
+		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
+		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
+		
+	}
+	
+	/**
+	 * Calcule et renvoie la puissance du saut du GameObject selon le Moteur
+	 * 
+	 * @param moteur
+	 */
+	
+	public double getPuissanceSaut () {
 
-public class Personnage extends NonInventeriable {
-	
-	
-	private Inventeriable main ;
-
-	private Inventaire i ;
-	
-	public Personnage () {
+		return ((51.9 * this.hauteurSaut + 48.9 * super.getMasse() - 2007) / super.getJeu().getMoteur().getTailleBoiteY()*650) ;
 		
-		super () ;
-		this.main = null;
-		this.i = new Inventaire(10);		
+	} 
+	
+	public double getPtsAttaque () {
+		
+		return this.ptsAttaque.getValue () ;
 		
 	}
 	
-	public Personnage (String nom, double pv, double ptsAtt, double x, double y, double vitesseX, double vitesseY, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
-		
-		super (nom, pv, x, y, vitesseX, c, distanceDeplacement,jeu,ptsAtt) ;
-		
-		this.i = new Inventaire (20) ;
-		this.setObstacle() ;
-		
-	}
-	
-	public void donner (Inventeriable o) {
-		
-		this.main = o ;
-		
-	}
-	
-
-	
-	public GameObject getMain () {
-		
-		return this.main ;
-		
-	}
-	
-	public void attaque (GameObject o) {
-		
-		if(this.main instanceof Outil ) 
-			o.perdrePV (((Outil) this.main).getPtsAttaque()) ;
-		
-		
-		else {
-			System.out.println(this.getPtsAttaque());
-			o.perdrePV(this.getPtsAttaque());
-		}
-		
-	}
-	
-	public void ajouterObjetMain (Inventeriable o) {
-		
-		this.donner(this.i.getInventaire().get(0)) ;
-		
-	}
-	
-	public Inventeriable destructionTerrain(int x, int y) {
-		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
-		
-		Terrain terrain = this.getJeu().getTerrain();
-		Inventeriable blocCible = null;
-		
-		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
-			
-			this.attaque(terrain.getListeLignes().get(y).get(x));
-				
-			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
-				
-				Air caseMap = new Air("air");
-				
-				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
-				blocCible = terrain.getListeLignes().get(y).get(x);
-				blocCible.setPv(100) ;
-				terrain.getListeLignes().get(y).set(x,caseMap);
-				
-			}
-		}
-		return blocCible;
-	}
-	
-	public void poserBlockTerrain(int x, int y) {
-		
-		Terrain terrain = this.getJeu().getTerrain();
-		this.donner(this.getInventaire().getListObjet().get(2));
-		int j = this.i.chercheObjetDansInventaire(this.getMain());
-		
-		if (this.main.estUnObstacle() && this.main !=null) {
-	
-			Inventeriable caseMap = this.getInventaire().getListObjet().get(j);
-			terrain.getListeLignes().get(y).set(x,caseMap);
-			this.getInventaire().retirerObjet(caseMap);
-			objetMainExisteEncore(caseMap);
-		}
-	}
-	
-
-	public Inventaire getInventaire (){
-		
-		return this.i ;
-	}
-	
-	public String toString () {
-		
-		return "" + this.getVecteurVitesse().getX() + ":" + this.getVecteurVitesse().getY() ;
-		
-	}
-		
-	public void objetMainExisteEncore(GameObject o) {
-		if (this.i.chercheObjetDansInventaire(o) == -1) {
-			this.main = null;
-			System.out.println("main vide");
-			
-		}
-		System.out.println(this.main);
-	}
-	
-
-
 }
