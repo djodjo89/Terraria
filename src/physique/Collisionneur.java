@@ -147,7 +147,7 @@ public class Collisionneur {
 					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
 
 					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle())) {
-						System.out.println("déplacement impossible");
+						//System.out.println("dï¿½placement impossible");
 						deplacementPossible = false ;
 
 					}

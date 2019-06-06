@@ -23,7 +23,7 @@ import javafx.collections.ObservableList;
 		
 		private double tailleCaseX ;
 		private double tailleCaseY ;
-		private ObservableList<ObservableList<Inventeriable>> listeDeLignes ;
+		private ObservableList<ObservableList<Bloc>> listeDeLignes ;
 		
 		private int positionBlockY;
 		
@@ -41,7 +41,7 @@ import javafx.collections.ObservableList;
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
 			String nomCase ;
-			Inventeriable caseMap = null ;
+			Bloc caseMap = null ;
 
 			
 			for (int i = 0 ; i < newlist.size() ; i ++) {
@@ -111,7 +111,7 @@ import javafx.collections.ObservableList;
 			
 		}
 		
-		public ObservableList<ObservableList<Inventeriable>> getListeLignes () {
+		public ObservableList<ObservableList<Bloc>> getListeLignes () {
 			
 			return this.listeDeLignes ;
 			

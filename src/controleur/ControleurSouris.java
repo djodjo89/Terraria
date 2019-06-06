@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.* ;
+import physique.GameObject;
 import ressources.Images;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.input.MouseEvent;
@@ -97,9 +98,12 @@ public class ControleurSouris extends Parent {
 	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
+		this.jeu.getTerrain().setPositionBlockY(blockY);
+		this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
+		
+		/*
 		if (this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).getTag().equals("air")) {
 			this.jeu.getTerrain().setPositionBlockY(blockY);
-			//System.out.println("etape1");
 			this.jeu.getPerso().poserBlockTerrain(blockX,blockY);
 		}
 		else {
@@ -109,14 +113,14 @@ public class ControleurSouris extends Parent {
 			
 			blocRecup = this.jeu.getPerso().destructionTerrain(blockX, blockY);
 			if (blocRecup != null) {
-				//System.out.println("miam, miam, miam, it's delicious!");
-				//System.out.println(blocRecup.getTag());
+				
 				this.jeu.getPerso().getInventaire().ajouterObjet(blocRecup);
 				System.out.println(this.jeu.getPerso().getInventaire().getListObjet());
 			}
 		}
-		
+		*/
 	}
+	
 	
 	
 }

@@ -71,7 +71,7 @@ public class Personnage extends NonInventeriable {
 		this.donner(this.i.getInventaire().get(0)) ;
 		
 	}
-	
+	/*
 	public Inventeriable destructionTerrain(int x, int y) {
 		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
 		
@@ -95,7 +95,8 @@ public class Personnage extends NonInventeriable {
 		}
 		return blocCible;
 	}
-	
+	*/
+	/*
 	public void poserBlockTerrain(int x, int y) {
 		
 		Terrain terrain = this.getJeu().getTerrain();
@@ -104,12 +105,13 @@ public class Personnage extends NonInventeriable {
 		
 		if (this.main.estUnObstacle() && this.main !=null) {
 	
-			Inventeriable caseMap = this.getInventaire().getListObjet().get(j);
+			bloc caseMap = this.getInventaire().getListObjet().get(j);
 			terrain.getListeLignes().get(y).set(x,caseMap);
 			this.getInventaire().retirerObjet(caseMap);
 			objetMainExisteEncore(caseMap);
 		}
 	}
+	*/
 	
 
 	public Inventaire getInventaire (){

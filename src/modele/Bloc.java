@@ -10,12 +10,40 @@ import physique.Collisionneur;
  *
  */
 
-public class Bloc extends Inventeriable {
+public class Bloc extends Inventeriable implements Cliquable {
 	
 	
 	public Bloc(String tag, double pv,boolean estUnObstacle) {
 		
 		super (tag,pv,null,estUnObstacle);
+		
+	}
+
+	@Override
+	public void interactionClick(int x, int y, Jeu jeu) {
+		
+		Terrain terrain = jeu.getTerrain();
+		Inventeriable blocCible = null;
+		
+		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
+			
+			jeu.getPerso().attaque(terrain.getListeLignes().get(y).get(x));
+				
+			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
+				
+				Air caseMap = new Air("air");
+				
+				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
+				blocCible = terrain.getListeLignes().get(y).get(x);
+				blocCible.setPv(100) ;
+				terrain.getListeLignes().get(y).set(x,caseMap);
+					
+					jeu.getPerso().getInventaire().ajouterObjet(this);
+					System.out.println(jeu.getPerso().getInventaire().getListObjet());
+				
+			}
+		}
+		
 		
 	}
 	

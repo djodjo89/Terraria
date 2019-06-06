@@ -132,7 +132,7 @@ public class Inventaire {
 		int j = 0;
 			
 			while (this.listeObjets.get(j)!=null && (j < this.listeObjets.size() && objetExistant == false)) {
-				System.out.println(o.getTag());
+				//System.out.println(o.getTag());
 				
 				if (this.listeObjets.get(j).getTag().equals(o.getTag())) {
 					

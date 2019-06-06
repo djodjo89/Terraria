@@ -91,7 +91,7 @@ public class ControleurMap {
 		
 	
 		
-		for (ObservableList<Inventeriable> listeCases : this.jeu.getTerrain().getListeLignes()) {
+		for (ObservableList<Bloc> listeCases : this.jeu.getTerrain().getListeLignes()) {
 			
 			listeCases.addListener (new ListChangeListener<Inventeriable> () {
 

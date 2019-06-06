@@ -12,7 +12,7 @@ import physique.GameObject;
  *
  */
 
-public class Ennemi extends NonInventeriable{
+public class Ennemi extends NonInventeriable implements Cliquable{
 	
 	private int nbTourSaut;
 	
@@ -46,6 +46,12 @@ public class Ennemi extends NonInventeriable{
 	}
 	public void setNbTourSaut(int nbTourSaut) {
 		this.nbTourSaut= nbTourSaut;
+	}
+
+	@Override
+	public void interactionClick(int x, int y, Jeu jeu) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
