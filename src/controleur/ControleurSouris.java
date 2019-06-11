@@ -1,7 +1,11 @@
 package controleur;
 
 import modele.* ;
+
 import physique.GameObject;
+
+import objetRessources.Inventeriable;
+
 import ressources.Images;
 import vue.Tuile;
 import javafx.scene.input.KeyEvent ;

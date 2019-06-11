@@ -5,6 +5,7 @@ import geometrie.* ;
 import ressources.TraducteurFichier ;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import controleur.ControleurTouches;
 
@@ -22,10 +23,12 @@ import controleur.ControleurTouches;
 public class Jeu {
 	
 	private Moteur moteur ;
-	private Personnage perso ;
+	private PersonnagePrincipal perso ;
 	private Terrain terrain ;
-	private Ennemi ennemi;
+	private Licorne ennemi;
+	private LicorneVolante ennemiVol;
 	private TraducteurFichier tf ;
+	private ArrayList<Personnage> listePerso;
 	
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
@@ -35,13 +38,16 @@ public class Jeu {
 		p2 = new Point (posXJoueur + 41, posYJoueur) ;
 		p3 = new Point (posXJoueur, posYJoueur + taillePixelsYCase) ;
 		p4 = new Point (posXJoueur + 41, posYJoueur + taillePixelsYCase) ;
-		this.ennemi= new Ennemi("first", 100, 10, posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4), this);
-		this.perso = new Personnage("Wall-E", 100., 10, posXJoueur, posYJoueur, 1., 1., 1., new Collisionneur (p1, p2, p3, p4),this) ;
+		this.ennemi= new Licorne("first", 100, 10,posXJoueur, posYJoueur, 1., 8.5, 1., new Collisionneur (p1, p2, p3, p4), this, 5);
+		this.ennemiVol= new LicorneVolante("second", 100, 10,posXJoueur, posYJoueur, 1., 8.5, 1., new Collisionneur (p1, p2, p3, p4), this, 5);		
+		this.perso = new PersonnagePrincipal ("Wall-E", 100., 20., posXJoueur, posYJoueur, 1., 8.5, 1., new Collisionneur (p1, p2, p3, p4),this) ;
 		
 		this.tf = new TraducteurFichier(nomF) ;
 		
 		this.terrain = new Terrain (this.tf.getTabMap(), this.moteur.getTailleBoiteX(), this.moteur.getTailleBoiteY()) ;
-		
+		this.listePerso=new ArrayList<Personnage>();
+		this.listePerso.add(ennemi);
+		this.listePerso.add(ennemiVol);
 	}
 	
 	public Jeu() {
@@ -59,7 +65,7 @@ public class Jeu {
 		
 	}
 	
-	public Personnage getPerso () {
+	public PersonnagePrincipal getPerso () {
 		      
 		return this.perso ;
 		
@@ -70,13 +76,15 @@ public class Jeu {
 		if(!controlTouche.getMenu().estAffiche()) {
 			this.moteur.appliquerForces(this.perso, this.terrain);
 			this.moteur.appliquerForces(this.ennemi, this.terrain);
-			this.ennemi.deplaceVersPerso(this.perso);
+			this.moteur.appliquerForces(this.ennemiVol, this.terrain);
+			this.ennemiVol.deplace(this.perso);
+			this.ennemi.deplace(this.perso);
 		}
 	
 	}
 
-	public Ennemi getEnnemi() {
-		return this.ennemi;
+	public ArrayList<Personnage> getEnnemi() {
+		return this.listePerso;
 	}
 
 }

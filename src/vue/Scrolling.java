@@ -2,7 +2,7 @@ package vue;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
-import modele.Personnage;
+import modele.PersonnagePrincipal;
 
 public class Scrolling {
 	
@@ -20,7 +20,7 @@ public class Scrolling {
 		this.paneInventaire=paneInventaire;
 	}
 	
-	public void faireScroll(Personnage Perso) {
+	public void faireScroll(PersonnagePrincipal Perso) {
 		this.xTranslate.setValue(-Perso.getX()+pane.getWidth()/2);
 		this.yTranslate.setValue((-Perso.getY()+pane.getHeight()/2));
 		this.pane.setTranslateY(this.getY());

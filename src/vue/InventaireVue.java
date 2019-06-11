@@ -6,10 +6,10 @@ import controleur.ControleurInventaire;
 import controleur.ControleurSouris;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import modele.Foreuse;
-import modele.Inventeriable;
 import modele.Jeu;
-import modele.Personnage;
+import modele.PersonnagePrincipal;
+import objetRessources.Foreuse;
+import objetRessources.Inventeriable;
 import ressources.Images;
 
 public class InventaireVue {

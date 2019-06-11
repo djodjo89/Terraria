@@ -5,6 +5,7 @@ package modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import objetRessources.Inventeriable;
 import physique.* ;
 
 /*

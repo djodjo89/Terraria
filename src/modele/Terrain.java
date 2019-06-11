@@ -8,6 +8,11 @@ import fabriques.FabriqueGameObject;
 import geometrie.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import objetRessources.Air;
+import objetRessources.Bloc;
+import objetRessources.Granite;
+import objetRessources.Inventeriable;
+import objetRessources.Terre;
 
 /*
  * Le Terrain est le modèle de la map.
@@ -24,7 +29,7 @@ import javafx.collections.ObservableList;
 		
 		private double tailleCaseX ;
 		private double tailleCaseY ;
-		private ObservableList<ObservableList<Bloc>> listeDeLignes ;
+		private ObservableList<ObservableList<Bloc>> listeDeLignes;
 		
 		private int positionBlockY;
 		

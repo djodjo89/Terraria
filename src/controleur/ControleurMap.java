@@ -1,6 +1,8 @@
 package controleur;
 
 import modele.*;
+import objetRessources.Bloc;
+import objetRessources.Inventeriable;
 import ressources.Images;
 import vue.Tuile;
 import javafx.collections.ListChangeListener;

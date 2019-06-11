@@ -1,5 +1,10 @@
-package modele;
+package objetRessources;
 
+import modele.Cliquable;
+import modele.Jeu;
+import modele.PersonnagePrincipal;
+import modele.Terrain;
+import modele.UtilisationEnMain;
 import physique.Collisionneur;
 
 /**
@@ -46,5 +51,13 @@ public class Bloc extends Inventeriable implements Cliquable {
 		
 		
 	}
+	
+	public void utilisation() {
+		System.out.println("bloc");
+	}
+	
+	
+
+	
 	
 }

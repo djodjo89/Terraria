@@ -1,4 +1,4 @@
-package modele;
+package objetRessources;
 
 public class Granite extends Bloc {
 		

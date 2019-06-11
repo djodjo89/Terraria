@@ -1,8 +1,9 @@
-package modele;
+package objetRessources;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import objetRessources.Inventeriable;
 import physique.Collisionneur;
 import physique.GameObject;
 
@@ -39,6 +40,10 @@ public class Outil extends Inventeriable {
 		
 		return this.ptsAttaque ;
 		
+	}
+	
+	public void Utilisation() {
+		System.out.println("Outil");
 	}
 
 }
