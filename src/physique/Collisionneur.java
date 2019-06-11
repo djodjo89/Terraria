@@ -160,11 +160,11 @@ public class Collisionneur {
 
 		}
 
-		if (this.depasseLesLimitesDeLaMap(terrain, moteur) || !deplacementPossible) {
-
-			nouveauVecteur.ajouter(-vecteur.getX() / 200, -vecteur.getY() / 200);
-			
-		}
+//		if (this.depasseLesLimitesDeLaMap(terrain, moteur) || !deplacementPossible) {
+//
+//			nouveauVecteur.ajouter(-vecteur.getX() / 200, -vecteur.getY() / 200);
+//			
+//		}
 		
 		return nouveauVecteur ;
 	

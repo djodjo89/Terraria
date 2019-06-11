@@ -60,7 +60,7 @@ public class Moteur {
 	public void appliquerForces (Personnage go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 		this.appliquerPesanteur(go, t);
-		go.verifSiPeutSauter(this.appliquerForceElectromagnetique(go, t)) ;
+		go.verifSiPeutSauter(this.appliquerForcesMecaniques(go, t)) ;
 		go.deplacer () ;
 		
 	}
@@ -87,12 +87,17 @@ public class Moteur {
 	 * @throws HorsDeLaMapException
 	 */
 	
-	public void appliquerPesanteur (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
+	public Vecteur appliquerPesanteur (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 		Vecteur poids ;
-		poids = new Vecteur (0, go.getMasse() * this.accelerationDePesanteur) ;
-		go.ajouter(go.getCollisionneur().deplacementPossible(poids, t, this)) ;
+		Vecteur vFinal ;
 		
+		poids = new Vecteur (0, go.getMasse() * this.accelerationDePesanteur) ;
+		
+		vFinal = this.appliquerForceElectromagnetique(go, new Vecteur (poids.getX() + go.getVecteurVitesse().getX(), poids.getY() + go.getVecteurVitesse().getY()), t) ;
+		go.setVitesse(vFinal) ;
+		
+		return vFinal ;
 	}
 	
 	/**
@@ -104,15 +109,35 @@ public class Moteur {
 	 * @throws HorsDeLaMapException
 	 */
 	
-	public Vecteur appliquerForceElectromagnetique (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
+	public Vecteur appliquerForcesMecaniques (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
-//		go.ajouter(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
-		Vecteur v ;
+		Vecteur vInitial ;
+		Vecteur vFinal ;
 		
-		v = go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this) ;
-		go.setVitesse(v) ;
+		vInitial = go.getVecteurVitesse() ;
 		
-		return v ;
+		vFinal = this.appliquerForceElectromagnetique(go, vInitial, t) ;
+		go.setVitesse(vFinal) ;
+		
+		return vFinal ;
+		
+	}
+	
+	public Vecteur appliquerForceElectromagnetique (GameObject go, Vecteur vInitial, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
+		
+		Vecteur vFinal ;
+		
+		vFinal = go.getCollisionneur().deplacementPossible(vInitial, t, this) ;
+		
+		if (!vInitial.equals(vFinal))
+			
+			vFinal.ajouter(-vInitial.getX() / 200, -vInitial.getY() / 200);
+		
+		if (vFinal.getY() == 0 && vFinal.getX() != 0)
+			
+			vFinal = new Vecteur (vInitial.getX(), 0) ;
+		
+		return vFinal ;
 		
 	}
 	

@@ -44,6 +44,21 @@ public class Vecteur {
 		
 	}
 	
+	public boolean equals (Vecteur v) {
+		
+		boolean egaux ;
+		
+		if (this.x == v.getX() && this.y == v.getY())
+	
+			egaux = true ;
+		
+		else
+			
+			egaux = false ;
+		
+		return egaux ;
+	}
+	
 	public String toString () {
 		
 		return this.x + ":" + this.y ;

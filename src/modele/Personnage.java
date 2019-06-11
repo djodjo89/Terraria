@@ -26,7 +26,6 @@ public abstract class Personnage extends GameObject{
 		super (nom, pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
 		this.jeu=jeu;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
-		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		this.peutSauter = false ;
 		this.hauteurSaut = hauteurSaut ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
 		
@@ -52,8 +51,6 @@ public abstract class Personnage extends GameObject{
 		else
 			
 			this.setSautImpossible() ;
-		
-		System.out.println(v.getY());
 		
 	}
 	

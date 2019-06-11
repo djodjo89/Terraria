@@ -1,14 +1,11 @@
 
 package modele;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import objetRessources.Air;
 import objetRessources.Inventeriable;
 import objetRessources.Outil;
 import physique.Collisionneur;
 import physique.GameObject;
-import physique.Moteur;
 
 public class PersonnagePrincipal extends Personnage{
 	
@@ -20,7 +17,6 @@ public class PersonnagePrincipal extends Personnage{
 		super (nom, pv,ptsAtt, posX, posY, masse,hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
 		
 		this.i = new Inventaire(20);
-		//System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		
 	}
 	
