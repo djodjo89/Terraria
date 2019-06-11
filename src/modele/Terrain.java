@@ -64,6 +64,29 @@ import objetRessources.Terre;
 					
 					case "G": caseMap = new Granite("granite"); break;
 					
+					case "BBI": caseMap = new Granite("blocBio"); break;
+					
+					case "BB": caseMap = new Granite("blocBois"); break;
+					
+					case "BD": caseMap = new Granite("blocDechet"); break;
+					
+					case "BE": caseMap = new Granite("blocElectro"); break;
+					
+					case "BM": caseMap = new Granite("blocMetal"); break;
+					
+					case "BP": caseMap = new Granite("blocPlastique"); break;
+					
+					case "B": caseMap = new Granite("bois"); break;
+					
+					case "E": caseMap = new Granite("electronique"); break;
+					
+					case "M": caseMap = new Granite("metal"); break;
+					
+					case "P": caseMap = new Granite("pierre"); break;
+					
+					case "PA": caseMap = new Granite("plastique"); break;
+					
+					
 					}
 					
 					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
