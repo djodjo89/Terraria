@@ -1,5 +1,5 @@
 package objetRessources;
 
-public class BlocPlastique {
+public class BlocPlastique extends Bloc{
 
 }
