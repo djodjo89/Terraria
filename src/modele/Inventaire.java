@@ -55,7 +55,6 @@ public class Inventaire {
 				while (this.listeObjets.get(i).getKey() != null && i<19) {
 					i ++ ;
 				}
-				System.out.println("i" + i);
 				this.listeObjets.add(i,new Tuple(o, 1));
 				
 			}
@@ -81,7 +80,6 @@ public class Inventaire {
 
 		if(this.listeObjets.get(pos).getValue() == 0) {
 			supprimerObjet(o);
-			System.out.println("yes");
 		}
 	}
 

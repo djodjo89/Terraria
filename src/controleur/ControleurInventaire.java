@@ -54,9 +54,10 @@ public class ControleurInventaire {
 	public void setClickObjetDonnerAuPerso(Tuile tile, Inventeriable objet) {
 		tile.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
 			this.j.getPerso().donner(objet);	
-			System.out.println(this.j.getPerso().getMain().getTag());
 			event.consume();
+			
 		});
+		
 	}
 	
 }

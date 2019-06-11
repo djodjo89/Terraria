@@ -57,9 +57,10 @@ public class InventaireVue {
 	}
 	
 	public Tuile ajoutItemInventaire(Inventeriable obj) {
-		nbItemAffiche++;
+		
 		Tuile tileItem = new Tuile(obj.getTag(), nbItemAffiche*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getTag()));
 		this.paneItems.getChildren().add(tileItem);
+		nbItemAffiche++;
 		return tileItem;
 		
 	}

@@ -17,6 +17,7 @@ public class FabriqueImages {
 		images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
 		images.ajouterImage("fondInventaire", new Image(new File("image/fondInventaire.png").toURI().toString()));
 		images.ajouterImage("forreuse", new Image(new File("image/forreuse.png").toURI().toString()));
+		images.ajouterImage("fondInventaireSel", new Image(new File("image/fondInventaireSel.png").toURI().toString()));
 
 		return images;
 	}
