@@ -41,5 +41,9 @@ public class Outil extends Inventeriable {
 		return this.ptsAttaque ;
 		
 	}
+	
+	public void Utilisation() {
+		System.out.println("Outil");
+	}
 
 }

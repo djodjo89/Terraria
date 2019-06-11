@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.*;
+import objetRessources.Bloc;
 import objetRessources.Inventeriable;
 import ressources.Images;
 import vue.Tuile;
@@ -92,7 +93,7 @@ public class ControleurMap {
 		
 	
 		
-		for (ObservableList<Inventeriable> listeCases : this.jeu.getTerrain().getListeLignes()) {
+		for (ObservableList<Bloc> listeCases : this.jeu.getTerrain().getListeLignes()) {
 			
 			listeCases.addListener (new ListChangeListener<Inventeriable> () {
 

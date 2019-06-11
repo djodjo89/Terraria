@@ -1,6 +1,6 @@
 package modele;
 
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,6 +110,8 @@ public class Inventaire {
 		boolean objetExistant = false;
 		int j = 0;
 			
+
+
 			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
 				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
 				if (inv.getTag().equals(o.getTag())) {

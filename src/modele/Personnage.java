@@ -32,7 +32,9 @@ public abstract class Personnage extends GameObject{
 		
 	}
 	
+
 	public void setSautPossible () {
+
 		
 		this.peutSauter = true ;
 		
@@ -124,7 +126,9 @@ public abstract class Personnage extends GameObject{
 		
 	}
 	
+
 	public double getPtsAttaque () {
+
 		
 		return this.ptsAttaque.getValue () ;
 		
