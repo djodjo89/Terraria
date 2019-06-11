@@ -61,7 +61,7 @@ public class Inventaire {
 				
 			}
 			else {
-				this.listeObjets.get(i).increment();
+				this.listeObjets.get(j).increment();
 				
 			}
 			

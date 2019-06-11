@@ -79,6 +79,12 @@ public class Jeu {
 			this.moteur.appliquerForces(this.ennemiVol, this.terrain);
 			this.ennemiVol.deplace(this.perso);
 			this.ennemi.deplace(this.perso);
+			if(perso.getInvincible())
+				if(perso.compteInvincible()>30)
+					perso.vulnerable();
+			if (perso.tMort()) {
+				System.exit(0);
+			}
 		}
 	
 	}

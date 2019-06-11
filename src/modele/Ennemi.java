@@ -31,7 +31,7 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 	public Ennemi (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
 
-		super (nom, pv,ptsAtt, posX, posY, masse, hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
+		super (nom, pv,10, posX, posY, masse, hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
 		this.portee=500;
 		this.setObstacle() ;
 	}
@@ -39,6 +39,7 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 	public void deplace(PersonnagePrincipal perso) {
 		if (this.estADistance(perso)) {
 			if(perso.getX()>this.getX()) {
+				this.attaqueLePerso(perso);
 				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getTag()=="air")
 					this.deplacerVers("droite", super.getJeu().getMoteur());
 				else
@@ -46,6 +47,7 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 	
 			}
 			else if(perso.getX()<this.getX()) {
+				this.attaqueLePerso(perso);
 				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getTag()=="air")
 					this.deplacerVers("gauche", super.getJeu().getMoteur());
 				else
@@ -89,6 +91,11 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 	public void interactionClick(int x, int y, Jeu jeu) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void attaqueLePerso(Personnage perso) {
+		System.out.println("J'ATTAQUE");
+		perso.prendreDegat(this.getPtsAttaque());
 	}
 
 
