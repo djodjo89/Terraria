@@ -21,7 +21,7 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 	public Ennemi () {
 		
 		super () ;
-		this.portee=500;
+		this.portee=10;
 		this.nbTourSaut=0;
 		
 	}
@@ -32,7 +32,7 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 		
 
 		super (nom, pv,10, posX, posY, masse, hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
-		this.portee=500;
+		this.portee=98;
 		this.setObstacle() ;
 	}
 	
