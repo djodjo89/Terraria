@@ -19,4 +19,9 @@ public abstract class Inventeriable extends GameObject {
 		super (tag, pv, c, estUnObstacle) ;
 	}
 	
+	public void Utilisation() {
+		//this.Action();
+	}
+
+	
 }

@@ -4,6 +4,7 @@ import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
 import physique.Collisionneur;
 
+
 /**
  * <h1>Air est un GameObject</h1>
  * 
@@ -12,7 +13,7 @@ import physique.Collisionneur;
  *
  */
 
-public abstract class Ennemi extends Personnage{
+public abstract class Ennemi extends Personnage implements Cliquable{
 	
 	private int nbTourSaut;
 	private int portee;
@@ -24,6 +25,7 @@ public abstract class Ennemi extends Personnage{
 		this.nbTourSaut=0;
 		
 	}
+
 
 	
 	public Ennemi (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
@@ -81,5 +83,13 @@ public abstract class Ennemi extends Personnage{
 		this.ajouter(new Vecteur(-this.getVecteurVitesse().getX(),0));
 		return false;
 	}
+
+
+	@Override
+	public void interactionClick(int x, int y, Jeu jeu) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

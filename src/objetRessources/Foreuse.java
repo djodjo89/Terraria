@@ -13,4 +13,7 @@ public class Foreuse extends Outil{
 		this.itemNecessaire=new ArrayList<GameObject>();
 	}
 	
+	public void Action() {
+		
+	}
 }
