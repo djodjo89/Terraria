@@ -1,6 +1,7 @@
 package modele;
 
 import exceptions.VousEtesCoinceException;
+import geometrie.Vecteur;
 import physique.Collisionneur;
 
 /**
@@ -14,10 +15,12 @@ import physique.Collisionneur;
 public abstract class Ennemi extends Personnage{
 	
 	private int nbTourSaut;
+	private int portee;
 	
 	public Ennemi () {
 		
 		super () ;
+		this.portee=500;
 		this.nbTourSaut=0;
 		
 	}
@@ -27,23 +30,26 @@ public abstract class Ennemi extends Personnage{
 		
 
 		super (nom, pv,ptsAtt, posX, posY, masse, hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
-
+		this.portee=500;
 		this.setObstacle() ;
 	}
 	
 	public void deplace(PersonnagePrincipal perso) {
-		if(perso.getX()>this.getX()) {
-			if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getTag()=="air")
-				this.deplacerVers("droite", super.getJeu().getMoteur());
-			else
-				this.deplacerVers("haut", super.getJeu().getMoteur());
-
-		}
-		else if(perso.getX()<this.getX()) {
-			if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getTag()=="air")
-				this.deplacerVers("gauche", super.getJeu().getMoteur());
-			else
-				this.deplacerVers("haut", super.getJeu().getMoteur());
+		if (this.estADistance(perso)) {
+			if(perso.getX()>this.getX()) {
+				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getTag()=="air")
+					this.deplacerVers("droite", super.getJeu().getMoteur());
+				else
+					this.deplacerVers("haut", super.getJeu().getMoteur());
+	
+			}
+			else if(perso.getX()<this.getX()) {
+				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getTag()=="air")
+					this.deplacerVers("gauche", super.getJeu().getMoteur());
+				else
+					this.deplacerVers("haut", super.getJeu().getMoteur());
+			}
+			
 		}
 		this.deplaceVersPerso(perso);
 	}
@@ -65,6 +71,15 @@ public abstract class Ennemi extends Personnage{
 		position=(int)this.getY()/50;
 		
 		return position;
+	}
+	
+	public boolean estADistance(Personnage perso) {
+		if(perso.getX()+this.portee>=this.getX()&& perso.getX()-this.portee<=this.getX()) {
+			System.out.println("looooooooooooool");
+			return true;
+		}
+		this.ajouter(new Vecteur(-this.getVecteurVitesse().getX(),0));
+		return false;
 	}
 
 }
