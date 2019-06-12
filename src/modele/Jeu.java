@@ -85,11 +85,12 @@ public class Jeu {
 	public void evoluer(ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
 		
 		if(!controlTouche.getMenu().estAffiche()) {
-			this.moteur.appliquerForces(this.perso, this.terrain,listePerso);
-			this.moteur.appliquerForces(this.ennemi, this.terrain,listePerso);
-			this.moteur.appliquerForces(this.ennemiVol, this.terrain,listePerso);
+			this.modifieListePourAppliquerForce(this.perso, this.terrain);
+			this.modifieListePourAppliquerForce(this.ennemi, this.terrain);
+			this.modifieListePourAppliquerForce(this.ennemiVol, this.terrain);
 			this.ennemiVol.deplace(this.perso);
 			this.ennemi.deplace(this.perso);
+			
 			if(perso.getInvincible())
 				if(perso.compteInvincible()>30)
 					perso.vulnerable();
@@ -100,6 +101,13 @@ public class Jeu {
 	
 	}
 
+	public void modifieListePourAppliquerForce(Personnage perso,Terrain terre) throws VousEtesCoinceException, HorsDeLaMapException {
+		listePerso.remove(perso);
+		this.moteur.appliquerForces(perso, terre,listePerso);
+		System.out.println(perso.getCollisionneur().getBoite().get(2));
+		listePerso.add(perso);
+		
+	}
 	public ArrayList<Personnage> getEnnemi() {
 		return this.listePerso;
 	}

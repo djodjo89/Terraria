@@ -61,6 +61,7 @@ public class Moteur {
 	
 	public void appliquerForces (Personnage go, Terrain t,ArrayList<Personnage> listePerso) throws VousEtesCoinceException, HorsDeLaMapException {
 		
+		
 		this.appliquerPesanteur(go, t,listePerso);
 		go.verifSiPeutSauter(this.appliquerForceElectromagnetique(go, t,listePerso)) ;
 		go.deplacer () ;

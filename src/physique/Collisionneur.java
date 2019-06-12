@@ -107,6 +107,7 @@ public class Collisionneur {
 	public Vecteur deplacementPossible (Vecteur vecteur, Terrain terrain, Moteur moteur,ArrayList<Personnage> listePerso) throws VousEtesCoinceException, HorsDeLaMapException {
 
 		int i ;
+		int j=0;
 		int[] coordonneesDuPoint ;
 		boolean deplacementPossible ;
 		Collisionneur collisionneurTemporaire ;
@@ -143,18 +144,17 @@ public class Collisionneur {
 				 */
 
 				i = 0 ;
-				int j=0;
+				
 				coordonneesDuPoint = new int[2] ;
 
 				while (deplacementPossible && i < collisionneurTemporaire.getBoite().nbSommets()) {
 
 					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
-					
-					while(deplacementPossible && j<listePerso.size()) {
-						if(!listePerso.get(j).getTag().equals("Wall-E"))
-							deplacementPossible=(this.pointDeChevauchement(listePerso.get(j).getCollisionneur())==null);
-						j++;
-					}
+					j=0;
+//					while(deplacementPossible && j<listePerso.size()) {
+//						deplacementPossible=(collisionneurTemporaire.pointDeChevauchement(listePerso.get(j).getCollisionneur())==null);
+//						j++;
+//					}
 					
 					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle())) {
 
@@ -163,7 +163,7 @@ public class Collisionneur {
 					}
 
 					i ++ ;
-
+					
 				}
 				
 			}
