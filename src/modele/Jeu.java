@@ -7,7 +7,7 @@ import ressources.TraducteurFichier ;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import controleur.ControleurTouches;
+import controleur.* ;
 
 /*
  * Jeu est la classe principale du jeu.
@@ -71,9 +71,10 @@ public class Jeu {
 		
 	} 
 	
-	public void evoluer(ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
+	public void evoluer(ControleurTouches controlTouche, ControleurTerraria controlTerra) throws VousEtesCoinceException, HorsDeLaMapException{
 		
 		if(!controlTouche.getMenu().estAffiche()) {
+			controlTerra.genererMap () ;
 			this.moteur.appliquerForces(this.perso, this.terrain);
 			this.moteur.appliquerForces(this.ennemi, this.terrain);
 			this.moteur.appliquerForces(this.ennemiVol, this.terrain);

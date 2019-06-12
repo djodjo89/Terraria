@@ -9,6 +9,7 @@ public class Terre extends Bloc {
 	public Terre (String tag) {
 		
 		super (tag, 100, true) ;
+		super.setCoeffFrottement(10) ;
 		
 	}
 	

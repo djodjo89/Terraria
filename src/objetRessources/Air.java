@@ -13,6 +13,7 @@ public class Air extends Bloc {
 	public Air (String tag) {
 		
 		super(tag, 0,false) ;
+		this.setCoeffFrottement(0.1);
 		
 	}
 

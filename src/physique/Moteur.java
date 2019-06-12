@@ -2,9 +2,10 @@ package physique;
 
 import exceptions.HorsDeLaMapException;
 import exceptions.VousEtesCoinceException;
-import geometrie.Vecteur;
-import modele.Personnage;
-import modele.Terrain;
+import geometrie.*;
+import java.util.ArrayList;
+import modele.*;
+import objetRessources.*;
 
 /**<h1>Le Moteur gère la physique d'un Jeu</h1>
  * <p>Il peut :</p>
@@ -60,6 +61,7 @@ public class Moteur {
 	public void appliquerForces (Personnage go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
 		this.appliquerPesanteur(go, t);
+		this.appliquerFrottements(go, t);
 		go.verifSiPeutSauter(this.appliquerForcesMecaniques(go, t)) ;
 		go.deplacer () ;
 		
@@ -73,8 +75,34 @@ public class Moteur {
 	 * @param v
 	 */
 	
-	public void appliquerFrottements (GameObject go, Terrain t) {
+	public Vecteur appliquerFrottements (GameObject go, Terrain t) throws VousEtesCoinceException, HorsDeLaMapException {
 		
+		int i ;
+		int[] coordonnees ;
+		double sommeCoeffsFrottement ;
+		Vecteur frottements ;
+		Vecteur vFinal ;
+		
+		i = 0 ;
+		coordonnees = new int[2] ;
+		sommeCoeffsFrottement = 0 ;
+		
+		while ( i < go.getCollisionneur().getBoite().nbSommets()) {
+			go.getCollisionneur().getCoordonneesEntieresSurLaMap(go.getCollisionneur().getBoite().get(i), this, coordonnees);
+			sommeCoeffsFrottement += t.getCase(coordonnees, this).getCoeffFrottement() ;
+			i ++ ;
+			System.out.println("i : " + t.getCase(coordonnees, this).getCoeffFrottement());
+		}
+		
+		//go.getVecteurVitesse().ajouter((go.getVecteurVitesse().getX() / 0.9) / 100, 0) ;
+		System.out.println(i);
+		frottements = new Vecteur (-(sommeCoeffsFrottement/i / 2), -(sommeCoeffsFrottement/i)) ;
+		System.out.println(sommeCoeffsFrottement/i);
+		
+		vFinal = this.appliquerForceElectromagnetique(go, new Vecteur (frottements.getX() + go.getVecteurVitesse().getX(), frottements.getY() + go.getVecteurVitesse().getY()), t) ;
+		go.setVitesse(vFinal) ;
+		
+		return vFinal ;
 		
 	}
 	
@@ -131,11 +159,13 @@ public class Moteur {
 		
 		if (!vInitial.equals(vFinal))
 			
-			vFinal.ajouter(-vInitial.getX() / 200, -vInitial.getY() / 200);
+			vFinal.ajouter(-vInitial.getX() / 100, -vInitial.getY() / 100);
 		
-		if (vFinal.getY() == 0 && vFinal.getX() != 0)
+		if (vFinal.getY() == 0)
 			
 			vFinal = new Vecteur (vInitial.getX(), 0) ;
+		
+		vFinal = go.getCollisionneur().deplacementPossible(vFinal, t, this) ;
 		
 		return vFinal ;
 		

@@ -1,4 +1,4 @@
-
+ 
 package controleur;
 
 import modele.* ;
@@ -11,6 +11,7 @@ import fabriques.FabriqueImages;
 import fabriques.FabriqueJeu;
 import fabriques.FabriquePanes;
 import fabriques.FabriqueVue;
+import geometrie.Point;
 
 import java.io.IOException;
 import java.net.URL;
@@ -232,7 +233,7 @@ public class ControleurTerraria implements Initializable {
 					try {
 						
 						this.controleurTouches.setKeyListener() ;
-						this.jeu.evoluer(this.controleurTouches) ;
+						this.jeu.evoluer(this.controleurTouches, this) ;
 
 					} catch (Exception e) {
 						
@@ -293,13 +294,53 @@ public class ControleurTerraria implements Initializable {
 
 		}
 		
-		this.perso= new Tuile(nom,0,0,this.images.getImage("perso")) ;
-		this.panePerso.getChildren().add(this.perso) ;
+	}
+	
+	public void genererMap () {
+		
+		int yMap = this.jeu.getTerrain().getDimY() ;
+		int xMap = this.jeu.getTerrain().getDimX() ;
 
+		String nom = new String("test") ;
+		String typeBloc ;
+		String valeur ;
 
+		Tuile tile ;
+		Tuile tileItem ;
+		
+		this.paneMap.getChildren().clear();
+
+//		for (int y = this.jeu.getTerrain().convertirY(this.panePrincipal.getLayoutY(), this.jeu.getMoteur()) ; y < this.jeu.getTerrain().convertirY(this.panePrincipal.getLayoutY(), this.jeu.getMoteur())+5 ; y++) {
+//			
+//			for (int x = this.jeu.getTerrain().convertirX(this.panePrincipal.getLayoutX(), this.jeu.getMoteur()) ; x < this.jeu.getTerrain().convertirX(this.panePrincipal.getLayoutX(), this.jeu.getMoteur())+5 ; x++) {
+//				
+//				nom = x + ":" + y ;
+//				valeur = this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag();
+//
+//				tile= new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(valeur)) ;
+//				this.panePrincipal.getChildren().add(tile); ;
+//
+//			}
+//
+//		}
+		
+	}
+	
+	public void initInventaire () {
+		
+		this.paneInventaire.toFront();
+		
+	}
+	
+	public void initPerso () {
+		
+		this.perso= new Tuile("4:5",0,0,this.images.getImage("perso")) ;
 		this.panePerso.toFront();
 		this.panePerso.setFocusTraversable(true);
-		this.paneInventaire.toFront();
+		this.panePerso.getChildren().add(this.perso) ;
+		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
+		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
+		this.perso.setRotationAxis(new Point3D(0,1,0));
 		
 	}
 
@@ -323,15 +364,17 @@ public class ControleurTerraria implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		
+		Point p = null ;
+		System.out.println("Point:"+p);
 
 		try {
 		
 			images=FabriqueImages.initialiserImages();
 			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
-			this.initMap() ;
-			this.initPositionPerso() ;
+			this.genererMap() ;
+			this.initPerso() ;
+			this.initInventaire();
 			this.initEnnemi();
 			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, this.jeu, this.images);
@@ -351,26 +394,7 @@ public class ControleurTerraria implements Initializable {
 		catch (IOException e) {e.printStackTrace();}
 
 	}
-	
-	/**
-	 * Place le personnage sur la map
-	 * 
-	 * @see Jeu#getPerso()
-	 * @see PersonnagePrincipal#getXProperty()
-	 * @see PersonnagePrincipal#getYProperty()
-	 * 
-	 * @author Mathys
-	 * @author Romain
-	 * 
-	 */
-	
-	public void initPositionPerso () {
-		
-		this.perso.translateXProperty().bind(jeu.getPerso().getXProperty());
-		this.perso.translateYProperty().bind(jeu.getPerso().getYProperty());
-		this.perso.setRotationAxis(new Point3D(0,1,0));
-		
-	}
+
 	public void initEnnemi() {
 		Tuile ennemi;
 		for(Personnage ennemiJeu: jeu.getEnnemi()) {

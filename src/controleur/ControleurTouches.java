@@ -233,6 +233,10 @@ public class ControleurTouches {
 					break;
 
 			}
+			
+			if (ToucheAppuyer.contains("D") && ToucheAppuyer.contains("SPACE"))
+				
+				jeu.getPerso().deplacerVers("hautdroite", jeu.getMoteur());
 
 		}
 		this.ToucheAppuyer.remove("ESCAPE");

@@ -95,7 +95,13 @@ public abstract class Personnage extends GameObject{
 	
 			break ;
 			
-			case "hautdroite" : vecteurDeplacement = new Vecteur (this.vitesseDeplacement, -this.getPuissanceSaut()) ;
+			case "hautdroite" : if (this.peutSauter)
+				
+									vecteurDeplacement = new Vecteur (this.vitesseDeplacement, -this.getPuissanceSaut()) ;
+			
+								else
+				  
+									vecteurDeplacement = new Vecteur (0, 0) ;
 	
 			break ;
 			

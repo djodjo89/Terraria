@@ -133,7 +133,11 @@ public abstract class GameObject {
 	}
 	
 
-	
+	public double getCoeffFrottement () {
+		
+		return this.coeffFrottement ;
+		
+	}
 
 	
 	/**

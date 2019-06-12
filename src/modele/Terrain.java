@@ -120,6 +120,19 @@ import objetRessources.Terre;
 			return this.listeDeLignes ;
 			
 		}
+		
+		public int convertirX (double coorX, Moteur m) {
+			
+			return (int)(coorX/m.getTailleBoiteX()) ;
+			
+		}
+		
+		public int convertirY (double coorY, Moteur m) {
+			
+			return (int)(coorY/m.getTailleBoiteY()) ;
+			
+		}
+		
 		/*
 		public Inventeriable destructionTerrain(int x, int y) {
 			//System.out.println(this.getListeLignes().get(y).get(x).getPV());
