@@ -101,6 +101,7 @@ public class ControleurSouris extends Parent {
 	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
+		/*
 		Personnage ennemieCiblée = null;
 		
 		ArrayList<Personnage> listeEnnemi = this.jeu.getEnnemi();
@@ -116,10 +117,11 @@ public class ControleurSouris extends Parent {
 			ennemieCiblée.interactionClick(blockX,blockY, jeu);
 		}
 		else {
+		*/
 			this.jeu.getTerrain().setPositionBlockY(blockY);
 			this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
 			
-		}
+		//}
 		
 		/*
 		if (this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).getTag().equals("air")) {
