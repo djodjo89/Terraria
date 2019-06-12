@@ -1,6 +1,6 @@
 package modele;
 
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,16 +56,12 @@ public class Inventaire {
 				while (this.listeObjets.get(i).getKey() != null && i<19) {
 					i ++ ;
 				}
-				if(this.listeObjets.get(i).getKey() == null)
-					this.listeObjets.add(new Tuple(o, 1));
-				else
-					this.listeObjets.set(i,new Tuple(o, 1));
+				this.listeObjets.set(i,new Tuple(o, 1));
 				//System.out.println("ajout new : " + this.listeObjets.get(i).getValue());
 				
 			}
 			else {
 				this.listeObjets.get(j).increment();
-				//System.out.println("ajout : " + this.listeObjets.get(j).getValue());
 				
 			}
 			
@@ -99,8 +95,9 @@ public class Inventaire {
 		
 		if (!this.estVide())	
 			if (pos != -1) {		
-				this.listeObjets.remove(pos);
+				this.listeObjets.set(pos, new Tuple());
 			}
+		System.out.println(this.listeObjets.toString());
 	}
 	
 	
@@ -115,6 +112,8 @@ public class Inventaire {
 		boolean objetExistant = false;
 		int j = 0;
 			
+
+
 			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
 				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
 				if (inv.getTag().equals(o.getTag())) {

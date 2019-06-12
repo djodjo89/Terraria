@@ -47,7 +47,7 @@ public class ControleurInventaire {
 						//System.out.println("listener :" + listeObjets.get(changement.getFrom()).getValue());
 						setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
 					}	
-					if(changement.wasRemoved()) {
+					if(changement.wasReplaced()) {
 						invVue.retireItemInvent(changement.getFrom());
 					}
 				}

@@ -30,42 +30,9 @@ public class PersonnagePrincipal extends Personnage{
 		
 	}
 	
-	public Inventeriable destructionTerrain(int x, int y) {
-		
-		Terrain terrain = this.getJeu().getTerrain();
-		Inventeriable blocCible = null;
-		
-		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
-			
-			this.attaque(terrain.getListeLignes().get(y).get(x));
-				
-			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
-				
-				Air caseMap = new Air("air");
-				
-				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
-				blocCible = terrain.getListeLignes().get(y).get(x);
-				blocCible.setPv(100) ;
-				terrain.getListeLignes().get(y).set(x,caseMap);
-				
-			}
-		}
-		return blocCible;
-	}
 	
-	public void poserBlockTerrain(int x, int y) {
-		
-		Terrain terrain = this.getJeu().getTerrain();
-		int j = this.i.chercheObjetDansInventaire(this.main);
-		
-		if (this.main.estUnObstacle() && this.main !=null) {
 	
-			Inventeriable caseMap = this.getInventaire().getListeObjets().get(j);
-			terrain.getListeLignes().get(y).set(x,caseMap);
-			this.getInventaire().retirerObjet(caseMap);
-			objetMainExisteEncore(caseMap);
-		}
-	}
+	
 	
 
 	public Inventaire getInventaire (){
@@ -109,7 +76,7 @@ public class PersonnagePrincipal extends Personnage{
 	}
 	
 
-	public GameObject getMain () {
+	public Inventeriable getMain () {
 		
 		return this.main ;
 		

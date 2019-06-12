@@ -15,6 +15,11 @@ public class Tuple {
 		this.value = new SimpleIntegerProperty(o2);
 	}
 	
+	public Tuple() {
+		this.key=null;
+		this.value= new SimpleIntegerProperty();
+	}
+	
 	public Object getKey() {
 		return this.key;
 	}

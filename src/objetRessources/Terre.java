@@ -6,15 +6,15 @@ import physique.GameObject;
 public class Terre extends Bloc {
 	
 	
-	public Terre (String tag) {
+	public Terre () {
 		
-		super (tag, 100, true) ;
+		super (100, true) ;
 		
 	}
 	
 	public Terre (String tag, double pv, double x, double y, double masse, Collisionneur collisionneur) {
 		
-		super(tag, 100,true) ;
+		super(100,true) ;
 		this.setObstacle() ;
 		super.setCoeffFrottement(10) ;
 		

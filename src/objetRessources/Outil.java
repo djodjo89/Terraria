@@ -17,15 +17,23 @@ import physique.GameObject;
  * - donner la propriété de ses points d'attaque
  */
 
-public class Outil extends Inventeriable {
+public abstract class Outil extends Inventeriable {
 	
 	private DoubleProperty ptsAttaque ;
 	private ArrayList<Tuple> recette;
 	
-	public Outil(String tag, ArrayList<Tuple> recette) {
+	public Outil(String tag) {
 		super(tag);
 		this.ptsAttaque=new SimpleDoubleProperty(50);
-		this.recette=recette;
+	}
+	public void initRecette (Tuple... ingredients) {
+		this.recette=new ArrayList<>();
+		for(Tuple ingredient : ingredients) {
+			
+			this.recette.add(ingredient) ;
+			
+		}
+		
 	}
 	
 	public Outil (String tag, Collisionneur c) {
@@ -47,8 +55,13 @@ public class Outil extends Inventeriable {
 		
 	}
 	
+
 	public ArrayList<Tuple> getRecette(){
 		return this.recette;
 	}
+
+	public abstract void utilisation(int x, int y);
+	
+
 
 }

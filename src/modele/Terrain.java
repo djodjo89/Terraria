@@ -4,10 +4,12 @@
 import physique.* ;
 import java.util.ArrayList;
 
+import fabriques.FabriqueGameObject;
 import geometrie.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import objetRessources.Air;
+import objetRessources.Bloc;
 import objetRessources.Granite;
 import objetRessources.Inventeriable;
 import objetRessources.Terre;
@@ -27,7 +29,7 @@ import objetRessources.Terre;
 		
 		private double tailleCaseX ;
 		private double tailleCaseY ;
-		private ObservableList<ObservableList<Inventeriable>> listeDeLignes ;
+		private ObservableList<ObservableList<Bloc>> listeDeLignes;
 		
 		private int positionBlockY;
 		
@@ -45,7 +47,7 @@ import objetRessources.Terre;
 		private void initTerrain (ArrayList<ObservableList<String>> newlist) {
 			
 			String nomCase ;
-			Inventeriable caseMap = null ;
+			Bloc caseMap = null ;
 
 			
 			for (int i = 0 ; i < newlist.size() ; i ++) {
@@ -56,20 +58,15 @@ import objetRessources.Terre;
 					
 					nomCase = newlist.get(i).get(j) ;
 					
-					switch (nomCase) {
 					
-					case "T" : caseMap = new Terre("terre") ; break ;
-					
-					case "A" : caseMap = new Air("air") ; break ;
-					
-					case "G": caseMap = new Granite("granite"); break;
-					
-					}
-					
-					caseMap.setCollisionneur(new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
+
+					Collisionneur colisionobjet = new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
+
 							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY),
 							new Point (j * this.tailleCaseX, i * this.tailleCaseY + 49),
-							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49))) ;
+							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49)) ;
+					
+					caseMap = (Bloc)FabriqueGameObject.creerGameObjectDemander(nomCase, colisionobjet);
 
 					this.listeDeLignes.get(i).add(caseMap) ;
 					
@@ -115,7 +112,7 @@ import objetRessources.Terre;
 			
 		}
 		
-		public ObservableList<ObservableList<Inventeriable>> getListeLignes () {
+		public ObservableList<ObservableList<Bloc>> getListeLignes () {
 			
 			return this.listeDeLignes ;
 			

@@ -88,6 +88,8 @@ public class InventaireVue {
 	public void initFondInventaire() {
 		Foreuse foreuse = new Foreuse("forreuse");
 		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
+		
+		this.jeu.getPerso().getInventaire().supprimerObjet(foreuse);
 		//this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
 		//System.out.println("taille invent "+this.jeu.getPerso().getInventaire().getInventaire().size());
 		String nom = ""; 
