@@ -14,7 +14,7 @@ import physique.GameObject;
  * - donner la propriété de ses points d'attaque
  */
 
-public class Outil extends Inventeriable {
+public abstract class Outil extends Inventeriable {
 	
 	private DoubleProperty ptsAttaque ;
 	
@@ -42,8 +42,7 @@ public class Outil extends Inventeriable {
 		
 	}
 	
-	public void Utilisation() {
-		System.out.println("Outil");
-	}
+	public abstract void utilisation(int x, int y);
+	
 
 }

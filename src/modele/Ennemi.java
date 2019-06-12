@@ -12,7 +12,7 @@ import physique.Collisionneur;
  *
  */
 
-public abstract class Ennemi extends Personnage implements Cliquable{
+public abstract class Ennemi extends Personnage {
 	
 	private int nbTourSaut;
 	
@@ -70,11 +70,7 @@ public abstract class Ennemi extends Personnage implements Cliquable{
 	}
 
 
-	@Override
-	public void interactionClick(int x, int y, Jeu jeu) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 }
