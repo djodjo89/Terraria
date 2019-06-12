@@ -13,6 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+
+import geometrie.Point;
 import javafx.event.EventHandler;
 
 /**
@@ -97,8 +101,25 @@ public class ControleurSouris extends Parent {
 	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-		this.jeu.getTerrain().setPositionBlockY(blockY);
-		this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
+		Personnage ennemieCiblée = null;
+		
+		ArrayList<Personnage> listeEnnemi = this.jeu.getEnnemi();
+		int i = 0;
+		while (i<listeEnnemi.size() && ennemieCiblée == null) {
+			if (listeEnnemi.get(i).getCollisionneur().getBoite().contient(new Point(x, y))) {
+				ennemieCiblée = listeEnnemi.get(i);
+			}
+			i++;
+		}
+			
+		if (ennemieCiblée != null && ennemieCiblée.getTag() != "Wall-E") {
+			ennemieCiblée.interactionClick(blockX,blockY, jeu);
+		}
+		else {
+			this.jeu.getTerrain().setPositionBlockY(blockY);
+			this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
+			
+		}
 		
 		/*
 		if (this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).getTag().equals("air")) {

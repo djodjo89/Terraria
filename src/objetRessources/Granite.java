@@ -9,4 +9,5 @@ public class Granite extends Bloc {
 			this.setObstacle() ;
 			
 		}
+
 }

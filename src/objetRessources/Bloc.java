@@ -4,7 +4,6 @@ import modele.Cliquable;
 import modele.Jeu;
 import modele.PersonnagePrincipal;
 import modele.Terrain;
-import modele.UtilisationEnMain;
 import physique.Collisionneur;
 
 /**
@@ -15,7 +14,7 @@ import physique.Collisionneur;
  *
  */
 
-public class Bloc extends Inventeriable implements Cliquable {
+public abstract class Bloc extends Inventeriable implements Cliquable {
 	
 	
 	public Bloc(String tag, double pv,boolean estUnObstacle) {
@@ -52,9 +51,20 @@ public class Bloc extends Inventeriable implements Cliquable {
 		
 	}
 	
-	public void utilisation() {
-		System.out.println("bloc");
+	public void utilisation(int x, int y) {
+		PersonnagePrincipal perso = this.getJeu().getPerso();
+		Terrain terrain = this.getJeu().getTerrain();
+		int j = perso.getInventaire().chercheObjetDansInventaire(perso.getMain());
+		Bloc caseMap = (Bloc) perso.getInventaire().getInventaire().get(j).getKey();
+		caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur());
+		terrain.getListeLignes().get(y).set(x,caseMap);
+		perso.getInventaire().retirerObjet(caseMap);
+		perso.objetMainExisteEncore(caseMap);
 	}
+	
+
+
+	
 	
 	
 

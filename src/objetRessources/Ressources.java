@@ -6,4 +6,10 @@ public class Ressources extends Inventeriable {
 		super(tag);
 	}
 
+	@Override
+	public void utilisation(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

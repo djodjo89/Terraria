@@ -7,7 +7,7 @@ import physique.Collisionneur;
 import physique.GameObject;
 import physique.Moteur;
 
-public abstract class Personnage extends GameObject{
+public abstract class Personnage extends GameObject implements Cliquable{
 	
 	private Jeu jeu;
 	private DoubleProperty ptsAttaque ;
@@ -135,6 +135,12 @@ public abstract class Personnage extends GameObject{
 	}
 	public Jeu getJeu() {
 		return jeu;
+	}
+	
+	@Override
+	public void interactionClick(int x, int y, Jeu jeu) {
+		//this.perdrePV(this.getJeu().getPerso().getMain().utilisation(x, y););
+		
 	}
 	
 }

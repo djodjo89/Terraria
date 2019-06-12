@@ -1,6 +1,7 @@
 package objetRessources;
 
 import modele.Jeu;
+
 import physique.Collisionneur;
 import physique.GameObject;
 
@@ -19,9 +20,9 @@ public abstract class Inventeriable extends GameObject {
 		super (tag, pv, c, estUnObstacle) ;
 	}
 	
-	public void Utilisation() {
-		//this.Action();
-	}
-
+	public abstract void utilisation(int x, int y);
+	
 	
 }
+	
+	
