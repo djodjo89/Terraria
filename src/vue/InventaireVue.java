@@ -4,32 +4,35 @@ import java.util.ArrayList;
 
 import controleur.ControleurInventaire;
 import controleur.ControleurSouris;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import modele.Foreuse;
-import modele.Inventeriable;
 import modele.Jeu;
-import modele.Personnage;
+import modele.PersonnagePrincipal;
+import objetRessources.Foreuse;
+import objetRessources.Inventeriable;
 import ressources.Images;
 
 public class InventaireVue {
 
 	private Pane paneFondInvent;
 	private Pane paneItems;
+	private Pane paneIteration;
 	private Jeu jeu;
 	private Images images;
 	private ArrayList<Tuile> listItemsInvent;
-	private static int nbItemAffiche;
+
 
 	
 	
-	public InventaireVue(Pane paneInventaire, Pane paneItems, Jeu j, Images img) {
+	public InventaireVue(Pane paneInventaire, Pane paneItems, Pane paneIteration, Jeu j, Images img) {
 		this.paneFondInvent=paneInventaire;
 		this.paneItems=paneItems;
+		this.paneIteration=paneIteration;
 		this.jeu=j;
 		this.images=img;
 		this.listItemsInvent=new ArrayList<>();
-		this.nbItemAffiche=0;
 	}
 	
 	
@@ -56,20 +59,37 @@ public class InventaireVue {
 		
 	}
 	
-	public Tuile ajoutItemInventaire(Inventeriable obj) {
+	public Tuile ajoutItemInventaire(Inventeriable obj, int i) {
 		
-		Tuile tileItem = new Tuile(obj.getTag(), nbItemAffiche*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getTag()));
+		Tuile tileItem = new Tuile(obj.getTag(), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getTag()));
 		this.paneItems.getChildren().add(tileItem);
-		nbItemAffiche++;
+		System.out.println("nb bind : " + this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue());
+		TextField tf = (TextField)this.paneIteration.getChildren().get(i);
+		tf.textProperty().bind(this.jeu.getPerso().getInventaire().getInventaire().get(i).getValueProperty().asString());
+		tf.toFront();
 		return tileItem;
 		
+	}
+	
+	public void retireItemInvent(int i) {
+		
+		this.paneItems.getChildren().remove(i);
+		
+	}
+	
+	public Tuile afficheNbItem(int i) {
+		//System.out.println("i" + i);
+		Tuile tileNb = new Tuile(i+"", i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue()+""));
+		this.paneIteration.getChildren().set(i,tileNb);
+		return tileNb;
 	}
 	
 	
 	public void initFondInventaire() {
 		Foreuse foreuse = new Foreuse("forreuse");
 		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
-		
+		//this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
+		//System.out.println("taille invent "+this.jeu.getPerso().getInventaire().getInventaire().size());
 		String nom = ""; 
 		
     	Tuile tile = new Tuile();
@@ -77,6 +97,10 @@ public class InventaireVue {
     		nom = "1" +i;
     		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleBoiteX()),0,this.images.getImage("fondInventaire"));
     		this.paneFondInvent.getChildren().add(tile);
+    		//this.paneIteration.getChildren().add(new TextField());
     	}
+    	//System.out.println("taile pane iter :" + this.paneIteration.getChildren().size());
+    	
+    	
 	}
 }

@@ -15,6 +15,23 @@
 /Personnage$1.class
 /Scrolling.class
 /Granite.class
+<<<<<<< HEAD
+/LicorneVolante.class
+/Licorne.class
+/EnnemiVolant.class
+=======
 /Tuple.class
 /PersonnagePrincipal.class
 /Equipement.class
+<<<<<<< HEAD
+=======
+>>>>>>> master
+/Plastique.class
+/BoisBioMecanique.class
+/Electronique.class
+/Metal.class
+/Pierre.class
+/Ressources.class
+>>>>>>> 1d1bdd02210b895763bd1cb3fe6c359d60c92346
+/Recette.class
+/Craft.class

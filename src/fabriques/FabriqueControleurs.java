@@ -3,7 +3,7 @@ package fabriques;
 import controleur.* ;
 import javafx.scene.layout.Pane ;
 import modele.Jeu ;
-import modele.Personnage;
+import modele.PersonnagePrincipal;
 import ressources.Images;
 import vue.InventaireVue;
 import vue.Tuile ;

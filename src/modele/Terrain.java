@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import geometrie.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import objetRessources.Air;
+import objetRessources.Granite;
+import objetRessources.Inventeriable;
+import objetRessources.Terre;
 
 /*
  * Le Terrain est le modèle de la map.

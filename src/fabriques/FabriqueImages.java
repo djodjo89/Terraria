@@ -19,6 +19,13 @@ public class FabriqueImages {
 		images.ajouterImage("forreuse", new Image(new File("image/forreuse.png").toURI().toString()));
 		images.ajouterImage("fondInventaireSel", new Image(new File("image/fondInventaireSel.png").toURI().toString()));
 
+		images.ajouterImage("1", new Image(new File("image/1.png").toURI().toString()));
+		images.ajouterImage("2", new Image(new File("image/2.png").toURI().toString()));
+		images.ajouterImage("3", new Image(new File("image/3.png").toURI().toString()));
+		images.ajouterImage("4", new Image(new File("image/4.png").toURI().toString()));
+		images.ajouterImage("5", new Image(new File("image/5.png").toURI().toString()));
+		images.ajouterImage("6", new Image(new File("image/6.png").toURI().toString()));
+		
 		return images;
 	}
 

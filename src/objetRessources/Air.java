@@ -1,4 +1,4 @@
-package modele;
+package objetRessources;
 
 /**
  * <h1>Air est un bloc non Inventeriable traversable</h1>
@@ -17,3 +17,4 @@ public class Air extends Bloc {
 	}
 
 }
+  

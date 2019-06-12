@@ -1,5 +1,6 @@
-package modele;
+package objetRessources;
 
+import modele.Jeu;
 import physique.Collisionneur;
 import physique.GameObject;
 

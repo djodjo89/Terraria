@@ -207,8 +207,12 @@ public class ControleurTerraria implements Initializable {
 	 * @since 1.1
 	 */
 
+	@FXML
+	private Pane paneIteration;
 
 	private ControleurInventaire controlInvent;
+
+	private ArrayList<Tuile> listItemsInvent;
 	private ImageView ennemi;
 	private InventaireVue inv;
 
@@ -269,11 +273,9 @@ public class ControleurTerraria implements Initializable {
 		int xMap = this.jeu.getTerrain().getDimX() ;
 
 		String nom = new String("test") ;
-		String typeBloc ;
 		String valeur ;
 
 		Tuile tile ;
-		Tuile tileItem ;
 		
 		this.paneMap.getChildren().clear();
 
@@ -332,16 +334,17 @@ public class ControleurTerraria implements Initializable {
 			this.initPositionPerso() ;
 			this.initEnnemi();
 			
-			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, this.jeu, this.images);
+			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
 			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
 			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv);
 
-			this.inv.initFondInventaire();
+		
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
 			paneItemsInventaire.toFront();
+			paneIteration.toFront();
 		
 		} 
 
@@ -370,12 +373,16 @@ public class ControleurTerraria implements Initializable {
 		
 	}
 	public void initEnnemi() {
-		this.ennemi= new Tuile("first",0,0,this.images.getImage("ennemi")) ;
-		this.paneMap.getChildren().add(ennemi);
-		this.ennemi.setFocusTraversable(false);
-		this.ennemi.toFront();
-		this.ennemi.translateXProperty().bind(jeu.getEnnemi().getXProperty());
-		this.ennemi.translateYProperty().bind(jeu.getEnnemi().getYProperty());
+		Tuile ennemi;
+		for(Personnage ennemiJeu: jeu.getEnnemi()) {
+			ennemi= new Tuile(ennemiJeu.getTag(),0,0,this.images.getImage("ennemi")) ;
+			paneMap.getChildren().add(ennemi);
+			ennemi.setFocusTraversable(false);
+			ennemi.toFront();
+			ennemi.translateXProperty().bind(ennemiJeu.getXProperty());
+			ennemi.translateYProperty().bind(ennemiJeu.getYProperty());
+		}
+		
 	}
 	
 }	

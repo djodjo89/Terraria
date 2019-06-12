@@ -162,7 +162,7 @@ public class Collisionneur {
 
 		if (this.depasseLesLimitesDeLaMap(terrain, moteur) || !deplacementPossible) {
 
-			nouveauVecteur.ajouter(-vecteur.getX() / 100, -vecteur.getY() / 100);
+			nouveauVecteur.ajouter(-vecteur.getX() / 200, -vecteur.getY() / 200);
 			
 		}
 		

@@ -14,9 +14,8 @@ import javafx.scene.Cursor;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import modele.Inventeriable;
-import modele.Jeu;
 import modele.*;
+import objetRessources.Inventeriable;
 import vue.*;
 import vue.Tuile;
 import ressources.Images;
@@ -44,8 +43,12 @@ public class ControleurInventaire {
 			public void onChanged(Change<? extends Tuple> changement) {
 				while (changement.next()) {      
 					if(changement.wasAdded()) {
-						Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey());
+						Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey(), changement.getFrom());
+						//System.out.println("listener :" + listeObjets.get(changement.getFrom()).getValue());
 						setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
+					}	
+					if(changement.wasRemoved()) {
+						invVue.retireItemInvent(changement.getFrom());
 					}
 				}
 			}});

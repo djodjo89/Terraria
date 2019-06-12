@@ -5,6 +5,7 @@ import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import objetRessources.Inventeriable;
 import physique.* ;
 
 /*
@@ -55,13 +56,20 @@ public class Inventaire {
 				while (this.listeObjets.get(i).getKey() != null && i<19) {
 					i ++ ;
 				}
-				this.listeObjets.add(i,new Tuple(o, 1));
+				if(this.listeObjets.get(i).getKey() == null)
+					this.listeObjets.add(new Tuple(o, 1));
+				else
+					this.listeObjets.set(i,new Tuple(o, 1));
+				//System.out.println("ajout new : " + this.listeObjets.get(i).getValue());
 				
 			}
 			else {
-				this.listeObjets.get(i).increment();
+				this.listeObjets.get(j).increment();
+				//System.out.println("ajout : " + this.listeObjets.get(j).getValue());
 				
 			}
+			
+			
 			
 	}
 	
@@ -138,6 +146,13 @@ public class Inventaire {
 			listObjets.add((Inventeriable)this.listeObjets.get(i).getKey());
 		}
 		return listObjets;
+	}
+	
+	public int getQtiteObjet(Inventeriable obj) {
+		
+		int pos = this.chercheObjetDansInventaire(obj);
+		
+		return this.listeObjets.get(pos).getValue();
 	}
 	
 
