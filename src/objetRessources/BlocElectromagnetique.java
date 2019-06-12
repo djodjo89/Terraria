@@ -2,8 +2,8 @@ package objetRessources;
 
 public class BlocElectromagnetique extends Bloc{
 
-	public BlocElectromagnetique(String tag, double pv, boolean estUnObstacle) {
-		super(tag, pv, estUnObstacle);
+	public BlocElectromagnetique(String tag) {
+		super(tag, 200, true);
 		// TODO Auto-generated constructor stub
 	}
 

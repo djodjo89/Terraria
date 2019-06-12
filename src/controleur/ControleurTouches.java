@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import exceptions.VousEtesCoinceException;
+import geometrie.Vecteur;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -160,7 +161,7 @@ public class ControleurTouches {
 					
 			@Override
 			public void handle(KeyEvent event) {
-				
+				jeu.getPerso().ajouter(new Vecteur(-jeu.getPerso().getVecteurVitesse().getX(),0));
 				String code = event.getCode().toString() ;
 				ToucheAppuyer.remove(code) ;
 				if (code =="ESCAPE" || code == "E")

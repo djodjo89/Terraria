@@ -59,7 +59,9 @@ import objetRessources.Terre;
 					nomCase = newlist.get(i).get(j) ;
 					
 					
+
 					Collisionneur colisionobjet = new Collisionneur (new Point (j * this.tailleCaseX, i * this.tailleCaseY),
+
 							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY),
 							new Point (j * this.tailleCaseX, i * this.tailleCaseY + 49),
 							new Point (j * this.tailleCaseX + 49, i * this.tailleCaseY + 49)) ;
