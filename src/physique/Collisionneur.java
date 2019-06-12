@@ -151,9 +151,11 @@ public class Collisionneur {
 
 					this.getCoordonneesEntieresSurLaMap(collisionneurTemporaire.getBoite().get(i), moteur, coordonneesDuPoint) ;
 					j=0;
+//					
 //					while(deplacementPossible && j<listePerso.size()) {
 //						deplacementPossible=(collisionneurTemporaire.pointDeChevauchement(listePerso.get(j).getCollisionneur())==null);
 //						j++;
+//
 //					}
 					
 					if (collisionneurTemporaire.depasseLesLimitesDeLaMap(terrain, moteur) || (collisionneurTemporaire.pointDeChevauchement(terrain.getCase(coordonneesDuPoint, moteur).getCollisionneur()) != null && terrain.getCase(coordonneesDuPoint, moteur).estUnObstacle())) {
@@ -161,6 +163,7 @@ public class Collisionneur {
 						deplacementPossible = false ;
 
 					}
+					
 
 					i ++ ;
 					
