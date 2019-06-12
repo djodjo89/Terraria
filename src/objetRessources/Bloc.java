@@ -29,7 +29,7 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 		Terrain terrain = jeu.getTerrain();
 		Inventeriable blocCible = null;
 		
-		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
+		if(terrain.getListeLignes().get(y).get(x).getPV()>0) {
 			
 			jeu.getPerso().attaque(terrain.getListeLignes().get(y).get(x));
 				
@@ -49,9 +49,11 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 		}
 		
 		
+		
 	}
 	
 	public void utilisation(int x, int y) {
+		System.out.println("word!");
 		PersonnagePrincipal perso = this.getJeu().getPerso();
 		Terrain terrain = this.getJeu().getTerrain();
 		int j = perso.getInventaire().chercheObjetDansInventaire(perso.getMain());
