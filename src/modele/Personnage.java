@@ -13,12 +13,15 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	private DoubleProperty ptsAttaque ;
 	public boolean peutSauter ;
 	private double hauteurSaut;
+	private boolean invincible;
+	private int compteurFps;
 	
 	
 	public Personnage () {
 		
 		super ("", 1000, new Collisionneur(),false) ;
-		
+		this.invincible=false;
+		this.compteurFps=0;
 	}
 	
 	public Personnage (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
@@ -29,7 +32,8 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		this.peutSauter = false ;
 		this.hauteurSaut = hauteurSaut ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
-		
+		this.invincible=false;
+		this.compteurFps=0;
 	}
 	
 
@@ -136,11 +140,39 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	public Jeu getJeu() {
 		return jeu;
 	}
-	
+
 	@Override
 	public void interactionClick(int x, int y, Jeu jeu) {
 		//this.perdrePV(this.getJeu().getPerso().getMain().utilisation(x, y););
 		
 	}
+
+	public boolean tMort() {
+		if (this.getPV()<0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean getInvincible() {
+		return this.invincible;
+	}
+	public void prendreDegat(double pv) {
+		if(!this.invincible) {
+			this.perdrePV(pv);
+			this.invincible=true;
+		}
+	}
+	
+	public void vulnerable() {
+		this.invincible=false;
+		this.compteurFps=0;
+	}
+	
+	public int compteInvincible() {
+		this.compteurFps++;
+		return this.compteurFps;
+	}
+	
+
 	
 }
