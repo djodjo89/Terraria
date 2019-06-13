@@ -5,6 +5,7 @@ import modele.* ;
 import fabriques.*;
 import application.*;
 import objetRessources.BlocBiomasse;
+import objetRessources.Granite;
 import objetRessources.Terre;
 import ressources.Images;
 import vue.InventaireVue;
@@ -311,7 +312,7 @@ public class ControleurTerraria implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		BlocBiomasse t = new BlocBiomasse() ;
+		Granite t = new Granite() ;
 		System.out.println(NomClasse.retrouver(t));
 
 		try {
@@ -365,7 +366,7 @@ public class ControleurTerraria implements Initializable {
 		Tuile ennemi;
 		for(Personnage ennemiJeu: jeu.getEnnemi()) {
 			if(!ennemiJeu.getNom().equals("Wall-E")) {
-				ennemi= new Tuile(NomClasse.retrouver(ennemiJeu),0,0,this.images.getImage("ennemi")) ;
+				ennemi= new Tuile(NomClasse.retrouver(ennemiJeu),0,0,this.images.getImage(NomClasse.retrouver(new Licorne()))) ;
 				paneMap.getChildren().add(ennemi);
 				ennemi.setFocusTraversable(false);
 				ennemi.toFront();
