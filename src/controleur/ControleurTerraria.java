@@ -281,7 +281,7 @@ public class ControleurTerraria implements Initializable {
 
 		}
 		
-		this.perso= new Tuile(nom,0,0,this.images.getImage("perso")) ;
+		this.perso= new Tuile(nom,0,0,this.images.getImage(NomClasse.retrouver(new PersonnagePrincipal()))) ;
 		this.panePerso.getChildren().add(this.perso) ;
 
 
