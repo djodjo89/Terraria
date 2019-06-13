@@ -3,6 +3,7 @@ package objetRessources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import modele.Jeu;
 import objetRessources.Inventeriable;
 import physique.Collisionneur;
 import physique.GameObject;
@@ -42,7 +43,7 @@ public abstract class Outil extends Inventeriable {
 		
 	}
 	
-	public abstract void utilisation(int x, int y);
+	public abstract void utilisation(int x, int y , Jeu jeu);
 	
 
 }

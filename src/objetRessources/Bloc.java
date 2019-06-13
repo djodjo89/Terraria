@@ -52,16 +52,15 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 		
 	}
 	
-	public void utilisation(int x, int y) {
-		System.out.println("word!");
-		PersonnagePrincipal perso = this.getJeu().getPerso();
-		Terrain terrain = this.getJeu().getTerrain();
-		int j = perso.getInventaire().chercheObjetDansInventaire(perso.getMain());
-		Bloc caseMap = (Bloc) perso.getInventaire().getInventaire().get(j).getKey();
-		caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur());
-		terrain.getListeLignes().get(y).set(x,caseMap);
-		perso.getInventaire().retirerObjet(caseMap);
-		perso.objetMainExisteEncore(caseMap);
+	public void utilisation(int x, int y,Jeu jeu) {
+		System.out.println(this);
+		if (this != null) {
+			this.setCollisionneur(jeu.getTerrain().getListeLignes().get(y).get(x).getCollisionneur());
+			jeu.getTerrain().getListeLignes().get(y).set(x,this);
+			jeu.getPerso().getInventaire().retirerObjet(this);
+			jeu.getPerso().objetMainExisteEncore(this);
+		}
+		
 	}
 	
 

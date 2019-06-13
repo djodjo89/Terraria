@@ -10,7 +10,7 @@ public abstract class Inventeriable extends GameObject {
 		
 	}
 	
-	private Jeu jeu;
+
 	
 	public Inventeriable(String tag) {
 		super(tag);
@@ -20,7 +20,7 @@ public abstract class Inventeriable extends GameObject {
 		super (tag, pv, c, estUnObstacle) ;
 	}
 	
-	public abstract void utilisation(int x, int y);
+	public abstract void utilisation(int x, int y,Jeu jeu);
 	
 	
 }

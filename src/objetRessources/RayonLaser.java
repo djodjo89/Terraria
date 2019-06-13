@@ -1,5 +1,7 @@
 package objetRessources;
 
+import modele.Jeu;
+
 public class RayonLaser extends Outil{
 
 	public RayonLaser(String tag) {
@@ -8,7 +10,7 @@ public class RayonLaser extends Outil{
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y , Jeu jeu) {
 		// TODO Auto-generated method stub
 		
 	}

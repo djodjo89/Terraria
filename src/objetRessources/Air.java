@@ -33,9 +33,10 @@ public class Air extends Bloc implements Cliquable {
 		System.out.println(perso.getInventaire().getInventaire());
 		//rechercher si il y a un ennemie sur ce bloc
 		*/
-
+		System.out.println(jeu.getPerso().getMain());
 		System.out.println("hello");
-		this.getJeu().getPerso().getMain().utilisation(x, y);
+		
+		jeu.getPerso().getMain().utilisation(x, y,jeu);
 		
 
 	

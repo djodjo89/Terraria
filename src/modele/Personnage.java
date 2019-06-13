@@ -59,7 +59,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 			
 			this.setSautImpossible() ;
 		
-		System.out.println(v.getY());
+		//System.out.println(v.getY());
 		
 	}
 	
@@ -79,7 +79,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	public void deplacerVers (String direction, Moteur m) {
 		
 		Vecteur vecteurDeplacement ;
-
+		if(this.getPV()>0) {
 		switch (direction) {
 
 			case "haut" : if (this.peutSauter)
@@ -128,6 +128,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		
 		this.ajouter(vecteurDeplacement) ;
 		
+		}
 	}
 	
 
@@ -143,7 +144,8 @@ public abstract class Personnage extends GameObject implements Cliquable{
 
 	@Override
 	public void interactionClick(int x, int y, Jeu jeu) {
-		//this.perdrePV(this.getJeu().getPerso().getMain().utilisation(x, y););
+		this.perdrePV(10);
+		System.out.println(this.getPV());
 		
 	}
 
