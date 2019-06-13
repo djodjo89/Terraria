@@ -1,8 +1,11 @@
 package objetRessources;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import modele.Tuple;
 import objetRessources.Inventeriable;
 import physique.Collisionneur;
 import physique.GameObject;
@@ -17,10 +20,20 @@ import physique.GameObject;
 public abstract class Outil extends Inventeriable {
 	
 	private DoubleProperty ptsAttaque ;
+	private ArrayList<Tuple> recette;
 	
 	public Outil(String tag) {
 		super(tag);
 		this.ptsAttaque=new SimpleDoubleProperty(50);
+	}
+	public void initRecette (Tuple... ingredients) {
+		this.recette=new ArrayList<>();
+		for(Tuple ingredient : ingredients) {
+			
+			this.recette.add(ingredient) ;
+			
+		}
+		
 	}
 	
 	public Outil (String tag, Collisionneur c) {
@@ -42,7 +55,13 @@ public abstract class Outil extends Inventeriable {
 		
 	}
 	
+
+	public ArrayList<Tuple> getRecette(){
+		return this.recette;
+	}
+
 	public abstract void utilisation(int x, int y);
 	
+
 
 }

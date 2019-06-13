@@ -25,30 +25,30 @@ public class FabriqueGameObject {
 		
 		switch (tag) {
 		
-		case "T" : objet = new Terre("terre") ; break ;
+		case "T" : objet = new Terre() ; break ;
 		
-		case "A" : objet = new Air("air") ; break ;
+		case "A" : objet = new Air() ; break ;
 		
-		case "G": objet = new Granite("granite"); break;
+		case "G": objet = new Granite(); break;
 		
-		case "BBI": objet = new BlocBiomasse("blocBio"); break;
+		case "BBI": objet = new BlocBiomasse(); break;
 		
-		case "BB": objet = new BlocBois("blocBois"); break;
+		case "BB": objet = new BlocBois(); break;
 		
-		case "BD": objet = new BlocDechet("blocDechet"); break;
+		case "BD": objet = new BlocDechet(); break;
 		
-		case "BE": objet = new BlocElectromagnetique("blocElectro"); break;
+		case "BE": objet = new BlocElectromagnetique(); break;
 		
-		case "BM": objet = new BlocMetalique("blocMetal"); break;
+		case "BM": objet = new BlocMetalique(); break;
 		
-		case "BP": objet = new BlocPlastique("blocPlastique"); break;
+		case "BP": objet = new BlocPlastique(); break;
 		
 		//case "B": caseMap = new Bois("bois"); break;
 		
 		
-		case "P": objet = new Pierre("pierre"); break;
+		case "P": objet = new Pierre(); break;
 		
-		default : objet = new Air("air") ; break ;
+		default : objet = new Air() ; break ;
 		
 		
 		}

@@ -43,8 +43,12 @@ public class ControleurInventaire {
 			public void onChanged(Change<? extends Tuple> changement) {
 				while (changement.next()) {      
 					if(changement.wasAdded()) {
-						Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey());
+						Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey(), changement.getFrom());
+						//System.out.println("listener :" + listeObjets.get(changement.getFrom()).getValue());
 						setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
+					}	
+					if(changement.wasReplaced()) {
+						invVue.retireItemInvent(changement.getFrom());
 					}
 				}
 			}});
@@ -53,9 +57,10 @@ public class ControleurInventaire {
 	public void setClickObjetDonnerAuPerso(Tuile tile, Inventeriable objet) {
 		tile.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
 			this.j.getPerso().donner(objet);	
-			System.out.println(this.j.getPerso().getMain().getTag());
 			event.consume();
+			
 		});
+		
 	}
 	
 }

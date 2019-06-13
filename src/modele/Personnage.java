@@ -59,7 +59,6 @@ public abstract class Personnage extends GameObject implements Cliquable{
 			
 			this.setSautImpossible() ;
 		
-		System.out.println(v.getY());
 		
 	}
 	

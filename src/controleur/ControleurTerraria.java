@@ -207,6 +207,8 @@ public class ControleurTerraria implements Initializable {
 	 * @since 1.1
 	 */
 
+	@FXML
+	private Pane paneIteration;
 
 	private ControleurInventaire controlInvent;
 
@@ -271,11 +273,9 @@ public class ControleurTerraria implements Initializable {
 		int xMap = this.jeu.getTerrain().getDimX() ;
 
 		String nom = new String("test") ;
-		String typeBloc ;
 		String valeur ;
 
 		Tuile tile ;
-		Tuile tileItem ;
 		
 		this.paneMap.getChildren().clear();
 
@@ -334,16 +334,17 @@ public class ControleurTerraria implements Initializable {
 			this.initPositionPerso() ;
 			this.initEnnemi();
 			
-			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, this.jeu, this.images);
+			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
 			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
 			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv);
 
-			this.inv.initFondInventaire();
+		
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
 			paneItemsInventaire.toFront();
+			paneIteration.toFront();
 		
 		} 
 

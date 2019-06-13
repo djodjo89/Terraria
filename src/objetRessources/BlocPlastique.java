@@ -2,9 +2,9 @@ package objetRessources;
 
 public class BlocPlastique extends Bloc{
 
-	public BlocPlastique(String tag) {
-		super(tag, 100, true);
-		// TODO Auto-generated constructor stub
+	public BlocPlastique() {
+		super(100, true);
+		super.initTag("blocPlastique");
 	}
 
 }

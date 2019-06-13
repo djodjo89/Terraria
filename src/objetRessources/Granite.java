@@ -3,9 +3,10 @@ package objetRessources;
 public class Granite extends Bloc {
 		
 		
-		public Granite (String tag) {
+		public Granite () {
 			
-			super(tag, 0,true) ;
+			super(0,true) ;
+			super.initTag("granite");
 			this.setObstacle() ;
 			
 		}
