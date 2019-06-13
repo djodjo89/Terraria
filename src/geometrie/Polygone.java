@@ -148,7 +148,7 @@ public class Polygone {
 		for (Point p : this.listeSommets) {
 			
 			p = p.add(p.getX()/100 - p.getX(), p.getY()/100 - p.getY()) ;
-			System.out.println(p);
+			//System.out.println(p);
 		}
 		
 	}

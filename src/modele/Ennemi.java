@@ -84,11 +84,7 @@ public abstract class Ennemi extends Personnage {
 	}
 
 
-	@Override
-	public void interactionClick(int x, int y, Jeu jeu) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	public void attaqueLePerso(Personnage perso) {
 		System.out.println("J'ATTAQUE");

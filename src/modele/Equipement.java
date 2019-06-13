@@ -9,7 +9,7 @@ public class Equipement extends Inventeriable{
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y , Jeu jeu) {
 		// TODO Auto-generated method stub
 		
 	}

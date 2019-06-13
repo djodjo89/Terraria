@@ -2,7 +2,11 @@ package objetRessources;
 
 import java.util.ArrayList;
 
+
+import modele.Jeu;
+
 import modele.Tuple;
+
 import physique.GameObject;
 
 public class Foreuse extends Outil{
@@ -14,8 +18,11 @@ public class Foreuse extends Outil{
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y, Jeu jeu) {
 		
 		
 	}
+
+
+	
 }

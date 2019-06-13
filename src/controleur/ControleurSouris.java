@@ -109,7 +109,9 @@ public class ControleurSouris extends Parent {
 		}
 		else {
 			this.jeu.getTerrain().setPositionBlockY(blockY);
+			System.out.println(this.jeu.getPerso().getMain());
 			this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
+			
 			
 		}
 		

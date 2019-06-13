@@ -1,8 +1,11 @@
 package objetRessources;
 
+import modele.Jeu;
+
 import java.util.ArrayList;
 
 import modele.Tuple;
+
 
 public class RayonLaser extends Outil{
 
@@ -12,7 +15,7 @@ public class RayonLaser extends Outil{
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y , Jeu jeu) {
 		// TODO Auto-generated method stub
 		
 	}

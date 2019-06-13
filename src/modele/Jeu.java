@@ -104,7 +104,7 @@ public class Jeu {
 	public void modifieListePourAppliquerForce(Personnage perso,Terrain terre) throws VousEtesCoinceException, HorsDeLaMapException {
 		listePerso.remove(perso);
 		this.moteur.appliquerForces(perso, terre,listePerso);
-		System.out.println(perso.getCollisionneur().getBoite().get(2));
+		//System.out.println(perso.getCollisionneur().getBoite().get(2));
 		listePerso.add(perso);
 		
 	}
