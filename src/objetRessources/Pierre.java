@@ -5,9 +5,7 @@ public class Pierre extends Bloc {
 
 	
 	public Pierre() {
-		super(150,true);
-		super.initTag("pierre");
-		
+		super(150,true);		
 	}
 
 }

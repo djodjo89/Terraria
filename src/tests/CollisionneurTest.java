@@ -1,7 +1,8 @@
 package tests;
 import geometrie.* ;
 import javafx.scene.image.Image;
-import modele.Jeu;
+import modele.*;
+import objetRessources.*;
 import physique.* ;
 import ressources.Images;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import application.NomClasse;
 import exceptions.HorsDeLaMapException;
 
 class CollisionneurTest {
@@ -25,8 +27,8 @@ class CollisionneurTest {
        	
 		try {
 			images = new Images () ;
-			images.ajouterImage("terre", new Image(new File("image/air.png").toURI().toString()));
-	    	images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
+			images.ajouterImage(NomClasse.retrouver(new Terre()), "png");
+	    	images.ajouterImage(NomClasse.retrouver(new Air()), "png");
 			jeu = new Jeu("map.csv", images.getImage("air").getWidth(), images.getImage("air").getHeight(), 10., 10.) ;
 			Collisionneur colli ;
 			

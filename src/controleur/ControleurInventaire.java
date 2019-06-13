@@ -1,19 +1,8 @@
 package controleur;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import com.sun.javafx.tk.Toolkit;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener.Change;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import modele.*;
 import objetRessources.Inventeriable;
 import vue.*;
@@ -26,6 +15,7 @@ public class ControleurInventaire {
 	private Images image;
 	private ObservableList<Tuple> listeObjets ;
 	private InventaireVue invVue;
+	private Craft craft ;
 	
 
 	public ControleurInventaire(Jeu j, Images img, InventaireVue inv) {
@@ -33,6 +23,7 @@ public class ControleurInventaire {
 		this.image=img;
 		this.listeObjets=this.j.getPerso().getInventaire().getInventaire();
 		this.invVue=inv;
+		this.craft = this.j.getCraft() ;
 	}
 	
 	
@@ -41,14 +32,26 @@ public class ControleurInventaire {
 
 			@Override
 			public void onChanged(Change<? extends Tuple> changement) {
-				while (changement.next()) {      
-					if(changement.wasAdded()) {
-						Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey(), changement.getFrom());
-						//System.out.println("listener :" + listeObjets.get(changement.getFrom()).getValue());
-						setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
-					}	
+				while (changement.next()) {
+					
 					if(changement.wasReplaced()) {
-						invVue.retireItemInvent(changement.getFrom());
+						if ((listeObjets.get(changement.getFrom()).getValue()) == 0) {
+							
+							invVue.retireItemInvent(changement.getFrom());
+							System.out.println("testouille");
+							
+						}
+						
+						else {
+							
+							Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey(), changement.getFrom());
+							System.out.println("listener :" + listeObjets.get(changement.getFrom()));
+							setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
+							
+						}
+						
+						
+
 					}
 				}
 			}});

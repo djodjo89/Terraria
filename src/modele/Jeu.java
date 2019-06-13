@@ -29,6 +29,7 @@ public class Jeu {
 	private LicorneVolante ennemiVol;
 	private TraducteurFichier tf ;
 	private ArrayList<Personnage> listePerso;
+	private Craft craft ;
 	
 	public Jeu (String nomF, double taillePixelsXCase, double taillePixelsYCase, double posXJoueur, double posYJoueur) throws IOException, HorsDeLaMapException {
 		
@@ -55,6 +56,7 @@ public class Jeu {
 		this.tf = new TraducteurFichier(nomF) ;
 		
 		this.terrain = new Terrain (this.tf.getTabMap(), this.moteur.getTailleBoiteX(), this.moteur.getTailleBoiteY()) ;
+		this.craft = new Craft(this) ;
 		this.listePerso=new ArrayList<Personnage>();
 		this.listePerso.add(perso);
 		this.listePerso.add(ennemi);
@@ -80,7 +82,13 @@ public class Jeu {
 		      
 		return this.perso ;
 		
-	} 
+	}
+	
+	public Craft getCraft () {
+		
+		return this.craft ;
+		
+	}
 	
 	public void evoluer(ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
 		
@@ -104,7 +112,7 @@ public class Jeu {
 	public void modifieListePourAppliquerForce(Personnage perso,Terrain terre) throws VousEtesCoinceException, HorsDeLaMapException {
 		listePerso.remove(perso);
 		this.moteur.appliquerForces(perso, terre,listePerso);
-		System.out.println(perso.getCollisionneur().getBoite().get(2));
+		//System.out.println(perso.getCollisionneur().getBoite().get(2));
 		listePerso.add(perso);
 		
 	}

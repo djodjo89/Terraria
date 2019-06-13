@@ -4,12 +4,12 @@ import objetRessources.Inventeriable;
 
 public class Equipement extends Inventeriable{
 
-	public Equipement(String tag) {
-		super(tag);
+	public Equipement() {
+		super();
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y , Jeu jeu) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,12 +1,7 @@
 package objetRessources;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap;
-
 import modele.Cliquable;
 import modele.Jeu;
-import modele.Personnage;
-import modele.PersonnagePrincipal;
-import modele.Terrain;
 
 /**
  * <h1>Air est un bloc non Inventeriable traversable</h1>
@@ -21,7 +16,6 @@ public class Air extends Bloc implements Cliquable {
 	public Air () {
 		
 		super(0,false) ;
-		super.initTag("air");
 		
 	}
 	
@@ -34,7 +28,14 @@ public class Air extends Bloc implements Cliquable {
 		System.out.println(perso.getInventaire().getInventaire());
 		//rechercher si il y a un ennemie sur ce bloc
 		*/
+		System.out.println("hello");
+		
+		jeu.getPerso().getMain().utilisation(x, y,jeu);
+		
+
 	
+
+
 	
 			
 		}

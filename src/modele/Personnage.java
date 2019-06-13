@@ -9,6 +9,7 @@ import physique.Moteur;
 
 public abstract class Personnage extends GameObject implements Cliquable{
 	
+	private String nom ;
 	private Jeu jeu;
 	private DoubleProperty ptsAttaque ;
 	public boolean peutSauter ;
@@ -19,14 +20,15 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	
 	public Personnage () {
 		
-		super ("", 1000, new Collisionneur(),false) ;
+		super (1000, new Collisionneur(),false) ;
 		this.invincible=false;
 		this.compteurFps=0;
 	}
 	
 	public Personnage (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		super (nom, pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
+		super (pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
+		this.nom = nom ;
 		this.jeu=jeu;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
@@ -59,6 +61,9 @@ public abstract class Personnage extends GameObject implements Cliquable{
 			
 			this.setSautImpossible() ;
 		
+
+		//System.out.println(v.getY());
+
 		
 	}
 	
@@ -78,7 +83,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	public void deplacerVers (String direction, Moteur m) {
 		
 		Vecteur vecteurDeplacement ;
-
+		if(this.getPV()>0) {
 		switch (direction) {
 
 			case "haut" : if (this.peutSauter)
@@ -127,6 +132,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		
 		this.ajouter(vecteurDeplacement) ;
 		
+		}
 	}
 	
 
@@ -142,7 +148,8 @@ public abstract class Personnage extends GameObject implements Cliquable{
 
 	@Override
 	public void interactionClick(int x, int y, Jeu jeu) {
-		//this.perdrePV(this.getJeu().getPerso().getMain().utilisation(x, y););
+		this.perdrePV(10);
+		System.out.println(this.getPV());
 		
 	}
 
@@ -172,6 +179,10 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		return this.compteurFps;
 	}
 	
-
+	public String getNom () {
+		
+		return this.nom ;
+		
+	}
 	
 }

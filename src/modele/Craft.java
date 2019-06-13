@@ -1,16 +1,47 @@
 package modele;
 
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import objetRessources.Foreuse;
 import objetRessources.Inventeriable;
 import objetRessources.Outil;
 
 public class Craft {
 	
 	private Jeu jeu;
-	
+	private ArrayList<Outil> listeOutils ;
+	private ObservableList<Outil> objetsCraftables ;
 	
 
 	public Craft(Jeu jeu) {
 		this.jeu = jeu;
+		this.objetsCraftables = FXCollections.observableArrayList() ;
+		this.initListe() ;
+	}
+	
+	public void initListe () {
+		
+		this.listeOutils = new ArrayList<>() ;
+		this.listeOutils.add(new Foreuse()) ;
+		
+	}
+	
+	public void actualisation () {
+		
+		for (Outil o : this.listeOutils) {
+			
+			if (this.peuxCrafter(o))
+				
+				this.objetsCraftables.add(o) ;
+			
+			else
+				
+				this.objetsCraftables.remove(o) ;
+			
+		}
+		
 	}
 	
 	public boolean peuxCrafter(Outil obj) {

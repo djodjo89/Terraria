@@ -2,16 +2,16 @@
 package controleur;
 
 import modele.* ;
+import fabriques.*;
+import application.*;
+import objetRessources.BlocBiomasse;
+import objetRessources.Granite;
+import objetRessources.Terre;
 import ressources.Images;
 import vue.CraftVue;
 import vue.InventaireVue;
 import vue.Tuile;
 import exceptions.HorsDeLaMapException;
-import fabriques.FabriqueControleurs;
-import fabriques.FabriqueImages;
-import fabriques.FabriqueJeu;
-import fabriques.FabriquePanes;
-import fabriques.FabriqueVue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,16 +72,6 @@ import javafx.util.Duration;
 
 public class ControleurTerraria implements Initializable {
 	
-	/**
-	 * Le nombre de tours du jeu
-	 * 
-	 * <p>Il sert notamment à compter le temps écoulé depuis
-	 * le début d'un saut</p>
-	 * 
-	 * @see PersonnagePrincipal#sauter(Terrain, physique.Moteur)
-	 */
-	
-    private int nbTour;
     
     /**
      * La banque d'images
@@ -196,9 +186,6 @@ public class ControleurTerraria implements Initializable {
      * <p>Elle permet de déplacer le personnage dans la vue</p>
      */
     
-    @FXML
-    private HBox hBoxCraft;
-    
 	@FXML
 	private Tuile perso;
 
@@ -214,6 +201,9 @@ public class ControleurTerraria implements Initializable {
 
 	@FXML
 	private Pane paneIteration;
+	
+    @FXML
+    private Pane paneCraft;
 
 	private ControleurInventaire controlInvent;
 
@@ -221,11 +211,11 @@ public class ControleurTerraria implements Initializable {
 	private ImageView ennemi;
 	private InventaireVue inv;
 	private CraftVue craftV;
+	
 
 	
 	public void initBoucleJeu() {
 		
-		this.nbTour = 0 ;
 		this.gameLoop = new Timeline() ;
 		this.gameLoop.setCycleCount(Timeline.INDEFINITE) ;
 
@@ -290,7 +280,7 @@ public class ControleurTerraria implements Initializable {
 			for (int x = 0 ; x < xMap ; x++) {
 				
 				nom = x + ":" + y ;
-				valeur = this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag();
+				valeur = NomClasse.retrouver(this.jeu.getTerrain().getListeLignes().get(y).get(x)) ;
 
 				tile= new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(valeur)) ;
 				this.paneMap.getChildren().add(tile) ;
@@ -299,16 +289,15 @@ public class ControleurTerraria implements Initializable {
 
 		}
 		
-		this.perso= new Tuile(nom,0,0,this.images.getImage("perso")) ;
+		this.perso= new Tuile(nom,0,0,this.images.getImage(NomClasse.retrouver(new PersonnagePrincipal()))) ;
 		this.panePerso.getChildren().add(this.perso) ;
 
-		//hBoxCraft.toFront();
-		hBoxCraft.setVisible(true);
-		//hBoxCraft.setFocusTraversable(true);
 
 		this.panePerso.toFront();
 		this.panePerso.setFocusTraversable(true);
 		this.paneInventaire.toFront();
+		
+		this.paneCraft.toFront();
 		
 	}
 
@@ -332,21 +321,20 @@ public class ControleurTerraria implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		
+		Granite t = new Granite() ;
+		System.out.println(NomClasse.retrouver(t));
 
 		try {
 		
 			images=FabriqueImages.initialiserImages();
 			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
-			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
-			this.craftV = new CraftVue(new Craft(jeu), hBoxCraft);
+	
 			this.initMap() ;
 			this.initPositionPerso() ;
 			this.initEnnemi();
 			
-
-			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
+			this.craftV = FabriqueVue.initialiserCraftVue(this.paneCraft, this.jeu) ;
 			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
@@ -387,8 +375,8 @@ public class ControleurTerraria implements Initializable {
 	public void initEnnemi() {
 		Tuile ennemi;
 		for(Personnage ennemiJeu: jeu.getEnnemi()) {
-			if(!ennemiJeu.getTag().equals("Wall-E")) {
-				ennemi= new Tuile(ennemiJeu.getTag(),0,0,this.images.getImage("ennemi")) ;
+			if(!ennemiJeu.getNom().equals("Wall-E")) {
+				ennemi= new Tuile(NomClasse.retrouver(ennemiJeu),0,0,this.images.getImage(NomClasse.retrouver(new Licorne()))) ;
 				paneMap.getChildren().add(ennemi);
 				ennemi.setFocusTraversable(false);
 				ennemi.toFront();

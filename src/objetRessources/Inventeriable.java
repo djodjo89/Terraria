@@ -10,17 +10,17 @@ public abstract class Inventeriable extends GameObject {
 		
 	}
 	
-	private Jeu jeu;
+
 	
-	public Inventeriable(String tag) {
-		super(tag);
+	public Inventeriable() {
+		super();
 	}
 	
-	public Inventeriable(String tag, double pv, Collisionneur c, boolean estUnObstacle) {
-		super (tag, pv, c, estUnObstacle) ;
+	public Inventeriable(double pv, Collisionneur c, boolean estUnObstacle) {
+		super (pv, c, estUnObstacle) ;
 	}
 	
-	public abstract void utilisation(int x, int y);
+	public abstract void utilisation(int x, int y,Jeu jeu);
 	
 	
 }
