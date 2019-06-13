@@ -4,7 +4,6 @@ import modele.Cliquable;
 import modele.Jeu;
 import modele.PersonnagePrincipal;
 import modele.Terrain;
-import physique.Collisionneur;
 
 /**
  * <h1>Bloc est un bloc Inventeriable</h1>
@@ -16,17 +15,9 @@ import physique.Collisionneur;
 
 public abstract class Bloc extends Inventeriable implements Cliquable {
 	
-	public static String tag;
-	
 	public Bloc( double pv,boolean estUnObstacle) {
 		
-		super (tag,pv,null,estUnObstacle);
-		
-	}
-	
-	public void initTag (String tag) {
-		
-		this.tag = tag ;
+		super (pv,null,estUnObstacle);
 		
 	}
 

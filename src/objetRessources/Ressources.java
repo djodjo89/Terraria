@@ -4,8 +4,8 @@ import modele.Jeu;
 
 public class Ressources extends Inventeriable {
 	
-	public Ressources(String tag) {
-		super(tag);
+	public Ressources() {
+		super();
 	}
 
 	@Override

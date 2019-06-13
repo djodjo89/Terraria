@@ -2,43 +2,47 @@ package fabriques;
 
 import java.io.File;
 
+import application.NomClasse;
 import javafx.scene.image.Image;
+import objetRessources.*;
 import ressources.Images;
+import modele.* ;
 
 public class FabriqueImages {
 	
 	public static Images initialiserImages () {
 		
 		Images images=new Images();
-		images.ajouterImage("perso", new Image(new File("image/wall-by.gif").toURI().toString()));
-		images.ajouterImage("ennemi", new Image(new File("image/mechant.gif").toURI().toString()));
-		images.ajouterImage("granite", new Image(new File("image/perso.png").toURI().toString()));
-		images.ajouterImage("terre", new Image(new File("image/terre.png").toURI().toString()));
-		images.ajouterImage("air", new Image(new File("image/air.png").toURI().toString()));
-		images.ajouterImage("fondInventaire", new Image(new File("image/fondInventaire.png").toURI().toString()));
-		images.ajouterImage("forreuse", new Image(new File("image/forreuse.png").toURI().toString()));
+		System.out.println(NomClasse.retrouver(new PersonnagePrincipal()));
+		images.ajouterImage(NomClasse.retrouver(new PersonnagePrincipal()), "gif");
+		images.ajouterImage(NomClasse.retrouver(new Licorne()), "gif");
+		images.ajouterImage("granite", "png");
+		images.ajouterImage(NomClasse.retrouver(new Terre()), "png") ;
+		images.ajouterImage(NomClasse.retrouver(new Air()), "png");
+		images.ajouterImage("fondInventaire", "png");
+		images.ajouterImage(NomClasse.retrouver(new Foreuse()), "png");
 
-		images.ajouterImage("fondInventaireSel", new Image(new File("image/fondInventaireSel.png").toURI().toString()));
+		images.ajouterImage("fondInventaireSel", "png");
 
-		images.ajouterImage("1", new Image(new File("image/1.png").toURI().toString()));
-		images.ajouterImage("2", new Image(new File("image/2.png").toURI().toString()));
-		images.ajouterImage("3", new Image(new File("image/3.png").toURI().toString()));
-		images.ajouterImage("4", new Image(new File("image/4.png").toURI().toString()));
-		images.ajouterImage("5", new Image(new File("image/5.png").toURI().toString()));
-		images.ajouterImage("6", new Image(new File("image/6.png").toURI().toString()));
+		images.ajouterImage("1", "png");
+		images.ajouterImage("2", "png");
+		images.ajouterImage("3", "png");
+		images.ajouterImage("4", "png");
+		images.ajouterImage("5", "png");
+		images.ajouterImage("6", "png");
 
-		images.ajouterImage("blocBio", new Image(new File("image/blocBio.png").toURI().toString()));
-		images.ajouterImage("blocBois", new Image(new File("image/blocBois.png").toURI().toString()));
-		images.ajouterImage("blocDechet", new Image(new File("image/blocDechet.png").toURI().toString()));
-		images.ajouterImage("blocElectro", new Image(new File("image/blocElectro.png").toURI().toString()));
-		images.ajouterImage("blocMetal", new Image(new File("image/blocMetal.png").toURI().toString()));
-		images.ajouterImage("blocPlastique", new Image(new File("image/blocPlastique.png").toURI().toString()));
-		images.ajouterImage("bois", new Image(new File("image/bois.png").toURI().toString()));
-		images.ajouterImage("electronique", new Image(new File("image/electronique.png").toURI().toString()));
-		images.ajouterImage("metal", new Image(new File("image/metal.png").toURI().toString()));
-		images.ajouterImage("pierre", new Image(new File("image/pierre.png").toURI().toString()));
-		images.ajouterImage("plastique", new Image(new File("image/plastique.png").toURI().toString()));
-		images.ajouterImage("tableCraft", new Image(new File("image/table.png").toURI().toString()));
+		images.ajouterImage(NomClasse.retrouver(new BlocBiomasse()), "png");
+		images.ajouterImage(NomClasse.retrouver(new BlocBois()), "png");
+		images.ajouterImage(NomClasse.retrouver(new BlocDechet()), "png");
+		images.ajouterImage(NomClasse.retrouver(new BlocElectromagnetique()), "png");
+		images.ajouterImage(NomClasse.retrouver(new BlocMetalique()), "png");
+		images.ajouterImage(NomClasse.retrouver(new BlocPlastique()), "png");
+		images.ajouterImage(NomClasse.retrouver(new BlocBois()), "png");
+		images.ajouterImage(NomClasse.retrouver(new Electronique()), "png");
+		images.ajouterImage(NomClasse.retrouver(new Metal()), "png");
+		images.ajouterImage(NomClasse.retrouver(new Pierre()), "png");
+		images.ajouterImage(NomClasse.retrouver(new Plastique()), "png");
+		images.ajouterImage(NomClasse.retrouver(new TableCraft()), "png");
 
 		
 		return images;

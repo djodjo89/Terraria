@@ -15,8 +15,6 @@ import javafx.beans.property.* ;
  * 		<li>Changer son nombre de pv</li>
  * 		<li>Dire si c'est un obstacle</li>
  * 		<li>Devenir un obstacle</li>
- * 		<li>Changer de tag</li>
- * 		<li>Donner son tag</li>
  * 		<li>Donner son nombre de pv</li>
  * 		<li>Perdre des pv</li>
  * 		<li>Donner sa position x</li>
@@ -45,7 +43,6 @@ import javafx.beans.property.* ;
 
 public abstract class GameObject {
 	
-	String tag ;
 	private DoubleProperty pv ;
 	private DoubleProperty pvMax ;
 	private DoubleProperty posX ;
@@ -60,21 +57,14 @@ public abstract class GameObject {
 	private Collisionneur collisionneur ;
 	private Jeu jeu ;
 	
-	/**
-	 * Un Constructeur donnant un tag au GameObject
-	 * 
-	 * @param tag
-	 */
-	
-	public GameObject (String tag) {
+	public GameObject () {
 		
-		this(tag, 100, 0, 0, 0, 0, null, null) ;
+		this(100, 0, 0, 0, 0, null, null) ;
 		
 	}
 	
-	public GameObject (String tag, double pv, Collisionneur collisionneur, boolean estUnObstacle) {
+	public GameObject (double pv, Collisionneur collisionneur, boolean estUnObstacle) {
 		
-		this.tag = tag ;
 		this.pv = new SimpleDoubleProperty(pv) ;
 		this.collisionneur = collisionneur ;
 		this.estUnObstacle = estUnObstacle ;
@@ -84,7 +74,6 @@ public abstract class GameObject {
 	/**
 	 * Un Constructeur permettant d'entièrement initialiser un GameObject
 	 * 
-	 * @param tag
 	 * @param pv
 	 * @param posX
 	 * @param posY
@@ -92,10 +81,9 @@ public abstract class GameObject {
 	 * @param collisionneur
 	 */
 	
-	public GameObject (String tag, double pv, double posX, double posY, double masse, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
+	public GameObject (double pv, double posX, double posY, double masse, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
 		this.vitesseDeplacement = vitesseDeplacement ;
-		this.tag = tag ;
 		this.pv = new SimpleDoubleProperty(pv) ;
 		this.pvMax = new SimpleDoubleProperty(pv) ;
 		this.posX = new SimpleDoubleProperty(posX) ;
@@ -121,7 +109,7 @@ public abstract class GameObject {
 	 * @param moteur
 	 */
 	
-	private double getPuissanceSaut () {
+	public double getPuissanceSaut () {
 
 		return this.vitesseDeplacement ;
 		
@@ -167,7 +155,7 @@ public abstract class GameObject {
 		
 		this.collisionneur.getCoordonneesEntieresSurLaMap (new Point (this.getX(), this.getY()), m, coordonnees) ;
 		
-		while (!t.getCase(coordonnees, m).getTag().equals("T") && i < t.getDimY()) {
+		while (!t.getCase(coordonnees, m).estUnObstacle() && i < t.getDimY()) {
 			
 			coordonnees[1] += 1 ;
 			i ++ ;
@@ -217,28 +205,7 @@ public abstract class GameObject {
 		this.estUnObstacle = true ;
 		
 	}
-	
-	/**
-	 * Change le tag du GameObject
-	 * @param tag
-	 */
-	
-	public void changerTag (String tag) {
-		
-		this.tag = tag ;
-		
-	}
-	
-	/**
-	 * Retourne le tag du GameObject
-	 */
-	
-	public String getTag () {
-		
-		return this.tag ;
-		
-	}
-	
+
 	/**
 	 * Retourne la quantité de PV restants du GameObject
 	 */

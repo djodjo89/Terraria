@@ -26,8 +26,8 @@ public abstract class Outil extends Inventeriable {
 	private DoubleProperty ptsAttaque ;
 	private ArrayList<Tuple> recette;
 	
-	public Outil(String tag) {
-		super(tag);
+	public Outil() {
+		super();
 		this.ptsAttaque=new SimpleDoubleProperty(50);
 	}
 	public void initRecette (Tuple... ingredients) {
@@ -40,9 +40,9 @@ public abstract class Outil extends Inventeriable {
 		
 	}
 	
-	public Outil (String tag, Collisionneur c) {
+	public Outil (Collisionneur c) {
 		
-		super (tag, 500, c,false) ;
+		super (500, c,false) ;
 		this.ptsAttaque = new SimpleDoubleProperty () ;
 		
 	}

@@ -1,9 +1,12 @@
 package ressources;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import application.NomClasse;
 import javafx.scene.image.Image;
+import objetRessources.Terre;
 
 public class Images {
 	
@@ -15,9 +18,9 @@ public class Images {
 		
 	}
 	
-	public void ajouterImage (String nomImg, Image img) {
+	public void ajouterImage (String nomImg, String typeImg) {
 		
-		this.images.put(nomImg, img) ;
+		this.images.put(nomImg, new Image(new File("image/" + nomImg + "." + typeImg).toURI().toString())) ;
 		
 	}
 	

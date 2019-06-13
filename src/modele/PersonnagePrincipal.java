@@ -1,19 +1,19 @@
 
 package modele;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import objetRessources.Air;
 import objetRessources.Inventeriable;
 import objetRessources.Outil;
 import physique.Collisionneur;
 import physique.GameObject;
-import physique.Moteur;
 
 public class PersonnagePrincipal extends Personnage{
 	
 	private Inventaire i;
 	private Inventeriable main;
+	
+	public PersonnagePrincipal () {
+		
+	}
 	
 	public PersonnagePrincipal (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		

@@ -4,7 +4,6 @@ public class TableCraft extends Bloc{
 
 	public TableCraft() {
 		super(100, true);
-		super.initTag("tableCraft");
 	}
 
 }

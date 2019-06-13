@@ -7,10 +7,6 @@ import ressources.Images;
 import vue.Tuile;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 
@@ -63,9 +59,6 @@ public class ControleurMap {
 	private int x;
 	
 	private int y;
-	
-	
-	
 	
 	public ControleurMap(Pane pane, Jeu jeu, Images image) {
 		
@@ -128,7 +121,7 @@ public class ControleurMap {
 				//System.out.println("cool");
 				//ImageView b = (ImageView) pane.getChildren().get(i);
 			
-				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag()));
+				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(this.jeu.getTerrain().getListeLignes().get(y).get(x).getClass().getName()));
 				pane.getChildren().set(i, a);
 			}
 		}

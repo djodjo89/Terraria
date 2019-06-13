@@ -5,8 +5,8 @@ import physique.Collisionneur;
 
 public class Torche extends Outil{
 
-	public Torche(String tag, Collisionneur c) {
-		super(tag, c);
+	public Torche(Collisionneur c) {
+		super(c);
 		// TODO Auto-generated constructor stub
 	}
 
