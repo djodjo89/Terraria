@@ -56,14 +56,16 @@ public class Inventaire {
 				while (this.listeObjets.get(i).getKey() != null && i<19) {
 					i ++ ;
 				}
-				System.out.println("i" + i);
-				this.listeObjets.add(i,new Tuple(o, 1));
+				this.listeObjets.set(i,new Tuple(o, 1));
+				//System.out.println("ajout new : " + this.listeObjets.get(i).getValue());
 				
 			}
 			else {
 				this.listeObjets.get(j).increment();
 				
 			}
+			
+			
 			
 	}
 	
@@ -82,7 +84,6 @@ public class Inventaire {
 
 		if(this.listeObjets.get(pos).getValue() == 0) {
 			supprimerObjet(o);
-			System.out.println("yes");
 		}
 	}
 
@@ -94,8 +95,9 @@ public class Inventaire {
 		
 		if (!this.estVide())	
 			if (pos != -1) {		
-				this.listeObjets.remove(pos);
+				this.listeObjets.set(pos, new Tuple());
 			}
+		System.out.println(this.listeObjets.toString());
 	}
 	
 	
@@ -143,6 +145,13 @@ public class Inventaire {
 			listObjets.add((Inventeriable)this.listeObjets.get(i).getKey());
 		}
 		return listObjets;
+	}
+	
+	public int getQtiteObjet(Inventeriable obj) {
+		
+		int pos = this.chercheObjetDansInventaire(obj);
+		
+		return this.listeObjets.get(pos).getValue();
 	}
 	
 

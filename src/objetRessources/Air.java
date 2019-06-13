@@ -18,9 +18,10 @@ import modele.Terrain;
 
 public class Air extends Bloc implements Cliquable {
 	
-	public Air (String tag) {
+	public Air () {
 		
-		super(tag, 0,false) ;
+		super(0,false) ;
+		super.initTag("air");
 		
 	}
 	

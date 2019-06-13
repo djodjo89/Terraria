@@ -1,5 +1,6 @@
 package objetRessources;
 
+import modele.Jeu;
 import physique.Collisionneur;
 
 public class Torche extends Outil{
@@ -10,7 +11,7 @@ public class Torche extends Outil{
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y , Jeu jeu) {
 		// TODO Auto-generated method stub
 		
 	}

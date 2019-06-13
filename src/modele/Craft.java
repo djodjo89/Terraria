@@ -10,6 +10,6 @@ public class Craft {
 		this.jeu = jeu;
 	}
 	
-	//public void verification
+	
 
 }

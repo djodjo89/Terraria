@@ -16,10 +16,17 @@ import physique.Collisionneur;
 
 public abstract class Bloc extends Inventeriable implements Cliquable {
 	
+	public static String tag;
 	
-	public Bloc(String tag, double pv,boolean estUnObstacle) {
+	public Bloc( double pv,boolean estUnObstacle) {
 		
 		super (tag,pv,null,estUnObstacle);
+		
+	}
+	
+	public void initTag (String tag) {
+		
+		this.tag = tag ;
 		
 	}
 
@@ -35,7 +42,7 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 				
 			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
 				
-				Air caseMap = new Air("air");
+				Air caseMap = new Air();
 				
 				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
 				blocCible = terrain.getListeLignes().get(y).get(x);
@@ -63,12 +70,6 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 		
 	}
 	
-
-
-	
-	
-	
-
 	
 	
 }

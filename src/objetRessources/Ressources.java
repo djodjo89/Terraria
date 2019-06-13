@@ -1,5 +1,7 @@
 package objetRessources;
 
+import modele.Jeu;
+
 public class Ressources extends Inventeriable {
 	
 	public Ressources(String tag) {
@@ -7,7 +9,7 @@ public class Ressources extends Inventeriable {
 	}
 
 	@Override
-	public void utilisation(int x, int y) {
+	public void utilisation(int x, int y , Jeu Jeu) {
 		// TODO Auto-generated method stub
 		
 	}
