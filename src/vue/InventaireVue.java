@@ -61,7 +61,7 @@ public class InventaireVue {
 	
 	public Tuile ajoutItemInventaire(Inventeriable obj, int i) {
 		
-		Tuile tileItem = new Tuile(obj.getTag(), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getTag()));
+		Tuile tileItem = new Tuile(obj.getClass().getName(), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getClass().getName()));
 		this.paneItems.getChildren().add(tileItem);
 		System.out.println("nb bind : " + this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue());
 		TextField tf = (TextField)this.paneIteration.getChildren().get(i);
@@ -86,7 +86,7 @@ public class InventaireVue {
 	
 	
 	public void initFondInventaire() {
-		Foreuse foreuse = new Foreuse("forreuse");
+		Foreuse foreuse = new Foreuse();
 		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
 		
 		this.jeu.getPerso().getInventaire().supprimerObjet(foreuse);

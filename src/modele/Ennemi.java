@@ -1,6 +1,5 @@
 package modele;
 
-import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
 import physique.Collisionneur;
 
@@ -15,14 +14,12 @@ import physique.Collisionneur;
 
 public abstract class Ennemi extends Personnage {
 	
-	private int nbTourSaut;
 	private int portee;
 	
 	public Ennemi () {
 		
 		super () ;
 		this.portee=10;
-		this.nbTourSaut=0;
 		
 	}
 
@@ -40,7 +37,7 @@ public abstract class Ennemi extends Personnage {
 		if (this.estADistance(perso)) {
 			if(perso.getX()>this.getX()) {
 				this.attaqueLePerso(perso);
-				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getTag()=="air")
+				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getClass().getName()=="Air")
 					this.deplacerVers("droite", super.getJeu().getMoteur());
 				else
 					this.deplacerVers("haut", super.getJeu().getMoteur());
@@ -48,7 +45,7 @@ public abstract class Ennemi extends Personnage {
 			}
 			else if(perso.getX()<this.getX()) {
 				this.attaqueLePerso(perso);
-				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getTag()=="air")
+				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getClass().getName()=="Air")
 					this.deplacerVers("gauche", super.getJeu().getMoteur());
 				else
 					this.deplacerVers("haut", super.getJeu().getMoteur());

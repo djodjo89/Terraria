@@ -9,6 +9,7 @@ import physique.Moteur;
 
 public abstract class Personnage extends GameObject implements Cliquable{
 	
+	private String nom ;
 	private Jeu jeu;
 	private DoubleProperty ptsAttaque ;
 	public boolean peutSauter ;
@@ -19,14 +20,15 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	
 	public Personnage () {
 		
-		super ("", 1000, new Collisionneur(),false) ;
+		super (1000, new Collisionneur(),false) ;
 		this.invincible=false;
 		this.compteurFps=0;
 	}
 	
 	public Personnage (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {
 		
-		super (nom, pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
+		super (pv, posX, posY, masse, vitesseDeplacement, collisionneur, jeu) ;
+		this.nom = nom ;
 		this.jeu=jeu;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
 		System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
@@ -172,6 +174,10 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		return this.compteurFps;
 	}
 	
-
+	public String getNom () {
+		
+		return this.nom ;
+		
+	}
 	
 }

@@ -6,27 +6,15 @@ import vue.Menu;
 //import modele.Scrolling;
 import vue.Scrolling;
 import vue.Tuile;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent ;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Point3D;
-import javafx.geometry.Pos;
 
 
 /*
@@ -64,8 +52,6 @@ import javafx.geometry.Pos;
  */
 
 public class ControleurTouches {
-	
-	private Pane p ;
 	
 	/**
 	 * La dernière direction
@@ -125,7 +111,6 @@ public class ControleurTouches {
 	
 	private int nbE=0;
 	
-	private ControleurTerraria controlIvent;
 	private InventaireVue invVue;
 
 	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, InventaireVue vueInvent) {

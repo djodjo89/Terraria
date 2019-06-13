@@ -2,16 +2,8 @@ package controleur;
 
 import modele.* ;
 
-import physique.GameObject;
-
-import objetRessources.Inventeriable;
-
-import ressources.Images;
-import vue.Tuile;
-import javafx.scene.input.KeyEvent ;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -101,19 +93,19 @@ public class ControleurSouris extends Parent {
 	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-		Personnage ennemieCiblée = null;
+		Personnage ennemieCible = null;
 		
 		ArrayList<Personnage> listeEnnemi = this.jeu.getEnnemi();
 		int i = 0;
-		while (i<listeEnnemi.size() && ennemieCiblée == null) {
+		while (i<listeEnnemi.size() && ennemieCible == null) {
 			if (listeEnnemi.get(i).getCollisionneur().getBoite().contient(new Point(x, y))) {
-				ennemieCiblée = listeEnnemi.get(i);
+				ennemieCible = listeEnnemi.get(i);
 			}
 			i++;
 		}
 			
-		if (ennemieCiblée != null && ennemieCiblée.getTag() != "Wall-E") {
-			ennemieCiblée.interactionClick(blockX,blockY, jeu);
+		if (ennemieCible != null && ennemieCible.getClass().getName() != "Wall-E") {
+			ennemieCible.interactionClick(blockX,blockY, jeu);
 		}
 		else {
 			this.jeu.getTerrain().setPositionBlockY(blockY);

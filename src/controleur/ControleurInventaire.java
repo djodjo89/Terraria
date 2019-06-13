@@ -1,19 +1,8 @@
 package controleur;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import com.sun.javafx.tk.Toolkit;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener.Change;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import modele.*;
 import objetRessources.Inventeriable;
 import vue.*;

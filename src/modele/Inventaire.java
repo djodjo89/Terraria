@@ -4,9 +4,7 @@ package modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import objetRessources.Inventeriable;
-import physique.* ;
 
 /*
  * Inventaire gère l'inventaire du personnage.
@@ -116,7 +114,7 @@ public class Inventaire {
 
 			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
 				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
-				if (inv.getTag().equals(o.getTag())) {
+				if (inv.getClass().getName().equals(o.getClass().getName())) {
 					
 					objetExistant  = true;
 					

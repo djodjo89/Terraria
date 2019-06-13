@@ -1,7 +1,5 @@
 package modele;
 
-import com.sun.javafx.collections.ObservableIntegerArrayImpl;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 

@@ -2,15 +2,14 @@
 package controleur;
 
 import modele.* ;
+import fabriques.*;
+import application.*;
+import objetRessources.BlocBiomasse;
+import objetRessources.Terre;
 import ressources.Images;
 import vue.InventaireVue;
 import vue.Tuile;
 import exceptions.HorsDeLaMapException;
-import fabriques.FabriqueControleurs;
-import fabriques.FabriqueImages;
-import fabriques.FabriqueJeu;
-import fabriques.FabriquePanes;
-import fabriques.FabriqueVue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -70,16 +69,6 @@ import javafx.util.Duration;
 
 public class ControleurTerraria implements Initializable {
 	
-	/**
-	 * Le nombre de tours du jeu
-	 * 
-	 * <p>Il sert notamment à compter le temps écoulé depuis
-	 * le début d'un saut</p>
-	 * 
-	 * @see PersonnagePrincipal#sauter(Terrain, physique.Moteur)
-	 */
-	
-    private int nbTour;
     
     /**
      * La banque d'images
@@ -219,7 +208,6 @@ public class ControleurTerraria implements Initializable {
 	
 	public void initBoucleJeu() {
 		
-		this.nbTour = 0 ;
 		this.gameLoop = new Timeline() ;
 		this.gameLoop.setCycleCount(Timeline.INDEFINITE) ;
 
@@ -284,7 +272,7 @@ public class ControleurTerraria implements Initializable {
 			for (int x = 0 ; x < xMap ; x++) {
 				
 				nom = x + ":" + y ;
-				valeur = this.jeu.getTerrain().getListeLignes().get(y).get(x).getTag();
+				valeur = NomClasse.retrouver(this.jeu.getTerrain().getListeLignes().get(y).get(x)) ;
 
 				tile= new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(valeur)) ;
 				this.paneMap.getChildren().add(tile) ;
@@ -323,7 +311,8 @@ public class ControleurTerraria implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		
+		BlocBiomasse t = new BlocBiomasse() ;
+		System.out.println(NomClasse.retrouver(t));
 
 		try {
 		
@@ -375,8 +364,8 @@ public class ControleurTerraria implements Initializable {
 	public void initEnnemi() {
 		Tuile ennemi;
 		for(Personnage ennemiJeu: jeu.getEnnemi()) {
-			if(!ennemiJeu.getTag().equals("Wall-E")) {
-				ennemi= new Tuile(ennemiJeu.getTag(),0,0,this.images.getImage("ennemi")) ;
+			if(!ennemiJeu.getNom().equals("Wall-E")) {
+				ennemi= new Tuile(ennemiJeu.getClass().getName(),0,0,this.images.getImage("ennemi")) ;
 				paneMap.getChildren().add(ennemi);
 				ennemi.setFocusTraversable(false);
 				ennemi.toFront();

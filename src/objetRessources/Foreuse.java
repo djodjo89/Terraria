@@ -8,8 +8,8 @@ import physique.GameObject;
 public class Foreuse extends Outil{
 	
 	
-	public Foreuse(String tag) {
-		super(tag);
+	public Foreuse() {
+		super();
 		super.initRecette(new Tuple(new BlocMetalique(), 1), new Tuple(new BlocElectromagnetique(), 1));
 	}
 
