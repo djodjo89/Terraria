@@ -17,5 +17,6 @@
             <Pane fx:id="paneItemsInventaire" layoutX="10.0" layoutY="10.0" prefHeight="94.0" prefWidth="200.0" />
          </children>
       </Pane>
+      <HBox fx:id="hBoxCraft" layoutX="100.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: gray;" />
    </children>
 </Pane>

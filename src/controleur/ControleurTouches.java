@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.* ;
+import vue.CraftVue;
 import vue.InventaireVue;
 import vue.Menu;
 //import modele.Scrolling;
@@ -127,8 +128,9 @@ public class ControleurTouches {
 	
 	private ControleurTerraria controlIvent;
 	private InventaireVue invVue;
+	private CraftVue craftVue;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, InventaireVue vueInvent) {
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, InventaireVue vueInvent, CraftVue crafV) {
 		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
 		this.jeu = jeu ;
 		this.pane = pane ;
@@ -139,6 +141,7 @@ public class ControleurTouches {
 		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.invVue=vueInvent;
+		this.craftVue=crafV;
 
 	}
 
@@ -175,7 +178,7 @@ public class ControleurTouches {
 	}
 	
 	public void setKeyListener () throws VousEtesCoinceException, URISyntaxException {
-		
+
 		for(String touche : this.ToucheAppuyer) {
 
 			switch(touche) {
@@ -212,6 +215,10 @@ public class ControleurTouches {
 					jeu.getPerso().deplacerVers("haut", jeu.getMoteur());
 					
 				break ;
+				
+				case "M" :
+					this.craftVue.affichePaneCraft();
+				break;
 
 				case "E":
 					if(nbE%2==0) {
@@ -238,6 +245,7 @@ public class ControleurTouches {
 		}
 		this.ToucheAppuyer.remove("ESCAPE");
 		this.ToucheAppuyer.remove("E");
+		this.ToucheAppuyer.remove("M");
 
 	}
 		

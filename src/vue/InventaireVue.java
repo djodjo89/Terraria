@@ -63,10 +63,10 @@ public class InventaireVue {
 		
 		Tuile tileItem = new Tuile(obj.getTag(), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getTag()));
 		this.paneItems.getChildren().add(tileItem);
-		System.out.println("nb bind : " + this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue());
+		/*System.out.println("nb bind : " + this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue());
 		TextField tf = (TextField)this.paneIteration.getChildren().get(i);
 		tf.textProperty().bind(this.jeu.getPerso().getInventaire().getInventaire().get(i).getValueProperty().asString());
-		tf.toFront();
+		tf.toFront();*/
 		return tileItem;
 		
 	}

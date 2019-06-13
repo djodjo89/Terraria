@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane ;
 import modele.Jeu ;
 import modele.PersonnagePrincipal;
 import ressources.Images;
+import vue.CraftVue;
 import vue.InventaireVue;
 import vue.Tuile ;
 
@@ -18,9 +19,9 @@ public class FabriqueControleurs {
 		
 	}
 	
-	public static ControleurTouches initialiserControleurTouches( Pane panePrincipal, Jeu jeu, Tuile perso, Pane paneMap, Pane paneInventaire, InventaireVue inv) {
+	public static ControleurTouches initialiserControleurTouches( Pane panePrincipal, Jeu jeu, Tuile perso, Pane paneMap, Pane paneInventaire, InventaireVue inv, CraftVue craftV) {
 		
-		ControleurTouches controleurTouches = new ControleurTouches(panePrincipal, jeu, perso, paneMap, paneInventaire, inv ) ;
+		ControleurTouches controleurTouches = new ControleurTouches(panePrincipal, jeu, perso, paneMap, paneInventaire, inv , craftV) ;
 		controleurTouches.gererControleur();
 		return controleurTouches;
 		

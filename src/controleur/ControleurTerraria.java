@@ -3,6 +3,7 @@ package controleur;
 
 import modele.* ;
 import ressources.Images;
+import vue.CraftVue;
 import vue.InventaireVue;
 import vue.Tuile;
 import exceptions.HorsDeLaMapException;
@@ -23,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -194,6 +196,9 @@ public class ControleurTerraria implements Initializable {
      * <p>Elle permet de déplacer le personnage dans la vue</p>
      */
     
+    @FXML
+    private HBox hBoxCraft;
+    
 	@FXML
 	private Tuile perso;
 
@@ -215,6 +220,7 @@ public class ControleurTerraria implements Initializable {
 	private ArrayList<Tuile> listItemsInvent;
 	private ImageView ennemi;
 	private InventaireVue inv;
+	private CraftVue craftV;
 
 	
 	public void initBoucleJeu() {
@@ -296,6 +302,9 @@ public class ControleurTerraria implements Initializable {
 		this.perso= new Tuile(nom,0,0,this.images.getImage("perso")) ;
 		this.panePerso.getChildren().add(this.perso) ;
 
+		//hBoxCraft.toFront();
+		hBoxCraft.setVisible(true);
+		//hBoxCraft.setFocusTraversable(true);
 
 		this.panePerso.toFront();
 		this.panePerso.setFocusTraversable(true);
@@ -330,21 +339,24 @@ public class ControleurTerraria implements Initializable {
 			images=FabriqueImages.initialiserImages();
 			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 			FabriquePanes.initPanes(this.paneMap, this.paneInventaire) ;
+			this.craftV = new CraftVue(new Craft(jeu), hBoxCraft);
 			this.initMap() ;
 			this.initPositionPerso() ;
 			this.initEnnemi();
+			
+
 			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
 			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
 			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
-			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv);
+			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv, this.craftV );
 
 		
 			this.initBoucleJeu();
 			paneMap.setFocusTraversable(true);
 			paneItemsInventaire.toFront();
-			paneIteration.toFront();
+			
 		
 		} 
 

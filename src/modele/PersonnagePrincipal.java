@@ -82,32 +82,4 @@ public class PersonnagePrincipal extends Personnage{
 		
 	}
 	
-	public boolean peuxCrafter(Outil obj) {
-		
-		if(this.i.getInventaire().size() < obj.getRecette().size())
-			return false;
-		
-		for(int i=0; i<obj.getRecette().size(); i++) {
-			if(this.i.chercheObjetDansInventaire((Inventeriable)obj.getRecette().get(i).getKey()) == -1) {
-				return false;
-			}
-			if(this.i.getInventaire().get(i).getValue() < obj.getRecette().get(i).getValue()) {
-				return false;
-			}
-		}
-		return true;
-	}
-	/*
-	public Outil craft(Outil obj) {
-		int pos =0;
-		for(int i=0; i<obj.getRecette().size(); i++) {
-			pos=this.i.chercheObjetDansInventaire((Inventeriable)obj.getRecette().get(i).getKey());
-			this.i.getInventaire().get(pos)
-		}
-	}
-*/
-
-	
-
-
 }
