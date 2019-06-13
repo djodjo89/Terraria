@@ -89,7 +89,7 @@ public class PersonnagePrincipal extends Personnage{
 		
 		for(int i=0; i<obj.getRecette().size(); i++) {
 			if(this.i.chercheObjetDansInventaire((Inventeriable)obj.getRecette().get(i).getKey()) == -1) {
-				return false;
+				return false; 
 			}
 			if(this.i.getInventaire().get(i).getValue() < obj.getRecette().get(i).getValue()) {
 				return false;

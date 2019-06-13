@@ -365,7 +365,7 @@ public class ControleurTerraria implements Initializable {
 		Tuile ennemi;
 		for(Personnage ennemiJeu: jeu.getEnnemi()) {
 			if(!ennemiJeu.getNom().equals("Wall-E")) {
-				ennemi= new Tuile(ennemiJeu.getClass().getName(),0,0,this.images.getImage("ennemi")) ;
+				ennemi= new Tuile(NomClasse.retrouver(ennemiJeu),0,0,this.images.getImage("ennemi")) ;
 				paneMap.getChildren().add(ennemi);
 				ennemi.setFocusTraversable(false);
 				ennemi.toFront();

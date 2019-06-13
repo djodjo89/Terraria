@@ -2,6 +2,7 @@ package vue;
 
 import java.util.ArrayList;
 
+import application.NomClasse;
 import controleur.ControleurInventaire;
 import controleur.ControleurSouris;
 import javafx.scene.control.Label;
@@ -61,7 +62,7 @@ public class InventaireVue {
 	
 	public Tuile ajoutItemInventaire(Inventeriable obj, int i) {
 		
-		Tuile tileItem = new Tuile(obj.getClass().getName(), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(obj.getClass().getName()));
+		Tuile tileItem = new Tuile(NomClasse.retrouver(obj), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(NomClasse.retrouver(obj)));
 		this.paneItems.getChildren().add(tileItem);
 		System.out.println("nb bind : " + this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue());
 		TextField tf = (TextField)this.paneIteration.getChildren().get(i);

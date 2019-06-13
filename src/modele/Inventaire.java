@@ -2,6 +2,7 @@ package modele;
 
 
 
+import application.NomClasse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import objetRessources.Inventeriable;
@@ -114,7 +115,7 @@ public class Inventaire {
 
 			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
 				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
-				if (inv.getClass().getName().equals(o.getClass().getName())) {
+				if (NomClasse.retrouver(inv).equals(NomClasse.retrouver(o))) {
 					
 					objetExistant  = true;
 					

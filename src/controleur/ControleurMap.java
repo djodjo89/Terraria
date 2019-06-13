@@ -5,6 +5,7 @@ import objetRessources.Bloc;
 import objetRessources.Inventeriable;
 import ressources.Images;
 import vue.Tuile;
+import application.NomClasse;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -121,7 +122,7 @@ public class ControleurMap {
 				//System.out.println("cool");
 				//ImageView b = (ImageView) pane.getChildren().get(i);
 			
-				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(this.jeu.getTerrain().getListeLignes().get(y).get(x).getClass().getName()));
+				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(NomClasse.retrouver(this.jeu.getTerrain().getListeLignes().get(y).get(x))));
 				pane.getChildren().set(i, a);
 			}
 		}

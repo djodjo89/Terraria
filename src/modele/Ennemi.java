@@ -1,5 +1,6 @@
 package modele;
 
+import application.NomClasse;
 import geometrie.Vecteur;
 import physique.Collisionneur;
 
@@ -37,7 +38,7 @@ public abstract class Ennemi extends Personnage {
 		if (this.estADistance(perso)) {
 			if(perso.getX()>this.getX()) {
 				this.attaqueLePerso(perso);
-				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1).getClass().getName()=="Air")
+				if(NomClasse.retrouver(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1))=="air")
 					this.deplacerVers("droite", super.getJeu().getMoteur());
 				else
 					this.deplacerVers("haut", super.getJeu().getMoteur());
@@ -45,7 +46,7 @@ public abstract class Ennemi extends Personnage {
 			}
 			else if(perso.getX()<this.getX()) {
 				this.attaqueLePerso(perso);
-				if(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1).getClass().getName()=="Air")
+				if(NomClasse.retrouver(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1))=="air")
 					this.deplacerVers("gauche", super.getJeu().getMoteur());
 				else
 					this.deplacerVers("haut", super.getJeu().getMoteur());
