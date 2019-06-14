@@ -117,29 +117,7 @@ public class ControleurSouris extends Parent {
 			this.jeu.getTerrain().setPositionBlockY(blockY);
 			this.jeu.getPerso().getMain().Utilisation(blockX,blockY,jeu);
 		}
-		
-		
-		
-		//this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
 
-		
-		/*
-		if (this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).getTag().equals("air")) {
-			this.jeu.getTerrain().setPositionBlockY(blockY);
-			this.jeu.getPerso().poserBlockTerrain(blockX,blockY);
-		}
-		else {
-			Inventeriable blocRecup = null;
-			
-			this.jeu.getTerrain().setPositionBlockY(blockY);
-			
-			blocRecup = this.jeu.getPerso().destructionTerrain(blockX, blockY);
-			if (blocRecup != null) {
-
-				this.jeu.getPerso().getInventaire().ajouterObjet(blocRecup);
-			}
-		}
-		*/
 	}
 }
 	

@@ -26,7 +26,6 @@ public class LicorneVolante extends EnnemiVolant {
 			this.haut=false;
 			this.bas=true;
 			this.compteur=0;
-			//this.ajouter(this.getJeu().getMoteur().getGraviteInverse(this));
 			this.ajouter(new Vecteur(0,-this.getVecteurVitesse().getY()));
 			this.setSautPossible();
 			this.deplacerVers("haut", this.getJeu().getMoteur());

@@ -28,13 +28,6 @@ public class FabriqueImages {
 		images.ajouterImage(NomClasse.retrouver(new Torche(new Collisionneur())), "png");
 		
 		images.ajouterImage("fondInventaireSel", "png");
-
-		images.ajouterImage("1", "png");
-		images.ajouterImage("2", "png");
-		images.ajouterImage("3", "png");
-		images.ajouterImage("4", "png");
-		images.ajouterImage("5", "png");
-		images.ajouterImage("6", "png");
 		
 		images.ajouterImage("heart", "png");
 
