@@ -58,6 +58,8 @@ public class CraftVue {
 	public Tuile ajouterOutilCraftable (Outil o) {
 		
 		Tuile tuileOutil = new Tuile (NomClasse.retrouver(o), this.jeu.getMoteur().getTailleBoiteX(), 0, this.images.getImage(NomClasse.retrouver(o))) ;
+		tuileOutil.setLayoutX(this.paneCraft.getChildren().size() * this.jeu.getMoteur().getTailleBoiteX());
+		tuileOutil.setLayoutY(this.jeu.getMoteur().getTailleBoiteY());
 		this.paneCraft.getChildren().add(tuileOutil) ;
 		return tuileOutil ;
 		

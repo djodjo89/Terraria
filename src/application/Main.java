@@ -14,7 +14,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) { 
 		try {
 			FXMLLoader loader = new FXMLLoader(); 
 			URL url = new File("src/vue/VueTerraria.fxml").toURI().toURL();

@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
 import javafx.event.EventHandler;
 
@@ -162,7 +161,7 @@ public class ControleurTouches {
 				
 	}
 	
-	public void activerTouches () throws VousEtesCoinceException, URISyntaxException {
+	public void activerTouches () throws URISyntaxException {
 
 		int i ;
 		boolean menuAffiche ;
