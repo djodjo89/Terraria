@@ -33,14 +33,14 @@ public class ControleurInventaire {
 					if(changement.wasReplaced()) {
 						
 						if ((listeObjets.get(changement.getFrom()).getValue()) == 0) {
-							System.out.println(j.getPerso().getInventaire().getListeObjets());
+							
 							invVue.retireItemInvent(changement.getFrom());
 							
 						}
 						
 						else {
 							
-							Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey(), changement.getFrom());
+							Tuile tile = invVue.ajoutItemInventaire(listeObjets.get(changement.getFrom()), changement.getFrom());
 							setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
 							
 						}
@@ -52,6 +52,7 @@ public class ControleurInventaire {
 	
 	public void setClickObjetDonnerAuPerso(Tuile tile, Inventeriable objet) {
 		tile.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+			
 			this.j.getPerso().donner(objet);	
 			event.consume();
 			

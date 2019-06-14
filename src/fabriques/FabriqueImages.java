@@ -30,6 +30,8 @@ public class FabriqueImages {
 		images.ajouterImage("4", "png");
 		images.ajouterImage("5", "png");
 		images.ajouterImage("6", "png");
+		
+		images.ajouterImage("heart", "png");
 
 		images.ajouterImage(NomClasse.retrouver(new BlocBiomasse()), "png");
 		images.ajouterImage(NomClasse.retrouver(new BlocBois()), "png");

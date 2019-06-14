@@ -7,9 +7,7 @@ import application.*;
 import objetRessources.*;
 import physique.Collisionneur;
 import ressources.Images;
-import vue.CraftVue;
-import vue.InventaireVue;
-import vue.Tuile;
+import vue.* ;
 import exceptions.HorsDeLaMapException;
 
 import java.io.IOException;
@@ -205,6 +203,9 @@ public class ControleurTerraria implements Initializable {
 	
     @FXML
     private Pane paneCraft;
+    
+    @FXML
+    private Pane panePV ;
 
 	private ControleurInventaire controlInvent;
 	private ControleurCraft controleurCraft ;
@@ -213,7 +214,7 @@ public class ControleurTerraria implements Initializable {
 	private ImageView ennemi;
 	private InventaireVue inv;
 	private CraftVue craftV;
-	
+	private PVVue pVVue ;
 
 	
 	public void initBoucleJeu() {
@@ -326,8 +327,8 @@ public class ControleurTerraria implements Initializable {
 
 		try {
 		
-			images=FabriqueImages.initialiserImages();
-			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
+			this.images=FabriqueImages.initialiserImages();
+			this.jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 	
 			this.initMap() ;
 			this.initPositionPerso() ;
@@ -335,15 +336,17 @@ public class ControleurTerraria implements Initializable {
 			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
 			this.craftV = FabriqueVue.initialiserCraftVue(this.paneCraft, this.jeu, this.images) ;
-			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
-			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
-			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
-			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.paneCraft, this.inv, this.craftV );
-			controleurCraft = FabriqueControleurs.initialiserControleurCraft(this.jeu, this.images, this.craftV) ;
+			this.pVVue = FabriqueVue.initialiserPVVue(this.panePV, this.jeu, this.images) ;
+			
+			this.controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
+			this.controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
+			this.controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
+			this.controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.paneCraft, this.inv, this.craftV );
+			this.controleurCraft = FabriqueControleurs.initialiserControleurCraft(this.jeu, this.images, this.craftV) ;
 		
 			this.initBoucleJeu();
-			paneMap.setFocusTraversable(true);
-			paneItemsInventaire.toFront();
+			this.paneMap.setFocusTraversable(true);
+			this.paneItemsInventaire.toFront();
 			
 			this.paneCraft.setLayoutX(1000) ;
 			this.paneCraft.setLayoutY(500) ;

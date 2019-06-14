@@ -22,4 +22,12 @@ public class FabriqueVue {
 		
 	}
 	
+	public static PVVue initialiserPVVue (Pane panePV, Jeu j, Images images) {
+		
+		PVVue pVVue = new PVVue (panePV, j, images) ;
+		pVVue.ajouterCoeur();
+		return pVVue ;
+		
+	}
+	
 }
