@@ -31,9 +31,11 @@ public class ControleurInventaire {
 				while (changement.next()) {
 					
 					if(changement.wasReplaced()) {
+						
 						if ((listeObjets.get(changement.getFrom()).getValue()) == 0) {
-							
+							System.out.println(j.getPerso().getInventaire().getListeObjets());
 							invVue.retireItemInvent(changement.getFrom());
+							
 						}
 						
 						else {

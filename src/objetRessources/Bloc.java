@@ -51,7 +51,7 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 	}
 	
 	public void utilisation(int x, int y,Jeu jeu) {
-		System.out.println(this);
+
 		if (this != null) {
 			this.setCollisionneur(jeu.getTerrain().getListeLignes().get(y).get(x).getCollisionneur());
 			jeu.getTerrain().getListeLignes().get(y).set(x,this);

@@ -72,7 +72,7 @@ public class InventaireVue {
 	
 	public void retireItemInvent(int i) {
 		
-		this.paneItems.getChildren().remove(i);
+		this.paneItems.getChildren().remove(i - nbCasesANullJusquACetIndice(i ));
 		
 	}
 	
@@ -81,6 +81,28 @@ public class InventaireVue {
 		Tuile tileNb = new Tuile(i+"", i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue()+""));
 		this.paneIteration.getChildren().set(i,tileNb);
 		return tileNb;
+	}
+	
+	public int nbCasesANullJusquACetIndice (int i) {
+		
+		int j ;
+		int nbNull ;
+		
+		j = 0 ;
+		nbNull = 0 ;
+		
+		while (j < i) {
+			
+			if (this.jeu.getPerso().getInventaire().getListeObjets().get(j) == null)
+				
+				nbNull ++ ;
+			
+			j ++ ;
+			
+		}
+		
+		return nbNull ;
+		
 	}
 	
 	

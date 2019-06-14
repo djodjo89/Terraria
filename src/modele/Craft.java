@@ -2,6 +2,7 @@ package modele;
 
 import java.util.ArrayList;
 
+import application.NomClasse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import objetRessources.* ;
@@ -78,19 +79,23 @@ public class Craft {
 		}
 		return true;
 	}
-	
+
 	public void craft(Outil obj) {
 
 		if(this.peuxCrafter(obj)) {
-			for(int i=0; i<obj.getRecette().size(); i++) {
+
+			for(int i=0; i<obj.getRecette().size(); i++)
+
 				for(int j=0; j<obj.getRecette().get(i).getValue(); j++)
+
 					this.jeu.getPerso().getInventaire().retirerObjet((Bloc)obj.getRecette().get(i).getKey());
-				this.actualisation();
-			}
+
+			System.out.println(this.jeu.getPerso().getInventaire().getListeObjets());
 			this.jeu.getPerso().getInventaire().ajouterObjet(obj);
 			this.actualisation();
+
 		}
-		System.out.println("value"+this.jeu.getPerso().getInventaire().getInventaire().get(0).getValue());
+
 	}
 	
 	public ObservableList<Outil> getListeObjetsCraftables () {
