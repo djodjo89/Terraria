@@ -111,5 +111,9 @@ public class Jeu {
 	public ArrayList<Personnage> getEnnemi() {
 		return this.listePerso;
 	}
+	
+	//public void mort(Personnage persoMort) {
+		
+	//}
 
 }

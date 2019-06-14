@@ -14,7 +14,7 @@ import physique.Collisionneur;
  *
  */
 
-public class Bloc extends Inventeriable implements Cliquable {
+public class Bloc extends Inventeriable {
 	
 	
 	public Bloc(String tag, double pv,boolean estUnObstacle) {
@@ -24,38 +24,21 @@ public class Bloc extends Inventeriable implements Cliquable {
 	}
 
 	@Override
-	public void interactionClick(int x, int y, Jeu jeu) {
+
+	public void Utilisation(int x, int y, Jeu jeu) {
 		
-		Terrain terrain = jeu.getTerrain();
-		Inventeriable blocCible = null;
-		
-		if(terrain.getListeLignes().get(y).get(x).estUnObstacle() && terrain.getListeLignes().get(y).get(x).getPV()>0) {
+		if (jeu.getTerrain().getListeLignes().get(y).get(x).getTag() == "air") {
 			
-			jeu.getPerso().attaque(terrain.getListeLignes().get(y).get(x));
-				
-			if(terrain.getListeLignes().get(y).get(x).getPV() <= 0) {
-				
-				Air caseMap = new Air("air");
-				
-				caseMap.setCollisionneur(terrain.getListeLignes().get(y).get(x).getCollisionneur()) ;
-				blocCible = terrain.getListeLignes().get(y).get(x);
-				blocCible.setPv(100) ;
-				terrain.getListeLignes().get(y).set(x,caseMap);
-					
-					jeu.getPerso().getInventaire().ajouterObjet(this);
-					System.out.println(jeu.getPerso().getInventaire().getInventaire());
-				
-			}
+		
+		int j = jeu.getPerso().getInventaire().chercheObjetDansInventaire(jeu.getPerso().getMain());
+		Bloc caseMap = (Bloc) jeu.getPerso().getInventaire().getInventaire().get(j).getKey();
+		caseMap.setCollisionneur(jeu.getTerrain().getListeLignes().get(y).get(x).getCollisionneur());
+		jeu.getTerrain().getListeLignes().get(y).set(x,caseMap);
+		jeu.getPerso().getInventaire().retirerObjet(caseMap);
+		jeu.getPerso().objetMainExisteEncore(caseMap);
 		}
-		
-		
 	}
-	
-	public void utilisation() {
-		System.out.println("bloc");
-	}
-	
-	
+
 
 	
 	

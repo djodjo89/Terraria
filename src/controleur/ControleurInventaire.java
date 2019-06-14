@@ -46,6 +46,11 @@ public class ControleurInventaire {
 						Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey());
 						setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
 					}
+					
+					if (changement.wasRemoved()) {
+						invVue.retireItemInvent(changement.getFrom());
+					
+					}
 				}
 			}});
 	}

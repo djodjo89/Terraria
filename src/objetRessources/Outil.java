@@ -3,6 +3,7 @@ package objetRessources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import modele.Jeu;
 import objetRessources.Inventeriable;
 import physique.Collisionneur;
 import physique.GameObject;
@@ -14,7 +15,7 @@ import physique.GameObject;
  * - donner la propriété de ses points d'attaque
  */
 
-public class Outil extends Inventeriable {
+public abstract class Outil extends Inventeriable {
 	
 	private DoubleProperty ptsAttaque ;
 	
@@ -42,8 +43,8 @@ public class Outil extends Inventeriable {
 		
 	}
 	
-	public void Utilisation() {
-		System.out.println("Outil");
-	}
+	
+	public abstract void Utilisation(int x, int y, Jeu jeu) ;
+	
 
 }

@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import geometrie.Point;
 import javafx.event.EventHandler;
 
 /**
@@ -97,8 +98,32 @@ public class ControleurSouris extends Parent {
 	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-		this.jeu.getTerrain().setPositionBlockY(blockY);
-		this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
+		int i = 0;
+		Personnage persoClic = null;
+		Point zoneClic = new Point(x, y);
+		while (i < this.jeu.getEnnemi().size() && persoClic == null) {
+			if (this.jeu.getEnnemi().get(i).getX()<x && this.jeu.getEnnemi().get(i).getX()+50>x && this.jeu.getEnnemi().get(i).getY()<y && this.jeu.getEnnemi().get(i).getY() + 50 > y) {
+				persoClic = this.jeu.getEnnemi().get(i);
+				}
+			i++;
+		}
+		
+		System.out.println(persoClic);
+		if (persoClic != null) {
+			persoClic.perdrePV(20);
+			System.out.println("ennemie pv: " + persoClic.getPV());
+			if (persoClic.tMort()) {
+				System.exit(0);
+			}
+		}
+		else {
+			this.jeu.getTerrain().setPositionBlockY(blockY);
+			this.jeu.getPerso().getMain().Utilisation(blockX,blockY,jeu);
+		}
+		
+		
+		
+		//this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
 		
 		/*
 		if (this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).getTag().equals("air")) {
