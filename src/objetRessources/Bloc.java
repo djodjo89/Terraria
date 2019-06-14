@@ -40,8 +40,8 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 				blocCible.setPv(100) ;
 				terrain.getListeLignes().get(y).set(x,caseMap);
 					
-					jeu.getPerso().getInventaire().ajouterObjet(this);
-					jeu.getCraft().actualisation();
+				jeu.getPerso().getInventaire().ajouterObjet(this);
+				jeu.getCraft().actualisation();
 				
 			}
 		}

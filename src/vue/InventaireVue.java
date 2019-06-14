@@ -62,7 +62,9 @@ public class InventaireVue {
 	
 	public Tuile ajoutItemInventaire(Inventeriable obj, int i) {
 		
-		Tuile tileItem = new Tuile(NomClasse.retrouver(obj), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(NomClasse.retrouver(obj)));
+		Tuile tileItem = new Tuile(NomClasse.retrouver(obj), (i*this.jeu.getMoteur().getTailleBoiteX()*2)+5, +5, this.images.getImage(NomClasse.retrouver(obj))) ;
+		tileItem.setFitWidth(70);
+		tileItem.setFitHeight(70);
 		this.paneItems.getChildren().add(tileItem);
 		return tileItem;
 		
@@ -94,8 +96,10 @@ public class InventaireVue {
     	Tuile tile = new Tuile();
     	for(int i=0; i<5; i++) {
     		nom = "1" +i;
-    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleBoiteX()),0,this.images.getImage("fondInventaire"));
+    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleBoiteX()*2),0,this.images.getImage("fondInventaire"));
     		this.paneFondInvent.getChildren().add(tile);
+    		tile.setFitWidth(100);
+    		tile.setFitHeight(100);
     		//this.paneIteration.getChildren().add(new TextField());
     	}
     	//System.out.println("taile pane iter :" + this.paneIteration.getChildren().size());

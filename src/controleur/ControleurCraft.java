@@ -50,7 +50,8 @@ public class ControleurCraft {
 	public void setClicOutilAAjouterALInventaire (Tuile tuile, Outil o) {
 		
 		tuile.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			this.jeu.getPerso().getInventaire().ajouterObjet(o) ;
+			jeu.getCraft().craft(o);
+			jeu.getCraft().actualisation();
 			event.consume() ;
 		});
 		

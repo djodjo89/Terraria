@@ -77,13 +77,19 @@ public class Inventaire {
 		if (!this.estVide()) {
 			
 			if(pos != -1) {
+				
 				this.listeObjets.get(pos).decrement();
+				
+				if(this.listeObjets.get(pos).getValue() == 0) {
+					
+					supprimerObjet(o);
+					
+				}
+				
 			}
+			
 		}
-
-		if(this.listeObjets.get(pos).getValue() == 0) {
-			supprimerObjet(o);
-		}
+		
 	}
 
 	// Supprime complètement un type d'objet de la liste
@@ -96,7 +102,7 @@ public class Inventaire {
 			if (pos != -1) {		
 				this.listeObjets.set(pos, new Tuple());
 			}
-		System.out.println(this.listeObjets.toString());
+		
 	}
 	
 	

@@ -80,13 +80,17 @@ public class Craft {
 	}
 	
 	public void craft(Outil obj) {
+
 		if(this.peuxCrafter(obj)) {
 			for(int i=0; i<obj.getRecette().size(); i++) {
 				for(int j=0; j<obj.getRecette().get(i).getValue(); j++)
 					this.jeu.getPerso().getInventaire().retirerObjet((Bloc)obj.getRecette().get(i).getKey());
+				this.actualisation();
 			}
 			this.jeu.getPerso().getInventaire().ajouterObjet(obj);
+			this.actualisation();
 		}
+		System.out.println("value"+this.jeu.getPerso().getInventaire().getInventaire().get(0).getValue());
 	}
 	
 	public ObservableList<Outil> getListeObjetsCraftables () {
