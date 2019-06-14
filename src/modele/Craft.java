@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import objetRessources.Foreuse;
-import objetRessources.Inventeriable;
-import objetRessources.Outil;
+import objetRessources.* ;
+import physique.Collisionneur;
 
 public class Craft {
 	
@@ -24,7 +23,11 @@ public class Craft {
 	public void initListe () {
 		
 		this.listeOutils = new ArrayList<>() ;
+		this.listeOutils.add(new RetroFusee(new Collisionneur())) ;
 		this.listeOutils.add(new Foreuse()) ;
+		this.listeOutils.add(new RayonLaser()) ;
+		this.listeOutils.add(new Torche(new Collisionneur())) ;
+		this.listeOutils.add(new Tronconneuse(new Collisionneur())) ;
 		
 	}
 	
@@ -32,11 +35,11 @@ public class Craft {
 		
 		for (Outil o : this.listeOutils) {
 			
-			if (this.peuxCrafter(o))
+			if (this.peuxCrafter(o) && !this.objetsCraftables.contains(o))
 				
 				this.objetsCraftables.add(o) ;
 			
-			else
+			else if (!this.peuxCrafter(o))
 				
 				this.objetsCraftables.remove(o) ;
 			
@@ -44,16 +47,32 @@ public class Craft {
 		
 	}
 	
+//	public boolean peuxCrafter(Outil obj) {
+//		
+//		if(this.jeu.getPerso().getInventaire().getInventaire().size() < obj.getRecette().size())
+//			return false;
+//		
+//		for(int i=0; i<obj.getRecette().size(); i++) {
+//			if(this.jeu.getPerso().getInventaire().chercheObjetDansInventaire((Inventeriable)obj.getRecette().get(i).getKey()) == -1) {
+//				return false;
+//			}
+//			if(this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue() < obj.getRecette().get(i).getValue()) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
+	
 	public boolean peuxCrafter(Outil obj) {
-		
+		int j ;
 		if(this.jeu.getPerso().getInventaire().getInventaire().size() < obj.getRecette().size())
 			return false;
-		
 		for(int i=0; i<obj.getRecette().size(); i++) {
-			if(this.jeu.getPerso().getInventaire().chercheObjetDansInventaire((Inventeriable)obj.getRecette().get(i).getKey()) == -1) {
+			j = this.jeu.getPerso().getInventaire().chercheObjetDansInventaire((Inventeriable)obj.getRecette().get(i).getKey());
+			if(j == -1) {
 				return false;
 			}
-			if(this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue() < obj.getRecette().get(i).getValue()) {
+			if(this.jeu.getPerso().getInventaire().getInventaire().get(j).getValue() < obj.getRecette().get(i).getValue()) {
 				return false;
 			}
 		}
@@ -64,11 +83,22 @@ public class Craft {
 		if(this.peuxCrafter(obj)) {
 			for(int i=0; i<obj.getRecette().size(); i++) {
 				for(int j=0; j<obj.getRecette().get(i).getValue(); j++)
-					this.jeu.getPerso().getInventaire().retirerObjet((Outil)obj.getRecette().get(i).getKey());
+					this.jeu.getPerso().getInventaire().retirerObjet((Bloc)obj.getRecette().get(i).getKey());
 			}
 			this.jeu.getPerso().getInventaire().ajouterObjet(obj);
 		}
 	}
 	
+	public ObservableList<Outil> getListeObjetsCraftables () {
+		
+		return this.objetsCraftables ;
+		
+	}
+	
+	public ArrayList<Outil> getListeOutils () {
+		
+		return this.listeOutils ;
+		
+	}
 
 }

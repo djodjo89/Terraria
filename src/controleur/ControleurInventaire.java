@@ -12,18 +12,14 @@ import ressources.Images;
 public class ControleurInventaire {
 
 	private Jeu j;
-	private Images image;
 	private ObservableList<Tuple> listeObjets ;
 	private InventaireVue invVue;
-	private Craft craft ;
 	
 
 	public ControleurInventaire(Jeu j, Images img, InventaireVue inv) {
 		this.j=j;
-		this.image=img;
 		this.listeObjets=this.j.getPerso().getInventaire().getInventaire();
 		this.invVue=inv;
-		this.craft = this.j.getCraft() ;
 	}
 	
 	
@@ -38,19 +34,14 @@ public class ControleurInventaire {
 						if ((listeObjets.get(changement.getFrom()).getValue()) == 0) {
 							
 							invVue.retireItemInvent(changement.getFrom());
-							System.out.println("testouille");
-							
 						}
 						
 						else {
 							
 							Tuile tile = invVue.ajoutItemInventaire((Inventeriable)listeObjets.get(changement.getFrom()).getKey(), changement.getFrom());
-							System.out.println("listener :" + listeObjets.get(changement.getFrom()));
 							setClickObjetDonnerAuPerso(tile, (Inventeriable)listeObjets.get(changement.getFrom()).getKey());
 							
 						}
-						
-						
 
 					}
 				}
