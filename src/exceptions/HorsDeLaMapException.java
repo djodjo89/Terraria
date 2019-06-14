@@ -9,17 +9,17 @@ import modele.* ;
 
 public class HorsDeLaMapException extends Exception {
 	
-	private Terrain t ;
+	private Jeu jeu ;
 	
-	public HorsDeLaMapException (Terrain t) {
+	public HorsDeLaMapException (Jeu jeu) {
 		
-		this.t = t ;
+		this.jeu = jeu ;
 		
 	}
 	
 	public String toString () {
 		
-		return "Vous êtes apparu hors de la carte" ;
+		return "Vous êtes apparu hors de la carte aux coordonnées " + jeu.getPerso().getX() + ":" + jeu.getPerso().getY() + "alors qu'elle fait " + jeu.getTerrain().getDimX() * jeu.getMoteur().getTailleBoiteX() + ":" + jeu.getTerrain().getDimY() * jeu.getMoteur().getTailleBoiteY() ;
 		
 	}
 

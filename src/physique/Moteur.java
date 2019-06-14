@@ -3,10 +3,8 @@ package physique;
 import java.util.ArrayList;
 
 import exceptions.HorsDeLaMapException;
-import exceptions.VousEtesCoinceException;
 import geometrie.Vecteur;
-import modele.Personnage;
-import modele.Terrain;
+import modele.*;
 
 /**<h1>Le Moteur gère la physique d'un Jeu</h1>
  * <p>Il peut :</p>
@@ -59,11 +57,11 @@ public class Moteur {
 	 * @throws HorsDeLaMapException
 	 */
 	
-	public void appliquerForces (Personnage go, Terrain t,ArrayList<Personnage> listePerso) throws VousEtesCoinceException, HorsDeLaMapException {
+	public void appliquerForces (Personnage go, Jeu jeu) throws HorsDeLaMapException {
 		
 		
-		this.appliquerPesanteur(go, t,listePerso);
-		go.verifSiPeutSauter(this.appliquerForceElectromagnetique(go, t,listePerso)) ;
+		this.appliquerPesanteur(go, jeu);
+		go.verifSiPeutSauter(this.appliquerForceElectromagnetique(go, jeu)) ;
 		go.deplacer () ;
 		
 	}
@@ -90,11 +88,11 @@ public class Moteur {
 	 * @throws HorsDeLaMapException
 	 */
 	
-	public void appliquerPesanteur (GameObject go, Terrain t,ArrayList<Personnage> listePerso) throws VousEtesCoinceException, HorsDeLaMapException {
+	public void appliquerPesanteur (GameObject go, Jeu jeu) throws HorsDeLaMapException {
 		
 		Vecteur poids ;
 		poids = new Vecteur (0, go.getMasse() * this.accelerationDePesanteur) ;
-		go.ajouter(go.getCollisionneur().deplacementPossible(poids, t, this,listePerso)) ;
+		go.ajouter(go.getCollisionneur().deplacementPossible(poids, jeu)) ;
 		//System.out.println(go.getCollisionneur().deplacementPossible(poids, t, this,listePerso));
 		
 	}
@@ -108,12 +106,12 @@ public class Moteur {
 	 * @throws HorsDeLaMapException
 	 */
 	
-	public Vecteur appliquerForceElectromagnetique (GameObject go, Terrain t,ArrayList<Personnage> listePerso) throws VousEtesCoinceException, HorsDeLaMapException {
+	public Vecteur appliquerForceElectromagnetique (GameObject go, Jeu jeu) throws HorsDeLaMapException {
 		
 //		go.ajouter(go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this)) ;
 		Vecteur v ;
 		
-		v = go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), t, this,listePerso) ;
+		v = go.getCollisionneur().deplacementPossible(go.getVecteurVitesse(), jeu) ;
 		go.setVitesse(v) ;
 		
 		return v ;

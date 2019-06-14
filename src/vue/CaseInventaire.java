@@ -36,7 +36,7 @@ public class CaseInventaire {
 	public void setLabel (double xLabel, double yLabel) {
 		
 		this.qte = new Label() ;
-		this.qte.setTextFill(Color.web("#ffffff", 0.8));
+		this.qte.setTextFill(Color.web("#000000", 0.8));
 		this.qte.setFont(Font.font ("Verdana", 20));
 		this.qte.setTranslateX(xLabel);
 		this.qte.setTranslateY(yLabel);		

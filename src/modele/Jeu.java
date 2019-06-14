@@ -90,7 +90,7 @@ public class Jeu {
 		
 	}
 	
-	public void evoluer(ControleurTouches controlTouche) throws VousEtesCoinceException, HorsDeLaMapException{
+	public void evoluer(ControleurTouches controlTouche) throws HorsDeLaMapException{
 		
 		if(!controlTouche.getMenu().estAffiche()) {
 			this.modifieListePourAppliquerForce(this.perso, this.terrain);
@@ -109,9 +109,9 @@ public class Jeu {
 	
 	}
 
-	public void modifieListePourAppliquerForce(Personnage perso,Terrain terre) throws VousEtesCoinceException, HorsDeLaMapException {
+	public void modifieListePourAppliquerForce(Personnage perso,Terrain terre) throws HorsDeLaMapException {
 		listePerso.remove(perso);
-		this.moteur.appliquerForces(perso, terre,listePerso);
+		this.moteur.appliquerForces(perso, this);
 		//System.out.println(perso.getCollisionneur().getBoite().get(2));
 		listePerso.add(perso);
 		
