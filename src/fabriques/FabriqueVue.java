@@ -14,11 +14,19 @@ public class FabriqueVue {
 		return inv;
 	}
 	
-	public static CraftVue initialiserCraftVue (Pane paneCraft, Jeu j) {
+	public static CraftVue initialiserCraftVue (Pane paneCraft, Jeu j, Images images) {
 		
-		CraftVue craftVue = new CraftVue(j.getCraft(), paneCraft) ;
-		craftVue.initCraftVue();
+		CraftVue craftVue = new CraftVue(j, paneCraft, images) ;
+		craftVue.faireDisparaitrePaneCraft() ;
 		return craftVue ;
+		
+	}
+	
+	public static PVVue initialiserPVVue (Pane panePV, Jeu j, Images images) {
+		
+		PVVue pVVue = new PVVue (panePV, j, images) ;
+		pVVue.ajouterCoeur();
+		return pVVue ;
 		
 	}
 	

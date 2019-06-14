@@ -40,8 +40,8 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 				blocCible.setPv(100) ;
 				terrain.getListeLignes().get(y).set(x,caseMap);
 					
-					jeu.getPerso().getInventaire().ajouterObjet(this);
-					System.out.println(jeu.getPerso().getInventaire().getInventaire());
+				jeu.getPerso().getInventaire().ajouterObjet(this);
+				jeu.getCraft().actualisation();
 				
 			}
 		}
@@ -51,11 +51,12 @@ public abstract class Bloc extends Inventeriable implements Cliquable {
 	}
 	
 	public void utilisation(int x, int y,Jeu jeu) {
-		System.out.println(this);
+
 		if (this != null) {
 			this.setCollisionneur(jeu.getTerrain().getListeLignes().get(y).get(x).getCollisionneur());
 			jeu.getTerrain().getListeLignes().get(y).set(x,this);
 			jeu.getPerso().getInventaire().retirerObjet(this);
+			jeu.getCraft().actualisation();
 			jeu.getPerso().objetMainExisteEncore(this);
 		}
 		

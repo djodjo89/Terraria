@@ -22,7 +22,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		
 		super (1000, new Collisionneur(),false) ;
 		this.invincible=false;
-		this.compteurFps=0;
+		this.compteurFps=0; 
 	}
 	
 	public Personnage (String nom, double pv, double ptsAtt, double posX, double posY, double masse, double hauteurSaut, double vitesseDeplacement, Collisionneur collisionneur, Jeu jeu) {

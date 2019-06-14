@@ -68,6 +68,7 @@ public abstract class Outil extends Inventeriable {
 	}
 
 	
+	
 
 
 }

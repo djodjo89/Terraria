@@ -11,13 +11,15 @@ public class Scrolling {
 	private Pane pane;
 	private Pane paneMap;
 	private Pane paneInventaire;
+	private Pane paneCraft;
 
-	public Scrolling(Pane pane,Pane paneMap,Pane paneInventaire) {
+	public Scrolling(Pane pane,Pane paneMap,Pane paneInventaire, Pane paneCraft) {
 		this.xTranslate = new SimpleDoubleProperty(0);
 		this.yTranslate = new SimpleDoubleProperty(0);
 		this.paneMap=paneMap;
 		this.pane=pane;
 		this.paneInventaire=paneInventaire;
+		this.paneCraft = paneCraft ;
 	}
 	
 	public void faireScroll(PersonnagePrincipal Perso) {
@@ -27,6 +29,8 @@ public class Scrolling {
 		this.pane.setTranslateX(this.getX());
 		this.paneInventaire.setTranslateX(-this.getX());
 		this.paneInventaire.setTranslateY(-this.getY());
+		this.paneCraft.setTranslateX(-this.getX());
+		this.paneCraft.setTranslateY(-this.getY());
 	}
 	
 	public double getX() {

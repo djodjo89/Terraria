@@ -4,19 +4,18 @@ package controleur;
 import modele.* ;
 import fabriques.*;
 import application.*;
-import objetRessources.BlocBiomasse;
-import objetRessources.Granite;
-import objetRessources.Terre;
+import objetRessources.*;
+import physique.Collisionneur;
 import ressources.Images;
-import vue.CraftVue;
-import vue.InventaireVue;
-import vue.Tuile;
+import vue.* ;
 import exceptions.HorsDeLaMapException;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -131,7 +130,7 @@ public class ControleurTerraria implements Initializable {
      * personnage doit se déplacer</p>
      * 
      * @see ControleurTouches#gererControleur()
-     * @see ControleurTouches#setKeyListener()
+     * @see ControleurTouches#activerTouches()
      * @see ControleurTouches#espaceActive()
      * @see ControleurTouches#setEspaceFalse()
      */
@@ -192,7 +191,7 @@ public class ControleurTerraria implements Initializable {
 	/**
 	 * Lance la boucle de jeu
 	 * 
-	 * @see ControleurTouches#setKeyListener()
+	 * @see ControleurTouches#activerTouches()
 	 * @see Jeu#evoluer(int, ControleurTouches)
 	 * 
 	 * @author Romain
@@ -204,14 +203,18 @@ public class ControleurTerraria implements Initializable {
 	
     @FXML
     private Pane paneCraft;
+    
+    @FXML
+    private Pane panePV ;
 
 	private ControleurInventaire controlInvent;
+	private ControleurCraft controleurCraft ;
 
 	private ArrayList<Tuile> listItemsInvent;
 	private ImageView ennemi;
 	private InventaireVue inv;
 	private CraftVue craftV;
-	
+	private PVVue pVVue ;
 
 	
 	public void initBoucleJeu() {
@@ -228,10 +231,8 @@ public class ControleurTerraria implements Initializable {
 				(ev ->{
 					
 					try {
-						
-						this.controleurTouches.setKeyListener() ;
+						this.controleurTouches.activerTouches() ;
 						this.jeu.evoluer(this.controleurTouches) ;
-
 					} catch (Exception e) {
 						
 						e.printStackTrace() ;
@@ -326,28 +327,30 @@ public class ControleurTerraria implements Initializable {
 
 		try {
 		
-			images=FabriqueImages.initialiserImages();
-			jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
+			this.images=FabriqueImages.initialiserImages();
+			this.jeu=FabriqueJeu.initialiserJeu(this.jeu, this.images) ;
 	
 			this.initMap() ;
 			this.initPositionPerso() ;
 			this.initEnnemi();
 			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
-			this.craftV = FabriqueVue.initialiserCraftVue(this.paneCraft, this.jeu) ;
-			controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
-			controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
-			controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
-			controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.inv, this.craftV );
-
+			this.craftV = FabriqueVue.initialiserCraftVue(this.paneCraft, this.jeu, this.images) ;
+			//this.pVVue = FabriqueVue.initialiserPVVue(this.panePV, this.jeu, this.images) ;
+			
+			this.controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
+			this.controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);
+			this.controleurMap=FabriqueControleurs.initialiserControleursMap(this.jeu, this.paneMap,this.images);
+			this.controleurTouches=FabriqueControleurs.initialiserControleurTouches(this.panePrincipal, this.jeu, this.perso,this.paneMap,this.paneInventaire, this.paneCraft, this.inv, this.craftV );
+			this.controleurCraft = FabriqueControleurs.initialiserControleurCraft(this.jeu, this.images, this.craftV) ;
 		
 			this.initBoucleJeu();
-			paneMap.setFocusTraversable(true);
-			paneItemsInventaire.toFront();
+			this.paneMap.setFocusTraversable(true);
+			this.paneItemsInventaire.toFront();
 			
-		
-		} 
-
+			this.paneCraft.setLayoutX(1000) ;
+			this.paneCraft.setLayoutY(500) ;
+		}
 		catch (HorsDeLaMapException e) {System.out.println(e);}
 		catch (IOException e) {e.printStackTrace();}
 		

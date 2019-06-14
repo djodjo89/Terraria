@@ -1,13 +1,14 @@
 package objetRessources;
 
 import modele.Jeu;
+import modele.Tuple;
 import physique.Collisionneur;
 
 public class Tronconneuse extends Outil{
 
 	public Tronconneuse(Collisionneur c) {
 		super(c);
-		// TODO Auto-generated constructor stub
+		super.initRecette(new Tuple(new BlocMetalique(), 5), new Tuple(new BlocElectromagnetique(), 5), new Tuple(new BlocPlastique(), 5)) ;
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -20,6 +22,9 @@ public class Menu {
 	private Button exit;
 	private ImageView fond;
 	private Boolean estLa;
+	private String fichier = "son/music.mp3" ;
+	private Media son ;
+	private MediaPlayer mediaPlayer;
 	
 	public Menu(Pane panePrincipal) {
 		this.panePrincipal=panePrincipal;
@@ -37,6 +42,8 @@ public class Menu {
 		menuBox = new VBox(-5);
 		menuBox.getChildren().add(resume);
 		menuBox.getChildren().add(exit);
+		this.son = new Media (new File(fichier).toURI().toString()) ;
+		this.mediaPlayer = new MediaPlayer(son) ;
         resume.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -51,6 +58,7 @@ public class Menu {
         });
 		panePrincipal.getChildren().add(menuBox);
 		estLa=true;
+		mediaPlayer.play();
 	}
 	
 	public void afficheMenu(double X,double y) throws URISyntaxException {
@@ -61,12 +69,15 @@ public class Menu {
 		menuBox.setVisible(true);
         fond.setVisible(true);
         estLa=true;
+       
+		mediaPlayer.play();
 	}
 	
 	public void disparait() {
 		menuBox.setVisible(false);
         fond.setVisible(false);
         estLa=false;
+        mediaPlayer.pause();
 	}
 	
 	public Boolean estAffiche() {

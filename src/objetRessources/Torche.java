@@ -1,13 +1,14 @@
 package objetRessources;
 
 import modele.Jeu;
+import modele.Tuple;
 import physique.Collisionneur;
 
 public class Torche extends Outil{
 
 	public Torche(Collisionneur c) {
 		super(c);
-		// TODO Auto-generated constructor stub
+		super.initRecette(new Tuple(new BlocElectromagnetique(), 1));
 	}
 
 	@Override

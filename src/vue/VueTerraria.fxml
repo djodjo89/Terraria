@@ -6,18 +6,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<Pane fx:id="panePrincipal" maxHeight="1080" maxWidth="1920" minHeight="00" minWidth="0" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.ControleurTerraria">
+<Pane fx:id="panePrincipal" maxHeight="1080" maxWidth="1920" minHeight="00" minWidth="0" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.ControleurTerraria">
 
    <children>
-      <Pane fx:id="paneCraft" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+      <Pane fx:id="paneCraft" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: gray;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Pane>
       <Pane fx:id="panePerso" layoutX="0" prefHeight="0.0" prefWidth="0.0" />
       <Pane fx:id="paneMap" layoutX="0" prefHeight="400.0" prefWidth="600.0" />
       <Pane fx:id="paneInventaire" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="200.0">
          <children>
-            <Pane fx:id="paneIteration" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-               </children></Pane>
+            <Pane fx:id="paneIteration" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="200.0" />
             <Pane fx:id="paneItemsInventaire" layoutX="10.0" layoutY="10.0" prefHeight="94.0" prefWidth="200.0" />
          </children>
       </Pane>
