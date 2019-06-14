@@ -25,7 +25,7 @@ public class Foreuse extends Outil{
 	@Override
 	public void Utilisation(int x, int y, Jeu jeu) {
 		
-		if ((NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))) !=NomClasse.retrouver(new Air())&& (NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))) !=NomClasse.retrouver(new Granite())) {
+		if (!(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))).equals(NomClasse.retrouver(new Air()))&& !(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))).equals(NomClasse.retrouver(new Granite()))) {
 			jeu.getTerrain().getListeLignes().get(y).get(x).perdrePV(this.getPtsAttaque());
 			//creer une methode 
 			

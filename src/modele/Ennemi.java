@@ -2,6 +2,7 @@ package modele;
 
 import application.NomClasse;
 import geometrie.Vecteur;
+import objetRessources.Air;
 import physique.Collisionneur;
 
 
@@ -20,7 +21,7 @@ public abstract class Ennemi extends Personnage {
 	public Ennemi () {
 		
 		super () ;
-		this.portee=10;
+		this.portee=99;
 		
 	}
 
@@ -38,7 +39,7 @@ public abstract class Ennemi extends Personnage {
 		if (this.estADistance(perso)) {
 			if(perso.getX()>this.getX()) {
 				this.attaqueLePerso(perso);
-				if(NomClasse.retrouver(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1))=="air")
+				if(NomClasse.retrouver(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()).get(this.positionXMap()+1)).equals(NomClasse.retrouver(new Air())))
 					this.deplacerVers("droite", super.getJeu().getMoteur());
 				else
 					this.deplacerVers("haut", super.getJeu().getMoteur());
@@ -46,7 +47,7 @@ public abstract class Ennemi extends Personnage {
 			}
 			else if(perso.getX()<this.getX()) {
 				this.attaqueLePerso(perso);
-				if(NomClasse.retrouver(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1))=="air")
+				if(NomClasse.retrouver(super.getJeu().getTerrain().getListeLignes().get(this.positionYMap()+1).get(this.positionXMap()-1)).equals(NomClasse.retrouver(new Air())))
 					this.deplacerVers("gauche", super.getJeu().getMoteur());
 				else
 					this.deplacerVers("haut", super.getJeu().getMoteur());
