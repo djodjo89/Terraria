@@ -1,8 +1,13 @@
  package physique;
+import java.io.File;
+
 import geometrie.*;
 
 import modele.* ;
 import javafx.beans.property.* ;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 /**
  * <h1>Un GameObject représente un objet qui interagirera avec d'autres objets d'un Jeu</h1>
@@ -53,6 +58,7 @@ public abstract class GameObject {
 	private boolean estUnObstacle ;
 	private double coeffFrottement ;
 	private boolean peutSauter;
+	
 	
 	private Collisionneur collisionneur ;
 	private Jeu jeu ;
@@ -223,7 +229,7 @@ public abstract class GameObject {
 	 */
 	
 	public void perdrePV (double pv) {
-		
+
 		this.pv.set(this.pv.getValue() - pv);
 		
 	}

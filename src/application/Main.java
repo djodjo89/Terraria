@@ -23,11 +23,6 @@ public class Main extends Application {
 			root = loader.load();
 			Scene scene = new Scene(root,1920,1080);
 			
-			String fichier = "son/music.mp3" ;
-			Media son = new Media (new File(fichier).toURI().toString()) ;
-			MediaPlayer mediaPlayer = new MediaPlayer(son) ;
-			mediaPlayer.play();
-			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setTitle("Terraria");
