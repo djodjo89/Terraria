@@ -11,9 +11,13 @@ public class LicorneVolante extends EnnemiVolant {
 	
 	public LicorneVolante (String nom, double pv, double ptsAtt, double x, double y, double masse, double hauteurSaut, double poids, Collisionneur c, Jeu jeu, double distanceDeplacement) {
 		
-		super (nom,pv,  ptsAtt, x, y, masse,  hauteurSaut, 0.7,  c, jeu) ;
+		super (nom,pv,  ptsAtt, x, y, masse,  hauteurSaut, 0.6,  c, jeu) ;
 		this.haut=true;
 		this.bas=false;
+	}
+	
+	public LicorneVolante() {
+		super();
 	}
 
 	@Override
@@ -34,6 +38,7 @@ public class LicorneVolante extends EnnemiVolant {
 		}
 		this.compteur++;
 		if (compteur==100)
+			this.setSautPossible();
 			this.haut=true;
 		
 	}

@@ -9,8 +9,8 @@ public class Ressources extends Inventeriable {
 	}
 
 	@Override
-	public void utilisation(int x, int y , Jeu Jeu) {
-		// TODO Auto-generated method stub
+	public void Utilisation(int x, int y, Jeu jeu) {
+		
 		
 	}
 

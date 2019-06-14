@@ -1,7 +1,9 @@
 package objetRessources;
 
 import modele.Jeu;
+
 import modele.Tuple;
+
 import physique.Collisionneur;
 
 public class Tronconneuse extends Outil{
@@ -12,9 +14,9 @@ public class Tronconneuse extends Outil{
 	}
 
 	@Override
-	public void utilisation(int x, int y, Jeu jeu) {
+	public void Utilisation(int x, int y, Jeu jeu) {
 		// TODO Auto-generated method stub
 		
 	}
-
+ 
 }

@@ -20,9 +20,10 @@ public abstract class Inventeriable extends GameObject {
 		super (pv, c, estUnObstacle) ;
 	}
 	
-	public abstract void utilisation(int x, int y,Jeu jeu);
+
+	public abstract void Utilisation(int x, int y, Jeu jeu) ;
 	
-	
+
 }
 	
 	

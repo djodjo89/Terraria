@@ -64,6 +64,7 @@ public class InventaireVue {
 	}
 	
 
+
 //	public Tuile ajoutItemInventaire(Inventeriable obj, int i) {
 //		
 //		Tuile tileItem = new Tuile(NomClasse.retrouver(obj), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(NomClasse.retrouver(obj)));
@@ -100,7 +101,7 @@ public class InventaireVue {
 	
 	public void retireItemInvent(int i) {
 		
-		this.paneItems.getChildren().remove(i - nbCasesANullJusquACetIndice(i ));
+		this.paneItems.getChildren().remove(i - nbCasesANullJusquACetIndice(i));
 		
 	}
 	

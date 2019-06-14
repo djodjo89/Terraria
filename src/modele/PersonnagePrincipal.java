@@ -2,6 +2,7 @@
 package modele;
 
 import objetRessources.Inventeriable;
+import objetRessources.Main;
 import objetRessources.Outil;
 import physique.Collisionneur;
 import physique.GameObject;
@@ -20,6 +21,7 @@ public class PersonnagePrincipal extends Personnage{
 		super (nom, pv,ptsAtt, posX, posY, masse,hauteurSaut, vitesseDeplacement, collisionneur, jeu) ;
 		
 		this.i = new Inventaire(20);
+		this.main = new Main();
 		//System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		
 	}
@@ -52,7 +54,7 @@ public class PersonnagePrincipal extends Personnage{
 	
 	public void objetMainExisteEncore(Inventeriable o) {
 		if (this.i.chercheObjetDansInventaire(o) == -1) {
-			this.main = null;
+			this.main = new Main();
 			
 		}
 	}

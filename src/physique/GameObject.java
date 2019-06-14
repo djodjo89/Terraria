@@ -229,6 +229,10 @@ public abstract class GameObject {
 	 */
 	
 	public void perdrePV (double pv) {
+		String fichier = "son/roblox-death-sound-effect.mp3" ;
+		Media son = new Media (new File(fichier).toURI().toString()) ;
+		MediaPlayer mediaPlayer = new MediaPlayer(son) ;
+		mediaPlayer.play();
 
 		this.pv.set(this.pv.getValue() - pv);
 		

@@ -1,7 +1,6 @@
 package objetRessources;
 
-import modele.Cliquable;
-import modele.Jeu;
+
 
 /**
  * <h1>Air est un bloc non Inventeriable traversable</h1>
@@ -11,39 +10,19 @@ import modele.Jeu;
  *
  */
 
-public class Air extends Bloc implements Cliquable {
+public class Air extends Bloc {
 	
 	public Air () {
 		
 		super(0,false) ;
 		
 	}
-	
-	@Override
-	public void interactionClick(int x, int y, Jeu jeu) {
-		/*
-		//System.out.println(this.getListeLignes().get(y).get(x).getPV());
-		Terrain terrain = jeu.getTerrain();
-		PersonnagePrincipal perso = jeu.getPerso();
-		System.out.println(perso.getInventaire().getInventaire());
-		//rechercher si il y a un ennemie sur ce bloc
-		*/
-		
-		if (jeu.getPerso().getMain() != null)
-			
-			jeu.getPerso().getMain().utilisation(x, y,jeu);
-		
 
-	
-
-
-	
-			
-		}
+}
 
 				
 		
-	}
+	
 
 
   

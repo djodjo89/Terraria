@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
+
 import java.util.ArrayList;
 
 import geometrie.Point;
@@ -93,27 +94,33 @@ public class ControleurSouris extends Parent {
 	public void WhatIDoWhithThisBlockPointDInterrogation(double x, double y) {
 		int blockX = (int) (x/50);
 		int blockY = (int) (y/50);
-/*
-		
-		ArrayList<Personnage> listeEnnemi = this.jeu.getEnnemi();
+
 		int i = 0;
-		while (i<listeEnnemi.size() && ennemieCible == null) {
-			if (listeEnnemi.get(i).getCollisionneur().getBoite().contient(new Point(x, y))) {
-				ennemieCible = listeEnnemi.get(i);
-			}
+		Personnage persoClic = null;
+		Point zoneClic = new Point(x, y);
+		while (i < this.jeu.getEnnemi().size() && persoClic == null) {
+			if (this.jeu.getEnnemi().get(i).getX()<x && this.jeu.getEnnemi().get(i).getX()+50>x && this.jeu.getEnnemi().get(i).getY()<y && this.jeu.getEnnemi().get(i).getY() + 50 > y) {
+				persoClic = this.jeu.getEnnemi().get(i);
+				}
 			i++;
 		}
-			
-		if (ennemieCible != null && ennemieCible.getClass().getName() != "Wall-E") {
-			ennemieCible.interactionClick(blockX,blockY, jeu);
+		
+		System.out.println(persoClic);
+		if (persoClic != null) {
+			persoClic.perdrePV(20);
+			System.out.println("ennemie pv: " + persoClic.getPV());
+			if (persoClic.tMort()) {
+				System.exit(0);
+			}
 		}
 		else {
-		*/
 			this.jeu.getTerrain().setPositionBlockY(blockY);
-			System.out.println(this.jeu.getPerso().getMain());
-			this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
-			
+			this.jeu.getPerso().getMain().Utilisation(blockX,blockY,jeu);
 		}
+		
+		
+		
+		//this.jeu.getTerrain().getListeLignes().get(blockY).get(blockX).interactionClick(blockX, blockY, this.jeu);
 
 		
 		/*
@@ -134,5 +141,6 @@ public class ControleurSouris extends Parent {
 		}
 		*/
 	}
+}
 	
 	

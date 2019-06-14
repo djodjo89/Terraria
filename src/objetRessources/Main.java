@@ -1,31 +1,19 @@
 package objetRessources;
 
-import java.util.ArrayList;
-
 import application.NomClasse;
 import modele.Jeu;
 
-import modele.Tuple;
-
-
-
-import physique.GameObject;
-
-public class Foreuse extends Outil{
+public class Main extends Outil{
 	
-
-
-
-	public Foreuse() {
-		super(50);
-		super.initRecette(new Tuple(new BlocElectromagnetique(),1),new Tuple(new BlocMetalique(),1));
-
+	
+	public Main() {
+		super(10);
 	}
 
 	@Override
 	public void Utilisation(int x, int y, Jeu jeu) {
 		
-		if (!(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))).equals(NomClasse.retrouver(new Air()))&& !(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))).equals(NomClasse.retrouver(new Granite()))) {
+		if (!(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x)).equals(NomClasse.retrouver(new Air()))) && !(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x)).equals(NomClasse.retrouver(new Granite())))) {
 			jeu.getTerrain().getListeLignes().get(y).get(x).perdrePV(this.getPtsAttaque());
 			//creer une methode 
 			
@@ -39,6 +27,7 @@ public class Foreuse extends Outil{
 				jeu.getTerrain().getListeLignes().get(y).set(x,caseMap);
 					
 					jeu.getPerso().getInventaire().ajouterObjet(blocCible);
+					System.out.println(jeu.getPerso().getInventaire().getInventaire());
 				
 			}
 		}
@@ -46,5 +35,8 @@ public class Foreuse extends Outil{
 	}
 	
 
+
+	
+	
 
 }
