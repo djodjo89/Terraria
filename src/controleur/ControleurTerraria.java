@@ -336,7 +336,7 @@ public class ControleurTerraria implements Initializable {
 			
 			this.inv=FabriqueVue.initialiserUnInventaireVue(paneInventaire, paneItemsInventaire, paneIteration, this.jeu, this.images);
 			this.craftV = FabriqueVue.initialiserCraftVue(this.paneCraft, this.jeu, this.images) ;
-			this.pVVue = FabriqueVue.initialiserPVVue(this.panePV, this.jeu, this.images) ;
+			//this.pVVue = FabriqueVue.initialiserPVVue(this.panePV, this.jeu, this.images) ;
 			
 			this.controlInvent=FabriqueControleurs.initialiserControleurInventaire(this.jeu, this.images, inv);
 			this.controleurSouris=FabriqueControleurs.initialiserControleurSouris(this.paneMap,this.jeu);

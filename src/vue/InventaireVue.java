@@ -46,8 +46,10 @@ public class InventaireVue {
 		for(int i=0; i<5 ; i++) {
 			for(int j=0; j<3; j++) {
 				nom = ""+i +j;
-	    		tile= new Tuile(nom, (i*this.jeu.getMoteur().getTailleBoiteX()),55+(j*this.jeu.getMoteur().getTailleBoiteY()),this.images.getImage("fondInventaire"));
+	    		tile= new Tuile(nom, i*jeu.getMoteur().getTailleBoiteX()*2,(this.jeu.getMoteur().getTailleBoiteY() * 2 + (this.jeu.getMoteur().getTailleBoiteY() / 10))+(j*this.jeu.getMoteur().getTailleBoiteY() * 2),this.images.getImage("fondInventaire"));
 	    		this.paneFondInvent.getChildren().add(tile);
+	    		tile.setFitWidth(this.jeu.getMoteur().getTailleBoiteX() * 2);
+	    		tile.setFitHeight(this.jeu.getMoteur().getTailleBoiteX() * 2);
 	    		this.listItemsInvent.add(tile);
 			}
 		}
@@ -62,7 +64,7 @@ public class InventaireVue {
 	}
 	
 	public Tuile ajoutItemInventaire(Tuple tuple, int i) {
-		Label nbItems ;
+		/*Label nbItems ;
 		StackPane pane = new StackPane() ;
 		Tuile tileItem ;
 		nbItems = new Label() ;
@@ -78,8 +80,11 @@ public class InventaireVue {
 		pane.setTranslateX((i * this.jeu.getMoteur().getTailleBoiteX() * 2)+this.jeu.getMoteur().getTailleBoiteX() / 10);
 		pane.setTranslateY(5);
 		nbItems.textProperty().bind(tuple.getValueProperty().asString());
-		this.paneItems.getChildren().add(pane) ;
-		return tileItem;
+		this.paneItems.getChildren().add(pane) ;*/
+		CaseInventaire ci = new CaseInventaire (new Tuile(NomClasse.retrouver((Inventeriable)tuple.getKey()), 0, 0, this.images.getImage(NomClasse.retrouver((Inventeriable)tuple.getKey()))), this.jeu.getMoteur().getTailleBoiteX() / 2, this.jeu.getMoteur().getTailleBoiteY() / 2, this.jeu.getMoteur().getTailleBoiteX() * 1.4, this.jeu.getMoteur().getTailleBoiteY() * 1.4, (i * this.jeu.getMoteur().getTailleBoiteX() * 2)+this.jeu.getMoteur().getTailleBoiteX() / 10, this.jeu.getMoteur().getTailleBoiteY() / 10) ;
+		ci.getQte().textProperty().bind(tuple.getValueProperty().asString());
+		this.paneItems.getChildren().add(ci.getPane()) ;
+		return ci.getTuile () ;
 		
 	}
 	
@@ -119,18 +124,13 @@ public class InventaireVue {
 	
 	
 	public void initFondInventaire() {
-		Foreuse foreuse = new Foreuse();
-		this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
 		
-		this.jeu.getPerso().getInventaire().supprimerObjet(foreuse);
-		//this.jeu.getPerso().getInventaire().ajouterObjet(foreuse);
-		//System.out.println("taille invent "+this.jeu.getPerso().getInventaire().getInventaire().size());
 		String nom = ""; 
 		
     	Tuile tile = new Tuile();
     	for(int i=0; i<5; i++) {
     		nom = "1" +i;
-    		tile= new Tuile(nom, (i*jeu.getMoteur().getTailleBoiteX()*2),0,this.images.getImage("fondInventaire"));
+    		tile= new Tuile(nom, i*jeu.getMoteur().getTailleBoiteX()*2,0,this.images.getImage("fondInventaire"));
     		this.paneFondInvent.getChildren().add(tile);
     		tile.setFitWidth(this.jeu.getMoteur().getTailleBoiteX() * 2);
     		tile.setFitHeight(this.jeu.getMoteur().getTailleBoiteX() * 2);
