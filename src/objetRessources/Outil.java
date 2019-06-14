@@ -4,15 +4,18 @@ import java.util.ArrayList;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 
-import modele.Jeu;
+
+
 
 import modele.Tuple;
 
+
+import modele.Jeu;
+
 import objetRessources.Inventeriable;
 import physique.Collisionneur;
-import physique.GameObject;
+
 
 /*
  * Un Outil est un Objet qui a des points d'attaque
@@ -26,9 +29,9 @@ public abstract class Outil extends Inventeriable {
 	private DoubleProperty ptsAttaque ;
 	private ArrayList<Tuple> recette;
 	
-	public Outil() {
+	public Outil(int ptsDegat) {
 		super();
-		this.ptsAttaque=new SimpleDoubleProperty(50);
+		this.ptsAttaque=new SimpleDoubleProperty(ptsDegat);
 	}
 	public void initRecette (Tuple... ingredients) {
 		this.recette=new ArrayList<>();
@@ -59,13 +62,14 @@ public abstract class Outil extends Inventeriable {
 		
 	}
 	
-
-	public abstract void utilisation(int x, int y , Jeu jeu);
-
-
+	
+	public abstract void Utilisation(int x, int y, Jeu jeu) ;
+	
 	public ArrayList<Tuple> getRecette(){
 		return this.recette;
 	}
+
+
 
 	
 	
