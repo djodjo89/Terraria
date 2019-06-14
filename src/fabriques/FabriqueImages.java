@@ -16,7 +16,7 @@ public class FabriqueImages {
 		System.out.println(NomClasse.retrouver(new PersonnagePrincipal()));
 		images.ajouterImage(NomClasse.retrouver(new PersonnagePrincipal()), "gif");
 		images.ajouterImage(NomClasse.retrouver(new Licorne()), "gif");
-		images.ajouterImage("granite", "png");
+		images.ajouterImage(NomClasse.retrouver(new Granite()), "png");
 		images.ajouterImage(NomClasse.retrouver(new Terre()), "png") ;
 		images.ajouterImage(NomClasse.retrouver(new Air()), "png");
 		images.ajouterImage("fondInventaire", "png");
@@ -30,6 +30,8 @@ public class FabriqueImages {
 		images.ajouterImage("4", "png");
 		images.ajouterImage("5", "png");
 		images.ajouterImage("6", "png");
+		
+		images.ajouterImage("heart", "png");
 
 		images.ajouterImage(NomClasse.retrouver(new BlocBiomasse()), "png");
 		images.ajouterImage(NomClasse.retrouver(new BlocBois()), "png");

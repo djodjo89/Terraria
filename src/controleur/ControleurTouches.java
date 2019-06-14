@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.* ;
+import vue.CraftVue;
 import vue.InventaireVue;
 import vue.Menu;
 //import modele.Scrolling;
@@ -59,7 +60,7 @@ public class ControleurTouches {
 	 * <p>Donne la dernière direction dans laquelle est allé le personnage</p>
 	 * 
 	 * @see ControleurTouches#gererControleur()
-	 * @see ControleurTouches#setKeyListener()
+	 * @see ControleurTouches#activerTouches()
 	 */
 	
 	private String derniereDirection;
@@ -90,7 +91,7 @@ public class ControleurTouches {
 	 * 
 	 * <p>Permet de connaître les touches pressées par le joueur</p>
 	 * 
-	 * @see ControleurTouches#setKeyListener()
+	 * @see ControleurTouches#activerTouches()
 	 */
 	
 	private Pane pane ;
@@ -100,7 +101,7 @@ public class ControleurTouches {
 	 * 
 	 * <p>Tourne sur son axe y en cas de changement de direction</p>
 	 * 
-	 * @see ControleurTouches#setKeyListener()
+	 * @see ControleurTouches#activerTouches()
 	 */
 	
 	private Tuile perso;
@@ -112,9 +113,10 @@ public class ControleurTouches {
 	private int nbE=0;
 	
 	private InventaireVue invVue;
+	private CraftVue craftVue;
 
-	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, InventaireVue vueInvent) {
-		this.scroll=new Scrolling(pane,paneMap,paneInventaire);
+	public ControleurTouches (Pane pane, Jeu jeu,Tuile perso, Pane paneMap,Pane paneInventaire, Pane paneCraft, InventaireVue vueInvent, CraftVue crafV) {
+		this.scroll=new Scrolling(pane,paneMap,paneInventaire, paneCraft);
 		this.jeu = jeu ;
 		this.pane = pane ;
 		this.ToucheAppuyer = new ArrayList<String>();
@@ -124,6 +126,7 @@ public class ControleurTouches {
 		this.jeu.getPerso().getXProperty().addListener((x)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.jeu.getPerso().getYProperty().addListener((y)->{scroll.faireScroll(this.jeu.getPerso());});
 		this.invVue=vueInvent;
+		this.craftVue=crafV;
 
 	}
 
@@ -159,11 +162,17 @@ public class ControleurTouches {
 				
 	}
 	
-	public void setKeyListener () throws VousEtesCoinceException, URISyntaxException {
-		
-		for(String touche : this.ToucheAppuyer) {
+	public void activerTouches () throws VousEtesCoinceException, URISyntaxException {
 
-			switch(touche) {
+		int i ;
+		boolean menuAffiche ;
+		
+		i = 0 ;
+		menuAffiche = true ;
+		
+		while(menuAffiche && i < this.ToucheAppuyer.size()) {
+
+			switch(this.ToucheAppuyer.get(i)) {
 
 				case "Q":
 
@@ -197,6 +206,13 @@ public class ControleurTouches {
 					jeu.getPerso().deplacerVers("haut", jeu.getMoteur());
 					
 				break ;
+				
+				case "M" :
+					if (!this.craftVue.paneAffiche())
+						this.craftVue.affichePaneCraft();
+					else
+						this.craftVue.faireDisparaitrePaneCraft();
+				break;
 
 				case "E":
 					if(nbE%2==0) {
@@ -211,18 +227,23 @@ public class ControleurTouches {
 				
 				case "ESCAPE":
 					if(!menu.estAffiche()) {
-						this.ToucheAppuyer.removeAll(ToucheAppuyer);
-						menu.afficheMenu(scroll.getX(),scroll.getY());}
+						//this.ToucheAppuyer.removeAll(ToucheAppuyer);
+						menu.afficheMenu(scroll.getX(),scroll.getY());
+						menuAffiche = false ;
+						}
 						
 					else 
 						menu.disparait();
 					break;
 
 			}
+			
+			i ++ ;
 
 		}
 		this.ToucheAppuyer.remove("ESCAPE");
 		this.ToucheAppuyer.remove("E");
+		this.ToucheAppuyer.remove("M");
 
 	}
 		

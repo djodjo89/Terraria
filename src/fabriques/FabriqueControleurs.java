@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane ;
 import modele.Jeu ;
 import modele.PersonnagePrincipal;
 import ressources.Images;
+import vue.CraftVue;
 import vue.InventaireVue;
 import vue.Tuile ;
 
@@ -18,9 +19,9 @@ public class FabriqueControleurs {
 		
 	}
 	
-	public static ControleurTouches initialiserControleurTouches( Pane panePrincipal, Jeu jeu, Tuile perso, Pane paneMap, Pane paneInventaire, InventaireVue inv) {
+	public static ControleurTouches initialiserControleurTouches( Pane panePrincipal, Jeu jeu, Tuile perso, Pane paneMap, Pane paneInventaire, Pane paneCraft, InventaireVue inv, CraftVue craftV) {
 		
-		ControleurTouches controleurTouches = new ControleurTouches(panePrincipal, jeu, perso, paneMap, paneInventaire, inv ) ;
+		ControleurTouches controleurTouches = new ControleurTouches(panePrincipal, jeu, perso, paneMap, paneInventaire, paneCraft, inv , craftV) ;
 		controleurTouches.gererControleur();
 		return controleurTouches;
 		
@@ -32,9 +33,17 @@ public class FabriqueControleurs {
 	}
 	
 	public static ControleurInventaire initialiserControleurInventaire(Jeu j, Images img, InventaireVue inv) {
-		ControleurInventaire controlInventaire = new ControleurInventaire(j, img, inv);
-		controlInventaire.ajoutListenerInventaire();
-		return controlInventaire;
+		ControleurInventaire controleurInventaire = new ControleurInventaire(j, img, inv);
+		controleurInventaire.ajoutListenerInventaire();
+		return controleurInventaire;
+	}
+	
+	public static ControleurCraft initialiserControleurCraft (Jeu j, Images images, CraftVue craftVue) {
+		
+		ControleurCraft controleurCraft = new ControleurCraft(j, images, craftVue) ;
+		controleurCraft.ajouterListenerCraft() ;
+		return controleurCraft ;
+		
 	}
 
 }

@@ -56,7 +56,6 @@ public class Inventaire {
 					i ++ ;
 				}
 				this.listeObjets.set(i,new Tuple(o, 1));
-				//System.out.println("ajout new : " + this.listeObjets.get(i).getValue());
 				
 			}
 			else {
@@ -70,20 +69,32 @@ public class Inventaire {
 	
 	// Retire un seul objet de la liste
 	
-	public void retirerObjet (Inventeriable o) {
+	public boolean retirerObjet (Inventeriable o) {
 		
 		int pos = chercheObjetDansInventaire(o);
+		boolean objSupprime ;
+		
+		objSupprime = false ;
 		
 		if (!this.estVide()) {
-			
-			if(pos != -1) {
-				this.listeObjets.get(pos).decrement();
-			}
-		}
 
-		if(this.listeObjets.get(pos).getValue() == 0) {
-			supprimerObjet(o);
+			if(pos != -1) {
+				
+				this.listeObjets.get(pos).decrement();
+				
+				if(this.listeObjets.get(pos).getValue() == 0) {
+					
+					supprimerObjet(o);
+					objSupprime = true ;
+					
+				}
+				
+			}
+			
 		}
+		
+		return objSupprime ;
+		
 	}
 
 	// Supprime complètement un type d'objet de la liste
@@ -96,7 +107,7 @@ public class Inventaire {
 			if (pos != -1) {		
 				this.listeObjets.set(pos, new Tuple());
 			}
-		System.out.println(this.listeObjets.toString());
+		
 	}
 	
 	
@@ -107,29 +118,39 @@ public class Inventaire {
 	}
 	
 	public int chercheObjetDansInventaire(Inventeriable o) {
-		
+
 		boolean objetExistant = false;
 		int j = 0;
+
+		while (j < this.listeObjets.size() && objetExistant == false && this.listeObjets.get(j)!=null) {
 			
+			Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
+			if (inv != null) {
+			if (NomClasse.retrouver(inv).equals(NomClasse.retrouver(o)))
 
-
-			while (this.listeObjets.get(j)!=null && this.listeObjets.get(j).getKey() != null && (j < this.listeObjets.size() && objetExistant == false)) {
-				Inventeriable inv = (Inventeriable)this.listeObjets.get(j).getKey();
-				if (NomClasse.retrouver(inv).equals(NomClasse.retrouver(o))) {
-					
-					objetExistant  = true;
-					
-				}
-				else {
-					j++;
-				}
-			}
-			if (objetExistant) {
-				return j;
-			}
-			else {
-				return -1;
-			}
+				objetExistant  = true;
+			else
+				
+				j ++ ;}
+			else
+				
+				j++;
+			
+		}
+		
+		
+		if (objetExistant) {
+			
+			return j;
+			
+		}
+		
+		else {
+			
+			return -1;
+			
+		}
+		
 	}
 	
 	public ObservableList<Tuple> getInventaire () {

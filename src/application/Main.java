@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 public class Main extends Application {
@@ -20,6 +22,12 @@ public class Main extends Application {
 			Pane root = new Pane();
 			root = loader.load();
 			Scene scene = new Scene(root,1920,1080);
+			
+			String fichier = "son/music.mp3" ;
+			Media son = new Media (new File(fichier).toURI().toString()) ;
+			MediaPlayer mediaPlayer = new MediaPlayer(son) ;
+			mediaPlayer.play();
+			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setTitle("Terraria");
