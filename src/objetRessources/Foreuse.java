@@ -14,15 +14,17 @@ import physique.GameObject;
 public class Foreuse extends Outil{
 	
 
-	private ArrayList<GameObject> itemNecessaire;
+
 
 	public Foreuse() {
 		super(50);
-		this.itemNecessaire=new ArrayList<GameObject>();
+		super.initRecette(new Tuple(new BlocElectromagnetique(),1),new Tuple(new BlocMetalique(),1));
+
 	}
 
 	@Override
 	public void Utilisation(int x, int y, Jeu jeu) {
+		
 		if ((NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))) !=NomClasse.retrouver(new Air())&& (NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))) !=NomClasse.retrouver(new Granite())) {
 			jeu.getTerrain().getListeLignes().get(y).get(x).perdrePV(this.getPtsAttaque());
 			//creer une methode 
@@ -40,6 +42,7 @@ public class Foreuse extends Outil{
 				
 			}
 		}
+		jeu.getCraft().actualisation();
 	}
 	
 

@@ -47,10 +47,6 @@ public class ControleurInventaire {
 
 					}
 					
-					if (changement.wasRemoved()) {
-						invVue.retireItemInvent(changement.getFrom());
-					
-					}
 				}
 			}});
 	}

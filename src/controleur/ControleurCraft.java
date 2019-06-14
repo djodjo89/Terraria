@@ -38,7 +38,6 @@ public class ControleurCraft {
 					if (changement.wasRemoved())
 						
 						craftVue.retirerOutilCraftable(changement.getFrom()) ;
-					
 				}
 				
 			}

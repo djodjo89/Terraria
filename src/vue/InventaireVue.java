@@ -101,7 +101,7 @@ public class InventaireVue {
 	
 	public void retireItemInvent(int i) {
 		
-		this.paneItems.getChildren().remove(i - nbCasesANullJusquACetIndice(i ));
+		this.paneItems.getChildren().remove(i - nbCasesANullJusquACetIndice(i));
 		
 	}
 	

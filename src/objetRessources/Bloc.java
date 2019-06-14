@@ -28,7 +28,7 @@ public class Bloc extends Inventeriable {
 
 	public void Utilisation(int x, int y, Jeu jeu) {
 		
-		if (!(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x)) == "air")) {
+		if (!(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x)).equals(new Air()))) {
 			
 		
 		int j = jeu.getPerso().getInventaire().chercheObjetDansInventaire(jeu.getPerso().getMain());
@@ -37,7 +37,9 @@ public class Bloc extends Inventeriable {
 		jeu.getTerrain().getListeLignes().get(y).set(x,caseMap);
 		jeu.getPerso().getInventaire().retirerObjet(caseMap);
 		jeu.getPerso().objetMainExisteEncore(caseMap);
+		jeu.getCraft().actualisation();
 		}
+		jeu.getCraft().actualisation();
 	}
 
 
