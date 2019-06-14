@@ -64,33 +64,8 @@ public class InventaireVue {
 	}
 	
 
-
-//	public Tuile ajoutItemInventaire(Inventeriable obj, int i) {
-//		
-//		Tuile tileItem = new Tuile(NomClasse.retrouver(obj), i*this.jeu.getMoteur().getTailleBoiteX(),0, this.images.getImage(NomClasse.retrouver(obj)));
-//		this.paneItems.getChildren().add(tileItem);
-//		System.out.println("nb bind : " + this.jeu.getPerso().getInventaire().getInventaire().get(i).getValue());
-//
-//		return tileItem;
-
 	public Tuile ajoutItemInventaire(Tuple tuple, int i) {
-		/*Label nbItems ;
-		StackPane pane = new StackPane() ;
-		Tuile tileItem ;
-		nbItems = new Label() ;
-		nbItems.setTextFill(Color.web("#ffffff", 0.8));
-		nbItems.setFont(Font.font ("Verdana", 20));
-		tileItem = new Tuile(NomClasse.retrouver((Inventeriable)tuple.getKey()), 0, 0, this.images.getImage(NomClasse.retrouver((Inventeriable)tuple.getKey()))) ;
-		tileItem.setFitWidth(this.jeu.getMoteur().getTailleBoiteX() * 1.4);
-		tileItem.setFitHeight(this.jeu.getMoteur().getTailleBoiteY() * 1.4);
-		nbItems.setTranslateX(this.jeu.getMoteur().getTailleBoiteX() / 2);
-		nbItems.setTranslateY(this.jeu.getMoteur().getTailleBoiteY() / 2);
-		pane.getChildren().add(tileItem) ;
-		pane.getChildren().add(nbItems) ;
-		pane.setTranslateX((i * this.jeu.getMoteur().getTailleBoiteX() * 2)+this.jeu.getMoteur().getTailleBoiteX() / 10);
-		pane.setTranslateY(5);
-		nbItems.textProperty().bind(tuple.getValueProperty().asString());
-		this.paneItems.getChildren().add(pane) ;*/
+		
 		CaseInventaire ci = new CaseInventaire (new Tuile(NomClasse.retrouver((Inventeriable)tuple.getKey()), 0, 0, this.images.getImage(NomClasse.retrouver((Inventeriable)tuple.getKey()))), this.jeu.getMoteur().getTailleBoiteX() / 2, this.jeu.getMoteur().getTailleBoiteY() / 2, this.jeu.getMoteur().getTailleBoiteX() * 1.4, this.jeu.getMoteur().getTailleBoiteY() * 1.4, (i * this.jeu.getMoteur().getTailleBoiteX() * 2)+this.jeu.getMoteur().getTailleBoiteX() / 10, this.jeu.getMoteur().getTailleBoiteY() / 10) ;
 		ci.getQte().textProperty().bind(tuple.getValueProperty().asString());
 		this.paneItems.getChildren().add(ci.getPane()) ;
@@ -145,9 +120,9 @@ public class InventaireVue {
     		this.paneFondInvent.getChildren().add(tile);
     		tile.setFitWidth(this.jeu.getMoteur().getTailleBoiteX() * 2);
     		tile.setFitHeight(this.jeu.getMoteur().getTailleBoiteX() * 2);
-    		//this.paneIteration.getChildren().add(new TextField());
+
     	}
-    	//System.out.println("taile pane iter :" + this.paneIteration.getChildren().size());
+
     	
     	
 	}

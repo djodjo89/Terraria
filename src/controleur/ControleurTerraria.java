@@ -323,7 +323,6 @@ public class ControleurTerraria implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		Granite t = new Granite() ;
-		System.out.println(NomClasse.retrouver(t));
 
 		try {
 		

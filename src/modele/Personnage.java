@@ -31,7 +31,7 @@ public abstract class Personnage extends GameObject implements Cliquable{
 		this.nom = nom ;
 		this.jeu=jeu;
 		this.ptsAttaque = new SimpleDoubleProperty (ptsAtt) ;
-		//System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
+
 		this.peutSauter = false ;
 		this.hauteurSaut = hauteurSaut ; // ((51.9 * this.hauteurSaut + 48.9 * this.masse - 2007) / m.getTailleBoiteY()*650)
 		this.invincible=false;
@@ -62,9 +62,6 @@ public abstract class Personnage extends GameObject implements Cliquable{
 			this.setSautImpossible() ;
 		
 
-		//System.out.println(v.getY());
-
-		
 	}
 	
 	public double getPuissanceSaut () {
@@ -149,8 +146,6 @@ public abstract class Personnage extends GameObject implements Cliquable{
 	@Override
 	public void interactionClick(int x, int y, Jeu jeu) {
 		this.perdrePV(10);
-		System.out.println(this.getPV());
-		
 	}
 
 	public boolean tMort() {

@@ -75,7 +75,6 @@ public class Craft {
 
 					this.jeu.getPerso().getInventaire().retirerObjet((Bloc)obj.getRecette().get(i).getKey());
 
-			System.out.println(this.jeu.getPerso().getInventaire().getListeObjets());
 			this.jeu.getPerso().getInventaire().ajouterObjet(obj);
 			this.actualisation();
 

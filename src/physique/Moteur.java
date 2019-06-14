@@ -93,7 +93,7 @@ public class Moteur {
 		Vecteur poids ;
 		poids = new Vecteur (0, go.getMasse() * this.accelerationDePesanteur) ;
 		go.ajouter(go.getCollisionneur().deplacementPossible(poids, jeu)) ;
-		//System.out.println(go.getCollisionneur().deplacementPossible(poids, t, this,listePerso));
+
 		
 	}
 	

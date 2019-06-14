@@ -105,7 +105,6 @@ public class ControleurSouris extends Parent {
 			i++;
 		}
 		
-		System.out.println(persoClic);
 		if (persoClic != null) {
 			persoClic.perdrePV(20);
 			System.out.println("ennemie pv: " + persoClic.getPV());

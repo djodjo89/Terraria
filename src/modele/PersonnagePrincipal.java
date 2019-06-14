@@ -22,7 +22,6 @@ public class PersonnagePrincipal extends Personnage{
 		
 		this.i = new Inventaire(20);
 		this.main = new Main();
-		//System.out.println("voici mon attaque :"+this.ptsAttaque.getValue());
 		
 	}
 	
