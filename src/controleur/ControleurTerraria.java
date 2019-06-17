@@ -310,9 +310,8 @@ public class ControleurTerraria implements Initializable {
 	 * Jeu, des Controleurs, initialise les Pane, la map, la tuile
 	 * du personnage et finit par lancer la boucle de jeu</p>
 	 * 
-	 * @see FabriqueImages#initialiserImages(Images)
+	 * @see FabriqueImages#initialiserImages()
 	 * @see FabriqueJeu#initialiserJeu(Jeu, Images)
-	 * @see FabriqueControleurs#initialiserControleurs(Jeu, Pane, Pane, Tuile, ControleurMap, ControleurSouris, ControleurTouches)
 	 * @see FabriquePanes#initPanes(Pane, Pane)
 	 * 
 	 * @author Mathys

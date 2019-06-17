@@ -1,7 +1,7 @@
 package application;
 	
 import java.io.File;
-import java.net.URL;
+import java.net.URL; 
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) { 
 		try {
-			FXMLLoader loader = new FXMLLoader(); 
+			FXMLLoader loader = new FXMLLoader();
 			URL url = new File("src/vue/VueTerraria.fxml").toURI().toURL();
 			loader.setLocation(url);
 			Pane root = new Pane();

@@ -1,0 +1,14 @@
+application
+controleur
+exceptions
+fabriques
+geometrie
+modele
+objetRessources
+physique
+ressources
+testplugin
+tests
+vocalreconnaissanceplugin
+vocalreconnaissanceplugin.handlers
+vue
