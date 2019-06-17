@@ -226,7 +226,6 @@ public class ControleurTouches {
 				
 				case "ESCAPE":
 					if(!menu.estAffiche()) {
-						//this.ToucheAppuyer.removeAll(ToucheAppuyer);
 						menu.afficheMenu(scroll.getX(),scroll.getY());
 						menuAffiche = false ;
 						}

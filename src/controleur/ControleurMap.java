@@ -96,10 +96,7 @@ public class ControleurMap {
 
 					while (changement.next()) {
 						if(changement.wasReplaced()) {
-							x = changement.getFrom();
-							
-							//get(x).getFrom;//changement.getAddedSubList();
-							System.out.println(x);
+							x = changement.getFrom();						
 							remplacerImage();
 						}
 					}
@@ -118,10 +115,7 @@ public class ControleurMap {
 		String nom = x + ":" + y;
 		for (int i = 0; i < pane.getChildren().size(); i++) {
 			if(pane.getChildren().get(i).getId().equals(nom)) {
-
-				//System.out.println("cool");
-				//ImageView b = (ImageView) pane.getChildren().get(i);
-			
+		
 				Tuile a = new Tuile(nom, x * this.jeu.getMoteur().getTailleBoiteX(), y * this.jeu.getMoteur().getTailleBoiteY(), this.images.getImage(NomClasse.retrouver(this.jeu.getTerrain().getListeLignes().get(y).get(x))));
 				pane.getChildren().set(i, a);
 			}

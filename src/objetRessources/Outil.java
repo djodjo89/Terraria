@@ -2,6 +2,7 @@ package objetRessources;
 
 import java.util.ArrayList;
 
+import application.NomClasse;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -70,7 +71,27 @@ public abstract class Outil extends Inventeriable {
 	}
 
 
-
+	public void destructionBloc(Jeu jeu, int x, int y) {
+		
+		if (!(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))).equals(NomClasse.retrouver(new Air()))&& !(NomClasse.retrouver(jeu.getTerrain().getListeLignes().get(y).get(x))).equals(NomClasse.retrouver(new Granite()))) {
+			jeu.getTerrain().getListeLignes().get(y).get(x).perdrePV(this.getPtsAttaque());
+			//creer une methode 
+			
+			if(jeu.getTerrain().getListeLignes().get(y).get(x).getPV() <= 0) {
+				Inventeriable blocCible = null;
+				Air caseMap = new Air();
+				
+				caseMap.setCollisionneur(jeu.getTerrain().getListeLignes().get(y).get(x).getCollisionneur()) ;
+				blocCible = jeu.getTerrain().getListeLignes().get(y).get(x);
+				blocCible.setPv(100) ;
+				jeu.getTerrain().getListeLignes().get(y).set(x,caseMap);
+					
+					jeu.getPerso().getInventaire().ajouterObjet(blocCible);
+				
+			}
+		}
+		jeu.getCraft().actualisation();
+	}
 	
 	
 

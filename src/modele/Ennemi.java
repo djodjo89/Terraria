@@ -78,7 +78,6 @@ public abstract class Ennemi extends Personnage {
 	
 	public boolean estADistance(Personnage perso) {
 		if(perso.getX()+this.portee>=this.getX()&& perso.getX()-this.portee<=this.getX()) {
-			System.out.println("looooooooooooool");
 			return true;
 		}
 		this.ajouter(new Vecteur(-this.getVecteurVitesse().getX(),0));

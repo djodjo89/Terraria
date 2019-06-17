@@ -322,7 +322,6 @@ public class ControleurTerraria implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		Granite t = new Granite() ;
-		System.out.println(NomClasse.retrouver(t));
 
 		try {
 		
@@ -352,6 +351,7 @@ public class ControleurTerraria implements Initializable {
 		}
 		catch (HorsDeLaMapException e) {System.out.println(e);}
 		catch (IOException e) {e.printStackTrace();}
+		
 
 	}
 	

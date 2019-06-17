@@ -68,7 +68,6 @@ public class CraftVue {
 	public void retirerOutilCraftable (int i) {
 		
 		this.paneCraft.getChildren().remove(i) ;
-		System.out.println("i"+i);
 		
 	}
 	
